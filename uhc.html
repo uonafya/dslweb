@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>UHC | DSL Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/bulma.min.css" />
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <!-- Bulma ext -->
+  <link rel="stylesheet" href="node_modules/bulma-extensions/bulma-carousel/dist/css/bulma-carousel.min.css">
+  <!-- /Bulma ext -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar is-link is-fixed-top bcblack-1 p-t-5 p-b-5">
+    <div class="container">
+        <div class="navbar-brand bcblack text-bold is-1 p-0">
+          <a class="navbar-item brand-text p-0" href="./">
+            <img src="images/logo1.png" style="height: 45px !important; max-height: 55px;" alt="" class="logo">
+          </a>
+          <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div id="navbarExampleTransparentExample" class="navbar-menu p-0">
+          <div class="navbar-end">
+            <a class="navbar-item m-r-5" href="#">
+              <span>Home</span>
+            </a>
+            <a class="navbar-item m-r-5" href="#">
+              <span>About DSL</span>
+            </a>
+            <a class="navbar-item m-r-5" href="#">
+              <span>All indicators</span>
+            </a>
+            <a class="navbar-item is-active m-r-5" href="#">
+              <span>UHC</span>
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable m-r-5">
+              <a class="navbar-link m-r-5" href="#">
+                  Programs
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                  <a class="navbar-item" href="#">
+                      KEMSA
+                  </a>
+                  <a class="navbar-item" href="#">
+                      Malaria
+                  </a>
+                  <a class="navbar-item" href="#">
+                      Family Planning
+                  </a>
+                  <a class="navbar-item" href="#">
+                      NASCOP
+                  </a>
+              </div>
+            </div>
+            <a class="navbar-item is-primary" href="./login.html">
+              <span>Log in</span>
+            </a>
+          </div>
+        </div>
+    </div>
+  </nav>
+
+
+  <!-- Breadcrumb -->
+  <section class="section m-t-50 m-b-5 bcclear p-b-15">
+    <div class="container">
+      <nav class="breadcrumb m-t-10" aria-label="breadcrumbs">
+        <ul>
+          <li><a href="./">Home</a></li>
+          <li class="is-active"><a href="#" aria-current="page">UHC Overview</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+  <!-- Breadcrumb -->
+
+
+  <!-- About -->
+  <section class="section m-t-5 p-t-10">
+    <!-- Title -->
+    <div class="section-heading m-b-5">
+      <div class="container">
+        <h3 class="title text-center fcsecondary-dark text-bold">Universal Health Coverage</h3>
+        <hr>
+      </div>
+    </div>
+    <div class="container text-left p-5 m-b-30">
+      <div class="columns is-centered">
+        <div class="column is-one-quarter">
+          <h4 class="title is-5 text-left text-uppercase fcsecondary-dark text-bold">What is UHC?</h4>
+          <p><strong>Universal Health Coverage</strong>, Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem expedita asperiores, doloribus dicta nobis iusto obcaecati, nostrum architecto perspiciatis, Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores fugit hic, at consequuntur totam illo. Exercitationem, quas tempora quaerat sapiente, eum officiis quia eos laborum, architecto aspernatur accusantium at reiciendis. distinctio eius modi impedit voluptate possimus inventore! Dolorum est velit consequuntur? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro temporibus eveniet cum assumenda quasi aliquam. Qui deleniti consequatur possimus omnis illo.</p>
+          <br>
+          <h4 class="title is-5 text-left text-uppercase fcsecondary-dark text-bold m-t-10 m-b-5">UHC Objectives</h4>
+          <div class="m-l-20">
+            <li><a href="#" class="is-link text-bold">Impact indicators</a></li>
+            <li><a href="#" class="is-link text-bold">Communicable diseases</a></li>
+            <li><a href="#" class="is-link text-bold">NCDs</a></li>
+            <li><a href="#" class="is-link text-bold">Improved access to essential services</a></li>
+            <li><a href="#" class="is-link text-bold">Minimise health risks</a></li>
+            <li><a href="#" class="is-link text-bold">Improved access to essential medicines</a></li>
+            <li><a href="#" class="is-link text-bold">Human resources for Health</a></li>
+            <li><a href="#" class="is-link text-bold">Health infrastructure</a></li>
+            <li><a href="#" class="is-link text-bold">Improved social protection</a></li>
+          </div>
+        </div>
+
+        <div class="column" id="uhc-diag">
+          <div class="tile is-ancestor text-center">
+            <div class="tile is-parent p-5 is-vertical is-1">
+              <article class="tile is-child notification is-warning">
+                <p class="subtitle text-vertical-rl fcwhite">Effectiveness</p>
+              </article>
+              <article class="tile is-child notification is-warning">
+                <p class="subtitle text-vertical-rl fcwhite">Equity</p>
+              </article>
+              <article class="tile is-child notification is-warning">
+                <p class="subtitle text-vertical-rl fcwhite">Efficiency</p>
+              </article>
+            </div>
+            <div class="tile is-vertical"> <!--  is-8  -->
+              <div class="tile is-parent p-5">
+                <article class="tile is-child notification">
+                  <div class="columns">
+                    <div class="column bcerror br-5 fcwhite">
+                      <p class="subtitle text-uppercase m-t-15">Healthy lives and wellbeing for all at all ages</p>
+                      <div class="content text-center">
+                        <div class="columns">
+                          <div class="column"><small class="fcwhite text-uppercase">Healthy Life</small></div>
+                          <div class="column"><small class="fcwhite text-uppercase">Burden of Disease</small></div>
+                          <div class="column"><small class="fcwhite text-uppercase">Burden of Risk Factors</small></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <div class="content centr text-center m-t-10">
+                          <p class="subtitle fcsecondary-dark text-uppercase">Impact SDG3</p>
+                          <span class="icon is-medium">
+                            <i class="fas fa-arrow-circle-right fa-2x fcsecondary-dark"></i>
+                            <i class="fas fa-arrow-circle-left fa-2x fcsecondary-dark"></i>
+                          </span>
+                        </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="tile is-parent p-5">
+                <article class="tile is-child notification bcdefault p-10">
+                  <div class="columns">
+                    <div class="column text-center p-5">
+                      <span class="icon">
+                        <i class="fas fa-arrow-up fa-3x fcprimary-dark"></i>
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="tile is-parent p-5">
+                  <article class="tile is-child notification">
+                    <div class="columns">
+                      <div class="column bcprimary-light br-5">
+                        <!-- zz -->
+                        <div class="columns">
+                            <div class="column is-2">
+                                <article class="notification is-success">
+                                <p class="subtitle text-vertical-rl">Effectiveness</p>
+                                </article>
+                            </div>
+                            <div class="column is-three-fifths">
+                                <div class="columns p-5">
+                                    <div class="column p-3">
+                                        <article class="notification is-success p-5">
+                                            <p class="text-uppercase">Essential Services Availability</p>
+                                        </article>
+                                    </div>
+                                    <div class="column p-3">
+                                        <article class="notification is-success p-5">
+                                            <p class="text-uppercase">Essential Services Coverage</p>
+                                        </article>
+                                    </div>
+                                    <div class="column p-3">
+                                        <article class="notification is-success p-5">
+                                            <p class="text-uppercase">Financial Risk Protection</p>
+                                        </article>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column p-3">
+                                        <article class="notification is-success p-5">
+                                            <p class="subtitle text-uppercase m-b-5">Other SDGs Health Interventions</p>
+                                            <small>Social, commercial, environmental, political</small>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-one-fifth">
+                                <article class="tile notification is-success">
+                                <p class="subtitle text-vertical-rl">Service <br> Satisfaction</p>
+                                </article>
+                            </div>
+                        </div>
+                        <!-- zz/ -->
+                      </div>
+                      <div class="column is-one-fifth">
+                        <div class="content centr text-center m-t-10">
+                          <p class="subtitle fcsecondary-dark text-uppercase m-b-0">Outcomes</p>
+                          <p class="l-h-1 text-small m-b-0">Essential services utilization</p> <br>
+                          <span class="icon is-medium">
+                            <i class="fas fa-hands-helping fa-2x fcsecondary-dark"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    </article>
+              </div>
+              <div class="tile is-parent p-5">
+                  <article class="tile is-child notification bcdefault p-10">
+                    <div class="columns">
+                      <div class="column text-center p-5">
+                        <span class="icon">
+                          <i class="fas fa-arrow-up fa-3x fcsecondary-dark"></i>
+                        </span>
+                      </div>
+                      <div class="column text-center p-5">
+                        <span class="icon">
+                          <i class="fas fa-arrow-up fa-3x fcsecondary-dark"></i>
+                        </span>
+                      </div>
+                      <div class="column text-center p-5">
+                        <span class="icon">
+                          <i class="fas fa-arrow-up fa-3x fcsecondary-dark"></i>
+                        </span>
+                      </div>
+                      <div class="column text-center p-5">
+                        <span class="icon">
+                          <i class="fas fa-arrow-up fa-3x fcsecondary-dark"></i>
+                        </span>
+                      </div>
+                      <div class="column text-center p-5"></div>
+                    </div>
+                  </article>
+                </div>
+                <div class="tile is-parent p-5">
+                    <article class="tile is-child notification">
+                        <div class="columns">
+                            <div class="column bcsecondary-light br-5">
+                                <!-- yy -->
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="columns p-5">
+                                            <div class="column p-3">
+                                                <article class="notification bcsecondary-dark p-5">
+                                                    <p class="text-uppercase fcwhite">Access to Essential Services</p>
+                                                </article>
+                                            </div>
+                                            <div class="column p-3">
+                                                <article class="notification bcsecondary-dark p-5">
+                                                    <p class="text-uppercase fcwhite">Quality of Essential Services</p>
+                                                </article>
+                                            </div>
+                                            <div class="column p-3">
+                                                <article class="notification bcsecondary-dark p-5">
+                                                    <p class="text-uppercase fcwhite">Demand for Essential Services</p>
+                                                </article>
+                                            </div>
+                                            <div class="column p-3">
+                                                <article class="notification bcsecondary-dark p-5">
+                                                    <p class="text-uppercase fcwhite">Resilience in Essential Services Provision</p>
+                                                </article>
+                                            </div>
+                                        </div>                
+                                    </div>
+                                </div>
+                                <!-- yy/ -->
+                            </div>
+                            <div class="column is-one-fifth">
+                                <div class="content centr text-center m-t-10">
+                                    <p class="subtitle fcsecondary-dark text-uppercase m-b-0">Outputs</p>
+                                    <p class="l-h-1 text-small m-b-0">Health systems performance</p> <br>
+                                    <span class="icon is-medium">
+                                        <i class="fas fa-chart-bar fa-2x fcsecondary-dark"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="tile is-parent p-5">
+                  <article class="tile is-child notification bcdefault p-10">
+                    <div class="columns">
+                      <div class="column text-center p-5">
+                        <span class="icon">
+                          <i class="fas fa-arrow-up fa-3x fcsecondary"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+                <div class="tile is-parent p-5">
+                    <article class="tile is-child notification">
+                        <div class="columns">
+                            <div class="column bcsecondary-light-1 br-5">
+                                <!-- ww -->
+                                <div class="columns">
+                                    <div class="column is-2">
+                                        <article class="notification is-info">
+                                        <p class="subtitle text-vertical-rl">Health Financing</p>
+                                        </article>
+                                    </div>
+                                    <div class="column">
+                                        <div class="columns">
+                                            <div class="column p-3">
+                                                <article class="notification is-info p-5">
+                                                    <p class="subtitle text-uppercase m-b-5">National and Sub-national Service Delivery Systems</p>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <div class="columns">
+                                            <div class="column p-3">
+                                                <article class="notification bcsecondary-dark p-5">
+                                                    <p class="text-uppercase fcwhite">Health Infrastructure</p>
+                                                </article>
+                                            </div>
+                                            <div class="column p-3">
+                                                <article class="notification bcsecondary-dark p-5">
+                                                    <p class="text-uppercase fcwhite">Medicines, Products &amp; Supplies</p>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <div class="columns">
+                                            <div class="column p-3">
+                                                <article class="notification bcsecondary-dark p-5">
+                                                    <p class="subtitle text-uppercase fcwhite m-b-5">Health Workforce</p>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <div class="columns">
+                                            <div class="column p-3">
+                                                <article class="notification is-info p-5">
+                                                    <p class="subtitle text-uppercase m-b-5">Health Governance</p>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-2">
+                                        <article class="tile notification is-info">
+                                        <p class="subtitle text-vertical-rl">Health Information</p>
+                                        </article>
+                                    </div>
+                                </div>
+                                <!-- ww/ -->
+                            </div>
+                            <div class="column is-one-fifth">
+                                <div class="content centr text-center m-t-10">
+                                    <p class="subtitle fcsecondary-dark text-uppercase m-b-0">Inputs/Processes</p>
+                                    <p class="l-h-1 text-small m-b-0">Health system building block investments</p> <br>
+                                    <span class="icon is-medium">
+                                        <i class="fas fa-hands-helping fa-2x fcsecondary-dark"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <h4 class="title is-5 text-center text-uppercase fcsecondary-dark text-bold">UHC At a glance</h4>
+        <div class="columns has-same-height is-gapless">
+          <div class="column">
+              <h4 class="title m-b-0 m-l-10 is-6">TB curative rate</h4>
+              <figure class="image is-5by2 m-10">
+                <img src="images/g1.png" alt="">
+              </figure>
+              <div class="p-l-15">
+                <a href="#" class="is-link text-smaller">Aliquam tincidunt mauris eu risus.</a> <br>
+                <a href="#" class="is-link text-smaller">Vestibulum auctor dapibus neque.</a> <br>
+                <a href="#" class="is-link text-smaller">Nunc dignissim risus id metus.</a> <br>
+                <a href="#" class="is-link text-smaller">Cras ornare tristique elit.</a> <br>
+              </div>
+          </div>
+          <div class="column">
+              <h4 class="title m-b-0 m-l-10 is-6">Fresh still birth rate</h4>
+              <figure class="image is-5by2 m-10">
+                <img src="images/g2.png" alt="">
+              </figure>
+              <div class="p-l-15">
+                <a href="#" class="is-link text-smaller">Cras ornare tristique elit.</a> <br>
+                <a href="#" class="is-link text-smaller">Vivamus vestibulum ntulla nec ante.</a> <br>
+                <a href="#" class="is-link text-smaller">Praesent placerat risus quis eros.</a> <br>
+                <a href="#" class="is-link text-smaller">Fusce pellentesque suscipit nibh.</a> <br>
+              </div>
+          </div>
+          <div class="column">
+              <h4 class="title m-b-0 m-l-10 is-6">Facilities by owner</h4>
+              <figure class="image is-5by2 m-10">
+                <img src="images/g3.png" alt="">
+              </figure>
+              <div class="p-l-15">
+                <a href="#" class="is-link text-smaller">Vestibulum commodo felis quis tortor.</a> <br>
+                <a href="#" class="is-link text-smaller">Ut aliquam sollicitudin leo.</a> <br>
+                <a href="#" class="is-link text-smaller">Cras iaculis ultricies nulla.</a> <br>
+                <a href="#" class="is-link text-smaller">Donec quis dui at dolor tempor interdum.</a> <br>
+              </div>
+          </div>
+        </div>
+    </div>
+    
+  </section>
+
+  <!-- Services -->
+  <section class="section">
+    <div class="section-heading m-b-20">
+        <h4 class="title is-5 text-center text-uppercase fcsecondary-dark text-bold">Indicator groups</h4>
+    </div>
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <div class="content">
+              <h4 class="title is-5 text-bold">Universal Health Coverage</h4>
+              <div class="columns">
+                <div class="column is-one-quarter">
+                    <h4 class="title is-5 m-b-5">UHC Objectives</h4>
+                    <a href="#" class="is-link text-bold">Impact indicators</a> <br>
+                    <a href="#" class="is-link text-bold">Communicable diseases</a> <br>
+                    <a href="#" class="is-link text-bold">NCDs</a> <br>
+                    <a href="#" class="is-link text-bold">Improved access to essential services</a> <br>
+                    <a href="#" class="is-link text-bold">Minimise health risks</a> <br>
+                    <a href="#" class="is-link text-bold">Improved access to essential medicines</a> <br>
+                    <a href="#" class="is-link text-bold">Human resources for Health</a> <br>
+                    <a href="#" class="is-link text-bold">Health infrastructure</a> <br>
+                    <a href="#" class="is-link text-bold">Improved social protection</a> <br>
+                </div>
+                <div class="column">
+                    <h4 class="title is-5 m-b-5">UHC Indicators <span class="text-light">(44)</span> <a href="#" class="text-underline text-small is-link fcgrey-dark-2 text-light">View all</span></h4>
+                    <div class="columns p-l-10 p-r-10">
+                      <div class="column">
+                          &middot; <a href="#" class="is-link text-smaller">Lorem ipsum dolor sit, consectetuer adipiscing elit.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Aliquam tincidunt mauris eu risus.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Vestibulum auctor dapibus neque.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Nunc dignissim risus id metus.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Cras ornare tristique elit.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Vivamus vestibulum ntulla nec ante.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Praesent placerat risus quis eros.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Fusce pellentesque suscipit nibh.</a> <br>
+                      </div>
+                      <div class="column">
+                          &middot; <a href="#" class="is-link text-smaller">Integer vitae libero ac risus egestas placerat.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Vestibulum commodo felis quis tortor.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Vestibulum auctor dapibus neque.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Nunc dignissim risus id metus.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Cras ornare tristique elit.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Vivamus vestibulum ntulla nec ante.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Praesent placerat risus quis eros.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Fusce pellentesque suscipit nibh.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Integer vitae libero ac risus egestas placerat.</a> <br>
+                      </div>
+                      <div class="column">
+                          &middot; <a href="#" class="is-link text-smaller">Vestibulum commodo felis quis tortor.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Ut aliquam sollicitudin leo.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Cras iaculis ultricies nulla.</a> <br>
+                          &middot; <a href="#" class="is-link text-smaller">Donec quis dui at dolor tempor interdum.</a> <br>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  
+
+  <!-- Footer -->
+  <footer class="footer bcgrey-light-3 text-left">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+            <img src="images/logo1.png" style="height: 54px;" alt=""> <br>
+            <h4 class="fcblack-1 text-uppercase text-bold m-t-15">Contact</h4>
+            <div class="m-l-10">
+              Email: info@dsl.hiskenya.org <br>
+              Tel: +254-20-2717077 <br>
+            </div>
+        </div>
+        <div class="column">
+          <h4 class="fcblack-1 text-uppercase text-bold">Important links</h4>
+          <ul class="m-l-10">
+            <li><a href="#">Ministry of Health</a></li>
+            <li><a href="#">USAID Kenya</a></li>
+            <li><a href="#">University of Nairobi</a></li>
+            <li><a href="#">KHIS Tracker (DHIS2)</a></li>
+            <li><a href="#">KHIS Aggregate (DHIS2)</a></li>
+            <li><a href="#">Universal Health Coverage</a></li>
+            <li><a href="#">IHRIS</a></li>
+            <li><a href="#">KEMSA</a></li>
+            <li><a href="#">NASCOP</a></li>
+          </ul>
+        </div>
+        <div class="column">
+            <h4 class="fcblack-1 text-uppercase text-bold">Support &amp; Documentation</h4>
+            <ul class="m-l-10">
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">User manual</a></li>
+              <li><a href="#">Service desk</a></li>
+              <li><a href="#">System Documentation</a></li>
+              <li><a href="#">UHC Information Centre</a></li>
+              <li><a href="#">HIS eLearning Portal</a></li>
+              <li><a href="#">DSL Wiki</a></li>
+            </ul>
+        </div>
+        <div class="column">
+            <h4 class="fcblack-1 text-uppercase text-bold">Legal &amp; Licensing</h4>
+            <div class="m-l-10">
+              <ul class="m-l-10 m-b-10">
+                <li><a href="#">Terms of use</a></li>
+                <li><a href="#">Privacy policy</a></li>
+              </ul>
+              <p>
+                DSL is an open-source project for <a href="#">MoH HIS</a> Kenya. It is managed &amp; maintained by <a href="#">HealthIT</a>, a USAID-funded project at the <a href="#">UoN</a> that manages information systems in Kenya.
+              </p>
+              <p>
+                DSL is available under a BSD license.
+              </p>
+
+            </div>
+        </div>
+      </div>
+      <div class="columns text-center">
+        <div class="column">
+          &mdash; <br>
+          DSL  &copy; HIS Kenya, <script>document.write( new Date().getFullYear() );</script>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script async type="text/javascript" src="js/bulma.js"></script>
+  <script src="node_modules/bulma-extensions/bulma-carousel/dist/js/bulma-carousel.min.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+
+</html>

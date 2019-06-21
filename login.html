@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - DSL Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <!-- Bulma Version 0.7.x-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.7.5/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+
+<body>
+    <nav class="navbar is-link is-fixed-top bcblack-1 p-t-5 p-b-5">
+        <div class="container">
+            <div class="navbar-brand bcblack text-bold is-1 p-0">
+                <a class="navbar-item brand-text p-0" href="./">
+                <img src="images/logo1.png" style="height: 45px !important; max-height: 55px;" alt="" class="logo">
+                </a>
+                <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                <span></span>
+                <span></span>
+                <span></span>
+                </div>
+            </div>
+    
+            <div id="navbarExampleTransparentExample" class="navbar-menu p-0">
+                <div class="navbar-end">
+                <a class="navbar-item m-r-5" href="#">
+                    <span>Home</span>
+                </a>
+                <a class="navbar-item m-r-5" href="#">
+                    <span>About DSL</span>
+                </a>
+                <a class="navbar-item m-r-5" href="#">
+                    <span>All indicators</span>
+                </a>
+                <a class="navbar-item m-r-5" href="#">
+                    <span>UHC</span>
+                </a>
+                <div class="navbar-item has-dropdown is-hoverable m-r-5">
+                    <a class="navbar-link m-r-5" href="#">
+                        Programs
+                    </a>
+                    <div class="navbar-dropdown is-boxed">
+                        <a class="navbar-item" href="#">
+                            KEMSA
+                        </a>
+                        <a class="navbar-item" href="#">
+                            Malaria
+                        </a>
+                        <a class="navbar-item" href="#">
+                            Family Planning
+                        </a>
+                        <a class="navbar-item" href="#">
+                            NASCOP
+                        </a>
+                    </div>
+                </div>
+                <a class="navbar-item is-secondary is-active" href="./login.html">
+                    <span>Log in</span>
+                </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="hero is-fullheight m-t-50">
+        <div class="hero-body bcdefault">
+            <div class="container has-text-centered">
+                <!-- <img src="images/logo1.png" style="height: 55px !important; max-height: 55px;" alt="" class="logo"><br> -->
+                <div class="column is-4 is-offset-4">
+                    <h2 class="title fcblack text-bold m-t-10">Login</h2>
+                    <div class="box">
+                        <form>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-large smaller-placeholder text-bold" type="email" placeholder="Your Email" autofocus="">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-large smaller-placeholder text-bold" type="password" placeholder="Your Password">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="checkbox">
+                  <input type="checkbox">
+                  Remember me
+                </label>
+                            </div>
+                            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                        </form>
+                    </div>
+                    <p class="has-text-grey">
+                        <a href="">Reset Password</a> &nbsp;·&nbsp;
+                        <a href="">FAQs</a> &nbsp;·&nbsp;
+                        <a href="">Terms</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer bcgrey-light-3 text-left">
+        <div class="container">
+            <div class="columns">
+            <div class="column">
+                <img src="images/logo1.png" style="height: 54px;" alt=""> <br>
+                <h4 class="fcblack-1 text-uppercase text-bold m-t-15">Contact</h4>
+                <div class="m-l-10">
+                    Email: info@dsl.hiskenya.org <br>
+                    Tel: +254-20-2717077 <br>
+                </div>
+            </div>
+            <div class="column">
+                <h4 class="fcblack-1 text-uppercase text-bold">Important links</h4>
+                <ul class="m-l-10">
+                <li><a href="#">Ministry of Health</a></li>
+                <li><a href="#">USAID Kenya</a></li>
+                <li><a href="#">University of Nairobi</a></li>
+                <li><a href="#">KHIS Tracker (DHIS2)</a></li>
+                <li><a href="#">KHIS Aggregate (DHIS2)</a></li>
+                <li><a href="#">Universal Health Coverage</a></li>
+                <li><a href="#">IHRIS</a></li>
+                <li><a href="#">KEMSA</a></li>
+                <li><a href="#">NASCOP</a></li>
+                </ul>
+            </div>
+            <div class="column">
+                <h4 class="fcblack-1 text-uppercase text-bold">Support &amp; Documentation</h4>
+                <ul class="m-l-10">
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">User manual</a></li>
+                    <li><a href="#">Service desk</a></li>
+                    <li><a href="#">System Documentation</a></li>
+                    <li><a href="#">UHC Information Centre</a></li>
+                    <li><a href="#">HIS eLearning Portal</a></li>
+                    <li><a href="#">DSL Wiki</a></li>
+                </ul>
+            </div>
+            <div class="column">
+                <h4 class="fcblack-1 text-uppercase text-bold">Legal &amp; Licensing</h4>
+                <div class="m-l-10">
+                    <ul class="m-l-10 m-b-10">
+                    <li><a href="#">Terms of use</a></li>
+                    <li><a href="#">Privacy policy</a></li>
+                    </ul>
+                    <p>
+                    DSL is an open-source project for <a href="#">MoH HIS</a> Kenya. It is managed &amp; maintained by <a href="#">HealthIT</a>, a USAID-funded project at the <a href="#">UoN</a> that manages information systems in Kenya.
+                    </p>
+                    <p>
+                    DSL is available under a BSD license.
+                    </p>
+
+                </div>
+            </div>
+            </div>
+            <div class="columns text-center">
+            <div class="column">
+                &mdash; <br>
+                DSL  &copy; HIS Kenya, <script>document.write( new Date().getFullYear() );</script>
+            </div>
+            </div>
+        </div>
+    </footer>
+    <script async type="text/javascript" src="js/bulma.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
+</html>
