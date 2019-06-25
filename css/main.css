@@ -84,4 +84,9 @@ body{
 #uhc-diag > *{
   transform: scale(0.85);
 }
+.images1{
+  height: 100px;
+  width: 180px;
+  align-content: center;
+}
 /* end CUSTOM */
