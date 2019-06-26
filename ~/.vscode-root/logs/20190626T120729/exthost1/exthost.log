@@ -1,0 +1,84 @@
+[2019-06-26 12:07:34.182] [exthost] [info] extension host started
+[2019-06-26 12:07:34.217] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.217] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/debug-auto-launch/dist/extension
+[2019-06-26 12:07:34.224] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.224] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/dist/extension
+[2019-06-26 12:07:34.240] [exthost] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.240] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/dist/main
+[2019-06-26 12:07:34.484] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.484] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/dist/extension
+[2019-06-26 12:07:34.493] [exthost] [info] ExtensionService#_doActivateExtension CoenraadS.bracket-pair-colorizer {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.493] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/coenraads.bracket-pair-colorizer-1.0.61/out/src/extension
+[2019-06-26 12:07:34.523] [exthost] [info] ExtensionService#_doActivateExtension dariofuzinato.vue-peek {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.523] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/dariofuzinato.vue-peek-1.0.2/out/src/extension
+[2019-06-26 12:07:34.526] [exthost] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.526] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/dbaeumer.vscode-eslint-1.8.2/client/out/extension
+[2019-06-26 12:07:34.578] [exthost] [info] ExtensionService#_doActivateExtension eamodio.gitlens {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.578] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/eamodio.gitlens-9.8.2/dist/extension
+[2019-06-26 12:07:34.812] [exthost] [info] ExtensionService#_doActivateExtension esbenp.prettier-vscode {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:34.812] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/esbenp.prettier-vscode-1.9.0/out/src/extension
+[2019-06-26 12:07:35.599] [exthost] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:35.599] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/hookyqr.beautify-1.5.0/extension
+[2019-06-26 12:07:35.654] [exthost] [info] ExtensionService#_doActivateExtension jakethashi.vscode-angular2-emmet {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:35.654] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/jakethashi.vscode-angular2-emmet-2.0.3/out/src/extension
+[2019-06-26 12:07:35.760] [exthost] [info] ExtensionService#_doActivateExtension ms-vsliveshare.vsliveshare {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:35.760] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/ms-vsliveshare.vsliveshare-1.0.470/out/prod/extension-prod
+[2019-06-26 12:07:39.852] [exthost] [info] ExtensionService#_doActivateExtension padjon.save-and-run-ext {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:39.852] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/padjon.save-and-run-ext-0.0.16/out/src/extension
+[2019-06-26 12:07:39.861] [exthost] [info] ExtensionService#_doActivateExtension ritwickdey.LiveServer {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:39.861] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/ritwickdey.liveserver-5.6.1/out/src/extension
+[2019-06-26 12:07:40.848] [exthost] [info] ExtensionService#_doActivateExtension GrapeCity.gc-excelviewer {"startup":false,"activationEvent":"onLanguage:plaintext"}
+[2019-06-26 12:07:40.848] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/grapecity.gc-excelviewer-2.1.32/dist/extension
+[2019-06-26 12:07:41.081] [exthost] [info] ExtensionService#_doActivateExtension mechatroner.rainbow-csv {"startup":false,"activationEvent":"onLanguage:plaintext"}
+[2019-06-26 12:07:41.081] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/mechatroner.rainbow-csv-1.1.1/extension
+[2019-06-26 12:07:41.101] [exthost] [info] eager extensions activated
+[2019-06-26 12:07:41.637] [exthost] [info] ExtensionService#_doActivateExtension vscode.html-language-features {"startup":false,"activationEvent":"onLanguage:html"}
+[2019-06-26 12:07:41.637] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/html-language-features/client/dist/htmlMain
+[2019-06-26 12:07:41.732] [exthost] [info] ExtensionService#_doActivateExtension dbaeumer.jshint {"startup":false,"activationEvent":"onLanguage:html"}
+[2019-06-26 12:07:41.732] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/dbaeumer.jshint-0.10.20/jshint/out/extension
+[2019-06-26 12:07:58.204] [exthost] [info] extension host started
+[2019-06-26 12:07:58.224] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.224] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/debug-auto-launch/dist/extension
+[2019-06-26 12:07:58.229] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.229] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/emmet/dist/extension
+[2019-06-26 12:07:58.260] [exthost] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.260] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/git/dist/main
+[2019-06-26 12:07:58.363] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.363] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/merge-conflict/dist/extension
+[2019-06-26 12:07:58.370] [exthost] [info] ExtensionService#_doActivateExtension CoenraadS.bracket-pair-colorizer {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.370] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/coenraads.bracket-pair-colorizer-1.0.61/out/src/extension
+[2019-06-26 12:07:58.395] [exthost] [info] ExtensionService#_doActivateExtension dariofuzinato.vue-peek {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.395] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/dariofuzinato.vue-peek-1.0.2/out/src/extension
+[2019-06-26 12:07:58.397] [exthost] [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.397] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/dbaeumer.vscode-eslint-1.8.2/client/out/extension
+[2019-06-26 12:07:58.432] [exthost] [info] ExtensionService#_doActivateExtension eamodio.gitlens {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.432] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/eamodio.gitlens-9.8.2/dist/extension
+[2019-06-26 12:07:58.566] [exthost] [info] ExtensionService#_doActivateExtension esbenp.prettier-vscode {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.566] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/esbenp.prettier-vscode-1.9.0/out/src/extension
+[2019-06-26 12:07:58.741] [exthost] [info] ExtensionService#_doActivateExtension HookyQR.beautify {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.741] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/hookyqr.beautify-1.5.0/extension
+[2019-06-26 12:07:58.809] [exthost] [info] ExtensionService#_doActivateExtension jakethashi.vscode-angular2-emmet {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.809] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/jakethashi.vscode-angular2-emmet-2.0.3/out/src/extension
+[2019-06-26 12:07:58.931] [exthost] [info] ExtensionService#_doActivateExtension ms-vsliveshare.vsliveshare {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:58.931] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/ms-vsliveshare.vsliveshare-1.0.470/out/prod/extension-prod
+[2019-06-26 12:07:59.830] [exthost] [info] ExtensionService#_doActivateExtension padjon.save-and-run-ext {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:07:59.830] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/padjon.save-and-run-ext-0.0.16/out/src/extension
+[2019-06-26 12:08:00.283] [exthost] [info] ExtensionService#_doActivateExtension ritwickdey.LiveServer {"startup":true,"activationEvent":"*"}
+[2019-06-26 12:08:00.283] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/ritwickdey.liveserver-5.6.1/out/src/extension
+[2019-06-26 12:08:01.253] [exthost] [info] ExtensionService#_doActivateExtension GrapeCity.gc-excelviewer {"startup":false,"activationEvent":"onLanguage:plaintext"}
+[2019-06-26 12:08:01.253] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/grapecity.gc-excelviewer-2.1.32/dist/extension
+[2019-06-26 12:08:01.448] [exthost] [info] ExtensionService#_doActivateExtension mechatroner.rainbow-csv {"startup":false,"activationEvent":"onLanguage:plaintext"}
+[2019-06-26 12:08:01.448] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/mechatroner.rainbow-csv-1.1.1/extension
+[2019-06-26 12:08:01.789] [exthost] [info] eager extensions activated
+[2019-06-26 12:08:10.744] [exthost] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"activationEvent":"onLanguage:javascriptreact"}
+[2019-06-26 12:08:10.744] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/typescript-language-features/dist/extension
+[2019-06-26 12:08:10.856] [exthost] [info] ExtensionService#_doActivateExtension dbaeumer.jshint {"startup":false,"activationEvent":"onLanguage:javascriptreact"}
+[2019-06-26 12:08:10.856] [exthost] [info] ExtensionService#loadCommonJSModule /home/richie/.vscode/extensions/dbaeumer.jshint-0.10.20/jshint/out/extension
+[2019-06-26 12:08:26.248] [exthost] [info] ExtensionService#_doActivateExtension vscode.html-language-features {"startup":false,"activationEvent":"onLanguage:html"}
+[2019-06-26 12:08:26.248] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/html-language-features/client/dist/htmlMain
+[2019-06-26 13:44:20.259] [exthost] [info] ExtensionService#_doActivateExtension vscode.extension-editing {"startup":false,"activationEvent":"onLanguage:typescript"}
+[2019-06-26 13:44:20.260] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/extension-editing/dist/extension
+[2019-06-26 14:02:20.112] [exthost] [info] ExtensionService#_doActivateExtension vscode.configuration-editing {"startup":false,"activationEvent":"onLanguage:jsonc"}
+[2019-06-26 14:02:20.112] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/configuration-editing/dist/extension
+[2019-06-26 14:02:20.123] [exthost] [info] ExtensionService#_doActivateExtension vscode.json-language-features {"startup":false,"activationEvent":"onLanguage:jsonc"}
+[2019-06-26 14:02:20.123] [exthost] [info] ExtensionService#loadCommonJSModule /usr/share/code/resources/app/extensions/json-language-features/client/dist/jsonMain

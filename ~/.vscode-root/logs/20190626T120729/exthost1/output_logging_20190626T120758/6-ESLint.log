@@ -1,0 +1,59 @@
+[Info  - 12:08:10 PM] ESLint server stopped.
+[Info  - 12:08:11 PM] ESLint server running in node v10.2.0
+[Info  - 12:08:11 PM] ESLint server is running.
+[Info  - 12:08:15 PM] 
+Failed to load the ESLint library for the document /opt/lampp/htdocs/DSL-Dashboard/js/tested.js
+
+To use ESLint please install eslint by running npm install eslint in the workspace folder DSL-Dashboard
+or globally using 'npm install -g eslint'. You need to reopen the workspace after installing eslint.
+
+If you are using yarn or pnpm instead of npm set the setting `eslint.packageManager` to either `yarn` or `pnpm`
+Alternatively you can disable ESLint for the workspace folder DSL-Dashboard by executing the 'Disable ESLint' command.
+[Info  - 1:44:18 PM] 
+Failed to load the ESLint library for the document /opt/lampp/htdocs/DSL-Dashboard/js/tested.js
+
+To use ESLint please install eslint by running npm install eslint in the workspace folder DSL-Dashboard
+or globally using 'npm install -g eslint'. You need to reopen the workspace after installing eslint.
+
+If you are using yarn or pnpm instead of npm set the setting `eslint.packageManager` to either `yarn` or `pnpm`
+Alternatively you can disable ESLint for the workspace folder DSL-Dashboard by executing the 'Disable ESLint' command.
+[Info  - 1:49:19 PM] 
+Failed to load the ESLint library for the document /opt/lampp/htdocs/DSL-Dashboard/js/bulma.js
+
+To use ESLint please install eslint by running npm install eslint in the workspace folder DSL-Dashboard
+or globally using 'npm install -g eslint'. You need to reopen the workspace after installing eslint.
+
+If you are using yarn or pnpm instead of npm set the setting `eslint.packageManager` to either `yarn` or `pnpm`
+Alternatively you can disable ESLint for the workspace folder DSL-Dashboard by executing the 'Disable ESLint' command.
+[Info  - 1:49:26 PM] 
+Failed to load the ESLint library for the document /opt/lampp/htdocs/DSL-Dashboard/js/custom.js
+
+To use ESLint please install eslint by running npm install eslint in the workspace folder DSL-Dashboard
+or globally using 'npm install -g eslint'. You need to reopen the workspace after installing eslint.
+
+If you are using yarn or pnpm instead of npm set the setting `eslint.packageManager` to either `yarn` or `pnpm`
+Alternatively you can disable ESLint for the workspace folder DSL-Dashboard by executing the 'Disable ESLint' command.
+[Info  - 1:58:50 PM] 
+Failed to load the ESLint library for the document /opt/lampp/htdocs/DSL-Dashboard/js/custom.js
+
+To use ESLint please install eslint by running npm install eslint in the workspace folder DSL-Dashboard
+or globally using 'npm install -g eslint'. You need to reopen the workspace after installing eslint.
+
+If you are using yarn or pnpm instead of npm set the setting `eslint.packageManager` to either `yarn` or `pnpm`
+Alternatively you can disable ESLint for the workspace folder DSL-Dashboard by executing the 'Disable ESLint' command.
+[Info  - 2:02:20 PM] 
+Failed to load the ESLint library for the document /opt/lampp/htdocs/DSL-Dashboard/js/tested.js
+
+To use ESLint please install eslint by running npm install eslint in the workspace folder DSL-Dashboard
+or globally using 'npm install -g eslint'. You need to reopen the workspace after installing eslint.
+
+If you are using yarn or pnpm instead of npm set the setting `eslint.packageManager` to either `yarn` or `pnpm`
+Alternatively you can disable ESLint for the workspace folder DSL-Dashboard by executing the 'Disable ESLint' command.
+[Info  - 2:02:21 PM] 
+Failed to load the ESLint library for the document /opt/lampp/htdocs/DSL-Dashboard/js/custom.js
+
+To use ESLint please install eslint by running npm install eslint in the workspace folder DSL-Dashboard
+or globally using 'npm install -g eslint'. You need to reopen the workspace after installing eslint.
+
+If you are using yarn or pnpm instead of npm set the setting `eslint.packageManager` to either `yarn` or `pnpm`
+Alternatively you can disable ESLint for the workspace folder DSL-Dashboard by executing the 'Disable ESLint' command.
