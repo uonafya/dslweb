@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TB Curative Rate - Indicators | DSL Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/bulma.min.css" />
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <!-- Bulma ext -->
+  <link rel="stylesheet" href="node_modules/bulma-extensions/bulma-carousel/dist/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="node_modules/bulma-extensions/bulma-calendar/dist/css/bulma-calendar.min.css">
+  <!-- /Bulma ext -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar is-link is-fixed-top bcblack-1 p-t-5 p-b-5">
+    <div class="container">
+        <div class="navbar-brand bcblack text-bold is-1 p-0">
+          <a class="navbar-item brand-text p-0" href="./">
+            <img src="images/logo1.png" style="height: 45px !important; max-height: 55px;" alt="" class="logo">
+          </a>
+          <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div id="navbarExampleTransparentExample" class="navbar-menu p-0">
+          <div class="navbar-end">
+            <a class="navbar-item is-active m-r-5" href="./index.html" >
+              <span>Home</span>
+            </a>
+            <a class="navbar-item m-r-5" href="#" >
+              <span>About DSL</span>
+            </a>
+            <a class="navbar-item m-r-5" href="./indicator.html" target="_blank">
+              <span>All indicators</span>
+            </a>
+            <a class="navbar-item m-r-5" href="./uhc.html" target="_blank">
+              <span>UHC</span>
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable m-r-5">
+              <a class="navbar-link m-r-5" href="#">
+                  Programs
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                  <a class="navbar-item" href="http://www.kemsa.co.ke/" target="_blank">
+                      KEMSA
+                  </a>
+                  <a class="navbar-item" href="http://www.nmcp.or.ke/" target="_blank">
+                      Malaria
+                  </a>
+                  <a class="navbar-item" href="http://www.familyplanning2020.org/kenya" target="_blank">
+                      Family Planning
+                  </a>
+              </div>
+            </div>
+            <a class="navbar-item is-primary" href="./login.html">
+              <span>Log in</span>
+            </a>
+          </div>
+        </div>
+    </div>
+  </nav>
+
+
+  <!-- Breadcrumb -->
+  <section class="section m-t-50 m-b-5 bcclear p-b-15">
+    <div class="container">
+      <nav class="breadcrumb m-t-10" aria-label="breadcrumbs">
+        <ul>
+          <li><a href="./">Home</a></li>
+          <li class="is-active"><a href="#" aria-current="page">All Indicators</a></li>
+          <li class="is-active"><a href="#" aria-current="page">TB Curative Rate</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+  <!-- Breadcrumb -->
+
+
+  <!-- About -->
+  <section class="section m-t-5 p-t-10">
+    <!-- Title -->
+    <div class="section-heading m-b-5">
+      <div class="container">
+        <h3 class="title text-left fcsecondary-dark text-bold">TB Curative Rate</h3>
+        <hr>
+      </div>
+    </div>
+    <div class="container">
+      <div class="columns">
+        
+        <div class="column bcwhite br-5">
+            <div class="text-left p-5 m-b-30">
+                <div class="columns is-centered">
+                  <div class="column p-20">
+                    <p><strong>TB Curative Rate</strong>, Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem expedita asperiores, doloribus dicta nobis iusto obcaecati, nostrum architecto perspiciatis, Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores fugit hic, at consequuntur totam illo. Exercitationem, quas tempora quaerat sapiente, eum officiis quia eos laborum, architecto aspernatur accusantium at reiciendis. distinctio eius modi impedit voluptate possimus inventore! Dolorum est velit consequuntur? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro temporibus eveniet cum assumenda quasi aliquam. Qui deleniti consequatur possimus omnis illo.</p>
+                    <br>
+                    <div class="m-l-30">
+                      <li>Aliquam tincidunt mauris eu risus</li>
+                      <li>Vestibulum auctor dapibus neque</li>
+                      <li>Nunc dignissim risus id metus</li>
+                      <li>Cras ornare tristique elit</li>
+                      <li>Vivamus vestibulum ntulla nec ante</li>
+                      <li>Vestibulum commodo felis quis tortor</li>
+                      <li>Ut aliquam sollicitudin leo</li>
+                    </div>
+                  </div>
+          
+                </div>
+              </div>
+          
+              <div class="container">
+                  <h4 class="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4>
+                  <hr>
+                  <div class="columns has-same-height is-gapless">
+                    <div class="column">
+                        <h4 class="title m-b-0 m-l-10 is-6">
+                          <span class="text-bold display-inline-b text-larger fcsecondary-dark">TB curative rate</span> <br/>
+                          <label for="" class="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time:</label>
+                          <span class="text-bold display-inline-b p-l-0 m-l-0">
+                            <!-- daterangepicker -->
+                            <div class="navbar-item has-dropdown is-hoverable">
+                              <a class="navbar-link m-l-0 p-l-0" href="#">
+                                May 2017 - Aug 2018
+                              </a>
+                              <div class="navbar-dropdown is-boxed p-5">
+                                <!-- <input type="date" name="drange1" id="drange1" data-is-range="true" data-display-mode="dialog" data-close-on-select="false" class="input is-small"> -->
+                                <a class="navbar-item" href="#">
+                                    From &nbsp; <span class="fcsecondary">May 2017&#9662;</span>
+                                </a>
+                                <a class="navbar-item" href="#">
+                                    To &nbsp; <span class="fcsecondary">Aug 2018&#9662;</span>
+                                </a>
+                              </div>
+                            </div>
+                            <!-- daterangepicker -->
+                          </span> &nbsp;
+                          <label for="" class="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Location:</label>
+                          <span class="text-bold display-inline-b p-l-0 m-l-0">
+                            <!-- geopicker -->
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link m-l-0 p-l-0" href="#">
+                                  National
+                                </a>
+                                <div class="navbar-dropdown is-boxed p-5">
+                                    <input type="text" class="input is-small m-0" placeholder="Search"/>
+                                    <a href="#" class="navbar-item">National</a>
+                                    <a href="#" class="navbar-item">Baringo County</a>
+                                    <a href="#" class="navbar-item">Bomet County</a>
+                                    <a href="#" class="navbar-item">Bungoma County</a>
+                                    <a href="#" class="navbar-item">Busia County</a>
+                                    <a href="#" class="navbar-item">Elgeyo Marakwet County</a>
+                                    <a href="#" class="navbar-item">Embu County</a>
+                                    <a href="#" class="navbar-item">Garissa County</a>
+                                    <a href="#" class="navbar-item">Homa Bay County</a>
+                                </div>
+                              </div>
+                              <!-- geopicker -->
+                          </span> &nbsp;
+                        </h4>
+                        <figure class="image is-5by2 m-10">
+                          <img src="images/g1.png" alt="">
+                        </figure>
+                    </div>
+                    <div class="column">
+                        <h4 class="title m-b-0 m-l-10 is-6">
+                            <span class="text-bold display-inline-b text-larger fcsecondary-dark">TB Case Detection/Diagnosis Rate</span> <br/>
+                            <label for="" class="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time:</label>
+                            <span class="text-bold display-inline-b p-l-0 m-l-0">
+                              <!-- daterangepicker -->
+                              <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link m-l-0 p-l-0" href="#">
+                                  May 2017 - Aug 2018
+                                </a>
+                                <div class="navbar-dropdown is-boxed p-5">
+                                  <a class="navbar-item" href="#">
+                                      From &nbsp; <span class="fcsecondary">May 2017&#9662;</span>
+                                  </a>
+                                  <a class="navbar-item" href="#">
+                                      To &nbsp; <span class="fcsecondary">Aug 2018&#9662;</span>
+                                  </a>
+                                </div>
+                              </div>
+                              <!-- daterangepicker -->
+                            </span> &nbsp;
+                            <label for="" class="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Location:</label>
+                            <span class="text-bold display-inline-b p-l-0 m-l-0">
+                              <!-- geopicker -->
+                              <div class="navbar-item has-dropdown is-hoverable">
+                                  <a class="navbar-link m-l-0 p-l-0" href="#">
+                                    National
+                                  </a>
+                                  <div class="navbar-dropdown is-boxed p-5">
+                                      <input type="text" class="input is-small m-0" placeholder="Search"/>
+                                      <a href="#" class="navbar-item">National</a>
+                                      <a href="#" class="navbar-item">Baringo County</a>
+                                      <a href="#" class="navbar-item">Bomet County</a>
+                                      <a href="#" class="navbar-item">Bungoma County</a>
+                                      <a href="#" class="navbar-item">Busia County</a>
+                                      <a href="#" class="navbar-item">Elgeyo Marakwet County</a>
+                                      <a href="#" class="navbar-item">Embu County</a>
+                                      <a href="#" class="navbar-item">Garissa County</a>
+                                      <a href="#" class="navbar-item">Homa Bay County</a>
+                                  </div>
+                                </div>
+                                <!-- geopicker -->
+                            </span> &nbsp;
+                          </h4>
+                        <figure class="image is-5by2 m-10">
+                          <img src="images/g2.png" alt="">
+                        </figure>
+                    </div>
+                  </div>
+                  <div class="div">
+                    <div class="column notification shadow-heavy-light text-center is-vcentered">
+                      <p><a href="login.html" class="is-link fcsecondary-dark">Log in</a> or <a href="#" class="is-link fcsecondary-dark">request for an account</a> to compare indicators</p>
+                      <br>
+                      <a href="#" class="button is-secondary">Compare</a>
+                    </div>
+                  </div>
+              </div>
+              <div class="text-left p-5 m-b-30">
+                <div class="columns is-centered p-t-20">
+                  <div class="column p-20">
+                    <p>Distinctio eius modi impedit voluptate possimus inventore! Dolorum est velit consequuntur? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro temporibus eveniet cum assumenda quasi aliquam. Qui deleniti consequatur possimus omnis illo.</p>
+                  </div>
+          
+                </div>
+              </div>
+              
+        </div>
+        <!-- Sidebar -->
+        <div class="column is-one-fifth p-20 bcdefault br-5">
+            <div class="divs m-l-10">
+                <div class="div m-b-30">
+                  <h4 class="subtitle fcsecondary-dark text-left text-bold m-b-10">Tags:</h4>
+                  <div class="tags p-l-15 p-r-10">
+                    <a href="#"><span class="tag is-secondary">Tuberculosis</span></a> &nbsp; &nbsp;
+                    <a href="#"><span class="tag is-secondary">Vision 2030</span></a> &nbsp; &nbsp;
+                    <a href="#"><span class="tag is-secondary">UHC</span></a> &nbsp; &nbsp;
+                    <a href="#"><span class="tag is-secondary">2018</span></a> &nbsp; &nbsp;
+                    <a href="#"><span class="tag is-secondary">AfyaData</span></a> &nbsp; &nbsp;
+                  </div>
+                </div>
+                <div class="div m-b-20">
+                    <div class="section-heading m-0 p-0 m-b-15">
+                        <h4 class="title is-5 text-left fcsecondary-dark text-bold m-b-15">About this indicator:</h4>
+                    </div>
+                    <div class="columns m-l-15 p-0 m-b-0">
+                      <div class="column is-one-third p-5">
+                        <label for="" class="label fcgrey-dark-3 text-normal">Source:</label>
+                      </div>
+                      <div class="column text-normal p-b-15 p-t-5">
+                          <a href="#"><span class="tag is-secondary is-dark">DHIS2</span></a>
+                          <a href="#"><span class="tag is-secondary is-dark">EMR</span></a>
+                      </div>
+                    </div>
+                    <div class="columns m-l-15 p-0 m-b-0">
+                      <div class="column is-one-third p-5">
+                        <label for="" class="label fcgrey-dark-3 text-normal">Date created:</label>
+                      </div>
+                      <div class="column text-bold p-b-15 p-t-5">
+                          <label for="" class="label fcblack-1">23<sup>rd</sup> March, 2019</label>
+                      </div>
+                    </div>
+                    <div class="columns m-l-15 p-0 m-b-0">
+                      <div class="column is-one-third p-5">
+                        <label for="" class="label fcgrey-dark-3 text-normal">Last updated:</label>
+                      </div>
+                      <div class="column text-bold p-b-15 p-t-5">
+                          <label for="" class="label fcblack-1">6<sup>th</sup> June, 2019</label>
+                      </div>
+                    </div>
+                    <div class="columns m-l-15 p-0 m-b-0">
+                      <div class="column is-one-third p-5">
+                        <label for="" class="label fcgrey-dark-3 text-normal">Geo-scope:</label>
+                      </div>
+                      <div class="column text-normal p-b-15 p-t-5">
+                          <a href="#"><span class="tag is-success is-dark">National</span></a>
+                          <a href="#"><span class="tag is-success is-dark">34 counties</span></a>
+                      </div>
+                    </div>
+                    <div class="columns m-l-15 p-0 m-b-0">
+                      <div class="column is-one-third p-5">
+                        <label for="" class="label fcgrey-dark-3 text-normal">Time-span:</label>
+                      </div>
+                      <div class="column text-normal p-b-15 p-t-5">
+                          <label for="" class="label fcblack-1 display-inline-b">1<sup>st</sup> Jan, 2003</label>
+                           &nbsp; - &nbsp; 
+                          <label for="" class="label fcblack-1 display-inline-b">31<sup>st</sup> May, 2019</label>
+                      </div>
+                    </div>
+                </div>
+        
+                <div class="div m-b-30">
+                  <div class="section-heading m-0 p-0 m-b-5 m-l-15">
+                      <h4 class="title is-5 text-left fcsecondary-dark text-bold m-b-15">Related indicators:</h4>
+                  </div>
+                  <div class="content m-l-15 m-t-0">
+                      <a href="#" class="is-link text-normal">Impact indicators</a> <br>
+                      <a href="#" class="is-link text-normal">Communicable diseases</a> <br>
+                      <a href="#" class="is-link text-normal">NCDs</a> <br>
+                      <a href="#" class="is-link text-normal">Improved access to essential services</a> <br>
+                      <a href="#" class="is-link text-normal">Minimise health risks</a> <br>
+                      <a href="#" class="is-link text-normal">Improved access to essential medicines</a> <br>
+                      <a href="#" class="is-link text-normal">Human resources for Health</a> <br>
+                      <a href="#" class="is-link text-normal">Health infrastructure</a> <br>
+                      <a href="#" class="is-link text-normal">Improved social protection</a> <br>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!-- Sidebar -->
+          
+      </div>
+    </div>
+    
+  </section>
+  
+  
+
+
+  <!-- Footer -->
+  <footer class="footer bcgrey-light-3 text-left">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+            <img src="images/logo1.png" style="height: 54px;" alt=""> <br>
+            <h4 class="fcblack-1 text-uppercase text-bold m-t-15">Contact</h4>
+            <div class="m-l-10">
+              Email: info@dsl.hiskenya.org <br>
+              Tel: +254-20-2717077 <br>
+            </div>
+        </div>
+        <div class="column">
+          <h4 class="fcblack-1 text-uppercase text-bold">Important links</h4>
+          <ul class="m-l-10">
+            <li><a href="http://www.health.go.ke/" target="_blank">Ministry of Health</a></li>
+            <li><a href="https://www.usaid.gov/kenya" target="_blank">USAID Kenya</a></li>
+            <li><a href="https://www.uonbi.ac.ke/" target="_blank">University of Nairobi</a></li>
+            <li><a href="https://histracker.health.go.ke" target="_blank">KHIS Tracker (DHIS2)</a></li>
+            <li><a href="https://hiskenya.org" target="_blank">KHIS Aggregate</a></li>
+            <li><a href="https://uhckenya.org/" target="_blank">Universal Health Coverage</a></li>
+            <li><a href="http://www.ihris.or.ke" target="_blank">IHRIS</a></li>
+            <li><a href="http://www.kemsa.co.ke/" target="_blank">KEMSA</a></li>
+          </ul>
+        </div>
+        <div class="column">
+            <h4 class="fcblack-1 text-uppercase text-bold">Support &amp; Documentation</h4>
+            <ul class="m-l-10">
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">User manual</a></li>
+              <li><a href="https://servicedesk.health.go.ke/" target="_blank">Service desk</a></li>
+              <li><a href="#">System Documentation</a></li>
+              <li><a href="https://uhckenya.org/about/" target="_blank">UHC Information Centre</a></li>
+              <li><a href="http://elearning.health.go.ke/" target="_blank">HIS eLearning Portal</a></li>
+              <li><a href="#">DSL Wiki</a></li>
+            </ul>
+        </div>
+        <div class="column">
+            <h4 class="fcblack-1 text-uppercase text-bold">Legal &amp; Licensing</h4>
+            <div class="m-l-10">
+              <ul class="m-l-10 m-b-10">
+                <li><a href="#">Terms of use</a></li>
+                <li><a href="#">Privacy policy</a></li>
+              </ul>
+              <p>
+                DSL is an open-source project for <a href="#">MoH HIS</a> Kenya. It is managed &amp; maintained by <a href="#">HealthIT</a>, a USAID-funded project at the <a href="#">UoN</a> that manages information systems in Kenya.
+              </p>
+              <p>
+                DSL is available under a BSD license.
+              </p>
+
+            </div>
+        </div>
+      </div>
+      <div class="columns text-center">
+        <div class="column">
+          &mdash; <br>
+          DSL  &copy; HIS Kenya, <script>document.write( new Date().getFullYear() );</script>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script async type="text/javascript" src="js/bulma.js"></script>
+  <script src="node_modules/bulma-extensions/bulma-carousel/dist/js/bulma-carousel.min.js"></script>
+  <script src="node_modules/bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+
+</html>

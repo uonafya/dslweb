@@ -1,0 +1,92 @@
+.has-same-height .card {
+  height: 320px;
+  overflow: hidden;
+}
+
+.card-content h3 {
+  text-align: center;
+}
+
+.table-profile td,
+th {
+  border: none !important;
+}
+
+.table-profile td:first-of-type {
+  font-weight: bold;
+}
+
+.skills-content .media {
+  margin: 0 !important;
+  padding: 4px !important;
+  border: 0 !important;
+}
+
+.skills-content .progress {
+  height: 4px !important;
+}
+
+.custom-tags {
+  text-align: center !important;
+  display: block;
+}
+
+.portfolio-container .card {
+  margin-bottom: 2em;
+}
+
+.section-heading {
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 6em;
+}
+
+
+
+/* CUSTOM */
+.hero.is-link{
+  /* background: url('../images/tri.png');
+  background-size: cover; */
+
+  background: #29476e;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0575E6, #29476e);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #0575E6, #29476e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+*:not(.fa):not(.fas):not(.far):not(.fal){
+  font-family: 'Source Sans Pro', sans-serif !important;
+}
+nav .navbar-item{
+  margin: auto;
+  border-radius: 3px;
+}
+.herosearch-container{
+  justify-content: center !important;
+  transform: scale(1.2)
+}
+.herosearch{
+
+}
+.herosearch::placeholder{
+  color: #565656;
+  font-size: smaller;
+}
+.navbar.is-link .navbar-item.has-dropdown.is-active .navbar-link, .navbar.is-link .navbar-item.has-dropdown:focus .navbar-link, .navbar.is-link .navbar-item.has-dropdown:hover .navbar-link,
+.navbar.is-link .navbar-end .navbar-link.is-active, .navbar.is-link .navbar-end .navbar-link:focus, .navbar.is-link .navbar-end .navbar-link:hover, .navbar.is-link .navbar-end > a.navbar-item.is-active, .navbar.is-link .navbar-end > a.navbar-item:focus, .navbar.is-link .navbar-end > a.navbar-item:hover, .navbar.is-link .navbar-start .navbar-link.is-active, .navbar.is-link .navbar-start .navbar-link:focus, .navbar.is-link .navbar-start .navbar-link:hover, .navbar.is-link .navbar-start > a.navbar-item.is-active, .navbar.is-link .navbar-start > a.navbar-item:focus, .navbar.is-link .navbar-start > a.navbar-item:hover{
+  color: #2366d1;
+  background-color: transparent;
+}
+body{
+  background: #f9fbfb;
+}
+#uhc-diag {
+  margin-top: -55px;
+}
+#uhc-diag > *{
+  transform: scale(0.85);
+}
+.images1{
+  height: 100px;
+  width: 180px;
+  align-content: center;
+}
+/* end CUSTOM */
