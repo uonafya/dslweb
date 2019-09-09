@@ -1,0 +1,37 @@
+[2019-06-26 12:07:34.521] [sharedprocess] [info] main {"machineId":"fb3ff21dd548a3a09ed2cd1ebce10c5532aa931b39977af5c92f3df98bc74ce4"}
+[2019-06-26 12:07:34.847] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 12:07:34.878] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 12:07:34.880] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 12:07:34.905] [sharedprocess] [info] Scanned system extensions: 72
+[2019-06-26 12:07:34.911] [sharedprocess] [info] Scanned system extensions: 72
+[2019-06-26 12:07:34.922] [sharedprocess] [info] Scanned system extensions: 72
+[2019-06-26 12:07:40.131] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 12:07:42.746] [sharedprocess] [info] Installing extension: ms-vsliveshare.vsliveshare
+[2019-06-26 12:07:42.796] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 12:07:57.780] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 12:07:57.783] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 12:07:57.835] [sharedprocess] [info] Scanned system extensions: 72
+[2019-06-26 12:07:57.845] [sharedprocess] [info] Scanned system extensions: 72
+[2019-06-26 12:08:00.027] [sharedprocess] [info] Installing extension: ms-vsliveshare.vsliveshare
+[2019-06-26 12:08:00.295] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 12:08:14.539] [sharedprocess] [info] Starting to clean up unused language packs.
+[2019-06-26 12:09:02.983] [sharedprocess] [info] Downloaded extension: ms-vsliveshare.vsliveshare /tmp/935193a3-f322-42eb-a095-7283c0b17a46
+[2019-06-26 12:09:04.268] [sharedprocess] [info] Extracted extension to /home/richie/.vscode/extensions/.ms-vsliveshare.vsliveshare-1.0.471: ms-vsliveshare.vsliveshare
+[2019-06-26 12:09:04.268] [sharedprocess] [info] Renamed to /home/richie/.vscode/extensions/ms-vsliveshare.vsliveshare-1.0.471
+[2019-06-26 12:09:04.270] [sharedprocess] [info] Installation completed. ms-vsliveshare.vsliveshare
+[2019-06-26 12:09:04.480] [sharedprocess] [info] Extensions installed successfully: ms-vsliveshare.vsliveshare
+[2019-06-26 13:26:24.719] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 13:31:24.775] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 13:36:24.837] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 13:41:24.882] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 13:46:24.953] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 13:51:25.003] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 13:56:25.063] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 14:01:25.118] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 14:02:13.103] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 14:06:25.165] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 14:11:25.280] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 14:16:25.331] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 14:21:34.461] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 14:26:35.979] [sharedprocess] [info] Scanned user extensions: 33
+[2019-06-26 14:31:36.053] [sharedprocess] [info] Scanned user extensions: 33

@@ -14,6 +14,7 @@
   <!-- /Bulma ext -->
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="css/custom.css">
+  
 </head>
 
 <body>
@@ -382,7 +383,7 @@
                 <li><a href="#">Privacy policy</a></li>
               </ul>
               <p>
-                DSL is an open-source project for <a href="#">MoH HIS</a> Kenya. It is managed &amp; maintained by <a href="#">HealthIT</a>, a USAID-funded project at the <a href="#">UoN</a> that manages information systems in Kenya.
+                DSL is an open-source project for <a href="http://www.health.go.ke/" target="_blank">MoH HIS</a> Kenya. It is managed &amp; maintained by <a href="https://healthit.uonbi.ac.ke/" target="_blank">HealthIT</a>, a USAID-funded project at the <a href="https://www.uonbi.ac.ke/" target="_blank">UoN</a> that manages information systems in Kenya.
               </p>
               <p>
                 DSL is available under a BSD license.
@@ -402,7 +403,17 @@
 
   <script async type="text/javascript" src="js/bulma.js"></script>
   <script src="node_modules/bulma-extensions/bulma-carousel/dist/js/bulma-carousel.min.js"></script>
+  <script src="node_modules/bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="js/custom.js"></script>
+  <script src="js/tested.js"></script>
+  
+  <script>
+    $( document ).ready(function() {
+      console.log( "document loaded" );
+      init();
+    });
+  </script>
 </body>
 
 </html>

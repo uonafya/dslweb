@@ -1,0 +1,54 @@
+[Client I] Did not find user settings at </<redacted>/<redacted>.json>
+[Client I] Trace log: /tmp/VSFeedbackVSRTCLogs/20190626_090801_15615400815410_VSCode.log
+[Client V] Downloading remote settings from https://az700632.vo.msecnd.net/pub/VSLiveShare/VSCode/remoteSettings.json
+[Client I] Trace log: /tmp/VSFeedbackVSRTCLogs/20190626_090801_15615400816860_VSCode.log
+[Client I] Extension, IDE, OS : VSLS/1.0.470 VSCode/1.32.3 Linux/4.18.0-20-generic
+[Client I] Passed version check for Linux: found 4.18.0-20-generic
+[Client.Rpc V] RPCClient.init retryCount:0 currentRetryInterval:0
+[Debug.Rpc.Host V] TrackDebugManager created
+[Client.Rpc V] Agent connection not completed: Error: connect ENOENT /tmp/CoreFxPipe_vscode.8b5420a62921af21e34db6e7fae556a8; Retrying...
+[Client.Rpc V] RPCClient.init retryCount:1 currentRetryInterval:100
+[Client.Agent V] Agent lock on:</<redacted>/<redacted>.lock>
+[Client.Agent I] starting agent with pipe:vscode.8b5420a62921af21e34db6e7fae556a8
+[Client.Agent I] presence service -> uri:https://signlr-prod.core.vsengsaas.visualstudio.com/api/signalr/presencehub vslsTeam:false insiders:false vscode:1.32.3
+[Client.Agent V] Finished agent startup...
+[Client.Agent V] Agent unlocked
+[Client.Rpc I] Agent connection success - net.pipe://localhost/vscode.8b5420a62921af21e34db6e7fae556a8
+[Client.Rpc V] finish initialize agent session with rpcConnectId:null hostSessionId:1
+[Client.Rpc.Auth V] < version.exchangeVersions()
+[Client.Rpc.Auth V] > version.exchangeVersions() succeeded
+[Client I] Client version: 1.0.470 (VSLS/2.2), agent version: 1.0.470.28504 (VSLS/2.2)
+[Client.Rpc.Auth V] < version.exchangeSettings()
+[Client.Rpc.Auth V] > version.exchangeSettings() succeeded
+[Client I] No workspaceId found in workspace settings.
+[API I] Initializing Live Share API 0.3.1291 for ritwickdey.LiveServer@5.6.1
+[API I] Initializing Live Share API 0.3.1291 for eamodio.gitlens@9.8.2
+[Client I] No workspace url found in cascade.json file.
+[Client.Rpc V] < telemetry.initialize()
+[Contact.Manager I] registerContactProvider-> serviceId:git
+[Contact.Service V] _Initialize:git
+[Contact.Service V] Request 'initialize' serviceId:git
+[Contact.Manager I] registerContactProvider-> serviceId:selfInvite
+[Contact.Service V] _Initialize:selfInvite
+[Contact.Service V] Request 'initialize' serviceId:selfInvite
+[Client.Rpc.SessionContext V] < sessionContext.getServiceNames()
+[Client.Rpc V] > telemetry.initialize() succeeded
+[Client.Rpc.Auth V] < auth.loginWithCachedToken()
+[Client.Rpc.SessionContext V] > sessionContext.getServiceNames() succeeded
+[Client.Rpc.Auth E] > auth.loginWithCachedToken() error: undefined
+[Contact.Manager V] ->loadRecentCollaborators:onStateChanged
+[Contact.Manager V] SelfInviteProvider-> status:false
+[Contact.Service V] onNotified-> serviceId:selfInvite name:suggestedUsers
+[Contact.Manager I] onSuggestedUsersUpdate-> serviceId:selfInvite count:0
+[Contact.Manager V] ->updateRecentContacts -> count:0
+[Contact.Manager V] <-updateRecentContacts
+[Contact.Manager V] ->updateSuggestedUsers
+[Contact.Manager V] suggest contacts from provider:selfInvite ids: emails:
+[Contact.Manager I] <- updateSuggestedUsers count:0
+[Contact.Manager V] onActivityStatusChanged-> id:idle newStatus:away publishedPresenceStatus:undefined
+[Contact.Manager V] onActivityStatusChanged-> id:idle newStatus:available publishedPresenceStatus:undefined
+[Contact.Manager V] onActivityStatusChanged-> id:idle newStatus:away publishedPresenceStatus:undefined
+[Contact.Manager V] onActivityStatusChanged-> id:idle newStatus:available publishedPresenceStatus:undefined
+[API I] Request contacts for emails: <a83d@fd5f>
+[Contact.Manager V] onActivityStatusChanged-> id:idle newStatus:away publishedPresenceStatus:undefined
+[Contact.Manager V] onActivityStatusChanged-> id:idle newStatus:available publishedPresenceStatus:undefined

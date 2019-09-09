@@ -1,0 +1,4 @@
+[2019-06-26 12:07:35.484] [renderer1] [info] no standard startup: not the explorer viewlet
+[2019-06-26 12:07:41.353] [renderer1] [warning] UNRESPONSIVE extension host, 'ritwickdey.LiveServer' took 70% of 945.454ms, saved PROFILE here: '/tmp/exthost-3470d0.cpuprofile' [{"id":"gc","total":22333,"percentage":2},{"id":"GrapeCity.gc-excelviewer","total":29915,"percentage":3},{"id":"mechatroner.rainbow-csv","total":9828,"percentage":1},{"id":"ms-vsliveshare.vsliveshare","total":2398,"percentage":0},{"id":"program","total":10549,"percentage":1},{"id":"ritwickdey.LiveServer","total":663629,"percentage":70},{"id":"self","total":202627,"percentage":21}]
+[2019-06-26 12:07:59.816] [renderer1] [info] no standard startup: not just one text editor
+[2019-06-26 12:08:05.265] [renderer1] [error] Failed to execute git
