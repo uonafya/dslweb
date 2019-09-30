@@ -1,34 +1,23 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import IndicatorRow from '../components/IndicatorRow';
 import fetch from 'isomorphic-unfetch';
 
 const Indicators = props => (
   <Layout>
 
-    <style jsx>{`
-        h1,
-        a {
-          font-family: 'Arial';
-        }
-
-        ul {
-          padding: 0;
-        }
-
-        li {
-          list-style: none;
-          margin: 5px 0;
-        }
-
-        a {
-          text-decoration: none;
-          color: blue;
-        }
-
-        a:hover {
-          opacity: 0.6;
-        }
-      `}</style>
+    {/* 
+      <style jsx>
+        {`
+          a {
+            text-decoration: none;
+          }
+          a:hover {
+            opacity: 0.6;
+          }
+        `}
+      </style> 
+    */}
   
     <section className="section m-t-30 p-t-20">
       <div className="section-heading m-b-5 p-t-30">
@@ -50,8 +39,8 @@ const Indicators = props => (
                           <div className="control column is-four-fifths">
                             <input type="text" className="input text-left" placeholder="Search"/>
                           </div>
-                          <div class="control column m-t-20">
-                            <button type="submit" className="button is-info m-t-12"><i className="fas fa-search"></i></button>
+                          <div class="control column m-t-0">
+                            <button type="submit" className="button is-info m-t-0"><i className="fas fa-search"></i></button>
                           </div>
                         </form>
                     </div>
@@ -71,31 +60,22 @@ const Indicators = props => (
             
           <div className="column bcbackgrund br-5">
             {props.indicators.map(indicator => (
-              <div className="text-left p-5 m-b-150 one_indicator bcwhite br-3 m-b-15" key={indicator.id}>
-                <div className="columns is-centered p-10">
-                  <div className="column is-1 p-20"><i className="fa fa-box fa-3x fcgrey-light-3"></i></div>
-                  <div className="column is-11">
-                    <h4 className="subtitle text-bold m-b-0">
-                      <Link as={`/indicator/${indicator.id}`} href={`/indicator/${indicator.id}`}>
-                        <a>
-                          {indicator.name}
-                        </a>
-                      </Link>  
-                    </h4>
-                    <small className="fcgrey-dark-3"> <i className="fa fa-folder fcblack"></i> &nbsp; <i>{props.indicatorGroups.filter(igrp => igrp.id == indicator.groupId)[0].name}</i> </small>
-                    <br/>
-                    <small>{indicator.description}</small>
-                  </div>
-                </div>
-              </div>
-            ))}
 
+              <IndicatorRow 
+                indicatorName={indicator.name} 
+                indicatorId={indicator.id} 
+                indicatorGroups={props.indicatorGroups.filter(igrp => igrp.id == indicator.groupId)} 
+                indicatorDescription={indicator.description} 
+                indicatorGroupId={indicator.groupId} 
+              />
+
+            ))}
           </div>
           
         </div>
       </div>
     
-  </section>
+    </section>
   </Layout>
 
 )
@@ -111,6 +91,7 @@ Indicators.getInitialProps = async function(context) {
     fetchIndicatorsUrl = `http://41.89.94.105/dsl/api/indicators`;
   }
   const fetchIndicators = await fetch(fetchIndicatorsUrl);
+  console.log(`fetchIndicators == ${JSON.stringify(fetchIndicators)}`);
 
   const indicatorsData = await fetchIndicators.json();
   console.clear();
