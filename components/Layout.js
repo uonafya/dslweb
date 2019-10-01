@@ -21,8 +21,10 @@ const Layout = props => (
       <link rel="stylesheet" href="/static/bulma-extensions/bulma-carousel/dist/css/bulma-carousel.min.css"/>
       <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
       <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+      <link rel="stylesheet" type="text/css" href="/static/css/tabs.css"/>
 
       <script async type="text/javascript" src="/static/js/bulma.js"></script>
+      <script async type="text/javascript" src="/static/js/tabs.js"></script>
       <script src="/static//bulma-extensions/bulma-carousel/dist/js/bulma-carousel.min.js"></script>
       <script src="/static/js/custom.js"></script>
     </Head>

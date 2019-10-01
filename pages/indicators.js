@@ -3,6 +3,9 @@ import Layout from '../components/Layout';
 import IndicatorRow from '../components/IndicatorRow';
 import fetch from 'isomorphic-unfetch';
 
+
+
+
 const Indicators = props => (
   <Layout>
 
@@ -114,6 +117,16 @@ Indicators.getInitialProps = async function(context) {
   };
 
 };
+
+// <<<<<<<<<<<<<<<<Search
+function searchIndicator(array, string) {
+  return array.filter(o =>
+    Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
+}
+  //const arrayOfObject = [{ name: 'Paul', country: 'Canada', }, { name: 'Lea', country: 'Italy', }, { name: 'John', country: 'Italy' }];
+  // console.log(searchIndicator(arrayOfObject, 'lea')); // [{name: 'Lea', country: 'Italy'}]
+  // console.log(searchIndicator(arrayOfObject, 'ita')); // [{name: 'Lea', country: 'Italy'}, {name: 'John', country: 'Italy'}]
+// >>>>>>>>>>>>>>>>Search
 
 export default Indicators;
 

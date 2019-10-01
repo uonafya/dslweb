@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { withRouter } from 'next/router';
 import Layout from '../components/Layout';
 import fetch from 'isomorphic-unfetch';
+import Pivot from '../components/Table';
+
 
 const Page = withRouter(props => (
   <Layout>
@@ -43,118 +45,73 @@ const Page = withRouter(props => (
           {/* Content */}
           <div className="column bcwhite br-5">
               <div className="text-left p-5 m-b-30">
+                  {/* Description */}
                   <div className="columns is-centered">
                     <div className="column p-20">
                       {props.indicatorData.result.dictionary.indicators.map(one_ind => (
-                          <p> 
-                            <strong> {one_ind.name} &nbsp; </strong> <br/> {one_ind.description}
-                            <hr/>
-                          </p>
+                        <p> 
+                          <strong> {one_ind.name} &nbsp; </strong> <br/> {one_ind.description}
+                          <hr/>
+                        </p>
                       ))}
                     </div>
-            
                   </div>
+                  {/* Description */}
                 </div>
             
                 <div className="container">
-                    <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4>
-                    <hr/>
+                    {/* <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4> */}
+                    <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">Indicator data</h4>
                     <div className="columns has-same-height is-gapless">
                       <div className="column">
-                          <h4 className="title m-b-0 m-l-10 is-6">
-                            <span className="text-bold display-inline-b text-larger fcsecondary-dark">TB curative rate</span> <br/>
-                            <label for="" className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time:</label>
-                            <span className="text-bold display-inline-b p-l-0 m-l-0">
-                              <div className="navbar-item has-dropdown is-hoverable">
-                                <a className="navbar-link m-l-0 p-l-0" href="#">
-                                  May 2017 - Aug 2018
-                                </a>
-                                <div className="navbar-dropdown is-boxed p-5">
-                                
-                                  <a className="navbar-item" href="#">
-                                      From &nbsp; <span className="fcsecondary">May 2017&#9662;</span>
-                                  </a>
-                                  <a className="navbar-item" href="#">
-                                      To &nbsp; <span className="fcsecondary">Aug 2018&#9662;</span>
-                                  </a>
+                        {/* Tabs */}
+                          <div className="tabs is-boxed" id="nav">
+                            <ul>
+                                <li data-target="pane-1" id="1" className="is-active">
+                                    <a><span>{/* Pivot */} Table</span></a>
+                                </li>
+                                {/* <li data-target="pane-2" id="2"><a><span>Charts &amp; Graphs</span></a></li> */}
+                                <li data-target="pane-3" id="3">
+                                    <a><span>Compare</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="tab-content">
+                            {/* Tab 1 */}
+                            <div className="tab-pane is-active" id="pane-1">
+                              <div className="columns">
+                                <div className="column text-center">
+                                  {/* <h1>Pivot</h1> */}
+                                  <Pivot pivotData={getPivotData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )} />
                                 </div>
                               </div>
-                            </span> &nbsp;
-                            <label for="" className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Location:</label>
-                            <span className="text-bold display-inline-b p-l-0 m-l-0">
-                              <div className="navbar-item has-dropdown is-hoverable">
-                                  <a className="navbar-link m-l-0 p-l-0" href="#">
-                                    National
-                                  </a>
-                                  <div className="navbar-dropdown is-boxed p-5">
-                                      <input type="text" className="input is-small m-0" placeholder="Search"/>
-                                      <a href="#" className="navbar-item">National</a>
-                                      <a href="#" className="navbar-item">Baringo County</a>
-                                      <a href="#" className="navbar-item">Bomet County</a>
-                                      <a href="#" className="navbar-item">Bungoma County</a>
-                                      <a href="#" className="navbar-item">Busia County</a>
-                                      <a href="#" className="navbar-item">Elgeyo Marakwet County</a>
-                                      <a href="#" className="navbar-item">Embu County</a>
-                                      <a href="#" className="navbar-item">Garissa County</a>
-                                      <a href="#" className="navbar-item">Homa Bay County</a>
-                                  </div>
+                            </div>
+                            {/* end Tab 1 */}
+                            
+                            {/* Tab 2 
+                            <div className="tab-pane" id="pane-2">
+                              <div className="columns">
+                                <div className="column text-center">
+                                  <h1>Charts</h1>
                                 </div>
-                            </span> &nbsp;
-                          </h4>
-                          <figure className="image is-5by2 m-10">
-                            <img src="images/g1.png" alt=""/>
-                          </figure>
-                      </div>
-                      <div className="column">
-                          <h4 className="title m-b-0 m-l-10 is-6">
-                              <span className="text-bold display-inline-b text-larger fcsecondary-dark">TB Case Detection/Diagnosis Rate</span> <br/>
-                              <label for="" className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time:</label>
-                              <span className="text-bold display-inline-b p-l-0 m-l-0">
-                                <div className="navbar-item has-dropdown is-hoverable">
-                                  <a className="navbar-link m-l-0 p-l-0" href="#">
-                                    May 2017 - Aug 2018
-                                  </a>
-                                  <div className="navbar-dropdown is-boxed p-5">
-                                    <a className="navbar-item" href="#">
-                                        From &nbsp; <span className="fcsecondary">May 2017&#9662;</span>
-                                    </a>
-                                    <a className="navbar-item" href="#">
-                                        To &nbsp; <span className="fcsecondary">Aug 2018&#9662;</span>
-                                    </a>
-                                  </div>
+                              </div>
+                            </div>
+                             end Tab 2 */}
+
+                            {/* Tab 3 */}
+                            <div className="tab-pane" id="pane-3">
+                              <div className="columns m-t-20">
+                                <div className="column notification shadow-heavy-light text-center is-vcentered">
+                                  <p><a href="login.html" className="is-link fcsecondary-dark">Log in</a> or <a href="#" className="is-link fcsecondary-dark">request for an account</a> to compare indicators</p>
+                                  <br/>
+                                  <a href="#" className="button is-secondary">Compare</a>
                                 </div>
-                              </span> &nbsp;
-                              <label for="" className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Location:</label>
-                              <span className="text-bold display-inline-b p-l-0 m-l-0">
-                                <div className="navbar-item has-dropdown is-hoverable">
-                                    <a className="navbar-link m-l-0 p-l-0" href="#">
-                                      National
-                                    </a>
-                                    <div className="navbar-dropdown is-boxed p-5">
-                                        <input type="text" className="input is-small m-0" placeholder="Search"/>
-                                        <a href="#" className="navbar-item">National</a>
-                                        <a href="#" className="navbar-item">Baringo County</a>
-                                        <a href="#" className="navbar-item">Bomet County</a>
-                                        <a href="#" className="navbar-item">Bungoma County</a>
-                                        <a href="#" className="navbar-item">Busia County</a>
-                                        <a href="#" className="navbar-item">Elgeyo Marakwet County</a>
-                                        <a href="#" className="navbar-item">Embu County</a>
-                                        <a href="#" className="navbar-item">Garissa County</a>
-                                        <a href="#" className="navbar-item">Homa Bay County</a>
-                                    </div>
-                                  </div>
-                              </span> &nbsp;
-                            </h4>
-                          <figure className="image is-5by2 m-10">
-                            <img src="images/g2.png" alt=""/>
-                          </figure>
-                      </div>
-                    </div>
-                    <div className="div">
-                      <div className="column notification shadow-heavy-light text-center is-vcentered">
-                        <p><a href="login.html" className="is-link fcsecondary-dark">Log in</a> or <a href="#" className="is-link fcsecondary-dark">request for an account</a> to compare indicators</p>
-                        <br/>
-                        <a href="#" className="button is-secondary">Compare</a>
+                              </div>
+                            </div>
+                            {/* end Tab 3 */}
+                        </div>
+                        {/* Tabs */}
+                        
                       </div>
                     </div>
                 </div>
@@ -182,7 +139,7 @@ const Page = withRouter(props => (
                             {props.indicatorData.result.dictionary.indicators.length > 0 ?
                               props.indicatorData.result.dictionary.indicators.map(one_ind => (
                                 <label for="" className="label fcgrey-dark-3 text-normal">
-                                  <a href="#"><span className="tag is-secondary is-dark">{one_ind.date_created}</span></a>
+                                  <a href="#"><span className="tag is-secondary is-dark">{one_ind.source}</span></a>
                                 </label>
                               )) : ""
                             } &nbsp;
@@ -229,7 +186,6 @@ const Page = withRouter(props => (
                           <label for="" className="label fcgrey-dark-3 text-normal">Time-span:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
-                            {/* <label for="" className="label fcblack-1 display-inline-b">1<sup>st</sup> Jan, 2003</label> */}
                               <label for="" className="label fcblack-1 display-inline-b">
                                 {props.indicatorData.result.dictionary.parameters.period[0]}
                               </label>
@@ -271,8 +227,22 @@ Page.getInitialProps = async function(context) {
 
   console.log(`Indicator fetched. ID: ${id}`);
 
-  return { indicatorData };
+  return { indicatorData, id };
 };
 
+function getPivotData(dictionary, row_data) {
+  const main_data = [ ["Period", "Organisation Unit", "Value"] ]
+  row_data.forEach(row => {
+    const one_innerow = [];
+    var ou_name = dictionary.orgunits.find(function(oneou) {
+      return oneou.id == row.ou;
+    });
+    one_innerow.push(row.period);
+    one_innerow.push(ou_name.name);
+    one_innerow.push(parseFloat(row.value));
+    main_data.push(one_innerow);
+  });
+  return main_data
+}
 
 export default Page;
