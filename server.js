@@ -12,9 +12,16 @@ app
     const server = express();
     server.use(cors());
 
+    // server.get('/indicators', (req, res) => {
+    //     const actualPage = '/indicators';
+    //     const queryParams = { search: req.params.search, group: req.params.group };
+    //     console.log("queryParams = "+JSON.stringify(queryParams));
+    //     app.render(req, res, actualPage, queryParams);
+    // });
     server.get('/indicator/:id', (req, res) => {
         const actualPage = '/indicator';
-        const queryParams = { id: req.params.id };
+        const queryParams = { id: req.params.id, pe: req.query.pe, ouid: req.query.ouid };
+        console.log("queryParams = "+JSON.stringify(queryParams));
         app.render(req, res, actualPage, queryParams);
     });
 

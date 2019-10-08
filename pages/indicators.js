@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import Router from 'next/router'
 import Layout from '../components/Layout';
+import Loading from '../components/Loading';
 import IndicatorRow from '../components/IndicatorRow';
 import fetch from 'isomorphic-unfetch';
 
@@ -40,10 +42,30 @@ const Indicators = props => (
                     <div className="content m-l-15 m-t-0">
                         <form className="columns">
                           <div className="control column is-four-fifths">
-                            <input type="text" className="input text-left" placeholder="Search"/>
+                            
+                            <input type="text" className="input text-left" name="search" id="search" placeholder="Search" />
+                            {props.search != undefined ? <small>
+                              <a className="fcsecondary" onClick={ () => {
+                                Router.push('/indicators')
+                                document.getElementById("search").value = ""
+                              }
+                              }><small>&times; Clear search</small></a>
+                            </small> : ""}
                           </div>
-                          <div class="control column m-t-0">
-                            <button type="submit" className="button is-info m-t-0"><i className="fas fa-search"></i></button>
+                          <div className="control column m-t-0">
+                            {/* <button type="button" className="button is-info m-t-0" onClick={
+                              () => console.log('jooooooox')
+                            } ><i className="fas fa-users"></i></button> */}
+                            <button type="button" className="button is-info m-t-0"
+                              onClick={
+                                () => {
+                                  console.log("searching ============================== " )
+                                  const searchTerm = document.getElementsByName("search")[0].value;
+                                  const newRoute = `/indicators?search=${encodeURI(searchTerm)}`;
+                                  encodeURI(searchTerm).length>2 ? Router.push(newRoute) : console.log('////////// bad search term')
+                                }
+                              }
+                            ><i className="fas fa-search"></i></button>
                           </div>
                         </form>
                     </div>
@@ -61,19 +83,26 @@ const Indicators = props => (
                 </div>
             </div>
             
-          <div className="column bcbackgrund br-5">
-            {props.indicators.map(indicator => (
+            {props.loading == true
+              ? <div className="column bcbackground br-5 bcclear"> <Loading showImage={true} isBig={true}/></div>
+              : ""
+            }
+            
 
-              <IndicatorRow 
-                indicatorName={indicator.name} 
-                indicatorId={indicator.id} 
-                indicatorGroups={props.indicatorGroups.filter(igrp => igrp.id == indicator.groupId)} 
-                indicatorDescription={indicator.description} 
-                indicatorGroupId={indicator.groupId} 
-              />
+            <div className={props.loading === true?"column bcbackgrund br-5 hidden":"column bcbackgrund br-5"}>
+              
+              {props.indicators.map(indicator => (
 
-            ))}
-          </div>
+                <IndicatorRow 
+                  indicatorName={indicator.name} 
+                  indicatorId={indicator.id} 
+                  indicatorGroups={props.indicatorGroups.filter(igrp => igrp.id == indicator.groupId)} 
+                  indicatorDescription={indicator.description} 
+                  indicatorGroupId={indicator.groupId} 
+                />
+
+              ))}
+            </div>
           
         </div>
       </div>
@@ -84,10 +113,41 @@ const Indicators = props => (
 )
 
 Indicators.getInitialProps = async function(context) {
-  const { group } = context.query;
-  console.log(`group == ${group}`);
-  let fetchIndicatorsUrl = null;
+  const { group, search } = context.query;
+  console.log(`groupQry == ${group}`);
+  console.log(`searchQry == ${search}`);
   let activeIndicatorGroup = 'All';
+  const loadingg = true;
+  let {indicatorsData, loading2} = await fetchIndicatorsFn(group,loadingg)
+  const fetchIndicatorGroups = await fetch('http://41.89.94.105/dsl/api/indicatorgroups');
+  const indicatorGroupsData = await fetchIndicatorGroups.json();
+  console.log(`IndicatorGroups fetched. Count: ${indicatorGroupsData.length}`);
+  
+  if(group != undefined){
+    activeIndicatorGroup = indicatorGroupsData.filter(indicatorGroup => indicatorGroup.id == group)[0].name;
+  }else{
+    activeIndicatorGroup = 'All';
+  }
+  
+  if(search != undefined){
+    indicatorsData = searchIndicator(indicatorsData, decodeURI(search));
+    activeIndicatorGroup = `Search result for: ${decodeURI(search)} `;
+  }
+
+  return {
+    indicators: indicatorsData.map(indicator => indicator),
+    activeIndicatorGroup: activeIndicatorGroup,
+    loadingg: loading2,
+    search,
+    indicatorGroups: indicatorGroupsData.map(indicatorGroup => indicatorGroup),
+  };
+
+};
+
+
+async function fetchIndicatorsFn(group,loadingg) { 
+  loadingg = true;
+  let fetchIndicatorsUrl = null;
   if(group !== undefined){
     fetchIndicatorsUrl = `http://41.89.94.105/dsl/api/indicators?groupId=${group}`;
   }else{
@@ -97,35 +157,23 @@ Indicators.getInitialProps = async function(context) {
   console.log(`fetchIndicators == ${JSON.stringify(fetchIndicators)}`);
 
   const indicatorsData = await fetchIndicators.json();
-  console.clear();
-  console.log(`Indicators fetched. Count: ${indicatorsData.length} & Url: ${fetchIndicatorsUrl}`);
   
-  const fetchIndicatorGroups = await fetch('http://41.89.94.105/dsl/api/indicatorgroups');
-  const indicatorGroupsData = await fetchIndicatorGroups.json();
-  console.log(`IndicatorGroups fetched. Count: ${indicatorGroupsData.length}`);
-  
-  if(group !== undefined){
-    activeIndicatorGroup = indicatorGroupsData.filter(indicatorGroup => indicatorGroup.id == group)[0].name;
-  }else{
-    activeIndicatorGroup = 'All';
+  if(indicatorsData){
+    loadingg = false;
   }
-
-  return {
-    indicators: indicatorsData.map(indicator => indicator),
-    activeIndicatorGroup,
-    indicatorGroups: indicatorGroupsData.map(indicatorGroup => indicatorGroup)
-  };
-
-};
+  console.log(`Indicators fetched. Count: ${indicatorsData.length} & Url: ${fetchIndicatorsUrl} and loading: ${loadingg}`);
+  return {indicatorsData, loadingg}
+}
 
 // <<<<<<<<<<<<<<<<Search
 function searchIndicator(array, string) {
+  console.log("function searchIndicator for "+string)
   return array.filter(o =>
     Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
 }
-  //const arrayOfObject = [{ name: 'Paul', country: 'Canada', }, { name: 'Lea', country: 'Italy', }, { name: 'John', country: 'Italy' }];
-  // console.log(searchIndicator(arrayOfObject, 'lea')); // [{name: 'Lea', country: 'Italy'}]
-  // console.log(searchIndicator(arrayOfObject, 'ita')); // [{name: 'Lea', country: 'Italy'}, {name: 'John', country: 'Italy'}]
+function julishana(bt) {
+  console.log("}}}}}}}}}}}}}}77777LLLLLLL{{{{{{{{{{{{{{ ")
+}
 // >>>>>>>>>>>>>>>>Search
 
 export default Indicators;

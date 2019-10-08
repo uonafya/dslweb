@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { withRouter } from 'next/router';
+import Router from 'next/router'
 import Layout from '../components/Layout';
+import Loading from '../components/Loading';
 import fetch from 'isomorphic-unfetch';
 import Pivot from '../components/Table';
 
@@ -17,7 +19,7 @@ const Page = withRouter(props => (
             <li className="is-active">
               <a aria-current="page"> 
                 {props.indicatorData.result.dictionary.indicators.map(one_indi => (
-                  one_indi.name
+                  one_indi.id
                 ))} &nbsp;
               </a>
             </li>
@@ -31,19 +33,99 @@ const Page = withRouter(props => (
     <section className="section m-t-5 p-t-10">
       <div className="section-heading m-b-5">
         <div className="container">
-          <h3 className="title text-left fcsecondary-dark text-bold"> 
-            {props.indicatorData.result.dictionary.indicators.map(one_ind => (
-              one_ind.name
-            ))} &nbsp; 
-          </h3>
-          <hr/>
+        {props.loading == true
+            ? <div className="columns"><div className="column"> <Loading showImage={false} isBig={false}/></div> </div>
+            : ""
+          }
+          <div className={props.loading == true ? "columns hidden" : "columns"}>
+            <div className="column">
+              <h3 className="title text-left fcsecondary-dark text-bold"> 
+                {props.indicatorData.result.dictionary.indicators.map(one_ind => (
+                  one_ind.name
+                ))} &nbsp; 
+              </h3>
+              <hr/>
+            </div>
+            <div className="column">
+              <h4 className="title m-b-5 m-l-10 text-right is-6">
+                <label for="" className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time: </label>&nbsp;
+                <span className="text-bold display-inline-b p-l-0 m-l-0">
+                  {/* <!-- daterangepicker --> */}
+                  <div className="navbar-item has-dropdown is-hoverable">
+                    <a className="navbar-link m-l-0 p-l-0">
+                      From {props.indicatorData.result.dictionary.parameters.period[0]} &nbsp;
+                      {props.indicatorData.result.dictionary.parameters.period.length > 1 ? 
+                      "To "+props.indicatorData.result.dictionary.parameters.period[parseFloat(props.indicatorData.result.dictionary.parameters.period.length-1)]
+                      :""}
+                    </a>
+                    <div className="navbar-dropdown is-boxed p-5">
+                      <div className="select is-fullwidth">
+                        <select onChange={
+                          (e) => { 
+                            const newRoute = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
+                            console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
+                            Router.push(newRoute)
+                            // window.location.href = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`
+                          } 
+                        }>
+                          <option value="" disabled>Year</option>
+                          {props.years.map(
+                            oneyr => (
+                              <option value={oneyr} disabled={oneyr==props.pe?'"true"':''} selected={oneyr==props.pe?'"true"':''}>{oneyr}</option>
+                            )
+                          )}
+                        </select> 
+                      </div> 
+                    </div>
+                  </div>
+                  {/* <!-- daterangepicker --> */}
+                </span> &nbsp;
+                <label for="" className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Location: </label>&nbsp;
+                <span className="text-bold display-inline-b p-l-0 m-l-0">
+                  {/* <!-- geopicker --> */}
+                  <div className="navbar-item has-dropdown is-hoverable">
+                      <a className="navbar-link m-l-0 p-l-0">
+                        {props.indicatorData.result.dictionary.parameters.location.map(one_ou => (
+                            getOUname(props.indicatorData.result.dictionary.orgunits, one_ou)
+                        ))} 
+                      </a>
+                      <div className="navbar-dropdown is-boxed p-5">
+                          <div className="select is-fullwidth">
+                            <select  onChange={
+                              (e) => { 
+                                const newOUroute = `/indicator/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
+                                console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value)
+                                Router.push(newOUroute);
+                                // window.location.href = `/indicator/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
+                              } 
+                            }>
+                              <option disabled value="">Pick a county</option>
+                              <option value="18">NATIONAL (Kenya)</option>
+                              {props.counties.map(
+                                onecty => (
+                                  <option value={onecty.id} disabled={onecty.id==props.ouid?'"true"':''} selected={onecty.id==props.ouid?'"true"':''}>{onecty.name}</option>
+                                )
+                              )}
+                            </select>
+                          </div>
+                      </div>
+                    </div>
+                    {/* <!-- geopicker --> */}
+                </span> &nbsp;
+              </h4>
+            </div>
+          </div>
         </div>
       </div>
       <div className="container">
         <div className="columns">
           
           {/* Content */}
-          <div className="column bcwhite br-5">
+          {props.loading == true
+            ? <div className="column bcwhite br-5"> <Loading showImage={false} isBig={false}/> </div>
+            : ""
+          }
+          <div className={props.loading == true ? "column bcwhite br-5 hidden" : "column bcwhite br-5"}>
               <div className="text-left p-5 m-b-30">
                   {/* Description */}
                   <div className="columns is-centered">
@@ -89,16 +171,16 @@ const Page = withRouter(props => (
                             {/* end Tab 1 */}
                             
                             {/* Tab 2 
-                            <div className="tab-pane" id="pane-2">
-                              <div className="columns">
-                                <div className="column text-center">
-                                  <h1>Charts</h1>
+                              <div className="tab-pane" id="pane-2">
+                                <div className="columns">
+                                  <div className="column text-center">
+                                    <h1>Charts</h1>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
                              end Tab 2 */}
 
-                            {/* Tab 3 */}
+                            {/* Tab 3 - Compare*/}
                             <div className="tab-pane" id="pane-3">
                               <div className="columns m-t-20">
                                 <div className="column notification shadow-heavy-light text-center is-vcentered">
@@ -131,9 +213,13 @@ const Page = withRouter(props => (
                       <div className="section-heading m-0 p-0 m-b-15">
                           <h4 className="title is-5 text-left fcsecondary-dark text-bold m-b-15">About this indicator:</h4>
                       </div>
-                      <div className="columns m-l-15 p-0 m-b-0">
+                      {props.loading == true
+                        ? <div className="columns m-l-15 p-0 m-b-0"><div className="column"> <Loading showImage={false} isBig={false}/></div> </div>
+                        : ""
+                      }
+                      <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-normal">Source:</label>
+                          <label for="" className="label fcgrey-dark-3 text-small">Source:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
                             {props.indicatorData.result.dictionary.indicators.length > 0 ?
@@ -145,21 +231,23 @@ const Page = withRouter(props => (
                             } &nbsp;
                         </div>
                       </div>
-                      <div className="columns m-l-15 p-0 m-b-0">
-                        <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-normal">Date created:</label>
+                      
+                      <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
+                        <div className="column m-l-15 p-0 m-b-0 is-one-third p-5">
+                          <label for="" className="label fcgrey-dark-3 text-small">Date created:</label>
                         </div>
                         <div className="column text-bold p-b-15 p-t-5">
                             {props.indicatorData.result.dictionary.indicators.length > 0 ?
                               props.indicatorData.result.dictionary.indicators.map(one_ind => (
-                                <label for="" className="label fcgrey-dark-3 text-normal">{one_ind.date_created}</label>
+                                <label for="" className="label fcclack-1">{one_ind.date_created}</label>
                               )) : ""
                             } &nbsp;
                         </div>
                       </div>
-                      <div className="columns m-l-15 p-0 m-b-0">
+                      
+                      <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-normal">Last updated:</label>
+                          <label for="" className="label fcgrey-dark-3 text-small">Last updated:</label>
                         </div>
                         <div className="column text-bold p-b-15 p-t-5">
                             {props.indicatorData.result.dictionary.indicators.length > 0 ?
@@ -169,9 +257,10 @@ const Page = withRouter(props => (
                             } &nbsp;
                         </div>
                       </div>
-                      <div className="columns m-l-15 p-0 m-b-0">
+                      
+                      <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-normal">Geo-scope:</label>
+                          <label for="" className="label fcgrey-dark-3 text-small">Geo-scope:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
                             {props.indicatorData.result.dictionary.indicators.length > 0 ?
@@ -181,9 +270,10 @@ const Page = withRouter(props => (
                             } &nbsp;
                         </div>
                       </div>
-                      <div className="columns m-l-15 p-0 m-b-0">
+                      
+                      <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-normal">Time-span:</label>
+                          <label for="" className="label fcgrey-dark-3 text-small">Time-span:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
                               <label for="" className="label fcblack-1 display-inline-b">
@@ -220,14 +310,18 @@ const Page = withRouter(props => (
 
 Page.getInitialProps = async function(context) {
   const { id } = context.query; //get GET params sent to this page
-  const { indicatorId } = context.query; //get GET params sent to this page
-  console.log(`Indicator ID == ${id}`);
-  const fetchIndicatorData = await fetch(`http://41.89.94.105/dsl/api/indicators/${id}`);
-  const indicatorData = await fetchIndicatorData.json();
+  const { pe } = context.query; //get GET params sent to this page
+  const { ouid } = context.query; //get GET params sent to this page
+  const loadingg = true;
+  const { indicatorData, loading } = await fetchIndicatorData(id,ouid,pe,loadingg)
+  
+  // for filters
+  const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
+  const countyList = await fetch(`http://41.89.94.105/dsl/api/counties`);
+  const counties = await countyList.json();
+  // for filters
 
-  console.log(`Indicator fetched. ID: ${id}`);
-
-  return { indicatorData, id };
+  return { indicatorData, id, ouid, pe, years, counties, loading };
 };
 
 function getPivotData(dictionary, row_data) {
@@ -244,5 +338,30 @@ function getPivotData(dictionary, row_data) {
   });
   return main_data
 }
+function getOUname(dict, ou_id) {
+    var ou_name0 = dict.find(function(oneou) {
+      return oneou.id == ou_id;
+    })
+    var ou_name = ou_name0.name
+  return ou_name
+}
+async function fetchIndicatorData(id,ouid,pe,loading) {
+  console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe}`)
+  loading = true;
+  let fetchIndicatorDataUrl = `http://41.89.94.105/dsl/api/indicators/${id}`;
+  if(pe != undefined){
+    fetchIndicatorDataUrl += `?pe=${pe}`;
+  }
+  if(ouid != undefined){
+    fetchIndicatorDataUrl += `&ouid=${ouid}`;
+  }
+  const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
+  const indicatorData = await fetchIndicatorData.json();
+  if(indicatorData){
+    loading = false;
+  }
+  return {indicatorData, loading}
+}
+
 
 export default Page;

@@ -240,6 +240,8 @@
 /* Buttons */
 .is-primary{ background-color: #329f5b !important; color: #ffffff !important; }
 .is-primary.is-light{ background-color: #8fd5a6 !important; color: #111111 !important; }
+.is-gray.is-lighter{ background-color: #f4f6f7 !important; color: #111111 !important; }
+.is-gray.is-light{ background-color: #e4ecf1 !important; color: #111111 !important; }
 .isprimary.is-dark{ background-color: #0b7840 !important;  color: #ffffff !important; }
 .is-info, .is-secondary{ background-color: #026BF7 !important; color: #ffffff !important;  }
 .is-info.is-light, .is-secondary.is-light{ background-color: #91baf0 !important;  color: #111111 !important; }
