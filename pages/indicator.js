@@ -89,7 +89,7 @@ const Page = withRouter(props => (
                             getOUname(props.indicatorData.result.dictionary.orgunits, one_ou)
                         ))} 
                       </a>
-                      <div className="navbar-dropdown is-boxed p-5">
+                      <div className="navbar-dropdown is-boxed p-5 min-w-150-px">
                           <div className="select is-fullwidth">
                             <select  onChange={
                               (e) => { 
@@ -233,7 +233,7 @@ const Page = withRouter(props => (
                       </div>
                       
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
-                        <div className="column m-l-15 p-0 m-b-0 is-one-third p-5">
+                        <div className="column m-l-0 p-0 m-b-0 is-one-third p-5">
                           <label for="" className="label fcgrey-dark-3 text-small">Date created:</label>
                         </div>
                         <div className="column text-bold p-b-15 p-t-5">
@@ -309,17 +309,23 @@ const Page = withRouter(props => (
 ));
 
 Page.getInitialProps = async function(context) {
-  const { id } = context.query; //get GET params sent to this page
-  const { pe } = context.query; //get GET params sent to this page
-  const { ouid } = context.query; //get GET params sent to this page
-  const loadingg = true;
-  const { indicatorData, loading } = await fetchIndicatorData(id,ouid,pe,loadingg)
+  let { id } = context.query; //get GET params sent to this page
+  let { pe } = context.query; //get GET params sent to this page
+  let { ouid } = context.query; //get GET params sent to this page
+  let loadingg = true;
+  let { indicatorData, loading } = await fetchIndicatorData(id,ouid,pe,loadingg)
   
   // for filters
   const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
   const countyList = await fetch(`http://41.89.94.105/dsl/api/counties`);
   const counties = await countyList.json();
   // for filters
+  if(pe == undefined){
+    pe=indicatorData.result.dictionary.parameters.period.map( onepe => ( onepe ) )
+  }
+  if(ouid == undefined){
+    ouid=indicatorData.result.dictionary.parameters.location.map( oneloc => ( oneloc ) )
+  }
 
   return { indicatorData, id, ouid, pe, years, counties, loading };
 };
