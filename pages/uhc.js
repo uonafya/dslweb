@@ -23,6 +23,7 @@ export default function UHC() {
               <p>Achieving UHC is one of the targets the nations of the world set when adopting the Sustainable Development Goals in 2015. Countries that progress towards UHC will make progress towards the other health-related targets, and towards the other goals. Good health allows children to learn and adults to earn, helps people escape from poverty, and provides the basis for long-term economic development.</p>
               <blockquote>
                 <ul>
+                  <li><a href="https://uhckenya.org/" target="_blank">- <small>UHC Kenya</small></a></li>
                   <li><a href="https://www.who.int/news-room/fact-sheets/detail/universal-health-coverage-(uhc)" target="_blank">- <small>World Health Organisation</small></a></li>
                   <li><a href="http://www.health.go.ke/wp-content/uploads/2019/01/UHC-QI-Policy-Brief.pdf" target="_blank">- <small>MoH Policy Brief - UHC</small></a></li>
                 </ul>

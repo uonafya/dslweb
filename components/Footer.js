@@ -27,6 +27,8 @@ const Footer = () => (
             <li><a href="https://uhckenya.org/" target="_blank">Universal Health Coverage</a></li>
             <li><a href="http://www.ihris.or.ke" target="_blank">IHRIS</a></li>
             <li><a href="http://www.kemsa.co.ke/" target="_blank">KEMSA</a></li>
+            <li><a href="http://www.nmcp.or.ke/" target="_blank">NMCP</a></li>
+            <li><a href="http://www.familyplanning2020.org/kenya" target="_blank">Family Planning</a></li>
           </ul>
         </div>
         <div className="column">
@@ -35,7 +37,7 @@ const Footer = () => (
               <li><a href="#">FAQs</a></li>
               <li><a href="#">User manual</a></li>
               <li><a href="https://servicedesk.health.go.ke/" target="_blank">Service desk</a></li>
-              <li><a href="#">System Documentation</a></li>
+              <li><a href="http://41.89.94.105/dsl/" target="_blank">System &amp; API Documentation</a></li>
               <li><a href="https://uhckenya.org/about/" target="_blank">UHC Information Centre</a></li>
               <li><a href="http://elearning.health.go.ke/" target="_blank">HIS eLearning Portal</a></li>
               <li><a href="#">DSL Wiki</a></li>

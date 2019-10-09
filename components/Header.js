@@ -45,15 +45,15 @@ const Header = () => (
                   Programs
               </a>
               <div className="navbar-dropdown is-boxed">
-                  <a className="navbar-item" href="http://www.kemsa.co.ke/" target="_blank">
+                  <a className="navbar-item" href="#" target="_blank">
                       KEMSA
                   </a>
-                  <a className="navbar-item" href="http://www.nmcp.or.ke/" target="_blank">
+                  <Link href="/indicators?search=malaria" as="/indicators?search=malaria"><a className="navbar-item">
                       Malaria
-                  </a>
-                  <a className="navbar-item" href="http://www.familyplanning2020.org/kenya" target="_blank">
+                  </a></Link>
+                  <Link href="/indicators?search=malaria" as="/indicators?search=fp"><a className="navbar-item">
                       Family Planning
-                  </a>
+                  </a></Link>
               </div>
             </div>
             {/* <a className="navbar-item is-primary" href="./login.html">
