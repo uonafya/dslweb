@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import fetch from 'isomorphic-unfetch';
 import Pivot from '../components/Table';
+import DTable from '../components/DataTable';
 
 
 const Page = withRouter(props => (
@@ -18,9 +19,11 @@ const Page = withRouter(props => (
             <li><Link href="/indicators"><a>All indicators</a></Link></li>
             <li className="is-active">
               <a aria-current="page"> 
-                {props.indicatorData.result.dictionary.indicators.map(one_indi => (
-                  one_indi.id
-                ))} &nbsp;
+                {props.error ? "" :
+                  props.indicatorData.result.dictionary.indicators.map(one_indi => (
+                    one_indi.id
+                  ))
+                } &nbsp;
               </a>
             </li>
           </ul>
@@ -40,7 +43,8 @@ const Page = withRouter(props => (
           <div className={props.loading == true ? "columns hidden" : "columns"}>
             <div className="column">
               <h3 className="title text-left fcsecondary-dark text-bold"> 
-                {props.indicatorData.result.dictionary.indicators.map(one_ind => (
+                {props.error ? <div><small className="is-error is-fullwidth p-4 br-3 is-6">Error loading data </small></div> :
+                  props.indicatorData.result.dictionary.indicators.map(one_ind => (
                   one_ind.name
                 ))} &nbsp; 
               </h3>
@@ -48,28 +52,30 @@ const Page = withRouter(props => (
             </div>
             <div className="column">
               <h4 className="title m-b-5 m-l-10 text-right is-6">
-                <label for="" className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time: </label>&nbsp;
+                <label className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time: </label>&nbsp;
                 <span className="text-bold display-inline-b p-l-0 m-l-0">
                   {/* <!-- daterangepicker --> */}
                   <div className="navbar-item has-dropdown is-hoverable">
                     <a className="navbar-link m-l-0 p-l-0">
-                      From {props.indicatorData.result.dictionary.parameters.period[0]} &nbsp;
-                      {props.indicatorData.result.dictionary.parameters.period.length > 1 ? 
-                      "To "+props.indicatorData.result.dictionary.parameters.period[parseFloat(props.indicatorData.result.dictionary.parameters.period.length-1)]
-                      :""}
+                      {
+                        props.error == true ? "" : 
+                          'From'+ props.indicatorData.result.dictionary.parameters.period[0] + '&nbsp;'+
+                          props.indicatorData.result.dictionary.parameters.period.length > 1 ? 
+                            "To "+props.indicatorData.result.dictionary.parameters.period[parseFloat(props.indicatorData.result.dictionary.parameters.period.length-1)]
+                          : ""
+                      }
                     </a>
                     <div className="navbar-dropdown is-boxed p-5">
                       <div className="select is-fullwidth">
                         <select onChange={
                           (e) => { 
                             const newRoute = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
-                            console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
+                            // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
                             Router.push(newRoute)
-                            // window.location.href = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`
                           } 
                         }>
                           <option value="" disabled>Year</option>
-                          {props.years.map(
+                          {props.error ? "" : props.years.map(
                             oneyr => (
                               <option value={oneyr} disabled={oneyr==props.pe?'"true"':''} selected={oneyr==props.pe?'"true"':''}>{oneyr}</option>
                             )
@@ -80,12 +86,13 @@ const Page = withRouter(props => (
                   </div>
                   {/* <!-- daterangepicker --> */}
                 </span> &nbsp;
-                <label for="" className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Location: </label>&nbsp;
+                <label className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Location: </label>&nbsp;
                 <span className="text-bold display-inline-b p-l-0 m-l-0">
                   {/* <!-- geopicker --> */}
                   <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link m-l-0 p-l-0">
-                        {props.indicatorData.result.dictionary.parameters.location.map(one_ou => (
+                        {props.error ? "":
+                          props.indicatorData.result.dictionary.parameters.location.map(one_ou => (
                             getOUname(props.indicatorData.result.dictionary.orgunits, one_ou)
                         ))} 
                       </a>
@@ -94,17 +101,17 @@ const Page = withRouter(props => (
                             <select  onChange={
                               (e) => { 
                                 const newOUroute = `/indicator/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
-                                console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value)
+                                // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value)
                                 Router.push(newOUroute);
-                                // window.location.href = `/indicator/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
                               } 
                             }>
                               <option disabled value="">Pick a county</option>
                               <option value="18">NATIONAL (Kenya)</option>
-                              {props.counties.map(
-                                onecty => (
-                                  <option value={onecty.id} disabled={onecty.id==props.ouid?'"true"':''} selected={onecty.id==props.ouid?'"true"':''}>{onecty.name}</option>
-                                )
+                              {props.error ? "" :
+                                props.counties.map(
+                                  onecty => (
+                                    <option value={onecty.id} disabled={onecty.id==props.ouid?'"true"':''} selected={onecty.id==props.ouid?'"true"':''}>{onecty.name}</option>
+                                  )
                               )}
                             </select>
                           </div>
@@ -130,7 +137,8 @@ const Page = withRouter(props => (
                   {/* Description */}
                   <div className="columns is-centered">
                     <div className="column p-20">
-                      {props.indicatorData.result.dictionary.indicators.map(one_ind => (
+                      {props.error? <span className="is-error is-fullwidth p-4 br-3 text-center">There was an error loading data for this indicator (ID: <strong><u>{props.id}</u></strong>). <br/><small>Try refreshing this page again. If this persists, notify the admin <a href="mailto:dndiithi@healthit.uonbi.ac.ke">here</a></small></span> :
+                        props.indicatorData.result.dictionary.indicators.map(one_ind => (
                         <p> 
                           <strong> {one_ind.name} &nbsp; </strong> <br/> {one_ind.description}
                           <hr/>
@@ -152,7 +160,7 @@ const Page = withRouter(props => (
                                 <li data-target="pane-1" id="1" className="is-active">
                                     <a><span>{/* Pivot */} Table</span></a>
                                 </li>
-                                {/* <li data-target="pane-2" id="2"><a><span>Charts &amp; Graphs</span></a></li> */}
+                                <li data-target="pane-2" id="2"><a><span>Charts &amp; Graphs</span></a></li>
                                 <li data-target="pane-3" id="3">
                                     <a><span>Compare</span></a>
                                 </li>
@@ -164,13 +172,17 @@ const Page = withRouter(props => (
                               <div className="columns">
                                 <div className="column text-center">
                                   {/* <h1>Pivot</h1> */}
-                                  <Pivot pivotData={getPivotData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )} />
+                                  {/* <Pivot pivotData={getPivotData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )} /> */}
+                                  {props.error 
+                                    ? <span className="is-error is-fullwidth p-4 br-3">!!!</span> 
+                                    : <DTable pivotData={getPivotData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )}/>
+                                  }
                                 </div>
                               </div>
                             </div>
                             {/* end Tab 1 */}
                             
-                            {/* Tab 2 
+                            {/* Tab 2  */}
                               <div className="tab-pane" id="pane-2">
                                 <div className="columns">
                                   <div className="column text-center">
@@ -178,7 +190,7 @@ const Page = withRouter(props => (
                                   </div>
                                 </div>
                               </div>
-                             end Tab 2 */}
+                            {/* end Tab 2 */}
 
                             {/* Tab 3 - Compare*/}
                             <div className="tab-pane" id="pane-3">
@@ -219,12 +231,12 @@ const Page = withRouter(props => (
                       }
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-small">Source:</label>
+                          <label className="label fcgrey-dark-3 text-small">Source:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
-                            {props.indicatorData.result.dictionary.indicators.length > 0 ?
+                            {props.error ?
                               props.indicatorData.result.dictionary.indicators.map(one_ind => (
-                                <label for="" className="label fcgrey-dark-3 text-normal">
+                                <label className="label fcgrey-dark-3 text-normal">
                                   <a href="#"><span className="tag is-secondary is-dark">{one_ind.source}</span></a>
                                 </label>
                               )) : ""
@@ -234,12 +246,12 @@ const Page = withRouter(props => (
                       
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column m-l-0 p-0 m-b-0 is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-small">Date created:</label>
+                          <label className="label fcgrey-dark-3 text-small">Date created:</label>
                         </div>
                         <div className="column text-bold p-b-15 p-t-5">
-                            {props.indicatorData.result.dictionary.indicators.length > 0 ?
+                            {props.error ?
                               props.indicatorData.result.dictionary.indicators.map(one_ind => (
-                                <label for="" className="label fcclack-1">{one_ind.date_created}</label>
+                                <label className="label fcclack-1">{one_ind.date_created}</label>
                               )) : ""
                             } &nbsp;
                         </div>
@@ -247,12 +259,12 @@ const Page = withRouter(props => (
                       
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-small">Last updated:</label>
+                          <label className="label fcgrey-dark-3 text-small">Last updated:</label>
                         </div>
                         <div className="column text-bold p-b-15 p-t-5">
-                            {props.indicatorData.result.dictionary.indicators.length > 0 ?
+                            {props.error ?
                               props.indicatorData.result.dictionary.indicators.map(one_ind => (
-                                <label for="" className="label fcblack-1">{one_ind.last_updated}</label>
+                                <label className="label fcblack-1">{one_ind.last_updated}</label>
                               )) : ""
                             } &nbsp;
                         </div>
@@ -260,10 +272,10 @@ const Page = withRouter(props => (
                       
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-small">Geo-scope:</label>
+                          <label className="label fcgrey-dark-3 text-small">Geo-scope:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
-                            {props.indicatorData.result.dictionary.indicators.length > 0 ?
+                            {props.error ?
                               props.indicatorData.result.dictionary.orgunits.map(one_org => (
                                 <a href="#"><span className="tag is-success is-dark">{one_org.name}</span></a>
                               )) : ""
@@ -273,14 +285,17 @@ const Page = withRouter(props => (
                       
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
-                          <label for="" className="label fcgrey-dark-3 text-small">Time-span:</label>
+                          <label className="label fcgrey-dark-3 text-small">Time-span:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
-                              <label for="" className="label fcblack-1 display-inline-b">
-                                {props.indicatorData.result.dictionary.parameters.period[0]}
+                              <label className="label fcblack-1 display-inline-b">
+                                {props.error ? "" :
+                                  props.indicatorData.result.dictionary.parameters.period[0]
+                                }
                               </label>
-                              {props.indicatorData.result.dictionary.parameters.period.length > 1 ? 
-                                ` &nbsp; - &nbsp; <label for="" className="label fcblack-1 display-inline-b"> 
+                              {props.error ? "" :
+                                props.indicatorData.result.dictionary.parameters.period.length > 1 ? 
+                                ` &nbsp; - &nbsp; <label className="label fcblack-1 display-inline-b"> 
                                   ${props.indicatorData.result.dictionary.parameters.period[parseFloat(props.indicatorData.result.dictionary.parameters.period.length) - 1 ]} </label>
                                 ` : ""
                               }
@@ -313,34 +328,43 @@ Page.getInitialProps = async function(context) {
   let { pe } = context.query; //get GET params sent to this page
   let { ouid } = context.query; //get GET params sent to this page
   let loadingg = true;
-  let { indicatorData, loading } = await fetchIndicatorData(id,ouid,pe,loadingg)
+  let { indicatorData, loading, error } = await fetchIndicatorData(id,ouid,pe,loadingg)
   
   // for filters
   const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
   const countyList = await fetch(`http://41.89.94.105/dsl/api/counties`);
   const counties = await countyList.json();
+  console.log("ERROR ==> "+error);
+  console.log("LOADING ==> "+loading);
   // for filters
-  if(pe == undefined){
-    pe=indicatorData.result.dictionary.parameters.period.map( onepe => ( onepe ) )
+  if(!error){
+    if(pe == undefined){
+      pe=indicatorData.result.dictionary.parameters.period.map( onepe => ( onepe ) )
+    }
+    if(ouid == undefined){
+      ouid=indicatorData.result.dictionary.parameters.location.map( oneloc => ( oneloc ) )
+    }
   }
-  if(ouid == undefined){
-    ouid=indicatorData.result.dictionary.parameters.location.map( oneloc => ( oneloc ) )
-  }
+  return { indicatorData, id, ouid, pe, years, counties, loading, error };
 
-  return { indicatorData, id, ouid, pe, years, counties, loading };
 };
 
 function getPivotData(dictionary, row_data) {
-  const main_data = [ ["Period", "Organisation Unit", "Value"] ]
+  const main_data = {};
+  
+  main_data.columns = [{ dataField: 'pe', text: 'Period' }, { dataField: 'ou', text: 'Organisation Unit'}, { dataField: 'val', text: 'Value'} ];
+  main_data.data = []
+  // const main_data = [ ["Period", "Organisation Unit", "Value"] ]
   row_data.forEach(row => {
-    const one_innerow = [];
+    // const one_innerow = [];
+    const one_innerow = {};
     var ou_name = dictionary.orgunits.find(function(oneou) {
       return oneou.id == row.ou;
     });
-    one_innerow.push(row.period);
-    one_innerow.push(ou_name.name);
-    one_innerow.push(parseFloat(row.value));
-    main_data.push(one_innerow);
+    one_innerow.pe = row.period;
+    one_innerow.ou = ou_name.name;
+    one_innerow.val = parseFloat(row.value);
+    main_data.data.push(one_innerow);
   });
   return main_data
 }
@@ -363,10 +387,19 @@ async function fetchIndicatorData(id,ouid,pe,loading) {
   }
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
-  if(indicatorData){
-    loading = false;
+  
+  let error;
+  if(indicatorData.result.dictionary.indicators.length < 1){
+    error = true;
+    console.log("<<<<<< ERROR in fetchIndicatorData >>>>>");console.error("<<<<<< ERROR in fetchIndicatorData >>>>>");
+  }else{
+    error = false;
   }
-  return {indicatorData, loading}
+
+  // if(!error){
+    loading = false;
+  // }
+  return {indicatorData, loading, error}
 }
 
 
