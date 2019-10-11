@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import Link from 'next/link';
 
 export default function Index() {
   return (
@@ -20,7 +21,9 @@ export default function Index() {
                         </a>
                       </div>
                     </div>
-                    <a href="#" className="button is-small is-primary">View all indicators</a>
+                    <Link href="/indicators">
+                      <a  className="button is-small is-primary">View all indicators</a>
+                    </Link>
                 </div>
               </div>
             </div>
