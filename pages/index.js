@@ -35,7 +35,9 @@ export default function Index() {
           </div>
           <div className="container text-left p-5 m-b-30">
             <p>
-              <strong>Data Service Layer</strong>, Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem expedita asperiores, doloribus dicta nobis iusto obcaecati, nostrum architecto perspiciatis, Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores fugit hic, at consequuntur totam illo. Exercitationem, quas tempora quaerat sapiente, eum officiis quia eos laborum, architecto aspernatur accusantium at reiciendis. distinctio eius modi impedit voluptate possimus inventore! Dolorum est velit consequuntur? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro temporibus eveniet cum assumenda quasi aliquam. Qui deleniti consequatur possimus omnis illo.</p>
+              <strong>Data Service Layer</strong>, Is an integration and aggregation of health and related data sources that could potentially impact on health. It is a platform for collaboration and sharing of health information with key interest in analysis, prediction, anticipation of diverging and converging health factors. This will in the end support M&E functions for decision making.
+
+            </p>
           </div>
 
           <div className="container">
@@ -79,7 +81,7 @@ export default function Index() {
                 </div>
               </div>
           </div>
-          
+
         </section>
 
         <section className="section">
@@ -139,11 +141,11 @@ export default function Index() {
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
-              
+
 
             <div className="columns">
               <div className="column">
@@ -211,21 +213,21 @@ export default function Index() {
                         </div>
                       </div>
                     </div>
-                  
+
                 </div>
               </div>
-              
+
 
             </div>
           </div>
         </section>
-        
+
         <section className="section">
             <div className="section-heading m-b-20">
                 <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">DSL Partners</h4>
             </div>
             <div className="container hide-overflow">
-                
+
                 <div id="carousel-partners" className="carousel">
                   <div className="item-1 p-10 card m-5">
                     <a href="https://www.usaid.gov/kenya" target="_blank">
@@ -271,5 +273,3 @@ export default function Index() {
   );
 
 }
-
-
