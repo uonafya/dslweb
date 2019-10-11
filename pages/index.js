@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
+import UHCCarousel from '../components/utils/UHCCarousel'
 
 export default function Index() {
   return (
@@ -47,10 +48,10 @@ export default function Index() {
               <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4>
               <div className="columns has-same-height is-gapless">
                 <div className="column">
-                    <h4 className="title m-b-0 m-l-10 is-6">TB curative rate</h4>
-                    <figure className="image is-5by2 m-10">
-                      <img src="/static/images/g1.png" alt=""/>
-                    </figure>
+                    <h4 className="title m-b-0 m-l-10 is-6">UHC</h4>
+                    <div>
+                      <UHCCarousel/>
+                    </div>
                     <div className="p-l-15">
                       <a href="#" className="is-link text-smaller">Aliquam tincidunt mauris eu risus.</a> <br/>
                       <a href="#" className="is-link text-smaller">Vestibulum auctor dapibus neque.</a> <br/>
