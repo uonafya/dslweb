@@ -1,4 +1,6 @@
 import Layout from '../components/Layout';
+import Link from 'next/link';
+import UHCCarousel from '../components/utils/UHCCarousel'
 
 export default function Index() {
   return (
@@ -20,7 +22,9 @@ export default function Index() {
                         </a>
                       </div>
                     </div>
-                    <a href="#" className="button is-small is-primary">View all indicators</a>
+                    <Link href="/indicators">
+                      <a  className="button is-small is-primary">View all indicators</a>
+                    </Link>
                 </div>
               </div>
             </div>
@@ -35,17 +39,19 @@ export default function Index() {
           </div>
           <div className="container text-left p-5 m-b-30">
             <p>
-              <strong>Data Service Layer</strong>, Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem expedita asperiores, doloribus dicta nobis iusto obcaecati, nostrum architecto perspiciatis, Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores fugit hic, at consequuntur totam illo. Exercitationem, quas tempora quaerat sapiente, eum officiis quia eos laborum, architecto aspernatur accusantium at reiciendis. distinctio eius modi impedit voluptate possimus inventore! Dolorum est velit consequuntur? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro temporibus eveniet cum assumenda quasi aliquam. Qui deleniti consequatur possimus omnis illo.</p>
+              <strong>Data Service Layer</strong>, Is an integration and aggregation of health and related data sources that could potentially impact on health. It is a platform for collaboration and sharing of health information with key interest in analysis, prediction, anticipation of diverging and converging health factors. This will in the end support M&E functions for decision making.
+
+            </p>
           </div>
 
           <div className="container">
               <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4>
               <div className="columns has-same-height is-gapless">
                 <div className="column">
-                    <h4 className="title m-b-0 m-l-10 is-6">TB curative rate</h4>
-                    <figure className="image is-5by2 m-10">
-                      <img src="/static/images/g1.png" alt=""/>
-                    </figure>
+                    <h4 className="title m-b-0 m-l-10 is-6">UHC</h4>
+                    <div>
+                      <UHCCarousel/>
+                    </div>
                     <div className="p-l-15">
                       <a href="#" className="is-link text-smaller">Aliquam tincidunt mauris eu risus.</a> <br/>
                       <a href="#" className="is-link text-smaller">Vestibulum auctor dapibus neque.</a> <br/>
@@ -79,7 +85,7 @@ export default function Index() {
                 </div>
               </div>
           </div>
-          
+
         </section>
 
         <section className="section">
@@ -139,11 +145,11 @@ export default function Index() {
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
-              
+
 
             <div className="columns">
               <div className="column">
@@ -211,21 +217,21 @@ export default function Index() {
                         </div>
                       </div>
                     </div>
-                  
+
                 </div>
               </div>
-              
+
 
             </div>
           </div>
         </section>
-        
+
         <section className="section">
             <div className="section-heading m-b-20">
                 <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">DSL Partners</h4>
             </div>
             <div className="container hide-overflow">
-                
+
                 <div id="carousel-partners" className="carousel">
                   <div className="item-1 p-10 card m-5">
                     <a href="https://www.usaid.gov/kenya" target="_blank">
@@ -271,5 +277,3 @@ export default function Index() {
   );
 
 }
-
-
