@@ -6,7 +6,6 @@ import Loading from '../components/Loading';
 import fetch from 'isomorphic-unfetch';
 import Pivot from '../components/Table';
 import DTable from '../components/DataTable';
-import { FetchIndicatorData } from '../components/utils/Helpers'
 
 
 const Page = withRouter(props => (
@@ -19,7 +18,7 @@ const Page = withRouter(props => (
             <li><Link href="/"><a>Home</a></Link></li>
             <li><Link href="/indicators"><a>All indicators</a></Link></li>
             <li className="is-active">
-              <a aria-current="page"> 
+              <a aria-current="page">
                 {props.error ? "" :
                   props.indicatorData.result.dictionary.indicators.map(one_indi => (
                     one_indi.id
@@ -43,11 +42,11 @@ const Page = withRouter(props => (
           }
           <div className={props.loading == true ? "columns hidden" : "columns"}>
             <div className="column">
-              <h3 className="title text-left fcsecondary-dark text-bold"> 
+              <h3 className="title text-left fcsecondary-dark text-bold">
                 {props.error ? <div><small className="is-error is-fullwidth p-4 br-3 is-6">Error loading data </small></div> :
                   props.indicatorData.result.dictionary.indicators.map(one_ind => (
                   one_ind.name
-                ))} &nbsp; 
+                ))} &nbsp;
               </h3>
               <hr/>
             </div>
@@ -59,9 +58,9 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                     <a className="navbar-link m-l-0 p-l-0">
                       {
-                        props.error == true ? "" : 
+                        props.error == true ? "" :
                           'From'+ props.indicatorData.result.dictionary.parameters.period[0] + '&nbsp;'+
-                          props.indicatorData.result.dictionary.parameters.period.length > 1 ? 
+                          props.indicatorData.result.dictionary.parameters.period.length > 1 ?
                             "To "+props.indicatorData.result.dictionary.parameters.period[parseFloat(props.indicatorData.result.dictionary.parameters.period.length-1)]
                           : ""
                       }
@@ -69,11 +68,11 @@ const Page = withRouter(props => (
                     <div className="navbar-dropdown is-boxed p-5">
                       <div className="select is-fullwidth">
                         <select onChange={
-                          (e) => { 
+                          (e) => {
                             const newRoute = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
                             // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
                             Router.push(newRoute)
-                          } 
+                          }
                         }>
                           <option value="" disabled>Year</option>
                           {props.error ? "" : props.years.map(
@@ -81,8 +80,8 @@ const Page = withRouter(props => (
                               <option value={oneyr} disabled={oneyr==props.pe?'"true"':''} selected={oneyr==props.pe?'"true"':''}>{oneyr}</option>
                             )
                           )}
-                        </select> 
-                      </div> 
+                        </select>
+                      </div>
                     </div>
                   </div>
                   {/* <!-- daterangepicker --> */}
@@ -95,16 +94,16 @@ const Page = withRouter(props => (
                         {props.error ? "":
                           props.indicatorData.result.dictionary.parameters.location.map(one_ou => (
                             getOUname(props.indicatorData.result.dictionary.orgunits, one_ou)
-                        ))} 
+                        ))}
                       </a>
                       <div className="navbar-dropdown is-boxed p-5 min-w-150-px">
                           <div className="select is-fullwidth">
                             <select  onChange={
-                              (e) => { 
+                              (e) => {
                                 const newOUroute = `/indicator/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
                                 // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value)
                                 Router.push(newOUroute);
-                              } 
+                              }
                             }>
                               <option disabled value="">Pick a county</option>
                               <option value="18">NATIONAL (Kenya)</option>
@@ -127,7 +126,7 @@ const Page = withRouter(props => (
       </div>
       <div className="container">
         <div className="columns">
-          
+
           {/* Content */}
           {props.loading == true
             ? <div className="column bcwhite br-5"> <Loading showImage={false} isBig={false}/> </div>
@@ -140,7 +139,7 @@ const Page = withRouter(props => (
                     <div className="column p-20">
                       {props.error? <span className="is-error is-fullwidth p-4 br-3 text-center">There was an error loading data for this indicator (ID: <strong><u>{props.id}</u></strong>). <br/><small>Try refreshing this page again. If this persists, notify the admin <a href="mailto:dndiithi@healthit.uonbi.ac.ke">here</a></small></span> :
                         props.indicatorData.result.dictionary.indicators.map(one_ind => (
-                        <p> 
+                        <p>
                           <strong> {one_ind.name} &nbsp; </strong> <br/> {one_ind.description}
                           <hr/>
                         </p>
@@ -149,7 +148,7 @@ const Page = withRouter(props => (
                   </div>
                   {/* Description */}
                 </div>
-            
+
                 <div className="container">
                     {/* <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4> */}
                     <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">Indicator data</h4>
@@ -174,15 +173,15 @@ const Page = withRouter(props => (
                                 <div className="column text-center">
                                   {/* <h1>Pivot</h1> */}
                                   {/* <Pivot pivotData={getPivotData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )} /> */}
-                                  {props.error 
-                                    ? <span className="is-error is-fullwidth p-4 br-3">!!!</span> 
+                                  {props.error
+                                    ? <span className="is-error is-fullwidth p-4 br-3">!!!</span>
                                     : <DTable pivotData={getPivotData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )}/>
                                   }
                                 </div>
                               </div>
                             </div>
                             {/* end Tab 1 */}
-                            
+
                             {/* Tab 2  */}
                               <div className="tab-pane" id="pane-2">
                                 <div className="columns">
@@ -206,13 +205,13 @@ const Page = withRouter(props => (
                             {/* end Tab 3 */}
                         </div>
                         {/* Tabs */}
-                        
+
                       </div>
                     </div>
                 </div>
           </div>
           {/* end Content   */}
-          
+
           {/* Sidebar */}
           <div className="column is-one-fifth p-20 bcdefault br-5">
               <div className="divs m-l-10">
@@ -244,7 +243,7 @@ const Page = withRouter(props => (
                             } &nbsp;
                         </div>
                       </div>
-                      
+
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column m-l-0 p-0 m-b-0 is-one-third p-5">
                           <label className="label fcgrey-dark-3 text-small">Date created:</label>
@@ -257,7 +256,7 @@ const Page = withRouter(props => (
                             } &nbsp;
                         </div>
                       </div>
-                      
+
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
                           <label className="label fcgrey-dark-3 text-small">Last updated:</label>
@@ -270,7 +269,7 @@ const Page = withRouter(props => (
                             } &nbsp;
                         </div>
                       </div>
-                      
+
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
                           <label className="label fcgrey-dark-3 text-small">Geo-scope:</label>
@@ -283,7 +282,7 @@ const Page = withRouter(props => (
                             } &nbsp;
                         </div>
                       </div>
-                      
+
                       <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
                         <div className="column is-one-third p-5">
                           <label className="label fcgrey-dark-3 text-small">Time-span:</label>
@@ -295,15 +294,15 @@ const Page = withRouter(props => (
                                 }
                               </label>
                               {props.error ? "" :
-                                props.indicatorData.result.dictionary.parameters.period.length > 1 ? 
-                                ` &nbsp; - &nbsp; <label className="label fcblack-1 display-inline-b"> 
+                                props.indicatorData.result.dictionary.parameters.period.length > 1 ?
+                                ` &nbsp; - &nbsp; <label className="label fcblack-1 display-inline-b">
                                   ${props.indicatorData.result.dictionary.parameters.period[parseFloat(props.indicatorData.result.dictionary.parameters.period.length) - 1 ]} </label>
                                 ` : ""
                               }
                         </div>
                       </div>
                   </div>
-          
+
                   <div className="div m-b-30">
                     <div className="section-heading m-0 p-0 m-b-5 m-l-15">
                         <h4 className="title is-5 text-left fcsecondary-dark text-bold m-b-15">Related indicators:</h4>
@@ -315,10 +314,10 @@ const Page = withRouter(props => (
                 </div>
             </div>
             {/* end Sidebar */}
-            
+
         </div>
       </div>
-      
+
     </section>
       {/* end Main Body */}
   </Layout>
@@ -329,14 +328,12 @@ Page.getInitialProps = async function(context) {
   let { pe } = context.query; //get GET params sent to this page
   let { ouid } = context.query; //get GET params sent to this page
   let loadingg = true;
-  let { indicatorData, loading } = await FetchIndicatorData(id,ouid,pe,loadingg)
+  let { indicatorData, loading, error } = await fetchIndicatorData(id,ouid,pe,loadingg)
 
   // for filters
   const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
   const countyList = await fetch(`http://41.89.94.105/dsl/api/counties`);
   const counties = await countyList.json();
-  console.log("ERROR ==> "+error);
-  console.log("LOADING ==> "+loading);
   // for filters
   if(!error){
     if(pe == undefined){
@@ -352,7 +349,7 @@ Page.getInitialProps = async function(context) {
 
 function getPivotData(dictionary, row_data) {
   const main_data = {};
-  
+
   main_data.columns = [{ dataField: 'pe', text: 'Period' }, { dataField: 'ou', text: 'Organisation Unit'}, { dataField: 'val', text: 'Value'} ];
   main_data.data = []
   // const main_data = [ ["Period", "Organisation Unit", "Value"] ]
@@ -376,5 +373,32 @@ function getOUname(dict, ou_id) {
     var ou_name = ou_name0.name
   return ou_name
 }
+async function fetchIndicatorData(id,ouid,pe,loading) {
+  console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe}`)
+  loading = true;
+  let fetchIndicatorDataUrl = `http://41.89.94.105/dsl/api/indicators/${id}`;
+  if(pe != undefined){
+    fetchIndicatorDataUrl += `?pe=${pe}`;
+  }
+  if(ouid != undefined){
+    fetchIndicatorDataUrl += `&ouid=${ouid}`;
+  }
+  const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
+  const indicatorData = await fetchIndicatorData.json();
+
+  let error;
+  if(indicatorData.result.dictionary.indicators.length < 1){
+    error = true;
+    console.log("<<<<<< ERROR in fetchIndicatorData >>>>>");console.error("<<<<<< ERROR in fetchIndicatorData >>>>>");
+  }else{
+    error = false;
+  }
+
+  // if(!error){
+    loading = false;
+  // }
+  return {indicatorData, loading, error}
+}
+
 
 export default Page;
