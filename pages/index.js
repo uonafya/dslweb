@@ -1,6 +1,7 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import UHCCarousel from '../components/utils/UHCCarousel'
+import SimpleSlider from '../components/utils/SimpleSlider'
 
 export default function Index() {
   return (
@@ -50,7 +51,8 @@ export default function Index() {
                 <div className="column">
                     <h4 className="title m-b-0 m-l-10 is-6">UHC</h4>
                     <div>
-                      <UHCCarousel/>
+                      <SimpleSlider/>
+
                     </div>
                     <div className="p-l-15">
                       <a href="#" className="is-link text-smaller">Aliquam tincidunt mauris eu risus.</a> <br/>
