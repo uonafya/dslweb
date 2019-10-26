@@ -6,6 +6,7 @@ import Loading from '../components/Loading';
 import fetch from 'isomorphic-unfetch';
 import Pivot from '../components/Table';
 import DTable from '../components/DataTable';
+import { FetchIndicatorData } from '../components/utils/Helpers'
 
 
 const Page = withRouter(props => (
@@ -328,8 +329,8 @@ Page.getInitialProps = async function(context) {
   let { pe } = context.query; //get GET params sent to this page
   let { ouid } = context.query; //get GET params sent to this page
   let loadingg = true;
-  let { indicatorData, loading, error } = await fetchIndicatorData(id,ouid,pe,loadingg)
-  
+  let { indicatorData, loading } = await FetchIndicatorData(id,ouid,pe,loadingg)
+
   // for filters
   const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
   const countyList = await fetch(`http://41.89.94.105/dsl/api/counties`);
@@ -375,32 +376,5 @@ function getOUname(dict, ou_id) {
     var ou_name = ou_name0.name
   return ou_name
 }
-async function fetchIndicatorData(id,ouid,pe,loading) {
-  console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe}`)
-  loading = true;
-  let fetchIndicatorDataUrl = `http://41.89.94.105/dsl/api/indicators/${id}`;
-  if(pe != undefined){
-    fetchIndicatorDataUrl += `?pe=${pe}`;
-  }
-  if(ouid != undefined){
-    fetchIndicatorDataUrl += `&ouid=${ouid}`;
-  }
-  const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
-  const indicatorData = await fetchIndicatorData.json();
-  
-  let error;
-  if(indicatorData.result.dictionary.indicators.length < 1){
-    error = true;
-    console.log("<<<<<< ERROR in fetchIndicatorData >>>>>");console.error("<<<<<< ERROR in fetchIndicatorData >>>>>");
-  }else{
-    error = false;
-  }
-
-  // if(!error){
-    loading = false;
-  // }
-  return {indicatorData, loading, error}
-}
-
 
 export default Page;
