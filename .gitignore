@@ -1,3 +1,7 @@
 node_modules/
 .next/
 ~/
+*vscode-root
+*node_modules
+*package-lock
+*npm-debug
