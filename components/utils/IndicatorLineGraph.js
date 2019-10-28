@@ -24,7 +24,7 @@ class CustomizedAxisTick extends PureComponent {
 
     return (
       <g transform={`translate(${x},${y})`}>
-        <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-90)">{payload.value}</text>
+        <text x={5} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-90)">{payload.value}</text>
       </g>
     );
   }
@@ -48,14 +48,13 @@ export default class IndicatorLineGraph extends PureComponent {
 
   render() {
     return (
-        <LineChart width={750} height={300} data={this.state.data} margin={{ top: 10, right: 20, left: 0, bottom: 5,}}>
+        <LineChart width={650} height={300} data={this.state.data} margin={{ top: 10, right: 20, left: 0, bottom: 5,}}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" tick={<CustomizedAxisTick />}/>
           <YAxis />
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey="value" stroke="#8884d8" label={<CustomizedLabel />} activeDot={{ r: 8 }} />
-          // <ReferenceArea x1={15} x2={18} y1={20} y2={30} stroke="red" strokeOpacity={0.3} />
         </LineChart>
     );
   }
