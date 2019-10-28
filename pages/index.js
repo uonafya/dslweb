@@ -1,6 +1,9 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import SimpleSlider from '../components/utils/SimpleSlider'
+import  IndicatorLineGraph from '../components/utils/IndicatorLineGraph'
+import IndicatorLineBarGraph from '../components/utils/IndicatorBarGraph'
+
 
 export default function Index() {
   return (
@@ -48,9 +51,9 @@ export default function Index() {
               <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4>
               <div className="columns has-same-height is-gapless">
                 <div className="column">
-                    <h4 className="title m-b-0 m-l-10 is-6">UHC</h4>
+                    <h4 className="title m-b-0 m-l-10 is-6">PMTCT Positivity at ANC - 2018</h4>
                     <div>
-                      <SimpleSlider/>
+                      <IndicatorLineGraph  id={61829} ouid={18} pe={2018}/>
                     </div>
                     <div className="p-l-15">
                       <a href="#" className="is-link text-smaller">Aliquam tincidunt mauris eu risus.</a> <br/>
@@ -60,27 +63,15 @@ export default function Index() {
                     </div>
                 </div>
                 <div className="column">
-                    <h4 className="title m-b-0 m-l-10 is-6">Fresh still birth rate</h4>
-                    <figure className="image is-5by2 m-10">
-                      <img src="/static/images/g2.png" alt=""/>
-                    </figure>
+                    <h4 className="title m-b-0 m-l-10 is-6">Fresh still birth rate - 2018</h4>
+                    <div>
+                      <IndicatorLineBarGraph  id={61829} ouid={18} pe={2018}/>
+                    </div>
                     <div className="p-l-15">
                       <a href="#" className="is-link text-smaller">Cras ornare tristique elit.</a> <br/>
                       <a href="#" className="is-link text-smaller">Vivamus vestibulum ntulla nec ante.</a> <br/>
                       <a href="#" className="is-link text-smaller">Praesent placerat risus quis eros.</a> <br/>
                       <a href="#" className="is-link text-smaller">Fusce pellentesque suscipit nibh.</a> <br/>
-                    </div>
-                </div>
-                <div className="column">
-                    <h4 className="title m-b-0 m-l-10 is-6">Facilities by owner</h4>
-                    <figure className="image is-5by2 m-10">
-                      <img src="/static/images/g3.png" alt=""/>
-                    </figure>
-                    <div className="p-l-15">
-                      <a href="#" className="is-link text-smaller">Vestibulum commodo felis quis tortor.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Ut aliquam sollicitudin leo.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Cras iaculis ultricies nulla.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Donec quis dui at dolor tempor interdum.</a> <br/>
                     </div>
                 </div>
               </div>
