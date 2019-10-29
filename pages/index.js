@@ -3,9 +3,11 @@ import Link from 'next/link';
 import SimpleSlider from '../components/utils/SimpleSlider'
 import  IndicatorLineGraph from '../components/utils/IndicatorLineGraph'
 import IndicatorLineBarGraph from '../components/utils/IndicatorBarGraph'
-
+import UhcIndicators from '../components/LandingPageUhc'
+import MalariaIndicators from '../components/LandingPageMalaria'
 
 export default function Index() {
+
   return (
     <div>
       <Layout>
@@ -50,6 +52,17 @@ export default function Index() {
           <div className="container">
               <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4>
               <div className="columns has-same-height is-gapless">
+
+                <MalariaIndicators/>
+
+                <UhcIndicators/>
+
+              </div>
+
+
+
+              <div className="columns has-same-height is-gapless">
+
                 <div className="column">
                     <h4 className="title m-b-0 m-l-10 is-6">PMTCT Positivity at ANC - 2018</h4>
                     <div>
@@ -74,7 +87,11 @@ export default function Index() {
                       <a href="#" className="is-link text-smaller">Fusce pellentesque suscipit nibh.</a> <br/>
                     </div>
                 </div>
+
               </div>
+
+
+
           </div>
 
         </section>
