@@ -38,6 +38,21 @@ export default class IndicatorLineBarGraph extends PureComponent {
     this.state = {data: ''};
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({id:nextProps.pe});
+    let didPropsChange=false;
+
+    if(nextProps.id!=this.props.id || nextProps.ouid!=this.props.ouid || nextProps.pe!=this.props.pe){
+      (async () => {
+        let returnedData=await FetchIndicatorData(nextProps.id,nextProps.ouid,nextProps.pe,null);
+        var _data=ConvertToMonthlyLineGraph(returnedData.indicatorData.result.data);
+         this.setState({data: _data,id: nextProps.id, ouid: nextProps.ouid, pe: nextProps.pe});
+       })();
+    }else{
+
+      }
+    }
+
   componentDidMount() {
     (async () => {
       let returnedData=await FetchIndicatorData(this.props.id,this.props.ouid,this.props.pe,null);
@@ -48,7 +63,7 @@ export default class IndicatorLineBarGraph extends PureComponent {
 
   render() {
     return (
-        <BarChart width={650} height={300} data={this.state.data} margin={{ top: 10, right: 20, left: 0, bottom: 5,}}>
+        <BarChart width={670} height={300} data={this.state.data} margin={{ top: 10, right: 20, left: 0, bottom: 5,}}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" tick={<CustomizedAxisTick />}/>
           <YAxis />
