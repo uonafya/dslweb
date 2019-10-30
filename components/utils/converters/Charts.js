@@ -51,3 +51,28 @@ export function ConvertToMonthlyLineGraph(_data){
   });
   return data;
 }
+
+// _data is a js object/map
+export function ConvertToLineBarGraph(_data){
+  const data = [];
+  for(var key in _data){
+    let mapEntity= {};
+    mapEntity['name']=key;
+    mapEntity['value']=Number(_data[key]);
+    data.push(mapEntity);
+  }
+  return data;
+}
+
+
+//takes a map of the format {cadreGroupName: cadreGroupCount}
+export function ConvertToCadreSimplePieChart(_data){
+  var mapData=[];
+  for(var key in _data){
+    var data={};
+    data['name']=key;
+    data['value']=_data[key];
+    mapData.push(data);
+  }
+  return mapData;
+}
