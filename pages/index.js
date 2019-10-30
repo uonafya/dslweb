@@ -5,6 +5,8 @@ import  IndicatorLineGraph from '../components/utils/IndicatorLineGraph'
 import IndicatorLineBarGraph from '../components/utils/IndicatorBarGraph'
 import UhcIndicators from '../components/LandingPageUhc'
 import MalariaIndicators from '../components/LandingPageMalaria'
+import LandingCadrePieChart from '../components/CadreGroupDistribution'
+import FacilityTypeCountPieChart from '../components/FacilityDistribution'
 
 export default function Index() {
 
@@ -63,30 +65,10 @@ export default function Index() {
 
               <div className="columns has-same-height is-gapless">
 
-                <div className="column">
-                    <h4 className="title m-b-0 m-l-10 is-6">PMTCT Positivity at ANC - 2018</h4>
-                    <div>
-                      <IndicatorLineGraph  id={61829} ouid={18} pe={2018}/>
-                    </div>
-                    <div className="p-l-15">
-                      <a href="#" className="is-link text-smaller">Aliquam tincidunt mauris eu risus.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Vestibulum auctor dapibus neque.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Nunc dignissim risus id metus.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Cras ornare tristique elit.</a> <br/>
-                    </div>
-                </div>
-                <div className="column">
-                    <h4 className="title m-b-0 m-l-10 is-6">Fresh still birth rate - 2018</h4>
-                    <div>
-                      <IndicatorLineBarGraph  id={61829} ouid={18} pe={2018}/>
-                    </div>
-                    <div className="p-l-15">
-                      <a href="#" className="is-link text-smaller">Cras ornare tristique elit.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Vivamus vestibulum ntulla nec ante.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Praesent placerat risus quis eros.</a> <br/>
-                      <a href="#" className="is-link text-smaller">Fusce pellentesque suscipit nibh.</a> <br/>
-                    </div>
-                </div>
+                <LandingCadrePieChart/>
+
+                <FacilityTypeCountPieChart/>
+
 
               </div>
 
