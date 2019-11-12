@@ -6,6 +6,7 @@ import Loading from '../components/Loading';
 import fetch from 'isomorphic-unfetch';
 import Pivot from '../components/Table';
 import DTable from '../components/DataTable';
+import Displayline from '../components/Displayline';
 
 
 const Page = withRouter(props => (
@@ -185,10 +186,11 @@ const Page = withRouter(props => (
                             {/* Tab 2  */}
                               <div className="tab-pane" id="pane-2">
                                 <div className="columns">
-                                  <div className="column text-center">
-                                    <h1>Charts</h1>
-                                  </div>
+                                  <div className="column text-right">
+                                  <Displayline id={props.id} ouid= {props.ouid} pe= {props.pe} ></Displayline>
+
                                 </div>
+                              </div>
                               </div>
                             {/* end Tab 2 */}
 
@@ -346,6 +348,7 @@ Page.getInitialProps = async function(context) {
   return { indicatorData, id, ouid, pe, years, counties, loading, error };
 
 };
+
 
 function getPivotData(dictionary, row_data) {
   const main_data = {};
