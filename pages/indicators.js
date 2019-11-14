@@ -171,9 +171,6 @@ function searchIndicator(array, string) {
   return array.filter(o =>
     Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
 }
-function julishana(bt) {
-  console.log("}}}}}}}}}}}}}}77777LLLLLLL{{{{{{{{{{{{{{ ")
-}
 // >>>>>>>>>>>>>>>>Search
 
 export default Indicators;

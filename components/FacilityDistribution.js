@@ -29,7 +29,8 @@ export default class FacilityTypeCountPieChart extends PureComponent {
     return (
 
       <div className="column">
-          <h5 className="title m-b-0 m-l-10 is-6 graph-head">Cadre Distribution</h5>
+        <div className="box m-5">
+          <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Cadre Distribution</h5>
           <br/>
           <h4 className="title m-b-0 m-l-10 is-6">{this.state.indicatorName} - 2019</h4>
           <div >
@@ -42,6 +43,7 @@ export default class FacilityTypeCountPieChart extends PureComponent {
             <a href="#" id="23511" onClick={handleClick} className="is-link text-smaller">Kajiado Cadre Group Distribution</a> <br/> */}
 
           </div>
+        </div>
       </div>
 
 

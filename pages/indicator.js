@@ -58,14 +58,10 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                     <a className="navbar-link m-l-0 p-l-0">
                       {
-                        props.error == true ? "" :
-                          'From'+ props.indicatorData.result.dictionary.parameters.period[0] + '&nbsp;'+
-                          props.indicatorData.result.dictionary.parameters.period.length > 1 ?
-                            "To "+props.indicatorData.result.dictionary.parameters.period[parseFloat(props.indicatorData.result.dictionary.parameters.period.length-1)]
-                          : ""
+                        props.error ? "" : props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+", ")
                       }
                     </a>
-                    <div className="navbar-dropdown is-boxed p-5">
+                    <div className="navbar-dropdown is-boxed p-5 min-w-100-px">
                       <div className="select is-fullwidth">
                         <select onChange={
                           (e) => {
@@ -96,7 +92,7 @@ const Page = withRouter(props => (
                             getOUname(props.indicatorData.result.dictionary.orgunits, one_ou)
                         ))}
                       </a>
-                      <div className="navbar-dropdown is-boxed p-5 min-w-150-px">
+                      <div className="navbar-dropdown is-boxed p-5 min-w-200-px">
                           <div className="select is-fullwidth">
                             <select  onChange={
                               (e) => {

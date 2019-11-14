@@ -1,4 +1,5 @@
 import { settings } from './Settings'
+import fetch from 'isomorphic-unfetch'
 
 export async function FetchIndicatorData(id,ouid,pe,loading) {
   console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe}`)
@@ -42,8 +43,8 @@ export function getCadreGroupIdNameMap(cadreGroups){
 
 export function getCadreGroupCount(cadresData,cadreGroupMap,cadreGroupIdNameMap){
   let cardreGroupCount = {};
-  console.log("donee +=======>");
-  console.log(cadresData);
+  // console.log("donee +=======>");
+  // console.log(cadresData);
   cadresData.map(cadreMap => {
       let cadreGroupId=cadreGroupMap[cadreMap.id];
       let groupName= cadreGroupIdNameMap[cadreGroupId];
@@ -90,4 +91,26 @@ export async function FetchFacilityCountByType() {
   const facilityData = await fetch(facilityCountDataUrl);
   const facilityCountData = await facilityData.json();
   return facilityCountData
+}
+
+// <<<<<<<<<<<<<<<<Search
+export function searchIndicator(array, string) {
+  console.log("function searchIndicator for "+string)
+  return array.filter(o =>
+    Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
+}
+// >>>>>>>>>>>>>>>>Search
+
+export async function fetchIndicators() { 
+  let fetchIndicatorsUrl = `http://41.89.94.105/dsl/api/indicators`;
+  
+  const fetchIndicators = await fetch(fetchIndicatorsUrl);
+  
+  const indicatorsData = await fetchIndicators.json();
+  
+  // console.log(`fetch all Indicators == ${JSON.stringify(indicatorsData)}`);
+  
+  console.log(`All Indicators fetched. Count: ${indicatorsData.length} & Url: ${fetchIndicatorsUrl} `);
+
+  return {indicatorsData}
 }

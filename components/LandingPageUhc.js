@@ -23,7 +23,8 @@ export default class UhcIndicators extends PureComponent {
 
     return (
       <div className="column">
-          <h5 className="title m-b-0 m-l-10 is-6">UHC</h5>
+        <div className="box m-5">
+          <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">UHC</h5>
           <br/>
           <h4 className="title m-b-0 m-l-10 is-6">National {this.state.indicatorName} - 2018</h4>
           <div id="uhc-diplay-area">
@@ -36,6 +37,7 @@ export default class UhcIndicators extends PureComponent {
             <a href="#" id="21030" onClick={handleClick} className="is-link text-smaller">Malaria confirmed cases ratio</a> <br/>
 
           </div>
+        </div>
       </div>
     )
   }
