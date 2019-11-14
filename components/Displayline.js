@@ -38,19 +38,21 @@ class Displayline extends Component {
         let display;
       
         if (showLine){
-            display = <div> <IndicatorLineGraph id={this.id} ouid = {this.ouid} pe={this.pe} /></div>
+            display = <div className="w-100-pc"> <IndicatorLineGraph id={this.id} ouid = {this.ouid} pe={this.pe} /></div>
         }else{
-            display = <div> <IndicatorLineBarGraph id={this.id} ouid = {this.ouid} pe={this.pe}  /> </div>
+            display = <div className="w-100-pc">  <IndicatorLineBarGraph id={this.id} ouid = {this.ouid} pe={this.pe}  /> </div>
         }
 
         return (
-            <div>
-                <div>
-                    <div><button onClick = {this.showLineGraph}>Linegraph</button>
-                    <button onClick = {this.showBarGraph}>Bargraph</button> </div>
+            <div className="w-100-pc">
+                <div className="w-100-pc">
+                    <button className="button is-small is-black" onClick = {this.showLineGraph}><i className="fas fa-chart-line"></i> &nbsp; Line</button>
+                    &nbsp; &nbsp;
+                    <button className="button is-small is-black" onClick = {this.showBarGraph}><i className="fas fa-chart-bar"></i> &nbsp; Bar</button> 
+                </div>
+                <div className="w-100-pc">
                     {display}
                 </div>
-            
             </div>
         )
     }

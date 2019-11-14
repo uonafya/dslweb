@@ -59,7 +59,7 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                     <a className="navbar-link m-l-0 p-l-0">
                       {
-                        props.error ? "" : props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+", ")
+                        props.error ? "" : props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")
                       }
                     </a>
                     <div className="navbar-dropdown is-boxed p-5 min-w-100-px">
@@ -159,7 +159,7 @@ const Page = withRouter(props => (
                                 </li>
                                 <li data-target="pane-2" id="2"><a><span>Charts &amp; Graphs</span></a></li>
                                 <li data-target="pane-3" id="3">
-                                    <a><span>Compare</span></a>
+                                    <a><span>Analysis</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -183,8 +183,7 @@ const Page = withRouter(props => (
                               <div className="tab-pane" id="pane-2">
                                 <div className="columns">
                                   <div className="column text-right">
-                                  <Displayline id={props.id} ouid= {props.ouid} pe= {props.pe} ></Displayline>
-
+                                    <Displayline id={props.id} ouid= {props.ouid} pe= {props.pe} ></Displayline>
                                 </div>
                               </div>
                               </div>
@@ -194,9 +193,9 @@ const Page = withRouter(props => (
                             <div className="tab-pane" id="pane-3">
                               <div className="columns m-t-20">
                                 <div className="column notification shadow-heavy-light text-center is-vcentered">
-                                  <p><a href="login.html" className="is-link fcsecondary-dark">Log in</a> or <a href="#" className="is-link fcsecondary-dark">request for an account</a> to compare indicators</p>
+                                  <p><a href="login.html" className="is-link fcsecondary-dark">Log in</a> or <a href="#" className="is-link fcsecondary-dark">request for an account</a> to analyse indicators</p>
                                   <br/>
-                                  <a href="#" className="button is-secondary">Compare</a>
+                                  <a href="#" className="button is-secondary">Analyse</a>
                                 </div>
                               </div>
                             </div>
