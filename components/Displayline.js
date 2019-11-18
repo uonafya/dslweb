@@ -37,9 +37,9 @@ class Displayline extends Component {
          const showBar = this.state.displayBar;
         let display;
         if (showLine){
-            display = <div className="w-100-pc"> <IndicatorLineGraph id={this.id} ouid = {this.ouid} pe={this.pe} /></div>
+            display = <div className="w-100-pc"> <IndicatorLineGraph id={this.id} ouid = {this.ouid} pe={this.pe} width={950}/></div>
         }else{
-            display = <div className="w-100-pc">  <IndicatorLineBarGraph id={this.id} ouid = {this.ouid} pe={this.pe}  /> </div>
+            display = <div className="w-100-pc">  <IndicatorLineBarGraph id={this.id} ouid = {this.ouid} pe={this.pe} width={950}/> </div>
         }
 
         return (
