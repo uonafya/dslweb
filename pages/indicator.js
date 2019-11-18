@@ -219,7 +219,7 @@ const Page = withRouter(props => (
                               <div className="tab-pane" id="pane-2">
                                 <div className="columns">
                                   <div className="column text-right">
-                                    {/* <Displayline id={props.id} ouid= {props.ouid} pe= {props.pe} ></Displayline> */}
+                                    <Displayline id={props.id} ouid= {props.ouid} pe= {props.pe} ></Displayline>
                                 </div>
                               </div>
                               </div>
