@@ -43,7 +43,7 @@ export default class IndicatorLineGraph extends PureComponent {
 
     if(nextProps.id!=this.props.id || nextProps.ouid!=this.props.ouid || nextProps.pe!=this.props.pe){
       (async () => {
-        let returnedData=await FetchIndicatorData(nextProps.id,nextProps.ouid,nextProps.pe,null);
+        let returnedData=await FetchIndicatorData(nextProps.id,nextProps.ouid,nextProps.pe,this.props.level,null);
         var _data=ConvertToMonthlyLineGraph(returnedData.indicatorData.result.data);
          this.setState({data: _data,id: nextProps.id, ouid: nextProps.ouid, pe: nextProps.pe});
        })();
@@ -54,7 +54,7 @@ export default class IndicatorLineGraph extends PureComponent {
 
   componentDidMount() {
     (async () => {
-      let returnedData=await FetchIndicatorData(this.props.id,this.props.ouid,this.props.pe,null);
+      let returnedData=await FetchIndicatorData(this.props.id,this.props.ouid,this.props.pe,this.props.level,null);
       var _data=ConvertToMonthlyLineGraph(returnedData.indicatorData.result.data);
        this.setState({data: _data});
     })()

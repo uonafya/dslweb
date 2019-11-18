@@ -1,8 +1,8 @@
 import { settings } from './Settings'
 import fetch from 'isomorphic-unfetch'
 
-export async function FetchIndicatorData(id,ouid,pe,loading) {
-  console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe}`)
+export async function FetchIndicatorData(id,ouid,pe,level,loading) {
+  console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}`)
   loading = true;
   let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
   if(pe != undefined){
@@ -10,6 +10,9 @@ export async function FetchIndicatorData(id,ouid,pe,loading) {
   }
   if(ouid != undefined){
     fetchIndicatorDataUrl += `&ouid=${ouid}`;
+  }
+  if(level != undefined){
+    fetchIndicatorDataUrl += `&ouid=${level}`;
   }
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
