@@ -1,6 +1,10 @@
 import { settings } from './Settings'
 import fetch from 'isomorphic-unfetch'
 
+let cache = {
+  countiesList: null
+}
+
 export async function FetchIndicatorData(id,ouid,pe,level,loading) {
   console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}`)
   loading = true;
@@ -89,11 +93,48 @@ export async function FetchCadreGroupData(ouid,pe) {
 }
 
 
+export async function FetchCadreGroupAllocation(id,ouid,pe) {
+  let fetchCadreGroupsDataUrl = `${settings.dslBaseApi}/cadregroups/`;
+
+  let append=false;
+  if(pe != undefined){
+    fetchCadreGroupsDataUrl += `?pe=${pe}`;
+    append = true;
+  }
+  if(ouid != undefined || ouid != null){
+    if(append) fetchCadreGroupsDataUrl += `&ouid=${ouid}`;
+    else  fetchCadreGroupsDataUrl += `?ouid=${ouid}`;
+  }
+  if(id != undefined || id != null){
+    if(append) fetchCadreGroupsDataUrl += `&id=${id}`;
+    else  fetchCadreGroupsDataUrl += `?id=${id}`;
+  }
+  let _cadresData = await fetch(fetchCadreGroupsDataUrl);
+  let cadresData = await _cadresData.json();
+  return cadresData
+}
+
+
 export async function FetchFacilityCountByType() {
   let facilityCountDataUrl = `${settings.dslBaseApi}/facilitytype/all`;
   const facilityData = await fetch(facilityCountDataUrl);
   const facilityCountData = await facilityData.json();
   return facilityCountData
+}
+
+
+export async function FetchCountyList() {
+  if(cache.countiesList==null){
+    let countyListUrl = `${settings.dslBaseApi}/counties`;
+    const _countyData = await fetch(countyListUrl);
+    const countyData = await _countyData.json();
+    cache.countiesList=countyData;
+    return countyData;
+  }else{
+    return cache.countiesList;
+  }
+
+
 }
 
 // <<<<<<<<<<<<<<<<Search
@@ -104,15 +145,15 @@ export function searchIndicator(array, string) {
 }
 // >>>>>>>>>>>>>>>>Search
 
-export async function fetchIndicators() { 
+export async function fetchIndicators() {
   let fetchIndicatorsUrl = `http://41.89.94.105/dsl/api/indicators`;
-  
+
   const fetchIndicators = await fetch(fetchIndicatorsUrl);
-  
+
   const indicatorsData = await fetchIndicators.json();
-  
+
   // console.log(`fetch all Indicators == ${JSON.stringify(indicatorsData)}`);
-  
+
   console.log(`All Indicators fetched. Count: ${indicatorsData.length} & Url: ${fetchIndicatorsUrl} `);
 
   return {indicatorsData}
