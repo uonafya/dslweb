@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import ExampleApp from '../components/Modal'
+import HealthWorkForce from '../components/HealthWorkForceModal'
 
 const props = {};
 
@@ -289,8 +289,8 @@ export default function UHC() {
                                             </div>
                                             <div className="columns">
                                                 <div className="column p-3">
-                                                    <article className="notification bcsecondary-dark p-5">
-                                                      <ExampleApp {...props}/>
+                                                    <article id="healthworkforce" className="notification bcsecondary-dark p-5">
+                                                      <HealthWorkForce {...props}/>
                                                     </article>
                                                 </div>
                                             </div>

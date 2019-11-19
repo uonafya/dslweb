@@ -64,6 +64,32 @@ export function ConvertToLineBarGraph(_data){
   return data;
 }
 
+//convert api data to (highcharts) pie chart
+export function ConvertToCadreGroupPieChart(_data,_name){
+  let seriee=[];
+  let data=[]
+  var counter=0;
+  _data.map((item) => {
+    let dataEntity;
+    if(counter==0){
+       dataEntity={"name": item.cadre, "y": Number(item.cadreCount),"sliced": true, "selected": true};
+    }else{
+       dataEntity={"name": item.cadre, "y": Number(item.cadreCount)};
+    }
+    data.push(dataEntity);
+    counter=counter+1;
+  })
+
+  let envelop = {};
+  if(_name!=null || _name!= undefined){
+    envelop["name"] = _name;
+  }
+  envelop["colorByPoint"] = true;
+  envelop["data"]=data;
+  seriee.push(envelop);
+  return seriee;
+}
+
 
 //takes a map of the format {cadreGroupName: cadreGroupCount}
 export function ConvertToCadreSimplePieChart(_data){
