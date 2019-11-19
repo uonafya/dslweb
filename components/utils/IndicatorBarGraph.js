@@ -42,11 +42,11 @@ export default class IndicatorLineBarGraph extends PureComponent {
     this.setState({id:nextProps.pe});
     let didPropsChange=false;
 
-    if(nextProps.id!=this.props.id || nextProps.ouid!=this.props.ouid || nextProps.pe!=this.props.pe){
+    if(nextProps.id!=this.props.id || nextProps.ouid!=this.props.ouid || nextProps.pe!=this.props.pe || nextProps.level!=this.props.level){
       (async () => {
         let returnedData=await FetchIndicatorData(nextProps.id,nextProps.ouid,nextProps.pe,this.props.level,null);
         var _data=ConvertToMonthlyLineGraph(returnedData.indicatorData.result.data);
-         this.setState({data: _data,id: nextProps.id, ouid: nextProps.ouid, pe: nextProps.pe});
+         this.setState({data: _data,id: nextProps.id, ouid: nextProps.ouid, pe: nextProps.pe, level: nextProps.level});
        })();
     }else{
 
@@ -56,6 +56,10 @@ export default class IndicatorLineBarGraph extends PureComponent {
   componentDidMount() {
     (async () => {
       let returnedData=await FetchIndicatorData(this.props.id,this.props.ouid,this.props.pe,this.props.level,null);
+      console.log("{{{{{{{{{");
+      console.log("hoo "+JSON.stringify(this.state));
+      console.log("ID:"+this.props.id+" && OU:"+this.props.ouid+" && PE:"+this.props.pe+" && LEVEL:"+this.props.level);
+      console.log("}}}}}}}}}");
       var _data=ConvertToMonthlyLineGraph(returnedData.indicatorData.result.data);
        this.setState({data: _data});
     })()
@@ -63,7 +67,7 @@ export default class IndicatorLineBarGraph extends PureComponent {
 
   render() {
     return (
-        <BarChart width={670} height={300} data={this.state.data} margin={{ top: 10, right: 20, left: 0, bottom: 5,}}>
+        <BarChart width={970} height={500} data={this.state.data} margin={{ top: 10, right: 20, left: 0, bottom: 5,}}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" tick={<CustomizedAxisTick />}/>
           <YAxis />

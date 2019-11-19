@@ -2,7 +2,7 @@ import { settings } from './Settings'
 import fetch from 'isomorphic-unfetch'
 
 export async function FetchIndicatorData(id,ouid,pe,level,loading) {
-  console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}`)
+  console.log(`// running helper fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}`)
   loading = true;
   let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
   if(pe != undefined){

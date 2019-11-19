@@ -218,8 +218,9 @@ const Page = withRouter(props => (
                             {/* Tab 2  */}
                               <div className="tab-pane" id="pane-2">
                                 <div className="columns">
-                                  <div className="column text-right">
-                                    <Displayline id={props.id} ouid= {props.ouid} pe= {props.pe} ></Displayline>
+                                  <div className="column text-left">
+                                    {/* {console.log( ' && ID:'+props.id+' && OU:'+props.ouid+' && PE:'+props.pe+' && LVL:'+props.level )} */}
+                                    <Displayline id={props.id} ouid={props.ouid} pe={props.pe} level={props.level} hoo="toot"></Displayline>
                                 </div>
                               </div>
                               </div>
@@ -424,7 +425,7 @@ function getLEVELname(lvl_id) {
   var lvl_name0 = level_data.find(function(onelvl) {
     return onelvl.id == lvl_id;
   })
-  console.log("getLEVELname ==> "+lvl_id+" == "+lvl_name);
+  
   var lvl_name = lvl_name0.level
   return lvl_name
 }
@@ -441,7 +442,7 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   if(level != undefined){
     fetchIndicatorDataUrl += `&level=${level}`;
   }
-  console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}. FINAL URL=${fetchIndicatorDataUrl}`)
+  console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}. FINAL_URL=${fetchIndicatorDataUrl}`)
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
   

@@ -12,9 +12,12 @@ class Displayline extends Component {
 
         this.showLineGraph = this.showLineGraph.bind(this)
         this.showBarGraph = this.showBarGraph.bind(this)
-        this.ouid = this.props.ouid[0]
+        // this.ouid = this.props.ouid[0]
+        this.ouid = this.props.ouid
         this.id = this.props.id
-        this.pe = this.props.pe[0]
+        // this.pe = this.props.pe[0]
+        this.pe = this.props.pe
+        this.level = this.props.level
        
       }
     
@@ -38,9 +41,9 @@ class Displayline extends Component {
         let display;
       
         if (showLine){
-            display = <div className="w-100-pc"> <IndicatorLineGraph id={this.id} ouid = {this.ouid} pe={this.pe} /></div>
+            display = <div className="w-100-pc"> <IndicatorLineGraph level={this.level} id={this.id} ouid = {this.ouid} pe={this.pe} /></div>
         }else{
-            display = <div className="w-100-pc">  <IndicatorLineBarGraph id={this.id} ouid = {this.ouid} pe={this.pe}  /> </div>
+            display = <div className="w-100-pc">  <IndicatorLineBarGraph level={this.level} id={this.id} ouid = {this.ouid} pe={this.pe}  /> </div>
         }
 
         return (
