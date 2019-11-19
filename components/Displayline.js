@@ -20,26 +20,25 @@ class Displayline extends Component {
         this.level = this.props.level
        
       }
-    
+
       showLineGraph() {
         this.setState({
             displayLine: true,
             displayBar: false
         })
       }
-  
+
       showBarGraph() {
         this.setState({
             displayBar: true,
             displayLine:false
         });
       }
-  
+
     render() {
          const showLine = this.state.displayLine;
          const showBar = this.state.displayBar;
         let display;
-      
         if (showLine){
             display = <div className="w-100-pc"> <IndicatorLineGraph level={this.level} id={this.id} ouid = {this.ouid} pe={this.pe} /></div>
         }else{
@@ -51,7 +50,7 @@ class Displayline extends Component {
                 <div className="w-100-pc">
                     <button className="button is-small is-black" onClick = {this.showLineGraph}><i className="fas fa-chart-line"></i> &nbsp; Line</button>
                     &nbsp; &nbsp;
-                    <button className="button is-small is-black" onClick = {this.showBarGraph}><i className="fas fa-chart-bar"></i> &nbsp; Bar</button> 
+                    <button className="button is-small is-black" onClick = {this.showBarGraph}><i className="fas fa-chart-bar"></i> &nbsp; Bar</button>
                 </div>
                 <div className="w-100-pc">
                     {display}

@@ -34,7 +34,11 @@ export default class IndicatorLineGraph extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {data: ''};
+    this.state = {
+      data: '',
+      width: 670,
+      height: 300
+    };
   }
 
   componentWillReceiveProps(nextProps){
@@ -50,6 +54,8 @@ export default class IndicatorLineGraph extends PureComponent {
     }else{
 
       }
+      if(this.props.width!=null) this.setState({width: this.props.width});
+      if(this.props.height!=null) this.setState({height: this.props.height});
     }
 
   componentDidMount() {
@@ -66,6 +72,8 @@ export default class IndicatorLineGraph extends PureComponent {
       }
       this.setState({data: _data, is_error: is_error, err_msg: err_msg});
     })()
+    if(this.props.width!=null) this.setState({width: this.props.width});
+    if(this.props.height!=null) this.setState({height: this.props.height});
   };
 
   render() {
@@ -81,7 +89,7 @@ export default class IndicatorLineGraph extends PureComponent {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="value" stroke="#8884d8" label={<CustomizedLabel />} activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="value" stroke="#0F9B46" label={<CustomizedLabel />} activeDot={{ r: 8 }} />
           </LineChart>
         </div>
     );

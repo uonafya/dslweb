@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import ExampleApp from '../components/Modal'
+
+const props = {};
+
 export default function UHC() {
   return (
   <div>
@@ -224,7 +228,7 @@ export default function UHC() {
                                                         <p className="text-uppercase fcwhite">Resilience in Essential Services Provision</p>
                                                     </article>
                                                 </div>
-                                            </div>                
+                                            </div>
                                         </div>
                                     </div>
                                     {/* <!-- yy/ --> */}
@@ -286,7 +290,7 @@ export default function UHC() {
                                             <div className="columns">
                                                 <div className="column p-3">
                                                     <article className="notification bcsecondary-dark p-5">
-                                                        <p className="subtitle text-uppercase fcwhite m-b-5">Health Workforce</p>
+                                                      <ExampleApp {...props}/>
                                                     </article>
                                                 </div>
                                             </div>
@@ -318,19 +322,17 @@ export default function UHC() {
                             </div>
                         </article>
                     </div>
-                  
+
                 </div>
 
               </div>
             </div>
           </div>
         </div>
-
-        
       </section>
+
     </Layout>
   </div>
 )
 
 }
-
