@@ -5,6 +5,8 @@ import  IndicatorLineBarGraph from './utils/IndicatorBarGraph'
 import IndicatorLineGraph from './utils/IndicatorLineGraph';
 import CadreGroupPieChart from './CadreGroupPie';
 import {FetchCountyList} from './utils/Helpers'
+import CountyDropDown from './utils/CountyDropDown'
+import YearDropDown from './utils/YearDropDown'
 
 export default class HealthWorkForce extends React.Component {
 
@@ -27,15 +29,14 @@ export default class HealthWorkForce extends React.Component {
     this.setState({ showModal: true });
   }
 
-  handleChangePeriod(event) {
-    this.setState({ date: event.target.value });
+  handleChangePeriod(year) {
+    this.setState({ date: year });
     console.log(event.target.value);
   }
 
-  handleOrgUnitChange(event) {
-    this.setState({ ouid: event.target.value });
+  handleOrgUnitChange(orgUnitId) {
+    this.setState({ ouid: orgUnitId });
   }
-
 
   handleCloseModal () {
     this.setState({ showModal: false });
@@ -43,13 +44,6 @@ export default class HealthWorkForce extends React.Component {
 
   componentDidMount(){
     Modal.setAppElement('#healthworkforce')
-    //fetch counties
-    (async () => {
-      let returnedData = await FetchCountyList();
-      this.setState({
-       countyList: returnedData
-      });
-    })()
   }
 
   render () {
@@ -70,18 +64,7 @@ export default class HealthWorkForce extends React.Component {
                   <h6>Period:</h6>
                   <div class="control">
                     <div class="select">
-                      <select onChange={this.handleChangePeriod}  value={this.state.date}>
-                        <option>Select dropdown</option>
-                        <option value="2011">2017</option>
-                        <option value="2012">2017</option>
-                        <option value="2013">2017</option>
-                        <option value="2014">2014</option>
-                        <option value="2015">2015</option>
-                        <option value="2016">2016</option>
-                        <option value="2017">2017</option>
-                        <option value="2018">2017</option>
-                        <option value="2019">2017</option>
-                      </select>
+                      <YearDropDown handler={this.handleChangePeriod} />
                     </div>
                   </div>
                 </div>
@@ -89,11 +72,8 @@ export default class HealthWorkForce extends React.Component {
                   <h6>County:</h6>
                   <div class="control">
                     <div class="select">
-                    <select onChange={this.handleOrgUnitChange}  value={this.state.date}>
-                      {this.state.countyList.map(entry =>
-                        <option key={entry.id} value={entry.id}>{entry.name}</option>
-                      )};
-                    </select>
+                      <CountyDropDown handler={this.handleOrgUnitChange}/>
+
                     </div>
                   </div>
                 </div>
