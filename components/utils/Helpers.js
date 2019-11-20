@@ -146,15 +146,18 @@ export function searchIndicator(array, string) {
 // >>>>>>>>>>>>>>>>Search
 
 export async function fetchIndicators() {
+  let loading = true
   let fetchIndicatorsUrl = `http://41.89.94.105/dsl/api/indicators`;
 
   const fetchIndicators = await fetch(fetchIndicatorsUrl);
 
   const indicatorsData = await fetchIndicators.json();
-
+  if(indicatorsData.length > 5){
+    loading = false
+  }
   // console.log(`fetch all Indicators == ${JSON.stringify(indicatorsData)}`);
 
   console.log(`All Indicators fetched. Count: ${indicatorsData.length} & Url: ${fetchIndicatorsUrl} `);
 
-  return {indicatorsData}
+  return {indicatorsData, loading}
 }

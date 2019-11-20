@@ -28,7 +28,12 @@ const Layout = props => (
     </Head>
     <Header />
     <div className="min-h-89-vh">
-      {props.children}
+      {/* <div id="loading-indicator" className={props.pageProps.loading == true ? "hidden": "loading-indicator"}>
+        <div><img src="/static/images/ripple-loading.svg" /> </div>
+      </div> */}
+      <div className="content">
+        {props.children}
+      </div>
     </div>
     <Footer />
 

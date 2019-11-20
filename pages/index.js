@@ -24,12 +24,20 @@ const Home = withRouter(props => (
               <div className="column">
                   <div className="field has-addons herosearch-container">
                     <div className="control">
-                      <input className="input text-left herosearch" type="text" placeholder="Find an indicator or dashboard"/>
+                      <input className="input text-left herosearch" type="text" name="search" placeholder="Find an indicator or dashboard"/>
                     </div>
                     <div className="control">
-                      <a className="button is-info">
+                      <button className="button is-info"
+                        onClick={
+                          () => {
+                            console.log("searching ============================== " )
+                            const searchTerm = document.getElementsByName("search")[0].value;
+                            const newRoute = `/indicators?search=${encodeURI(searchTerm)}`;
+                            encodeURI(searchTerm).length>2 ? Router.push(newRoute) : console.log('////////// bad search term')
+                          }
+                      }>
                         <i className="fas fa-search"></i>
-                      </a>
+                      </button>
                     </div>
                   </div>
                   <Link href="/indicators">
@@ -95,9 +103,11 @@ const Home = withRouter(props => (
                         <div className="gis-indicator-list max-h-650-px auto-overflow-y">
                           <ul>
                             {props.dslIndicators.map( one_indicator => (
-                              <li><a key={one_indicator.id} className="is-link fcsecondary-dark" 
+                              <li><a key={one_indicator.id} className="is-link fcsecondary-dark maplink" 
                               onClick={
-                                () => handleMapIndicator(one_indicator)
+                                () => {
+                                  handleMapIndicator(one_indicator)
+                                }
                               }
                                >{one_indicator.name}</a></li>
                             ))}
@@ -180,13 +190,19 @@ function handleMapIndicator(indicator) {
   //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
   let yrr = document.getElementById("mapyr").value
   document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
+  
+  var elems = document.querySelectorAll(".maplink");
+  [].forEach.call(elems, function(el) {
+      el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
+  });
 }
 Home.getInitialProps = async function(context) {
+
   const mapFilterYear = 2019;
   const mapFilterIndicator = 21030
-  let { indicatorsData } = await fetchIndicators();
+  let { indicatorsData, loading } = await fetchIndicators();
   const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
-  return { dslIndicators: indicatorsData, years, error: false };
+  return { dslIndicators: indicatorsData, years, error: false, loading };
 };
 
 
