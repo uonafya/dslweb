@@ -6,8 +6,6 @@ import IndicatorLineGraph from './utils/IndicatorLineGraph';
 import CadreGroupPieChart from './CadreGroupPie';
 import {FetchCountyList} from './utils/Helpers'
 
-Modal.setAppElement('#healthworkforce')
-
 export default class HealthWorkForce extends React.Component {
 
   constructor () {
@@ -44,6 +42,7 @@ export default class HealthWorkForce extends React.Component {
   }
 
   componentDidMount(){
+    Modal.setAppElement('#healthworkforce')
     //fetch counties
     (async () => {
       let returnedData = await FetchCountyList();
