@@ -24,7 +24,7 @@ export default class CadreGroupPieChart extends PureComponent {
           type: 'pie'
         },
         title: {
-          text: "title"
+          text: ""
         },
         credits: {
           enabled: false
@@ -63,7 +63,11 @@ export default class CadreGroupPieChart extends PureComponent {
   }
   componentDidMount() {
     (async () => {
-      let returnedData = await FetchCadreGroupAllocation(this.props.id, this.props.ouid, this.props.pe);
+      let groupId=null;
+      if(this.props.id != null || this.props.id !=undefined){
+        groupId=this.props.id
+      }
+      let returnedData = await FetchCadreGroupAllocation(groupId, this.props.ouid, this.props.pe);
       let data=ConvertToCadreGroupPieChart(returnedData);
       this.setState({
        chartOptions: {
@@ -82,7 +86,11 @@ export default class CadreGroupPieChart extends PureComponent {
 
   componentWillReceiveProps(nextProps){
     (async () => {
-      let returnedData = await FetchCadreGroupAllocation(nextProps.id, nextProps.ouid, nextProps.pe);
+      let groupId=null;
+      if(nextProps.id != null || nextProps.id !=undefined){
+        groupId=nextProps.id
+      }
+      let returnedData = await FetchCadreGroupAllocation(groupId, nextProps.ouid, nextProps.pe);
       let data=ConvertToCadreGroupPieChart(returnedData);
       this.setState({
        chartOptions: {

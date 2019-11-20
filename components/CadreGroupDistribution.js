@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import CadreTwoPieGraph from './utils/CadreTwoPieChart'
-
+import CadreGroupPieChart from './CadreGroupPie'
 export default class LandingCadrePieChart extends PureComponent {
 
   constructor(props) {
@@ -34,7 +34,7 @@ export default class LandingCadrePieChart extends PureComponent {
           <br/>
           <h4 className="title m-b-0 m-l-10 is-6">{this.state.indicatorName} - 2019</h4>
           <div id="uhc-diplay-area">
-            <CadreTwoPieGraph ouid={this.state.ouid} pe={this.state.pe}/>
+            <CadreGroupPieChart pe={this.state.pe} ouid={this.state.ouid}/>
           </div>
           <div className="p-l-15">
            <a href="#" id="18" onClick={handleClick} className="is-link text-smaller">National Cadre Group Distribution</a> <br/>
