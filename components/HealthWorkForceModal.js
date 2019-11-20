@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import  IndicatorLineBarGraph from './utils/IndicatorBarGraph'
-import LineChart from './utils/DemoLine'
 import IndicatorLineGraph from './utils/IndicatorLineGraph';
 import CadreGroupPieChart from './CadreGroupPie';
 import {FetchCountyList} from './utils/Helpers'
@@ -74,10 +73,15 @@ export default class HealthWorkForce extends React.Component {
                     <div class="select">
                       <select onChange={this.handleChangePeriod}  value={this.state.date}>
                         <option>Select dropdown</option>
+                        <option value="2011">2017</option>
+                        <option value="2012">2017</option>
+                        <option value="2013">2017</option>
                         <option value="2014">2014</option>
                         <option value="2015">2015</option>
                         <option value="2016">2016</option>
                         <option value="2017">2017</option>
+                        <option value="2018">2017</option>
+                        <option value="2019">2017</option>
                       </select>
                     </div>
                   </div>
@@ -97,7 +101,19 @@ export default class HealthWorkForce extends React.Component {
             </div>
           </section>
 
-          <CadreGroupPieChart pe={this.state.date} ouid={this.state.ouid} id={7} title={"new title"}/>
+          {/* content area */}
+          <section class="section">
+            <div class="columns">
+                <div class="column ">
+                  <CadreGroupPieChart pe={this.state.date} ouid={this.state.ouid} title={"Cadre Grouop Distribution"}/>
+                </div>
+                <div class="column">
+                    <CadreGroupPieChart pe={this.state.date} ouid={this.state.ouid} title={"Cadre Distribution - by cadre group"}/>
+                </div>
+            </div>
+          </section>
+          {/*--- end content area*/}
+
         </Modal>
       </div>
     );
