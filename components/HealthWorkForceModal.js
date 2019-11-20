@@ -7,6 +7,7 @@ import CadreGroupPieChart from './CadreGroupPie';
 import {FetchCountyList} from './utils/Helpers'
 import CountyDropDown from './utils/CountyDropDown'
 import YearDropDown from './utils/YearDropDown'
+import CadreCountTable from './CadreAllocationTable'
 
 export default class HealthWorkForce extends React.Component {
 
@@ -14,7 +15,7 @@ export default class HealthWorkForce extends React.Component {
     super();
     this.state = {
       showModal: false,
-      date: 2019,
+      period: 2019,
       ouid: 18,
       countyList: []
     };
@@ -30,7 +31,7 @@ export default class HealthWorkForce extends React.Component {
   }
 
   handleChangePeriod(year) {
-    this.setState({ date: year });
+    this.setState({ period: year });
     console.log(event.target.value);
   }
 
@@ -84,10 +85,10 @@ export default class HealthWorkForce extends React.Component {
           <section class="section">
             <div class="columns">
                 <div class="column ">
-                  <CadreGroupPieChart pe={this.state.date} ouid={this.state.ouid} title={"Cadre Grouop Distribution"}/>
+                  <CadreGroupPieChart pe={this.state.period} ouid={this.state.ouid} title={"Distribution of facility human resource by Cadre grouping"}/>
                 </div>
                 <div class="column">
-                    <CadreGroupPieChart pe={this.state.date} ouid={this.state.ouid} title={"Cadre Distribution - by cadre group"}/>
+                  <CadreCountTable pe={this.state.period} ouid={this.state.ouid} />
                 </div>
             </div>
           </section>

@@ -115,6 +115,28 @@ export async function FetchCadreGroupAllocation(id,ouid,pe) {
 }
 
 
+export async function FetchCadreAllocation(id,ouid,pe) {
+  let fetchCadreGroupsDataUrl = `${settings.dslBaseApi}/cadres/`;
+
+  let append=false;
+  if(pe != undefined){
+    fetchCadreGroupsDataUrl += `?pe=${pe}`;
+    append = true;
+  }
+  if(ouid != undefined || ouid != null){
+    if(append) fetchCadreGroupsDataUrl += `&ouid=${ouid}`;
+    else  fetchCadreGroupsDataUrl += `?ouid=${ouid}`;
+  }
+  if(id != undefined || id != null){
+    if(append) fetchCadreGroupsDataUrl += `&id=${id}`;
+    else  fetchCadreGroupsDataUrl += `?id=${id}`;
+  }
+  console.log("Making request to: "+fetchCadreGroupsDataUrl);
+  let _cadresData = await fetch(fetchCadreGroupsDataUrl);
+  let cadresData = await _cadresData.json();
+  return cadresData
+}
+
 export async function FetchFacilityCountByType() {
   let facilityCountDataUrl = `${settings.dslBaseApi}/facilitytype/all`;
   const facilityData = await fetch(facilityCountDataUrl);

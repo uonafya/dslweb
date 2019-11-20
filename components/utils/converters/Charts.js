@@ -91,6 +91,21 @@ export function ConvertToCadreGroupPieChart(_data,_name){
 }
 
 
+//convert api data to (highcharts) pie chart
+export function ConvertToCadreTable(_data){
+  let data=[]
+  var counter=1;
+  _data.map((item) => {
+    let dataEntity;
+    dataEntity={id: counter, Cadre: item.cadre, Count: item.cadreCount};
+    data.push(dataEntity);
+    counter=counter+1;
+  })
+  return data;
+}
+
+
+
 //takes a map of the format {cadreGroupName: cadreGroupCount}
 export function ConvertToCadreSimplePieChart(_data){
   var mapData=[];
