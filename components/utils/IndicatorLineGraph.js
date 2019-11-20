@@ -83,7 +83,7 @@ export default class IndicatorLineGraph extends PureComponent {
             {this.state.is_error == true ? this.state.err_msg : "" }
           </span>
 
-          <LineChart width={970} height={500} data={this.state.data} margin={{ top: 10, right: 20, left: 0, bottom: 5,}}>
+          <LineChart width={this.state.width} height={this.state.height} data={this.state.data} margin={{ top: 10, right: 20, left: 0, bottom: 5,}}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" tick={<CustomizedAxisTick />}/>
             <YAxis />
