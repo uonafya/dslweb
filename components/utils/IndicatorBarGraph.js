@@ -65,10 +65,10 @@ export default class IndicatorLineBarGraph extends PureComponent {
   componentDidMount() {
     (async () => {
       let returnedData=await FetchIndicatorData(this.props.id,this.props.ouid,this.props.pe,this.props.level,null);
-      console.log("{{{{{{{{{");
-      console.log("hoo "+JSON.stringify(this.state));
-      console.log("ID:"+this.props.id+" && OU:"+this.props.ouid+" && PE:"+this.props.pe+" && LEVEL:"+this.props.level);
-      console.log("}}}}}}}}}");
+      // console.log("{{{{{{{{{");
+      // console.log("hoo "+JSON.stringify(this.state));
+      // console.log("ID:"+this.props.id+" && OU:"+this.props.ouid+" && PE:"+this.props.pe+" && LEVEL:"+this.props.level);
+      // console.log("}}}}}}}}}");
       var _data=ConvertToMonthlyLineGraph(returnedData.indicatorData.result.data);
        this.setState({data: _data});
     })()
