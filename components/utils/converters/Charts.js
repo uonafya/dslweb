@@ -1,4 +1,6 @@
 export function ConvertToMonthlyLineGraph(_data){
+  console.log("debug ===>");
+  console.log(_data);
   const data = [
     {
       name: 'Jan', value: null
@@ -37,19 +39,20 @@ export function ConvertToMonthlyLineGraph(_data){
       name: 'Dec', value: null
     },
   ];
-
-  var mapData;
+  var mapData=null;
   for(var key in _data){
-
     mapData=_data[key];
   }
-  var lineGraphData= [];
-  mapData.map(singleMap => {
-    var entry = {};
-    var month=singleMap['period'].slice(-2);
-    data[parseInt(month)-1]['value']=singleMap['value'];
-  });
-  return data;
+  if(mapData!=null || mapData!=undefined){
+    var lineGraphData= [];
+    mapData.map(singleMap => {
+      var entry = {};
+      var month=singleMap['period'].slice(-2);
+      data[parseInt(month)-1]['value']=singleMap['value'];
+    });
+    return data;
+  }else return null;
+
 }
 
 // _data is a js object/map
