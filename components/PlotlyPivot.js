@@ -12,12 +12,14 @@ export default class PlotlyPivot extends React.Component {
         this.state = {
           props,
           pivotData: [],
-          pivotState: {}
+          pivotState: {},
+          fileName: '',
         }
     }
 
     componentDidMount() {
       let pivot_state = {
+        fileName: this.props.title,
         data: this.props.pivotData,
         rows: ['Period'],
         cols: ['Organisation Unit'],
@@ -31,6 +33,7 @@ export default class PlotlyPivot extends React.Component {
       }
       this.setState({
         pivotData:  this.props.pivotData,
+        title:  this.props.title,
         pivotState:  pivot_state
       });
     }

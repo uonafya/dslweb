@@ -178,7 +178,7 @@ const Page = withRouter(props => (
                         <div className="column">
                             {/* Pivot */}
                             {/* {JSON.stringify(props.pivotData)} */}
-                            <PlotlyPivot pivotData={props.pivotData} />
+                            <PlotlyPivot pivotData={props.pivotData} title={props.indicatorData.result.dictionary.indicators[0].name}/>
                             {/* end Pivot */}
                         </div>
                     </div>
@@ -217,7 +217,7 @@ Page.getInitialProps = async function(context) {
   }
   const pivotData = pivotConvert(indicatorData)
   console.log("pivotData == "+JSON.stringify(pivotData));
-//   const pivotData = [ ["Period","Organisation Unit","Value"], ["201801","Muhoroni Sub County",13.67], ["201801","Kisumu East Sub County",13.8], ["201801","Nyakach Sub County",14.62], ["201801","Nyando Sub County",15.9], ["201801","Kisumu Central Sub County ",15.97], ["201801","Seme Sub County",16.7], ["201801","Kisumu West Sub County",16.95], ["201802","Kisumu West Sub County",12.68], ["201802","Nyando Sub County",13.65], ["201802","Seme Sub County",13.75], ["201802","Muhoroni Sub County",14.04], ["201802","Kisumu Central Sub County ",15.38], ["201802","Kisumu East Sub County",16.37], ["201802","Nyakach Sub County",19.02], ["201803","Kisumu East Sub County",2.47], ["201803","Seme Sub County",3.08], ["201803","Muhoroni Sub County",3.28], ["201803","Kisumu West Sub County",5.25], ["201803","Kisumu Central Sub County ",10.18], ["201803","Nyakach Sub County",13.77], ["201803","Nyando Sub County",16.78], ["201804","Nyakach Sub County",3.38], ["201804","Nyando Sub County",15.78], ["201805","Kisumu Central Sub County ",0.55], ["201806","Kisumu West Sub County",0.47], ["201807","Kisumu West Sub County",2.47], ["201808","Kisumu West Sub County",1.08], ["201809","Kisumu West Sub County",2.35], ["201810","Nyando Sub County",0.42], ["201810","Kisumu West Sub County",1.29], ["201811","Kisumu West Sub County",1.72], ["201812","Kisumu West Sub County",2.79] ];
+  
   return { indicatorData, id, ouid, pe, years, level:levell, counties, loading, error, pivotData };
 
 };
