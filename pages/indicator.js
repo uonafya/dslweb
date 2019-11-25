@@ -205,10 +205,10 @@ const Page = withRouter(props => (
                               <div className="columns">
                                 <div className="column text-center">
                                   {/* <h1>Pivot</h1> */}
-                                  {/* <Pivot pivotData={getPivotData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )} /> */}
+                                  {/* <Pivot pivotData={getTableData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )} /> */}
                                   {props.error
                                     ? <span className="is-error is-fullwidth p-4 br-3">!!!</span>
-                                    : <DTable pivotData={getPivotData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )}/>
+                                    : <DTable pivotData={getTableData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )}/>
                                   }
                                 </div>
                               </div>
@@ -232,7 +232,13 @@ const Page = withRouter(props => (
                                 <div className="column notification shadow-heavy-light text-center is-vcentered">
                                   <p><a href="login.html" className="is-link fcsecondary-dark">Log in</a> or <a href="#" className="is-link fcsecondary-dark">request for an account</a> to analyse indicators</p>
                                   <br/>
-                                  <a href="#" className="button is-secondary">Analyse</a>
+                                  <button  className="button is-secondary" onClick={
+                                    ()=>{
+                                      goToAnalysisPage(props.id,props.pe,props.ouid,props.level)
+                                    }
+                                  }>Analyse</button>
+                                  &nbsp; &nbsp;
+                                  <button  className="button is-disabled" disabled title="WIP">Compare</button>
                                 </div>
                               </div>
                             </div>
@@ -383,7 +389,7 @@ Page.getInitialProps = async function(context) {
 };
 
 
-function getPivotData(dictionary, row_data) {
+function getTableData(dictionary, row_data) {
   const main_data = {};
   // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
   // console.log(JSON.stringify(row_data));
@@ -404,6 +410,8 @@ function getPivotData(dictionary, row_data) {
   });
   return main_data
 }
+
+//TODO: get ou name properly
 function getOUname(dict, ou_id) {
   // var ou_name0 = dict.find(function(oneou) {
   //   return oneou.id == ou_id;
@@ -412,7 +420,7 @@ function getOUname(dict, ou_id) {
   // return ou_name
 
   // console.log("getOUname ----->>>> "+JSON.stringify(dict));
-  return dict[0].name
+  return ou_id
 }
 function getLEVELname(lvl_id) {
   const level_data = [
@@ -429,6 +437,24 @@ function getLEVELname(lvl_id) {
   var lvl_name = lvl_name0.level
   return lvl_name
 }
+
+
+function goToAnalysisPage(id,pe,ouid,level) {
+  let analysisUrl = `/analysis/${id}`;
+  let levell = level
+  if(pe != undefined || pe != '' || pe != null){
+    analysisUrl += `?pe=${pe}`;
+  }
+  if(ouid != undefined || ouid != '' || ouid != null){
+    analysisUrl += `&ouid=${ouid}`;
+  }
+  if(level != undefined || level != '' || level != null){
+    analysisUrl += `&level=${level}`;
+  }
+  Router.push(analysisUrl)
+}
+
+
 async function fetchIndicatorData(id,ouid,pe,level,loading) {
   loading = true;
   let fetchIndicatorDataUrl = `http://41.89.94.105/dsl/api/indicators/${id}`;
