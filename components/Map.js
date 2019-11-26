@@ -51,6 +51,7 @@ export default class extends React.Component {
       }
     }, 100)
   }
+  
 
   componentWillUnmount () {
     if (this.map && this.map.leafletElement) {
@@ -107,6 +108,18 @@ export default class extends React.Component {
         return {MapData}
     }
 
+    function handleMapIndicator(indicator) {
+      //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
+      let yrr = document.getElementById("mapyr").value
+      document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
+    
+      var elems = document.querySelectorAll(".maplink");
+      [].forEach.call(elems, function(el) {
+          el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
+      });
+    }
+
+
     // const markers = ( [{id: 0, coordinates: {longitude: 76.732407, latitude: 31.698956} }] ).map(d => {
     //   const { latitude, longitude } = d.coordinates
     //   return (
@@ -117,10 +130,73 @@ export default class extends React.Component {
     // })
 
     return (
-        <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={6.48} maxZoom={9.00} >
-            <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
-            <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
-      </LeafletMap>
+     <div> 
+
+        <div className="container">
+          <div className="columns">
+            <div className="column">
+              <div className="box min-h-650-px">
+                <div className="content">
+                  {/* <h4 className="title is-5 text-bold">GIS Map Viewer</h4> */}
+                  <div className="columns">
+                    <div className="column is-one-quarter">
+                        {/* MAP Datepicker */}
+                        <h4 className="title is-5 m-b-5">Period:</h4>
+                        <hr className="m-t-5 m-b-5"/>
+                        <div className="select is-fullwidth">
+                          <select id="mapyr">
+                            {this.props.error ? "" : this.props.years.map( oneyr => (<option value={oneyr}>{oneyr}</option>) )}
+                          </select>
+                        </div>
+                        {/* end MAP Datepicker */}
+
+                        {/* MAP IndiPicker */}
+                        <h4 className="title is-5 m-b-5">Indicators:</h4>
+                        <hr className="m-t-5 m-b-5"/>
+                        <div className="gis-indicator-list max-h-650-px auto-overflow-y">
+                          <ul>
+                            {this.props.dslIndicators.map( one_indicator => (
+                              <li><a key={one_indicator.id} className="is-link fcsecondary-dark maplink" 
+                              onClick={
+                                () => {
+                                  const mapData = null
+                                  handleMapIndicator(one_indicator)
+                                  console.log('Kenyatta', mapData)
+                                }
+                              }
+                               >{one_indicator.name}</a></li>
+                            ))}
+                          </ul>
+                        </div>
+                        {/* end MAP IndiPicker */}
+                    </div>
+                    <div className="column">
+                        <h4 className="title is-5 m-b-5">Kenya - <span id="maptitle" className="fcgrey-light-1">(47 counties)</span></h4>
+                        <hr className="m-t-5 m-b-5"/>
+                        <div className="columns p-l-10 p-r-10">
+                          <div className="column min-h-500-px">
+                            {/* <h1 className="title">Map goes here</h1> */}
+                            <div className="hide-overflow min-h-100-pc is-fullwidth" style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 700 + 'px'}}>
+                                <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={6.48} maxZoom={9.00} >
+                                <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
+                                <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
+                                
+                          </LeafletMap>
+                            
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     )
   }
+  
 }
