@@ -78,63 +78,9 @@ const Home = withRouter(props => (
         <div className="section-heading m-b-20">
             <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">Map View Explorer</h4>
             <p>Overview of county data for each indicator</p>
-        </div>
-        <div className="container">
-          <div className="columns">
-            <div className="column">
-              <div className="box min-h-650-px">
-                <div className="content">
-                  {/* <h4 className="title is-5 text-bold">GIS Map Viewer</h4> */}
-                  <div className="columns">
-                    <div className="column is-one-quarter">
-                        {/* MAP Datepicker */}
-                        <h4 className="title is-5 m-b-5">Period:</h4>
-                        <hr className="m-t-5 m-b-5"/>
-                        <div className="select is-fullwidth">
-                          <select id="mapyr">
-                            {props.error ? "" : props.years.map( oneyr => (<option value={oneyr}>{oneyr}</option>) )}
-                          </select>
-                        </div>
-                        {/* end MAP Datepicker */}
-
-                        {/* MAP IndiPicker */}
-                        <h4 className="title is-5 m-b-5">Indicators:</h4>
-                        <hr className="m-t-5 m-b-5"/>
-                        <div className="gis-indicator-list max-h-650-px auto-overflow-y">
-                          <ul>
-                            {props.dslIndicators.map( one_indicator => (
-                              <li><a key={one_indicator.id} className="is-link fcsecondary-dark maplink" 
-                              onClick={
-                                () => {
-                                  handleMapIndicator(one_indicator)
-                                }
-                              }
-                               >{one_indicator.name}</a></li>
-                            ))}
-                          </ul>
-                        </div>
-                        {/* end MAP IndiPicker */}
-                    </div>
-                    <div className="column">
-                        <h4 className="title is-5 m-b-5">Kenya - <span id="maptitle" className="fcgrey-light-1">(47 counties)</span></h4>
-                        <hr className="m-t-5 m-b-5"/>
-                        <div className="columns p-l-10 p-r-10">
-                          <div className="column min-h-500-px">
-                            {/* <h1 className="title">Map goes here</h1> */}
-                            <div className="hide-overflow min-h-100-pc is-fullwidth" style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 700 + 'px'}}>
-                              <Map />
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-        </div>
+        
+          <Map key = {props.id} dslIndicators = {props.dslIndicators} years = {props.years} /> 
+          </div> 
       </section>
 
       <section className="section">
@@ -186,16 +132,16 @@ const Home = withRouter(props => (
   </div>  
 ));
 
-function handleMapIndicator(indicator) {
-  //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
-  let yrr = document.getElementById("mapyr").value
-  document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
-  
-  var elems = document.querySelectorAll(".maplink");
-  [].forEach.call(elems, function(el) {
-      el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
-  });
-}
+//  async function handleMapIndicator(indicator) {
+//   //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
+//   let yrr = document.getElementById("mapyr").value
+//   document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
+
+//   var elems = document.querySelectorAll(".maplink");
+//   [].forEach.call(elems, function(el) {
+//       el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
+//   });
+// }
 Home.getInitialProps = async function(context) {
 
   const mapFilterYear = 2019;
