@@ -381,7 +381,7 @@ Page.getInitialProps = async function(context) {
       pe=indicatorData.result.dictionary.parameters.period.map( onepe => ( onepe ) )
     }
     if(ouid == undefined){
-      ouid=indicatorData.result.dictionary.parameters.location.map( oneloc => ( oneloc ) )
+      ouid=indicatorData.result.dictionary.parameters.location.map( oneloc => ( oneloc.ouid ) )
     }
   }
   return { indicatorData, id, ouid, pe, years, level:levell, counties, loading, error };
@@ -411,17 +411,6 @@ function getTableData(dictionary, row_data) {
   return main_data
 }
 
-//TODO: get ou name properly
-function getOUname(dict, ou_id) {
-  // var ou_name0 = dict.find(function(oneou) {
-  //   return oneou.id == ou_id;
-  // })
-  // var ou_name = ou_name0.name
-  // return ou_name
-
-  // console.log("getOUname ----->>>> "+JSON.stringify(dict));
-  return ou_id
-}
 function getLEVELname(lvl_id) {
   const level_data = [
     {"id": 1, "level": "National level"},
@@ -450,6 +439,7 @@ function goToAnalysisPage(id,pe,ouid,level) {
   if(level != undefined){
     analysisUrl += `&level=${level}`;
   }
+  // console.log("goToAnalysisPage URL-> "+analysisUrl);
   Router.push(analysisUrl)
 }
 

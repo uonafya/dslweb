@@ -56,10 +56,25 @@ const Header = () => (
                   </a></Link>
               </div>
             </div>
-            {/* <a className="navbar-item is-primary" href="./login.html">
-              <span>Log in</span>
-            </a> */}
-            <Link href='/login'><a className="navbar-item is-primary">Log in</a></Link>
+            <div className="field has-addons w-200-px m-l-10 m-t-10 is-hidden-mobile is-hidden-tablet">
+              <div className="control">
+                <input className="input text-left herosearch" type="text" name="search" placeholder="Search"/>
+              </div>
+              <div className="control">
+                <button className="button is-info"
+                  onClick={
+                    () => {
+                      console.log("searching ============================== " )
+                      const searchTerm = document.getElementsByName("search")[0].value;
+                      const newRoute = `/indicators?search=${encodeURI(searchTerm)}`;
+                      encodeURI(searchTerm).length>2 ? Router.push(newRoute) : console.log('////////// bad search term')
+                    }
+                }>
+                  <i className="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            {/* <Link href='/login'><a className="navbar-item is-primary">Log in</a></Link> */}
           </div>
         </div>
     </div>

@@ -17,12 +17,16 @@ export default class ReactPivot extends React.Component {
         }
     }
 
+    onUpdateContent(content) {
+      this.content = content;
+    }
+
     componentDidMount() {
       let pivot_state = {
         fileName: this.props.title,
         data: this.props.pivotData,
-        rows: ['Period'],
-        cols: ['Organisation Unit'],
+        cols: ['Period'],
+        rows: ['Organisation Unit'],
         aggregatorName: 'List Unique Values',
         vals: ['Value'],
         rendererName: 'Table Heatmap'
@@ -43,7 +47,7 @@ export default class ReactPivot extends React.Component {
             <div>
               <PivotTableUI
                 data={this.state.pivotData}
-                onChange={s => this.setState(s)}
+                onChange={s => this.setState({pivotState: s})}
                 {...this.state.pivotState}
               />
             </div>

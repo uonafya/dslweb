@@ -223,7 +223,7 @@ Analyze.getInitialProps = async function(context) {
     }
   }
   const pivotData = pivotConvert(indicatorData)
-  console.log("pivotData == "+JSON.stringify(pivotData));
+  // console.log("pivotData == "+JSON.stringify(pivotData));
   
   return { indicatorData, id, ouid, pe, years, level:levell, counties, loading, error, pivotData };
 
