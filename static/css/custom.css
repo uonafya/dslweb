@@ -563,3 +563,7 @@
     height: 120px;
 }
 /* Fullpage loader */
+
+ul.pagination > .page-item{
+    list-style: none;
+}
