@@ -3,6 +3,7 @@ import { withRouter } from 'next/router';
 import Router from 'next/router'
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
+import {settings} from '../components/utils/Settings';
 import fetch from 'isomorphic-unfetch';
 import Pivot from '../components/Table';
 import DTable from '../components/DataTable';
@@ -90,9 +91,8 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link m-l-0 p-l-0">
                         {props.error ? "":
-                          props.indicatorData.result.dictionary.parameters.location.map(one_ou => (
-                            getOUname(props.indicatorData.result.dictionary.orgunits, one_ou)
-                        ))}
+                          props.indicatorData.result.dictionary.parameters.location[0].name
+                        }
                       </a>
                       <div className="navbar-dropdown is-boxed p-5 min-w-200-px">
                           <div className="select is-fullwidth">
@@ -373,7 +373,7 @@ Page.getInitialProps = async function(context) {
 
   // for filters
   const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
-  const countyList = await fetch(`http://41.89.94.105/dsl/api/counties`);
+  const countyList = await fetch(`${settings.dslBaseApi}/counties`);
   const counties = await countyList.json();
   // for filters
   if(!error){
@@ -440,15 +440,14 @@ function getLEVELname(lvl_id) {
 
 
 function goToAnalysisPage(id,pe,ouid,level) {
-  let analysisUrl = `/analysis/${id}`;
-  let levell = level
-  if(pe != undefined || pe != '' || pe != null){
+  let analysisUrl = `/analyse/${id}`;
+  if(pe != undefined){
     analysisUrl += `?pe=${pe}`;
   }
-  if(ouid != undefined || ouid != '' || ouid != null){
+  if(ouid != undefined){
     analysisUrl += `&ouid=${ouid}`;
   }
-  if(level != undefined || level != '' || level != null){
+  if(level != undefined){
     analysisUrl += `&level=${level}`;
   }
   Router.push(analysisUrl)
@@ -457,7 +456,7 @@ function goToAnalysisPage(id,pe,ouid,level) {
 
 async function fetchIndicatorData(id,ouid,pe,level,loading) {
   loading = true;
-  let fetchIndicatorDataUrl = `http://41.89.94.105/dsl/api/indicators/${id}`;
+  let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
   let levell = level
   if(pe != undefined){
     fetchIndicatorDataUrl += `?pe=${pe}`;

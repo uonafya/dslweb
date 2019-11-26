@@ -24,8 +24,8 @@ app
         console.log("queryParams = "+JSON.stringify(queryParams));
         app.render(req, res, actualPage, queryParams);
     });
-    server.get('/analysis/:id', (req, res) => {
-        const actualPage = '/analysis';
+    server.get('/analyse/:id', (req, res) => {
+        const actualPage = '/analyse';
         const queryParams = { id: req.params.id, pe: req.query.pe, ouid: req.query.ouid, level: req.query.level };
         console.log("queryParams = "+JSON.stringify(queryParams));
         app.render(req, res, actualPage, queryParams);
