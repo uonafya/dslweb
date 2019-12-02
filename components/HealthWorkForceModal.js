@@ -40,7 +40,11 @@ export default class HealthWorkForce extends React.Component {
   }
 
   handleCloseModal () {
-    this.setState({ showModal: false });
+    this.setState({
+      showModal: false,
+      period: 2019,
+      ouid: 18
+     });
   }
 
   componentDidMount(){

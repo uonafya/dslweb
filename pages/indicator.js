@@ -90,9 +90,7 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link m-l-0 p-l-0">
                         {props.error ? "":
-                          props.indicatorData.result.dictionary.parameters.location.map(one_ou => (
-                            getOUname(props.indicatorData.result.dictionary.orgunits, one_ou)
-                        ))}
+                          props.indicatorData.result.dictionary.parameters.location[0].name}
                       </a>
                       <div className="navbar-dropdown is-boxed p-5 min-w-200-px">
                           <div className="select is-fullwidth">
@@ -433,7 +431,7 @@ function getLEVELname(lvl_id) {
   var lvl_name0 = level_data.find(function(onelvl) {
     return onelvl.id == lvl_id;
   })
-  
+
   var lvl_name = lvl_name0.level
   return lvl_name
 }
@@ -471,7 +469,7 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}. FINAL_URL=${fetchIndicatorDataUrl}`)
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
-  
+
   let error;
   if(indicatorData.result.dictionary.indicators.length < 1){
     error = true;
