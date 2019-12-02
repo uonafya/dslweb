@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import HealthWorkForce from '../components/HealthWorkForceModal'
+import ServiceCoverage from '../components/ServicesCoverageModal'
 
 const props = {};
 
@@ -134,8 +135,8 @@ export default function UHC() {
                                             </article>
                                         </div>
                                         <div className="column p-3">
-                                            <article className="notification is-success p-5">
-                                                <p className="text-uppercase">Essential Services Coverage</p>
+                                            <article id="servicecoverage" className="notification is-success p-5">
+                                                <ServiceCoverage  {...props}/>
                                             </article>
                                         </div>
                                         <div className="column p-3">
