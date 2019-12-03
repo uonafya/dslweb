@@ -3,12 +3,13 @@ import { withRouter } from 'next/router';
 import Router from 'next/router'
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
+import {settings} from '../components/utils/Settings';
 import fetch from 'isomorphic-unfetch';
 import { pivotConvert } from '../components/utils/converters/PivotConverter';
-import PlotlyPivot from '../components/PlotlyPivot';
+import ReactPivot from '../components/ReactPivot';
 
 
-const Page = withRouter(props => (
+const Analyze = withRouter(props => (
   <Layout>
     {/* Breadcrumb */}
     <section className="section m-t-50 m-b-5 bcclear p-b-15">
@@ -19,20 +20,27 @@ const Page = withRouter(props => (
                 <ul>
                     <li><Link href="/"><a>Home</a></Link></li>
                     <li><Link href="/indicators"><a>All indicators</a></Link></li>
+                    <li><Link href={"/indicator/"+props.id}>
+                        <a>
+                            {props.error ? "" :
+                            props.indicatorData.result.dictionary.indicators.map(one_indi => (
+                              one_indi.id
+                            ))
+                            } &nbsp;
+                        </a>
+                    </Link></li>
                     <li className="is-active">
-                    <a aria-current="page">
-                        {props.error ? "" :
-                        props.indicatorData.result.dictionary.indicators.map(one_indi => (
-                            one_indi.id
-                        ))
-                        } &nbsp;
-                    </a>
+                      <a aria-current="page">
+                        Analysis
+                      </a>
                     </li>
                 </ul>
                 </nav>
             </div>
             <div className="column text-right">
-                <a className="is-link" onClick={() => Router.back()} >&larr; Back to indicator summary</a>
+                <a className="is-link" onClick={() => 
+                  goToIndicatorPage(props.id,props.pe,props.ouid,props.level)
+                } >&larr; Back to indicator summary</a>
             </div>
         </div>
       </div>
@@ -72,9 +80,9 @@ const Page = withRouter(props => (
                       <div className="select is-fullwidth">
                         <select onChange={
                           (e) => {
-                            const newRoute = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
+                            const newaRoute = `/analyse/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
                             // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
-                            Router.push(newRoute)
+                            Router.push(newaRoute)
                           }
                         }>
                           <option value="" disabled>Year</option>
@@ -94,17 +102,17 @@ const Page = withRouter(props => (
                 <label className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Location: </label>&nbsp;
                 <span className="text-bold display-inline-b p-l-0 m-l-0">
                   <div className="navbar-item has-dropdown is-hoverable">
-                      <a className="navbar-link m-l-0 p-l-0">
+                      <a className="navbar-link m-l-0 p-l-0 text-caps">
                         {props.error ? "":
-                          props.indicatorData.result.dictionary.parameters.location[0].name}
+                          props.indicatorData.result.dictionary.parameters.location[0].name
+                        }
                       </a>
                       <div className="navbar-dropdown is-boxed p-5 min-w-200-px">
-                          <div className="select is-fullwidth">
+                          <div className="select is-fullwidth text-caps">
                             <select  onChange={
                               (e) => {
-                                const newOUroute = `/indicator/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
-                                // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value)
-                                Router.push(newOUroute);
+                                const newOUaroute = `/analyse/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
+                                Router.push(newOUaroute);
                               }
                             }>
                               <option disabled value="">Pick a county</option>
@@ -114,7 +122,7 @@ const Page = withRouter(props => (
                                   onecty => (
                                     <option value={onecty.id} disabled={onecty.id==props.ouid?'"true"':''} selected={onecty.id==props.ouid?'"true"':''}>{onecty.name}</option>
                                   )
-                              )}
+                                )}
                             </select>
                           </div>
                       </div>
@@ -138,9 +146,9 @@ const Page = withRouter(props => (
                           <div className="select is-fullwidth">
                             <select  onChange={
                               (e) => {
-                                const newLEVroute = `/indicator/${props.id}?pe=${props.pe}&ouid=${props.ouid}&level=${e.target.value}`
+                                const newLEVaroute = `/analyse/${props.id}?pe=${props.pe}&ouid=${props.ouid}&level=${e.target.value}`
                                 // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value)
-                                Router.push(newLEVroute);
+                                Router.push(newLEVaroute);
                               }
                             }>
                               <option disabled value="">Pick a level</option>
@@ -161,6 +169,7 @@ const Page = withRouter(props => (
           </div>
         </div>
       </div>
+      
       <div className="container-fluid">
         <div className="columns">
 
@@ -176,7 +185,7 @@ const Page = withRouter(props => (
                         <div className="column">
                             {/* Pivot */}
                             {/* {JSON.stringify(props.pivotData)} */}
-                            <PlotlyPivot pivotData={props.pivotData} title={props.indicatorData.result.dictionary.indicators[0].name}/>
+                            <ReactPivot pivotData={props.pivotData} title={props.indicatorData.result.dictionary.indicators[0].name}/>
                             {/* end Pivot */}
                         </div>
                     </div>
@@ -192,7 +201,7 @@ const Page = withRouter(props => (
   </Layout>
 ));
 
-Page.getInitialProps = async function(context) {
+Analyze.getInitialProps = async function(context) {
   let { id } = context.query; //get GET params sent to this page
   let { pe } = context.query; //get GET params sent to this page
   let { ouid } = context.query; //get GET params sent to this page
@@ -202,7 +211,7 @@ Page.getInitialProps = async function(context) {
 
   // for filters
   const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
-  const countyList = await fetch(`http://41.89.94.105/dsl/api/counties`);
+  const countyList = await fetch(`${settings.dslBaseApi}/counties`);
   const counties = await countyList.json();
   // for filters
   if(!error){
@@ -214,23 +223,20 @@ Page.getInitialProps = async function(context) {
     }
   }
   const pivotData = pivotConvert(indicatorData)
-  console.log("pivotData == "+JSON.stringify(pivotData));
-
+  // console.log("pivotData == "+JSON.stringify(pivotData));
+  
   return { indicatorData, id, ouid, pe, years, level:levell, counties, loading, error, pivotData };
 
 };
 
-function getOUname(dict, ou_id) {
-  // var ou_name0 = dict.find(function(oneou) {
-  //   return oneou.id == ou_id;
-  // })
-  // var ou_name = ou_name0.name
-  // return ou_name
-
-  // console.log("getOUname ----->>>> "+JSON.stringify(dict));
-//   return dict[0].name
-  return ou_id
-}
+// function getOUname(dict, ou_id) {
+//   var ou_name_arr = dict.find(function(oneou) {
+//     return oneou.id == ou_id;
+//   })
+//   console.log("getOUname ----->>>> "+JSON.stringify(ou_name_arr));
+//   var ou_name = ou_name_arr[0].name
+//   return ou_name
+// }
 function getLEVELname(lvl_id) {
   const level_data = [
     {"id": 1, "level": "National level"},
@@ -242,13 +248,13 @@ function getLEVELname(lvl_id) {
   var lvl_name0 = level_data.find(function(onelvl) {
     return onelvl.id == lvl_id;
   })
-
+  
   var lvl_name = lvl_name0.level
   return lvl_name
 }
 async function fetchIndicatorData(id,ouid,pe,level,loading) {
   loading = true;
-  let fetchIndicatorDataUrl = `http://41.89.94.105/dsl/api/indicators/${id}`;
+  let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
   let levell = level
   if(pe != undefined){
     fetchIndicatorDataUrl += `?pe=${pe}`;
@@ -262,7 +268,7 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}. FINAL_URL=${fetchIndicatorDataUrl}`)
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
-
+  
   let error;
   if(indicatorData.result.dictionary.indicators.length < 1){
     error = true;
@@ -274,9 +280,25 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   // if(!error){
     loading = false;
   // }
-
+  
   return {indicatorData, loading, levell, error}
 }
 
 
-export default Page;
+
+function goToIndicatorPage(id,pe,ouid,level) {
+  let analysisUrl = `/analyse/${id}`;
+  if(pe != undefined){
+    analysisUrl += `?pe=${pe}`;
+  }
+  if(ouid != undefined){
+    analysisUrl += `&ouid=${ouid}`;
+  }
+  if(level != undefined){
+    analysisUrl += `&level=${level}`;
+  }
+  Router.push(analysisUrl)
+}
+
+
+export default Analyze;

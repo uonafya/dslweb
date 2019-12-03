@@ -6,7 +6,7 @@ import 'react-pivottable/pivottable.css';
 // see documentation for supported input formats
 // const data = [['attribute', 'attribute2'], [987.00, 200.72]];
 
-export default class PlotlyPivot extends React.Component {
+export default class ReactPivot extends React.Component {
     constructor({props}) {
         super(props);
         this.state = {
@@ -17,18 +17,22 @@ export default class PlotlyPivot extends React.Component {
         }
     }
 
+    onUpdateContent(content) {
+      this.content = content;
+    }
+
     componentDidMount() {
       let pivot_state = {
         fileName: this.props.title,
         data: this.props.pivotData,
-        rows: ['Period'],
-        cols: ['Organisation Unit'],
+        cols: ['Period'],
+        rows: ['Organisation Unit'],
         aggregatorName: 'List Unique Values',
         vals: ['Value'],
         rendererName: 'Table Heatmap'
         // sorters: {
-        //     Meal: sortAs(['Lunch', 'Dinner']),
-        //     'Day of Week': sortAs([ 'Thursday', 'Friday', 'Saturday', 'Sunday',]),
+        //     Ounit: sortAs(['National', 'County']),
+        //     'Periodicity': sortAs([ 'Daily', 'Weekly', 'Monthly', 'Annually',]),
         // }
       }
       this.setState({
@@ -43,7 +47,7 @@ export default class PlotlyPivot extends React.Component {
             <div>
               <PivotTableUI
                 data={this.state.pivotData}
-                onChange={s => this.setState(s)}
+                onChange={s => this.setState({pivotState: s})}
                 {...this.state.pivotState}
               />
             </div>

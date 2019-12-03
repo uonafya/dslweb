@@ -3,6 +3,7 @@ import { withRouter } from 'next/router';
 import Router from 'next/router'
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
+import {settings} from '../components/utils/Settings';
 import fetch from 'isomorphic-unfetch';
 import Pivot from '../components/Table';
 import DTable from '../components/DataTable';
@@ -90,7 +91,8 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link m-l-0 p-l-0">
                         {props.error ? "":
-                          props.indicatorData.result.dictionary.parameters.location[0].name}
+                          props.indicatorData.result.dictionary.parameters.location[0].name
+                        }
                       </a>
                       <div className="navbar-dropdown is-boxed p-5 min-w-200-px">
                           <div className="select is-fullwidth">
@@ -371,7 +373,7 @@ Page.getInitialProps = async function(context) {
 
   // for filters
   const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
-  const countyList = await fetch(`http://41.89.94.105/dsl/api/counties`);
+  const countyList = await fetch(`${settings.dslBaseApi}/counties`);
   const counties = await countyList.json();
   // for filters
   if(!error){
@@ -379,7 +381,7 @@ Page.getInitialProps = async function(context) {
       pe=indicatorData.result.dictionary.parameters.period.map( onepe => ( onepe ) )
     }
     if(ouid == undefined){
-      ouid=indicatorData.result.dictionary.parameters.location.map( oneloc => ( oneloc ) )
+      ouid=indicatorData.result.dictionary.parameters.location.map( oneloc => ( oneloc.ouid ) )
     }
   }
   return { indicatorData, id, ouid, pe, years, level:levell, counties, loading, error };
@@ -409,17 +411,6 @@ function getTableData(dictionary, row_data) {
   return main_data
 }
 
-//TODO: get ou name properly
-function getOUname(dict, ou_id) {
-  // var ou_name0 = dict.find(function(oneou) {
-  //   return oneou.id == ou_id;
-  // })
-  // var ou_name = ou_name0.name
-  // return ou_name
-
-  // console.log("getOUname ----->>>> "+JSON.stringify(dict));
-  return ou_id
-}
 function getLEVELname(lvl_id) {
   const level_data = [
     {"id": 1, "level": "National level"},
@@ -431,31 +422,31 @@ function getLEVELname(lvl_id) {
   var lvl_name0 = level_data.find(function(onelvl) {
     return onelvl.id == lvl_id;
   })
-
+  
   var lvl_name = lvl_name0.level
   return lvl_name
 }
 
 
 function goToAnalysisPage(id,pe,ouid,level) {
-  let analysisUrl = `/analysis/${id}`;
-  let levell = level
-  if(pe != undefined || pe != '' || pe != null){
+  let analysisUrl = `/analyse/${id}`;
+  if(pe != undefined){
     analysisUrl += `?pe=${pe}`;
   }
-  if(ouid != undefined || ouid != '' || ouid != null){
+  if(ouid != undefined){
     analysisUrl += `&ouid=${ouid}`;
   }
-  if(level != undefined || level != '' || level != null){
+  if(level != undefined){
     analysisUrl += `&level=${level}`;
   }
+  // console.log("goToAnalysisPage URL-> "+analysisUrl);
   Router.push(analysisUrl)
 }
 
 
 async function fetchIndicatorData(id,ouid,pe,level,loading) {
   loading = true;
-  let fetchIndicatorDataUrl = `http://41.89.94.105/dsl/api/indicators/${id}`;
+  let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
   let levell = level
   if(pe != undefined){
     fetchIndicatorDataUrl += `?pe=${pe}`;
@@ -469,7 +460,7 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}. FINAL_URL=${fetchIndicatorDataUrl}`)
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
-
+  
   let error;
   if(indicatorData.result.dictionary.indicators.length < 1){
     error = true;
