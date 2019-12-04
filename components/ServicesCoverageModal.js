@@ -91,11 +91,14 @@ export default class ServiceCoverage extends React.Component {
             <div class="columns">
                 <div class="column ">
                   <div className="box m-5">
+                    <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Percentage of pregnant women attending at least 4 ANC visits for the period: {this.state.period}</h5>
+                    <br/>
                     <IndicatorLineGraph id={10748234} pe={this.state.period} ouid={this.state.ouid}/>
                   </div>
                 </div>
                 <div class="column">
                   <div className="box m-5">
+                    <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Facility Maternal Mortality Ratio for the  period: {this.state.period}</h5>
                     <IndicatorLineGraph id={31584} pe={this.state.period} ouid={this.state.ouid}/>
                   </div>
                 </div>
@@ -104,6 +107,7 @@ export default class ServiceCoverage extends React.Component {
             <div class="columns">
                 <div class="column ">
                 <div className="box m-5">
+                  <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">% Diabetes screened for the period: {this.state.period}</h5>
                   <IndicatorLineGraph id={342134} pe={this.state.period} ouid={this.state.ouid}/>
                 </div>
                 </div>

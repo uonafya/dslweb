@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import  IndicatorLineBarGraph from './utils/IndicatorBarGraph'
-
+import  IndicatorLineGraph from './utils/IndicatorLineGraph'
 
 export default class UhcIndicators extends PureComponent {
 
@@ -28,7 +27,7 @@ export default class UhcIndicators extends PureComponent {
           <br/>
           <h4 className="title m-b-0 m-l-10 is-6">National {this.state.indicatorName} - 2018</h4>
           <div id="uhc-diplay-area">
-            <IndicatorLineBarGraph  id={this.state.id} ouid={this.state.ouid} pe={this.state.pe}/>
+            <IndicatorLineGraph type={'column'} id={this.state.id} ouid={this.state.ouid} pe={this.state.pe}/>
           </div>
           <div className="p-l-15">
             <a href="#" id="31584" onClick={handleClick} className="is-link text-smaller">Facility Maternal Mortality Ratio</a> <br/>
