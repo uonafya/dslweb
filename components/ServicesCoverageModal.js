@@ -2,12 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import  IndicatorLineBarGraph from './utils/IndicatorBarGraph'
-import IndicatorLineGraph from './utils/IndicatorLineGraph';
-import CadreGroupPieChart from './CadreGroupPie';
 import {FetchCountyList} from './utils/Helpers'
 import CountyDropDown from './utils/CountyDropDown'
 import YearDropDown from './utils/YearDropDown'
-import CadreCountTable from './CadreAllocationTable'
+import IndicatorLineGraph from './utils/IndicatorLineGraph'
 
 export default class ServiceCoverage extends React.Component {
 
@@ -63,7 +61,7 @@ export default class ServiceCoverage extends React.Component {
           <section style={{paddingBottom: "0" }} class="section">
             <a href="#" onClick={this.handleCloseModal}><i  class="far fa-times-circle fa-2x " style={{color: "red"}}></i></a>
             <span style={{display: "inline-block", width: "100%", textAlign: "center"}}>
-              <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Health Workforce Distribution</h4>
+              <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Essential Services Coverage</h4>
             </span>
           </section>
           <section style={{paddingBottom: "0" }} class="section">
@@ -92,12 +90,25 @@ export default class ServiceCoverage extends React.Component {
           <section class="section">
             <div class="columns">
                 <div class="column ">
-                  <CadreGroupPieChart pe={this.state.period} ouid={this.state.ouid} title={"Distribution of facility human resource by Cadre grouping"}/>
+                  <div className="box m-5">
+                    <IndicatorLineGraph id={10748234} pe={this.state.period} ouid={this.state.ouid}/>
+                  </div>
                 </div>
                 <div class="column">
-                  <CadreCountTable pe={this.state.period} ouid={this.state.ouid} />
+                  <div className="box m-5">
+                    <IndicatorLineGraph id={31584} pe={this.state.period} ouid={this.state.ouid}/>
+                  </div>
                 </div>
             </div>
+
+            <div class="columns">
+                <div class="column ">
+                <div className="box m-5">
+                  <IndicatorLineGraph id={342134} pe={this.state.period} ouid={this.state.ouid}/>
+                </div>
+                </div>
+            </div>
+
           </section>
           {/*--- end content area*/}
 

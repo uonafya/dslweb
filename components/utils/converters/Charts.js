@@ -1,3 +1,4 @@
+//recharts format
 export function ConvertToMonthlyLineGraph(_data){
   console.log("debug ===>");
   console.log(_data);
@@ -54,6 +55,69 @@ export function ConvertToMonthlyLineGraph(_data){
   }else return null;
 
 }
+
+//highcharts format
+export function ConvertToMonthlyLineGraph2(_data){
+  console.log("debug ===>");
+  console.log(_data.data);
+
+  let indicatorList =_data.dictionary.indicators;
+  let indicatorMap ={}; //indicator mete data placeholder
+  indicatorList.map(indicatorMeta => {
+    let singleIndicMap={};
+    singleIndicMap['last_updated']= indicatorMeta.last_updated;
+    singleIndicMap['date_created']= indicatorMeta.date_created;
+    singleIndicMap['name']= indicatorMeta.name;
+    singleIndicMap['description']= indicatorMeta.description;
+    singleIndicMap['source']= indicatorMeta.source;
+    indicatorMap[indicatorMeta.id] = singleIndicMap;
+  });
+
+  const data = [];
+
+  var mapData=null;
+
+  for(var key in _data.data){
+    console.log("debug 0");
+    console.log(key);
+    mapData=_data.data[key];
+    console.log("=====");
+    console.log(mapData);
+    if(mapData!=null || mapData!=undefined){
+      var orgUnitIndicatorData = {};
+      var lineGraphData= [];
+      let indicName = indicatorMap[key]['name'];
+      console.log("debug 1");
+      console.log(indicName);
+      mapData.map(singleMap => {
+        if(!(singleMap['ou'] in orgUnitIndicatorData)){
+          orgUnitIndicatorData[singleMap['ou']]={
+            name: indicName,
+            data: [null, null, null, null, null, null, null, null, null, null, null, null]
+          };
+        }
+        var month=singleMap['period'].slice(-2);
+        orgUnitIndicatorData[singleMap['ou']].data[parseInt(month)-1]=Number(singleMap['value']);
+        console.log("debug 2");
+        console.log(orgUnitIndicatorData);
+      });
+
+      for(var key in orgUnitIndicatorData){
+        data.push(orgUnitIndicatorData[key]);
+        console.log("debug 3");
+      }
+      console.log(data)
+      return data;
+    }else{
+      console.log("got data");
+      console.log(data);
+      return null
+    };
+  }
+
+}
+
+
 
 // _data is a js object/map
 export function ConvertToLineBarGraph(_data){
