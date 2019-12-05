@@ -1,44 +1,8 @@
 //recharts format
 export function ConvertToMonthlyLineGraph(_data){
-  console.log("debug ===>");
-  console.log(_data);
-  const data = [
-    {
-      name: 'Jan', value: null
-    },
-    {
-      name: 'Feb', value: null
-    },
-    {
-      name: 'Mar', value: null
-    },
-    {
-      name: 'Apr', value: null
-    },
-    {
-      name: 'May', value: null
-    },
-    {
-      name: 'Jun', value: null
-    },
-    {
-      name: 'Jul', value: null
-    },
-    {
-      name: 'Aug', value: null
-    },
-    {
-      name: 'Sep', value: null
-    },
-    {
-      name: 'Oct', value: null
-    },
-    {
-      name: 'Nov', value: null
-    },
-    {
-      name: 'Dec', value: null
-    },
+  // console.log("debug ===>");
+  // console.log(_data);
+  const data = [ { name: 'Jan', value: null }, { name: 'Feb', value: null }, { name: 'Mar', value: null }, { name: 'Apr', value: null }, { name: 'May', value: null }, { name: 'Jun', value: null }, { name: 'Jul', value: null }, { name: 'Aug', value: null }, { name: 'Sep', value: null }, { name: 'Oct', value: null }, { name: 'Nov', value: null }, { name: 'Dec', value: null },
   ];
   var mapData=null;
   for(var key in _data){
@@ -58,8 +22,8 @@ export function ConvertToMonthlyLineGraph(_data){
 
 //highcharts format
 export function ConvertToMonthlyLineGraph2(_data){
-  console.log("debug ===>");
-  console.log(_data.data);
+  // console.log("debug ===>");
+  // console.log(_data.data);
 
   let indicatorList =_data.dictionary.indicators;
   let indicatorMap ={}; //indicator mete data placeholder
@@ -78,17 +42,17 @@ export function ConvertToMonthlyLineGraph2(_data){
   var mapData=null;
 
   for(var key in _data.data){
-    console.log("debug 0");
-    console.log(key);
+    // console.log("debug 0");
+    // console.log(key);
     mapData=_data.data[key];
-    console.log("=====");
-    console.log(mapData);
+    // console.log("=====");
+    // console.log(mapData);
     if(mapData!=null || mapData!=undefined){
       var orgUnitIndicatorData = {};
       var lineGraphData= [];
       let indicName = indicatorMap[key]['name'];
-      console.log("debug 1");
-      console.log(indicName);
+      // console.log("debug 1");
+      // console.log(indicName);
       mapData.map(singleMap => {
         if(!(singleMap['ou'] in orgUnitIndicatorData)){
           orgUnitIndicatorData[singleMap['ou']]={
@@ -98,19 +62,19 @@ export function ConvertToMonthlyLineGraph2(_data){
         }
         var month=singleMap['period'].slice(-2);
         orgUnitIndicatorData[singleMap['ou']].data[parseInt(month)-1]=Number(singleMap['value']);
-        console.log("debug 2");
-        console.log(orgUnitIndicatorData);
+        // console.log("debug 2");
+        // console.log(orgUnitIndicatorData);
       });
 
       for(var key in orgUnitIndicatorData){
         data.push(orgUnitIndicatorData[key]);
-        console.log("debug 3");
+        // console.log("debug 3");
       }
-      console.log(data)
+      // console.log(data)
       return data;
     }else{
-      console.log("got data");
-      console.log(data);
+      // console.log("got data");
+      // console.log(data);
       return null
     };
   }
