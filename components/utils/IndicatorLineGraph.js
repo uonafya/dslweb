@@ -18,32 +18,32 @@ export default class IndicatorLineGraph extends PureComponent {
     this.state = {
       chartOptions: {
         chart: {
-                  zoomType: 'xy'
+                type: 'line'  // can be line, bar or column
                 },
-                title: {
-                text: ''
-            },
+        title: {
+          text: ''
+        },
 
-            subtitle: {
-                text: ''
-            },
+        subtitle: {
+            text: ''
+        },
 
-            yAxis: {
-                title: {
-                    text: 'Indicator Value'
-                }
-            },
-            legend: {
-              align: 'center',
-              verticalAlign: 'bottom',
-              borderWidth: 0
-            },
-            xAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-            },
-            credits: {
-              enabled: false
-            },
+        yAxis: {
+            title: {
+                text: 'Indicator Value'
+            }
+        },
+        legend: {
+          align: 'center',
+          verticalAlign: 'bottom',
+          borderWidth: 0
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        credits: {
+          enabled: false
+        },
         series:  [{}]
       }
     }
@@ -60,6 +60,15 @@ export default class IndicatorLineGraph extends PureComponent {
         err_msg = indicatorData.messageType + ' ' + indicatorData.mesageContent
       }else{
         _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+      }
+      if(this.props.type!=null){
+        this.setState({
+         chartOptions: {
+           chart: {
+             type: this.props.type
+           }
+         }
+       });
       }
       this.setState({
        chartOptions: {
@@ -82,6 +91,15 @@ export default class IndicatorLineGraph extends PureComponent {
         err_msg = indicatorData.messageType + ' ' + indicatorData.mesageContent
       }else{
         _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+      }
+      if(nextProps.type!=null){
+        this.setState({
+         chartOptions: {
+           chart: {
+             type: nextProps.type
+           }
+         }
+       });
       }
       this.setState({
        chartOptions: {
