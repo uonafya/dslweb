@@ -16,7 +16,7 @@ export async function FetchIndicatorData(id,ouid,pe,level,loading) {
     fetchIndicatorDataUrl += `&ouid=${ouid}`;
   }
   if(level != undefined){
-    fetchIndicatorDataUrl += `&ouid=${level}`;
+    fetchIndicatorDataUrl += `&level=${level}`;
   }
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();

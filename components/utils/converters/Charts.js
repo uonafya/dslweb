@@ -56,12 +56,17 @@ export function ConvertToMonthlyLineGraph(_data){
 
 }
 
-//highcharts format
-export function ConvertToMonthlyLineGraph2(_data){
-  console.log("debug ===>");
-  console.log(_data.data);
+function getOrgUnitsMap(orunitList){
+  let orgunitMap ={}; //orgunits mete data placeholder
+  orunitList.map(orgUnitMeta => {
+    let singleOrgUnitMap={};
+    singleOrgUnitMap['name']= orgUnitMeta.name;
+    orgunitMap[orgUnitMeta.id] = singleOrgUnitMap;
+  });
+  return orgunitMap;
+}
 
-  let indicatorList =_data.dictionary.indicators;
+function getIndicatorsMap(indicatorList){
   let indicatorMap ={}; //indicator mete data placeholder
   indicatorList.map(indicatorMeta => {
     let singleIndicMap={};
@@ -72,45 +77,45 @@ export function ConvertToMonthlyLineGraph2(_data){
     singleIndicMap['source']= indicatorMeta.source;
     indicatorMap[indicatorMeta.id] = singleIndicMap;
   });
+  return indicatorMap;
+}
+//highcharts format
+export function ConvertToMonthlyLineGraph2(_data){
+
+  let indicatorList =_data.dictionary.indicators;
+  let orgUnitList =_data.dictionary.orgunits;
+
+  let indicatorMap =getIndicatorsMap(indicatorList);
+  let orgunitMap =getOrgUnitsMap(orgUnitList);
+
 
   const data = [];
 
   var mapData=null;
 
   for(var key in _data.data){
-    console.log("debug 0");
-    console.log(key);
     mapData=_data.data[key];
-    console.log("=====");
-    console.log(mapData);
     if(mapData!=null || mapData!=undefined){
       var orgUnitIndicatorData = {};
       var lineGraphData= [];
       let indicName = indicatorMap[key]['name'];
-      console.log("debug 1");
-      console.log(indicName);
       mapData.map(singleMap => {
+
         if(!(singleMap['ou'] in orgUnitIndicatorData)){
           orgUnitIndicatorData[singleMap['ou']]={
-            name: indicName,
+            name: indicName+" - "+orgunitMap[singleMap['ou']]['name'],
             data: [null, null, null, null, null, null, null, null, null, null, null, null]
           };
         }
         var month=singleMap['period'].slice(-2);
         orgUnitIndicatorData[singleMap['ou']].data[parseInt(month)-1]=Number(singleMap['value']);
-        console.log("debug 2");
-        console.log(orgUnitIndicatorData);
       });
 
       for(var key in orgUnitIndicatorData){
         data.push(orgUnitIndicatorData[key]);
-        console.log("debug 3");
       }
-      console.log(data)
       return data;
     }else{
-      console.log("got data");
-      console.log(data);
       return null
     };
   }
