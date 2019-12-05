@@ -1,44 +1,8 @@
 //recharts format
 export function ConvertToMonthlyLineGraph(_data){
-  console.log("debug ===>");
-  console.log(_data);
-  const data = [
-    {
-      name: 'Jan', value: null
-    },
-    {
-      name: 'Feb', value: null
-    },
-    {
-      name: 'Mar', value: null
-    },
-    {
-      name: 'Apr', value: null
-    },
-    {
-      name: 'May', value: null
-    },
-    {
-      name: 'Jun', value: null
-    },
-    {
-      name: 'Jul', value: null
-    },
-    {
-      name: 'Aug', value: null
-    },
-    {
-      name: 'Sep', value: null
-    },
-    {
-      name: 'Oct', value: null
-    },
-    {
-      name: 'Nov', value: null
-    },
-    {
-      name: 'Dec', value: null
-    },
+  // console.log("debug ===>");
+  // console.log(_data);
+  const data = [ { name: 'Jan', value: null }, { name: 'Feb', value: null }, { name: 'Mar', value: null }, { name: 'Apr', value: null }, { name: 'May', value: null }, { name: 'Jun', value: null }, { name: 'Jul', value: null }, { name: 'Aug', value: null }, { name: 'Sep', value: null }, { name: 'Oct', value: null }, { name: 'Nov', value: null }, { name: 'Dec', value: null },
   ];
   var mapData=null;
   for(var key in _data){

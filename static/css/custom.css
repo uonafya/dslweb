@@ -526,6 +526,9 @@
 .leaflet-pane.leaflet-map-pane{
     z-index: 0 !important;
 }
+.leaflet-marker-icon{
+    opacity: 0;
+}
 /* end Map */
 
 
@@ -568,4 +571,7 @@
 
 ul.pagination > .page-item{
     list-style: none;
+}
+.gis-indicator-list ul{
+    list-style-type: square;
 }
