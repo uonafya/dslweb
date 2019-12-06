@@ -92,10 +92,14 @@ export default class HealthWorkForce extends React.Component {
           <section class="section">
             <div class="columns">
                 <div class="column ">
-                  <CadreGroupPieChart pe={this.state.period} ouid={this.state.ouid} title={"Distribution of facility human resource by Cadre grouping"}/>
+                  <div className="box m-5">
+                    <CadreGroupPieChart pe={this.state.period} ouid={this.state.ouid} title={"Distribution of facility human resource by Cadre grouping"}/>
+                  </div>
                 </div>
                 <div class="column">
-                  <CadreCountTable pe={this.state.period} ouid={this.state.ouid} />
+                  <div className="box m-5">
+                    <CadreCountTable pe={this.state.period} ouid={this.state.ouid} />
+                  </div>
                 </div>
             </div>
           </section>
