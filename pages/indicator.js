@@ -238,6 +238,10 @@ const Page = withRouter(props => (
                                     }
                                   }>Analyse</button>
                                   &nbsp; &nbsp;
+
+                                  <Link href={"/timeseries?id="+props.id+"&ouid="+props.ouid+"&level="+props.level+"&pe="+props.pe}><a className="button is-secondary">Timeseries</a></Link>
+
+                                  &nbsp; &nbsp;
                                   <button  className="button is-disabled" disabled title="WIP">Compare</button>
                                 </div>
                               </div>
@@ -422,7 +426,7 @@ function getLEVELname(lvl_id) {
   var lvl_name0 = level_data.find(function(onelvl) {
     return onelvl.id == lvl_id;
   })
-  
+
   var lvl_name = lvl_name0.level
   return lvl_name
 }
@@ -443,7 +447,6 @@ function goToAnalysisPage(id,pe,ouid,level) {
   Router.push(analysisUrl)
 }
 
-
 async function fetchIndicatorData(id,ouid,pe,level,loading) {
   loading = true;
   let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
@@ -460,7 +463,7 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}. FINAL_URL=${fetchIndicatorDataUrl}`)
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
-  
+
   let error;
   if(indicatorData.result.dictionary.indicators.length < 1){
     error = true;
