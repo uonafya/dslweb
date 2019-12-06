@@ -26,6 +26,27 @@ export async function FetchIndicatorData(id,ouid,pe,level,loading) {
   return {indicatorData, loading}
 }
 
+export async function fetchTimeSeriesData(id,ouid,periodSpan,periodType) {
+  let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
+  if(periodSpan != undefined){
+    fetchIndicatorDataUrl += `?periodspan=${periodSpan}`;
+  }else{
+    fetchIndicatorDataUrl += `?periodspan=2`;
+  }
+  if(ouid != undefined){
+    fetchIndicatorDataUrl += `&ouid=${ouid}`;
+  }else{
+    fetchIndicatorDataUrl += `&ouid=18`; //default to national
+  }
+  if(periodType != undefined){
+    fetchIndicatorDataUrl += `&periodtype=${periodType}`;
+  }else{
+    fetchIndicatorDataUrl += `&periodtype=yearly`;
+  }
+  const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
+  const indicatorData = await fetchIndicatorData.json();
+  return {indicatorData}
+}
 
 export function getCadreGroupMapping(cadreData){
   let cadreGroupMap = {};
