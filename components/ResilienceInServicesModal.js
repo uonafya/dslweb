@@ -61,7 +61,7 @@ export default class ResilienceInServices  extends React.Component {
           <section style={{paddingBottom: "0" }} class="section">
             <a href="#" onClick={this.handleCloseModal}><i  class="far fa-times-circle fa-2x " style={{color: "red"}}></i></a>
             <span style={{display: "inline-block", width: "100%", textAlign: "center"}}>
-              <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Essential Services Coverage</h4>
+              <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Resilience in Essential Services Provision</h4>
             </span>
           </section>
           <section style={{paddingBottom: "0" }} class="section">

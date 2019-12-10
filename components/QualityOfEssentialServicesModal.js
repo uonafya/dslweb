@@ -61,7 +61,7 @@ export default class QualityOfEssentialServices  extends React.Component {
           <section style={{paddingBottom: "0" }} class="section">
             <a href="#" onClick={this.handleCloseModal}><i  class="far fa-times-circle fa-2x " style={{color: "red"}}></i></a>
             <span style={{display: "inline-block", width: "100%", textAlign: "center"}}>
-              <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Essential Services Coverage</h4>
+              <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Quality of Essential Services</h4>
             </span>
           </section>
           <section style={{paddingBottom: "0" }} class="section">
@@ -96,6 +96,15 @@ export default class QualityOfEssentialServices  extends React.Component {
                     <IndicatorLineGraph id={85000} pe={this.state.period} ouid={this.state.ouid}/>
                   </div>
                 </div>
+
+                <div class="column ">
+                  <div className="box m-5">
+                    <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Facility Maternal Mortality Ratio for the period:  {this.state.period}</h5>
+                    <br/>
+                    <IndicatorLineGraph type={'column'} id={31584} pe={this.state.period} ouid={this.state.ouid}/>
+                  </div>
+                </div>
+
             </div>
           </section>
           {/*--- end content area*/}
