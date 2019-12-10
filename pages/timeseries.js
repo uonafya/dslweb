@@ -1,13 +1,15 @@
 import Link from 'next/link';
 import React, { PureComponent } from 'react';
 import Layout from '../components/Layout';
-import fetchTimeSeriesData from '../components/utils/Helpers';
+import {fetchTimeSeriesData} from '../components/utils/Helpers';
 
 class Timeseries extends React.Component {
 
   static getInitialProps({query}) {
     console.log(query);
-
+    (async () => {
+      let {timeSeriesData}=await fetchTimeSeriesData(query.ouid,query.ouid);
+    })()
     return {query}
   }
 

@@ -2,6 +2,9 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 import HealthWorkForce from '../components/HealthWorkForceModal'
 import ServiceCoverage from '../components/ServicesCoverageModal'
+import HealthInfomation from '../components/HealthInformationModal'
+import ResilienceInServices from '../components/ResilienceInServicesModal'
+import QualityOfEssentialServices from '../components/QualityOfEssentialServicesModal'
 
 const props = {};
 
@@ -215,9 +218,11 @@ export default function UHC() {
                                                     </article>
                                                 </div>
                                                 <div className="column p-3">
-                                                    <article className="notification bcsecondary-dark p-5">
-                                                        <p className="text-uppercase fcwhite">Quality of Essential Services</p>
+
+                                                    <article id="qualityofessentialservices" className="notification bcsecondary-dark p-5">
+                                                      <QualityOfEssentialServices {...props}/>
                                                     </article>
+
                                                 </div>
                                                 <div className="column p-3">
                                                     <article className="notification bcsecondary-dark p-5">
@@ -225,8 +230,8 @@ export default function UHC() {
                                                     </article>
                                                 </div>
                                                 <div className="column p-3">
-                                                    <article className="notification bcsecondary-dark p-5">
-                                                        <p className="text-uppercase fcwhite">Resilience in Essential Services Provision</p>
+                                                    <article id="resilienceinservices" className="notification bcsecondary-dark p-5">
+                                                      <ResilienceInServices {...props}/>
                                                     </article>
                                                 </div>
                                             </div>
@@ -304,8 +309,8 @@ export default function UHC() {
                                             </div>
                                         </div>
                                         <div className="column is-2">
-                                            <article className="tile notification is-info">
-                                            <p className="subtitle text-vertical-rl">Health Information</p>
+                                            <article id="healthinfomation" className="tile notification is-info">
+                                                <HealthInfomation  {...props}/>
                                             </article>
                                         </div>
                                     </div>
