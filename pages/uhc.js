@@ -5,6 +5,7 @@ import ServiceCoverage from '../components/ServicesCoverageModal'
 import HealthInfomation from '../components/HealthInformationModal'
 import ResilienceInServices from '../components/ResilienceInServicesModal'
 import QualityOfEssentialServices from '../components/QualityOfEssentialServicesModal'
+import DemandForEssentialServices from '../components/DemandForEssentialServicesModal'
 
 const props = {};
 
@@ -225,9 +226,11 @@ export default function UHC() {
 
                                                 </div>
                                                 <div className="column p-3">
-                                                    <article className="notification bcsecondary-dark p-5">
-                                                        <p className="text-uppercase fcwhite">Demand for Essential Services</p>
+
+                                                    <article id="demandforessentialservices" className="notification bcsecondary-dark p-5">
+                                                      <DemandForEssentialServices {...props}/>
                                                     </article>
+
                                                 </div>
                                                 <div className="column p-3">
                                                     <article id="resilienceinservices" className="notification bcsecondary-dark p-5">
