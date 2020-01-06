@@ -45,7 +45,7 @@ const Page = withRouter(props => (
           <div className={props.loading == true ? "columns hidden" : "columns"}>
             <div className="column is-one-third">
               <h3 className="title text-left fcsecondary-dark text-bold">
-                {props.error ? <div><small className="is-error is-fullwidth p-4 br-3 is-6">Error loading data </small></div> :
+                {props.error ? <div><small className="is-error is-fullwidth p-4 br-3 is-6">No data found </small></div> :
                   props.indicatorData.result.dictionary.indicators.map(one_ind => (
                   one_ind.name
                 ))} &nbsp;
@@ -67,13 +67,13 @@ const Page = withRouter(props => (
                       <div className="select is-fullwidth">
                         <select onChange={
                           (e) => {
-                            const newRoute = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
+                            const newRoute = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid ? props.ouid : 18}`;
                             // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
                             Router.push(newRoute)
                           }
                         }>
                           <option value="" disabled>Year</option>
-                          {props.error ? "" : props.years.map(
+                          {props.years.map(
                             oneyr => (
                               <option value={oneyr} disabled={oneyr==props.pe?'"true"':''} selected={oneyr==props.pe?'"true"':''}>{oneyr}</option>
                             )
@@ -105,7 +105,7 @@ const Page = withRouter(props => (
                             }>
                               <option disabled value="">Pick a county</option>
                               <option value="18">NATIONAL (Kenya)</option>
-                              {props.error ? "" :
+                              {
                                 props.counties.map(
                                   onecty => (
                                     <option value={onecty.id} disabled={onecty.id==props.ouid?'"true"':''} selected={onecty.id==props.ouid?'"true"':''}>{onecty.name}</option>
@@ -170,7 +170,7 @@ const Page = withRouter(props => (
                   {/* Description */}
                   <div className="columns is-centered">
                     <div className="column p-20">
-                      {props.error? <span className="is-error is-fullwidth p-4 br-3 text-center">There was an error loading data for this indicator (ID: <strong><u>{props.id}</u></strong>). <br/><small>Try refreshing this page again. If this persists, notify the admin <a href="mailto:dndiithi@healthit.uonbi.ac.ke">here</a></small></span> :
+                      {props.error? <span className="is-error is-fullwidth p-4 br-3 text-center">There was no data found for this period and indicator (ID: <strong><u>{props.id}</u></strong>). <br/><small>Try refreshing this page again. If this persists, notify the admin <a href="mailto:dndiithi@healthit.uonbi.ac.ke">here</a></small></span> :
                         props.indicatorData.result.dictionary.indicators.map(one_ind => (
                         <p>
                           <strong> {one_ind.name} &nbsp; </strong> <br/> {one_ind.description}
@@ -376,7 +376,7 @@ Page.getInitialProps = async function(context) {
   let { indicatorData, loading, levell, error } = await fetchIndicatorData(id,ouid,pe,level,loadingg)
 
   // for filters
-  const years = ["2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
+  const years = ["2020","2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011"];
   const countyList = await fetch(`${settings.dslBaseApi}/counties`);
   const counties = await countyList.json();
   // for filters
@@ -465,12 +465,17 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   const indicatorData = await fetchIndicatorData.json();
 
   let error;
-  if(indicatorData.result.dictionary.indicators.length < 1){
-    error = true;
-    console.error("<<<<<< ERROR in fetchIndicatorData >>>>>");
-  }else{
+  try{
+    if(indicatorData.result.dictionary.indicators.length < 1){
+      error = true;
+      console.error("<<<<<< ERROR in fetchIndicatorData >>>>>");
+    }else{
+      error = false;
+    }
+  }catch(error){
     error = false;
   }
+
 
   // if(!error){
     loading = false;
