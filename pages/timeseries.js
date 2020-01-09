@@ -13,6 +13,19 @@ class Timeseries extends React.Component {
     return {query}
   }
 
+  constructor () {
+    super();
+    this.state = {
+      type: 'yearly'
+    };
+    this.handlePeriodTypeChange = this.handlePeriodTypeChange.bind(this);
+  }
+
+  handlePeriodTypeChange(periodType) {
+    this.setState({ type: periodType });
+  }
+
+
   render() {
     console.log(this.props.query) // The query is available in the props object
     return(
@@ -61,8 +74,6 @@ class Timeseries extends React.Component {
           </div>
         </section>
         {/* Breadcrumb */}
-
-
 
       </Layout>
     );
