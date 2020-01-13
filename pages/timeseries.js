@@ -41,11 +41,16 @@ class Timeseries extends React.Component {
 
   }
 
+  handlePeriodTypeChange(periodType) {
+    this.setState({ type: periodType });
+  }
+
+
   render() {
     //console.log(this.props.query) // The query is available in the props object
     return(
       <Layout>
-          /*
+        {/*
           <style jsx>
             {`
               a {
