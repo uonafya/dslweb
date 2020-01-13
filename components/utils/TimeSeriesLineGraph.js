@@ -1,7 +1,7 @@
 import React, {
   PureComponent
 } from 'react';
-import { ConvertToMonthlyLineGraph2 } from './converters/Charts'
+import {ConvertTimeSeriesLineGraph} from './converters/Charts'
 import { FetchIndicatorData } from './Helpers'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -59,7 +59,7 @@ export default class TimeSeriesLineGraph extends PureComponent {
         is_error = true
         err_msg = indicatorData.messageType + ' ' + indicatorData.mesageContent
       }else{
-        _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+        _data=ConvertTimeSeriesLineGraph(indicatorData.result);
       }
       if(this.props.type!=null){
         this.setState({
@@ -90,7 +90,7 @@ export default class TimeSeriesLineGraph extends PureComponent {
         is_error = true
         err_msg = indicatorData.messageType + ' ' + indicatorData.mesageContent
       }else{
-        _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+        _data=ConvertTimeSeriesLineGraph(indicatorData.result);
       }
       if(nextProps.type!=null){
         this.setState({

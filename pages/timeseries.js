@@ -2,22 +2,50 @@ import Link from 'next/link';
 import React, { PureComponent } from 'react';
 import Layout from '../components/Layout';
 import {fetchTimeSeriesData} from '../components/utils/Helpers';
+import TimeSeriesLineGraph from '../components/utils/TimeSeriesLineGraph0';
+
+function callMe(timeSeriesData){
+  console.log(timeSeriesData);
+}
 
 class Timeseries extends React.Component {
 
   static getInitialProps({query}) {
-    console.log(query);
-    (async () => {
-      let {timeSeriesData}=await fetchTimeSeriesData(query.ouid,query.ouid);
-    })()
     return {query}
   }
 
+  constructor(props){
+    super(props);
+    this.state = {
+      ouid: null,
+      id: null,
+      periodSpan: 2,
+      periodtype: 'yearly',
+      data: null
+    }
+  }
+
+
+  componentDidMount(){
+    console.log(this.props.query);
+    (async () => {
+      let timeSeriesData=await fetchTimeSeriesData(this.props.query.id,this.props.query.ouid);
+      console.log(timeSeriesData);
+      callMe(timeSeriesData);
+      this.setState({
+        ouid: this.props.query.ouid,
+        id: this.props.query.id,
+        data: timeSeriesData
+      });
+    })()
+
+  }
+
   render() {
-    console.log(this.props.query) // The query is available in the props object
+    //console.log(this.props.query) // The query is available in the props object
     return(
       <Layout>
-        {/*
+          /*
           <style jsx>
             {`
               a {
@@ -39,10 +67,10 @@ class Timeseries extends React.Component {
                     <ul>
                         <li><Link href="/"><a>Home</a></Link></li>
                         <li><Link href="/indicators"><a>All indicators</a></Link></li>
-                        <li><Link href={"/indicator/"+this.props.query.id}>
-                            <a>
-                                {this.props.query.id} &nbsp;
-                            </a>
+                        <li id="thirdelem"><Link href={"/indicator/"+this.props.query.id}>
+                          <a>
+                              {this.props.query.id} &nbsp;
+                          </a>
                         </Link></li>
                         <li className="is-active">
                           <a aria-current="page">
@@ -62,8 +90,9 @@ class Timeseries extends React.Component {
         </section>
         {/* Breadcrumb */}
 
-
-
+        <section>
+          <TimeSeriesLineGraph/>
+        </section>
       </Layout>
     );
 

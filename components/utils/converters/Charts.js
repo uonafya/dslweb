@@ -86,7 +86,42 @@ export function ConvertToMonthlyLineGraph2(_data){
 
 }
 
-
+export function ConvertTimeSeriesLineGraph(_data){
+  console.log("converter ConvertTimeSeriesLineGraph");
+  let indicatorList =_data.dictionary.indicators;
+  let orgUnitList =_data.dictionary.orgunits;
+  //let indicatorMap =getIndicatorsMap(indicatorList);
+  //let orgunitMap =getOrgUnitsMap(orgUnitList);
+  const data = [];
+  var mapData=null;
+  console.log(_data.data);
+  for(var indicatorKey in _data.data){
+    console.log("started ======>");
+    let perIndicator=_data.data[indicatorKey];
+      console.log(perIndicator);
+    for(var ouKey in perIndicator){
+      let perOu=perIndicator[ouKey];
+      console.log(perOu);
+      let graphData = [];
+      let data = {};
+      perOu['projection'].map(item => {
+        var month=Number(item['time'].slice(-2));
+        var year=Number(item['time'].slice(0,4));
+        console.log(month);
+        console.log(year);
+        console.log(Date.UTC(year,month,31));
+        let singleArray=[Date.UTC(year,month),Number(Number(item['value']).toFixed(2))];
+        graphData.push(singleArray);
+      });
+      data["name"]=_data.dictionary.indicators[0].description;
+      data["data"]= graphData;
+      let title = _data.dictionary.indicators[0].description+ " - "+ _data.dictionary.orgunits[0].name;
+      let subtitle = "Projection  [ periodtype: "+_data.dictionary.parameters['periodtype']+ " projection length: " +_data.dictionary.parameters['periodspan']+ " ]";
+      console.log(data);
+      return { data:data, title: title, subtitle: subtitle };
+    }
+  }
+}
 
 // _data is a js object/map
 export function ConvertToLineBarGraph(_data){
