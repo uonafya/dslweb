@@ -96,7 +96,6 @@ export function ConvertTimeSeriesLineGraph(_data){
   var mapData=null;
   console.log(_data.data);
   for(var indicatorKey in _data.data){
-    console.log("started ======>");
     let perIndicator=_data.data[indicatorKey];
       console.log(perIndicator);
     for(var ouKey in perIndicator){
@@ -113,9 +112,9 @@ export function ConvertTimeSeriesLineGraph(_data){
         let singleArray=[Date.UTC(year,month),Number(Number(item['value']).toFixed(2))];
         graphData.push(singleArray);
       });
-      data["name"]=_data.dictionary.indicators[0].description;
+      data["name"]=_data.dictionary.indicators[0].name;
       data["data"]= graphData;
-      let title = _data.dictionary.indicators[0].description+ " - "+ _data.dictionary.orgunits[0].name;
+      let title = _data.dictionary.indicators[0].name+ " - "+ _data.dictionary.orgunits[0].name;
       let subtitle = "Projection  [ periodtype: "+_data.dictionary.parameters['periodtype']+ " projection length: " +_data.dictionary.parameters['periodspan']+ " ]";
       console.log(data);
       return { data:data, title: title, subtitle: subtitle };

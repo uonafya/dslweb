@@ -56,11 +56,13 @@ export default class TimeSeriesLineGraph extends PureComponent {
 
 
   componentDidMount() {
-    console.log("testing ==========>1");
     (async () => {
       var is_error = false
       var err_msg = ''
-      let indicatorData=await fetchTimeSeriesData(23185,18,null,null);
+      //ouid={} periodSpan={} periodType={} indicatorId={}
+      console.log("test receive props");
+      console.log(this.props);
+      let indicatorData=await fetchTimeSeriesData(this.props.indicatorId,this.props.ouid,this.props.periodSpan,this.props.periodType);
       console.log(indicatorData);
       let returnedSeriesData=ConvertTimeSeriesLineGraph(indicatorData.result);
       let data =returnedSeriesData.data
@@ -79,7 +81,6 @@ export default class TimeSeriesLineGraph extends PureComponent {
        }
      });
     })()
-    console.log("testing ==========>2");
   }
 
 

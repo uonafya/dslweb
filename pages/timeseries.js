@@ -4,9 +4,6 @@ import Layout from '../components/Layout';
 import {fetchTimeSeriesData} from '../components/utils/Helpers';
 import TimeSeriesLineGraph from '../components/utils/TimeSeriesLineGraph0';
 
-function callMe(timeSeriesData){
-  console.log(timeSeriesData);
-}
 
 class Timeseries extends React.Component {
 
@@ -17,29 +14,13 @@ class Timeseries extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      ouid: null,
-      id: null,
+      ouid: this.props.query.ouid,
+      id: this.props.query.id,
       periodSpan: 2,
       periodtype: 'yearly',
-      data: null
     }
   }
 
-
-  componentDidMount(){
-    console.log(this.props.query);
-    (async () => {
-      let timeSeriesData=await fetchTimeSeriesData(this.props.query.id,this.props.query.ouid);
-      console.log(timeSeriesData);
-      callMe(timeSeriesData);
-      this.setState({
-        ouid: this.props.query.ouid,
-        id: this.props.query.id,
-        data: timeSeriesData
-      });
-    })()
-
-  }
 
   handlePeriodTypeChange(periodType) {
     this.setState({ type: periodType });
@@ -96,7 +77,7 @@ class Timeseries extends React.Component {
         {/* Breadcrumb */}
 
         <section>
-          <TimeSeriesLineGraph/>
+          <TimeSeriesLineGraph ouid={this.state.ouid} periodSpan={this.state.periodSpan} periodType={this.state.periodtype} indicatorId={this.state.id}/>
         </section>
       </Layout>
     );
