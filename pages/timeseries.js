@@ -123,9 +123,27 @@ class Timeseries extends React.Component {
                 </div>
               </div>
           </div>
-          <ProjectionTimeSeriesLineGraph data={this.state.data}/>
-          <TrendTimeSeriesLineGraph data={this.state.data}/>
-          <SeasonTimeSeriesLineGraph data={this.state.data}/>
+
+
+          <div className="box m-5">
+            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Projection Analysis:  {this.state.period}</h5>
+            <br/>
+            <ProjectionTimeSeriesLineGraph data={this.state.data}/>
+          </div>
+
+          <div className="box m-5">
+            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">General Trend Analysis:  {this.state.period}</h5>
+            <br/>
+            <TrendTimeSeriesLineGraph data={this.state.data}/>
+          </div>
+
+          <div className="box m-5">
+            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Seasonal Trends Analysis:  {this.state.period}</h5>
+            <br/>
+            <SeasonTimeSeriesLineGraph data={this.state.data}/>
+          </div>
+
+
         </section>
       </Layout>
     );
