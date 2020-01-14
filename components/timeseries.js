@@ -82,27 +82,9 @@ class Timeseries extends React.Component {
         </section>
         {/* Breadcrumb */}
 
-
-
-        <section style={{paddingBottom: "0" }} class="section">
-          <div class="columns">
-              <div class="column is-narrow">
-                <h6>Period Type:</h6>
-                <div class="control">
-                  <div class="select">
-                    <PeriodType handler={this.handlePeriodTypeChange}/>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-narrow">
-                <h6>Period Span:</h6>
-                <div class="control">
-                  <div class="select">
-                    <PeriodSpan  handler={this.handlePeriodSpanChange}/>
-                  </div>
-                </div>
-              </div>
-          </div>
+        <section>
+          <PeriodType handler={this.handlePeriodTypeChange}/>
+          <PeriodSpan  handler={this.handlePeriodSpanChange}/>
           <TimeSeriesLineGraph ouid={this.state.ouid} periodSpan={this.state.periodSpan} periodType={this.state.periodtype} indicatorId={this.state.id}/>
         </section>
       </Layout>

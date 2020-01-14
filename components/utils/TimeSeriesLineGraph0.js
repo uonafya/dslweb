@@ -84,6 +84,32 @@ export default class TimeSeriesLineGraph extends PureComponent {
   }
 
 
+  componentWillReceiveProps(nextProps){
+    (async () => {
+      var is_error = false
+      var err_msg = ''
+      //ouid={} periodSpan={} periodType={} indicatorId={}
+      let indicatorData=await fetchTimeSeriesData(nextProps.indicatorId,nextProps.ouid,nextProps.periodSpan,nextProps.periodType);
+      console.log(indicatorData);
+      let returnedSeriesData=ConvertTimeSeriesLineGraph(indicatorData.result);
+      let data =returnedSeriesData.data
+      let subtitle =returnedSeriesData.subtitle;
+      let title =returnedSeriesData.title;
+      console.log(subtitle);
+      this.setState({
+       chartOptions: {
+         series: [data],
+         subtitle: {
+           text: subtitle
+         },
+         title: {
+           text: title
+         }
+       }
+     });
+    })()
+  }
+
 
   render(){
     const { chartOptions } = this.state;

@@ -15,8 +15,8 @@ export default class PeriodType extends React.Component {
       <div>
         <select onChange={event =>this.props.handler(event.target.value)}>
           <option selected disabled hidden>yearly</option>
-          <option value="yearly">2011</option>
-          <option value="monthly">2012</option>
+          <option value="yearly">Yearly</option>
+          <option value="monthly">Monthly</option>
         </select>
       </div>
     );
