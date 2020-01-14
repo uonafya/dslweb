@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import {fetchTimeSeriesData} from '../components/utils/Helpers';
 import ProjectionTimeSeriesLineGraph from '../components/utils/ProjectionTimeSeriesLineGraph.js';
 import TrendTimeSeriesLineGraph from '../components/utils/TrendTimeSeriesLineGraph.js';
+import SeasonTimeSeriesLineGraph from '../components/utils/SeasonTimeSeriesLineGraph.js'
 import PeriodType from '../components/timeseries/PeriodTypeFilter'
 import PeriodSpan from '../components/timeseries/PeriodSpanFilter'
 
@@ -124,6 +125,7 @@ class Timeseries extends React.Component {
           </div>
           <ProjectionTimeSeriesLineGraph data={this.state.data}/>
           <TrendTimeSeriesLineGraph data={this.state.data}/>
+          <SeasonTimeSeriesLineGraph data={this.state.data}/>
         </section>
       </Layout>
     );
