@@ -2,7 +2,7 @@ import React, {
   PureComponent
 } from 'react';
 import { ConvertToMonthlyLineGraph2 } from './converters/Charts'
-import {ConvertTimeSeriesLineGraph} from './converters/Charts'
+import {ConvertTrendTimeSeriesLineGraph} from './converters/Charts'
 import { fetchTimeSeriesData } from './Helpers'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -12,7 +12,7 @@ if (typeof Highcharts === 'object') {
   HighchartsExporting(Highcharts)
 }
 
-export default class TimeSeriesLineGraph extends PureComponent {
+export default class TrendTimeSeriesLineGraph extends PureComponent {
 
   constructor(props){
     super(props);
@@ -54,17 +54,9 @@ export default class TimeSeriesLineGraph extends PureComponent {
     }
   }
 
-
   componentDidMount() {
-    (async () => {
-      var is_error = false
-      var err_msg = ''
-      //ouid={} periodSpan={} periodType={} indicatorId={}
-      console.log("test receive props");
-      console.log(this.props);
-      let indicatorData=await fetchTimeSeriesData(this.props.indicatorId,this.props.ouid,this.props.periodSpan,this.props.periodType);
-      console.log(indicatorData);
-      let returnedSeriesData=ConvertTimeSeriesLineGraph(indicatorData.result);
+    if(this.props.data){
+      let returnedSeriesData=ConvertTrendTimeSeriesLineGraph(this.props.data);
       let data =returnedSeriesData.data
       let subtitle =returnedSeriesData.subtitle;
       let title =returnedSeriesData.title;
@@ -80,18 +72,12 @@ export default class TimeSeriesLineGraph extends PureComponent {
          }
        }
      });
-    })()
+    }
   }
-
 
   componentWillReceiveProps(nextProps){
-    (async () => {
-      var is_error = false
-      var err_msg = ''
-      //ouid={} periodSpan={} periodType={} indicatorId={}
-      let indicatorData=await fetchTimeSeriesData(nextProps.indicatorId,nextProps.ouid,nextProps.periodSpan,nextProps.periodType);
-      console.log(indicatorData);
-      let returnedSeriesData=ConvertTimeSeriesLineGraph(indicatorData.result);
+    if(nextProps.data){
+      let returnedSeriesData=ConvertTrendTimeSeriesLineGraph(nextProps.data);
       let data =returnedSeriesData.data
       let subtitle =returnedSeriesData.subtitle;
       let title =returnedSeriesData.title;
@@ -107,9 +93,8 @@ export default class TimeSeriesLineGraph extends PureComponent {
          }
        }
      });
-    })()
+    }
   }
-
 
   render(){
     const { chartOptions } = this.state;

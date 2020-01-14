@@ -51,7 +51,7 @@ export default class extends React.Component {
       }
     }, 100)
   }
-  
+
 
   componentWillUnmount () {
     if (this.map && this.map.leafletElement) {
@@ -112,7 +112,7 @@ export default class extends React.Component {
       //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
       let yrr = document.getElementById("mapyr").value
       document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
-    
+
       var elems = document.querySelectorAll(".maplink");
       [].forEach.call(elems, function(el) {
           el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
@@ -130,7 +130,7 @@ export default class extends React.Component {
     // })
 
     return (
-     <div> 
+     <div>
 
         <div className="container">
           <div className="columns">
@@ -156,7 +156,7 @@ export default class extends React.Component {
                         <div className="gis-indicator-list max-h-650-px auto-overflow-y">
                           <ul>
                             {this.props.dslIndicators.map( one_indicator => (
-                              <li><a key={one_indicator.id} className="is-link fcsecondary-dark maplink" 
+                              <li><a key={one_indicator.id} className="is-link fcsecondary-dark maplink"
                               onClick={
                                 () => {
                                   const mapData = null
@@ -180,9 +180,13 @@ export default class extends React.Component {
                                 <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={6.48} maxZoom={9.00} >
                                 <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
                                 <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
-                                
+                                <Marker position={[-0.818389, 36.817222]} title="Some string">
+                                  <Popup></Popup>
+                                  <Label>Label</Label>
+                                </Marker>
+
                           </LeafletMap>
-                            
+
                             </div>
                           </div>
                         </div>
@@ -198,5 +202,5 @@ export default class extends React.Component {
       </div>
     )
   }
-  
+
 }

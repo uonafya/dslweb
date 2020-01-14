@@ -27,6 +27,11 @@ export async function FetchIndicatorData(id,ouid,pe,level,loading) {
 }
 
 export async function fetchTimeSeriesData(id,ouid,periodSpan,periodType) {
+  console.log("==========================+>");
+  console.log(ouid);
+  console.log(id);
+  console.log(periodSpan);
+  console.log(periodType);
   let fetchIndicatorDataUrl = `${settings.dslBaseApi}/forecast/${id}`;
   if(periodSpan != undefined){
     fetchIndicatorDataUrl += `?periodspan=${periodSpan}`;

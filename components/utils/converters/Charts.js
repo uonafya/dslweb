@@ -115,7 +115,41 @@ export function ConvertTimeSeriesLineGraph(_data){
       data["name"]=_data.dictionary.indicators[0].name;
       data["data"]= graphData;
       let title = _data.dictionary.indicators[0].name+ " - "+ _data.dictionary.orgunits[0].name;
-      let subtitle = "Projection  [ periodtype: "+_data.dictionary.parameters['periodtype']+ " projection length: " +_data.dictionary.parameters['periodspan']+ " ]";
+      let subtitle = "Projection Analysis [ periodtype: "+_data.dictionary.parameters['periodtype']+ " projection length: " +_data.dictionary.parameters['periodspan']+ " ]";
+      console.log(data);
+      return { data:data, title: title, subtitle: subtitle };
+    }
+  }
+}
+
+
+export function ConvertTrendTimeSeriesLineGraph(_data){
+  console.log("converter ConvertTimeSeriesLineGraph");
+  let indicatorList =_data.dictionary.indicators;
+  let orgUnitList =_data.dictionary.orgunits;
+  //let indicatorMap =getIndicatorsMap(indicatorList);
+  //let orgunitMap =getOrgUnitsMap(orgUnitList);
+  const data = [];
+  var mapData=null;
+  console.log(_data.data);
+  for(var indicatorKey in _data.data){
+    let perIndicator=_data.data[indicatorKey];
+      console.log(perIndicator);
+    for(var ouKey in perIndicator){
+      let perOu=perIndicator[ouKey];
+      console.log(perOu);
+      let graphData = [];
+      let data = {};
+      perOu['trend'].map(item => {
+        var month=Number(item['time'].slice(-2));
+        var year=Number(item['time'].slice(0,4));
+        let singleArray=[Date.UTC(year,month),Number(Number(item['value']).toFixed(2))];
+        graphData.push(singleArray);
+      });
+      data["name"]=_data.dictionary.indicators[0].name;
+      data["data"]= graphData;
+      let title = _data.dictionary.indicators[0].name+ " - "+ _data.dictionary.orgunits[0].name;
+      let subtitle = "Trend Analysis  [ periodtype: "+_data.dictionary.parameters['periodtype']+ " projection length: " +_data.dictionary.parameters['periodspan']+ " ]";
       console.log(data);
       return { data:data, title: title, subtitle: subtitle };
     }
