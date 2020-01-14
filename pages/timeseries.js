@@ -37,8 +37,14 @@ class Timeseries extends React.Component {
   }
 
   fetchData(){
+    let ouId=this.state.ouid;
+    console.log("debug 3=====>");
+    console.log(ouId);
+    if(ouId==null || ouId=='undefined'){
+      ouId=18;
+    }
     (async () => {
-      let indicatorData=await fetchTimeSeriesData(this.state.id,this.state.ouid,this.state.periodSpan,this.state.periodtype);
+      let indicatorData=await fetchTimeSeriesData(this.state.id,ouId,this.state.periodSpan,this.state.periodtype);
       console.log("debug here");
       console.log(this.state.data);
       this.setState({

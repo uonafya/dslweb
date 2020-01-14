@@ -236,7 +236,7 @@ const Page = withRouter(props => (
                                     ()=>{
                                       goToAnalysisPage(props.id,props.pe,props.ouid,props.level)
                                     }
-                                  }>Analyse</button>
+                                  }>Pivot</button>
                                   &nbsp; &nbsp;
 
                                   <Link href={"/timeseries?id="+props.id+"&ouid="+props.ouid+"&level="+props.level+"&pe="+props.pe}><a className="button is-secondary">Timeseries</a></Link>

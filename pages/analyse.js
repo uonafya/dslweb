@@ -38,7 +38,7 @@ const Analyze = withRouter(props => (
                 </nav>
             </div>
             <div className="column text-right">
-                <a className="is-link" onClick={() => 
+                <a className="is-link" onClick={() =>
                   goToIndicatorPage(props.id,props.pe,props.ouid,props.level)
                 } >&larr; Back to indicator summary</a>
             </div>
@@ -80,7 +80,7 @@ const Analyze = withRouter(props => (
                       <div className="select is-fullwidth">
                         <select onChange={
                           (e) => {
-                            const newaRoute = `/analyse/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
+                            const newaRoute = `/pivot/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
                             // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
                             Router.push(newaRoute)
                           }
@@ -111,7 +111,7 @@ const Analyze = withRouter(props => (
                           <div className="select is-fullwidth text-caps">
                             <select  onChange={
                               (e) => {
-                                const newOUaroute = `/analyse/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
+                                const newOUaroute = `/pivot/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
                                 Router.push(newOUaroute);
                               }
                             }>
@@ -146,7 +146,7 @@ const Analyze = withRouter(props => (
                           <div className="select is-fullwidth">
                             <select  onChange={
                               (e) => {
-                                const newLEVaroute = `/analyse/${props.id}?pe=${props.pe}&ouid=${props.ouid}&level=${e.target.value}`
+                                const newLEVaroute = `/pivot/${props.id}?pe=${props.pe}&ouid=${props.ouid}&level=${e.target.value}`
                                 // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value)
                                 Router.push(newLEVaroute);
                               }
@@ -169,7 +169,7 @@ const Analyze = withRouter(props => (
           </div>
         </div>
       </div>
-      
+
       <div className="container-fluid">
         <div className="columns">
 
@@ -224,7 +224,7 @@ Analyze.getInitialProps = async function(context) {
   }
   const pivotData = pivotConvert(indicatorData)
   // console.log("pivotData == "+JSON.stringify(pivotData));
-  
+
   return { indicatorData, id, ouid, pe, years, level:levell, counties, loading, error, pivotData };
 
 };
@@ -248,7 +248,7 @@ function getLEVELname(lvl_id) {
   var lvl_name0 = level_data.find(function(onelvl) {
     return onelvl.id == lvl_id;
   })
-  
+
   var lvl_name = lvl_name0.level
   return lvl_name
 }
@@ -268,7 +268,7 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   console.log(`// running fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}. FINAL_URL=${fetchIndicatorDataUrl}`)
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
-  
+
   let error;
   if(indicatorData.result.dictionary.indicators.length < 1){
     error = true;
@@ -280,14 +280,14 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   // if(!error){
     loading = false;
   // }
-  
+
   return {indicatorData, loading, levell, error}
 }
 
 
 
 function goToIndicatorPage(id,pe,ouid,level) {
-  let analysisUrl = `/analyse/${id}`;
+  let analysisUrl = `/pivot/${id}`;
   if(pe != undefined){
     analysisUrl += `?pe=${pe}`;
   }
