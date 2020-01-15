@@ -1,5 +1,6 @@
 import React from 'react'
 import MapData from '../static/maps/counties.min.json'
+import MapCenters from '../static/maps/county-centers-coordinates'
 
 export default class extends React.Component {
   constructor () {
@@ -14,6 +15,7 @@ export default class extends React.Component {
       Marker,
       TileLayer,
       Tooltip,
+      Popup,
       FeatureGroup,
       GeoJSON
     } = require('react-leaflet')
@@ -27,6 +29,7 @@ export default class extends React.Component {
         Marker,
         TileLayer,
         Tooltip,
+        Popup,
         FeatureGroup,
         GeoJSON
       },
@@ -85,6 +88,7 @@ export default class extends React.Component {
       Marker,
       TileLayer,
       Tooltip,
+      Popup,
       FeatureGroup,
       GeoJSON
     } = this.state.components
@@ -154,14 +158,14 @@ export default class extends React.Component {
                         <h4 className="title is-5 m-b-5">Indicators:</h4>
                         <hr className="m-t-5 m-b-5"/>
                         <div className="gis-indicator-list max-h-650-px auto-overflow-y">
-                          <ul>
+                          <ul className="text-left">
                             {this.props.dslIndicators.map( one_indicator => (
-                              <li><a key={one_indicator.id} className="is-link fcsecondary-dark maplink" 
+                              <li><a key={one_indicator.id} id={`clink-${one_indicator.id}`} className="is-link fcsecondary-dark maplink" 
                               onClick={
-                                () => {
+                                (elem) => {
                                   const mapData = null
                                   handleMapIndicator(one_indicator)
-                                  console.log('Kenyatta', mapData)
+                                  let eles = document.getElementsByClassName('maplink');for(var i=0; i<eles.length; i++) {eles[i].classList.remove("text-bold");}document.getElementById(`clink-${one_indicator.id}`).classList.add("text-bold")
                                 }
                               }
                                >{one_indicator.name}</a></li>
@@ -177,11 +181,23 @@ export default class extends React.Component {
                           <div className="column min-h-500-px">
                             {/* <h1 className="title">Map goes here</h1> */}
                             <div className="hide-overflow min-h-100-pc is-fullwidth" style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 700 + 'px'}}>
-                                <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={6.48} maxZoom={9.00} >
-                                <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
-                                <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
-                                
-                          </LeafletMap>
+                                <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={7.48} maxZoom={9.00} >
+                                  <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
+                                  <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
+
+                                  {MapCenters.map( one_county =>(
+                                    <Marker position={[one_county.latitude, one_county.longitude]}>
+                                      <Popup>
+                                        <div>
+                                          <h4 className="subtitle">{one_county.name}</h4>
+                                          <span>{one_county.dsl_id}</span> <br/>
+                                        </div>
+                                      </Popup>
+                                      <Tooltip>{one_county.name}</Tooltip>
+                                    </Marker>
+                                  ))}
+                                  
+                            </LeafletMap>
                             
                             </div>
                           </div>
