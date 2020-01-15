@@ -54,7 +54,7 @@ export default class extends React.Component {
       }
     }, 100)
   }
-  
+
 
   componentWillUnmount () {
     if (this.map && this.map.leafletElement) {
@@ -116,7 +116,7 @@ export default class extends React.Component {
       //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
       let yrr = document.getElementById("mapyr").value
       document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
-    
+
       var elems = document.querySelectorAll(".maplink");
       [].forEach.call(elems, function(el) {
           el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
@@ -134,7 +134,7 @@ export default class extends React.Component {
     // })
 
     return (
-     <div> 
+     <div>
 
         <div className="container">
           <div className="columns">
@@ -214,5 +214,5 @@ export default class extends React.Component {
       </div>
     )
   }
-  
+
 }

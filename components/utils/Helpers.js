@@ -27,7 +27,12 @@ export async function FetchIndicatorData(id,ouid,pe,level,loading) {
 }
 
 export async function fetchTimeSeriesData(id,ouid,periodSpan,periodType) {
-  let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
+  console.log("==========================+>");
+  console.log(ouid);
+  console.log(id);
+  console.log(periodSpan);
+  console.log(periodType);
+  let fetchIndicatorDataUrl = `${settings.dslBaseApi}/forecast/${id}`;
   if(periodSpan != undefined){
     fetchIndicatorDataUrl += `?periodspan=${periodSpan}`;
   }else{
@@ -45,7 +50,7 @@ export async function fetchTimeSeriesData(id,ouid,periodSpan,periodType) {
   }
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
-  return {indicatorData}
+  return indicatorData
 }
 
 export function getCadreGroupMapping(cadreData){
