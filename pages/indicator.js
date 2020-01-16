@@ -242,7 +242,8 @@ const Page = withRouter(props => (
                                   <Link href={"/timeseries?id="+props.id+"&ouid="+props.ouid+"&level="+props.level+"&pe="+props.pe}><a className="button is-secondary">Timeseries</a></Link>
 
                                   &nbsp; &nbsp;
-                                  <button  className="button is-disabled" disabled title="WIP">Compare</button>
+                                  <Link href={"/compare?id="+props.id+"&ouid="+props.ouid+"&level="+props.level+"&pe="+props.pe}><a className="button is-secondary">Compare</a></Link>
+
                                 </div>
                               </div>
                             </div>
