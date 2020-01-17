@@ -19,7 +19,9 @@ export default class extends React.Component {
       FeatureGroup,
       GeoJSON
     } = require('react-leaflet')
+
     const { Marker: LeafletMarker } = require('leaflet')
+    
     this.setState({
       leaflet: {
         LeafletMarker
@@ -53,6 +55,8 @@ export default class extends React.Component {
         this.map.leafletElement.on('zoomend', this.handleZoomEnd)
       }
     }, 100)
+
+
   }
 
 
@@ -108,30 +112,61 @@ export default class extends React.Component {
     }
 
     function getCounties() {
-        console.log("mapdata== "+JSON.stringify(MapData));
         return {MapData}
     }
 
+    async function getMapData(id,yr) {
+      console.log(`running async getMapData(id:${id}  &&  yr: ${yr})`)
+
+      let mapIndicatorsData = null
+      let lsId = id+'-'+yr
+      let fetchMapIndicatorsUrl = `http://41.89.94.105/dsl/api/indicators/${id}?pe=${yr}&ouid=${18}&level=${1}`;
+      if(window.localStorage.getItem(lsId) == null){
+        await fetch(fetchMapIndicatorsUrl)
+          .then((response) => {
+            return response.json();
+          })
+          .then( (mapInd) => { 
+            window.localStorage.setItem(lsId,JSON.stringify(mapInd));
+            console.log(`window.localStorage.${lsId} == ${window.localStorage.getItem(lsId)}`)
+            mapIndicatorsData = mapInd
+          });
+      }else{
+        mapIndicatorsData = JSON.parse( window.localStorage.getItem(lsId) );
+      }
+      return {mapIndicatorsData}
+    }
+
     function handleMapIndicator(indicator) {
-      //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
       let yrr = document.getElementById("mapyr").value
+      console.info("MAPINDICATOR "+JSON.stringify(indicator));
+      console.info("MAPYEAR "+yrr);
       document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
 
       var elems = document.querySelectorAll(".maplink");
       [].forEach.call(elems, function(el) {
           el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
       });
+
+      getMapData(indicator.id,yrr)
+
+      let lsId = indicator.id+'-'+yrr
+      let mapIndicatorsData = window.localStorage.getItem(lsId)
+      console.log('mapIndicatorsData --> '+mapIndicatorsData)
+
+
+      // const markers = ( mapIndicatorsData.result.data[indicator.id] ).map(d => {
+      //   console.log('d --> '+d)
+      //   //const { latitude, longitude } = d.coordinates
+      //   return (
+      //     <Marker ref={indicator.id} key={indicator.id} position={[latitude, longitude]} onClick={() => { if (onMarkerClick) { onMarkerClick(d) } }} >
+      //       <Tooltip> <span> {d.name} </span> </Tooltip>
+      //     </Marker>
+      //   )
+      // })
+
     }
 
-
-    // const markers = ( [{id: 0, coordinates: {longitude: 76.732407, latitude: 31.698956} }] ).map(d => {
-    //   const { latitude, longitude } = d.coordinates
-    //   return (
-    //     <Marker ref={node => { if (!node) return this.markers.set(node.leafletElement, d.id) }} key={d.id} position={[latitude, longitude]} onClick={() => { if (onMarkerClick) { onMarkerClick(d) } }} >
-    //       <Tooltip> <span> {d.name} </span> </Tooltip>
-    //     </Marker>
-    //   )
-    // })
 
     return (
      <div>
