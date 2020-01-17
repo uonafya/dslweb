@@ -78,9 +78,9 @@ const Home = withRouter(props => (
         <div className="section-heading m-b-20">
             <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">Map View Explorer</h4>
             <p>Overview of county data for each indicator</p>
-        
-          <Map key = {props.id} dslIndicators = {props.dslIndicators} years = {props.years} /> 
-          </div> 
+
+          <Map key = {props.id} dslIndicators = {props.dslIndicators} years = {props.years} />
+          </div>
       </section>
 
       <section className="section">
@@ -129,7 +129,7 @@ const Home = withRouter(props => (
 
       </section>
     </Layout>
-  </div>  
+  </div>
 ));
 
 //  async function handleMapIndicator(indicator) {

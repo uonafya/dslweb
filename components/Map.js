@@ -1,12 +1,29 @@
 import React from 'react'
 import MapData from '../static/maps/counties.min.json'
 import MapCenters from '../static/maps/county-centers-coordinates'
+import { FetchIndicatorData } from './utils/Helpers'
 
 export default class extends React.Component {
   constructor () {
     super()
-    this.state = { components: undefined }
+    this.state = {
+      components: undefined,
+      pe: 2019,
+      indicator: '',
+      mapCentersData: MapCenters
+    };
     this.markers = new WeakMap()
+    this.handleMapIndicator = this.handleMapIndicator.bind(this);
+    this.periodChangeHandler = this.periodChangeHandler.bind(this);
+  }
+
+
+  populateMapData(){
+    let mapValues = {}
+    MapCenters.map( one_county =>(
+      one_county['value'] = 10
+    ))
+    this.setState.mapCentersData =MapCenters;
   }
 
   componentDidMount () {
@@ -40,6 +57,7 @@ export default class extends React.Component {
         onMarkerClick: false
       }
     })
+
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -78,6 +96,32 @@ export default class extends React.Component {
     if (this.props.onZoomEnd) this.props.onZoomEnd(contained, target.getZoom())
   }
 
+
+ periodChangeHandler(year){
+    alert(year);
+    this.setState({
+     pe: year
+   });
+  }
+
+  handleMapIndicator(indicator) {
+    //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
+    console.log(indicator);
+     this.setState({
+      indicator: indicator.name
+    });
+    (async () => {
+      let {indicatorData}=await FetchIndicatorData(indicator.id,'18',this.state.pe,2,null);
+      
+      this.populateMapData();
+    })()
+
+    var elems = document.querySelectorAll(".maplink");
+    [].forEach.call(elems, function(el) {
+        el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
+    });
+  }
+
   render () {
     if (!this.state.components) {
       return null
@@ -112,16 +156,9 @@ export default class extends React.Component {
         return {MapData}
     }
 
-    function handleMapIndicator(indicator) {
-      //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
-      let yrr = document.getElementById("mapyr").value
-      document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
 
-      var elems = document.querySelectorAll(".maplink");
-      [].forEach.call(elems, function(el) {
-          el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
-      });
-    }
+
+
 
 
     // const markers = ( [{id: 0, coordinates: {longitude: 76.732407, latitude: 31.698956} }] ).map(d => {
@@ -148,7 +185,7 @@ export default class extends React.Component {
                         <h4 className="title is-5 m-b-5">Period:</h4>
                         <hr className="m-t-5 m-b-5"/>
                         <div className="select is-fullwidth">
-                          <select id="mapyr">
+                          <select id="mapyr" onChange={event => this.periodChangeHandler(event.target.value)}>
                             {this.props.error ? "" : this.props.years.map( oneyr => (<option value={oneyr}>{oneyr}</option>) )}
                           </select>
                         </div>
@@ -160,11 +197,11 @@ export default class extends React.Component {
                         <div className="gis-indicator-list max-h-650-px auto-overflow-y">
                           <ul className="text-left">
                             {this.props.dslIndicators.map( one_indicator => (
-                              <li><a key={one_indicator.id} id={`clink-${one_indicator.id}`} className="is-link fcsecondary-dark maplink" 
+                              <li><a key={one_indicator.id} id={`clink-${one_indicator.id}`} className="is-link fcsecondary-dark maplink"
                               onClick={
                                 (elem) => {
                                   const mapData = null
-                                  handleMapIndicator(one_indicator)
+                                  this.handleMapIndicator(one_indicator)
                                   let eles = document.getElementsByClassName('maplink');for(var i=0; i<eles.length; i++) {eles[i].classList.remove("text-bold");}document.getElementById(`clink-${one_indicator.id}`).classList.add("text-bold")
                                 }
                               }
@@ -175,7 +212,7 @@ export default class extends React.Component {
                         {/* end MAP IndiPicker */}
                     </div>
                     <div className="column">
-                        <h4 className="title is-5 m-b-5">Kenya - <span id="maptitle" className="fcgrey-light-1">(47 counties)</span></h4>
+                        <h4 className="title is-5 m-b-5">Kenya - <span id="maptitle" className="fcgrey-light-1"> {this.state.indicator} - {this.state.pe} - (47 counties)</span></h4>
                         <hr className="m-t-5 m-b-5"/>
                         <div className="columns p-l-10 p-r-10">
                           <div className="column min-h-500-px">
@@ -184,21 +221,19 @@ export default class extends React.Component {
                                 <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={7.48} maxZoom={9.00} >
                                   <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
                                   <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
-
-                                  {MapCenters.map( one_county =>(
+                                  {this.state.mapCentersData.map( one_county =>(
                                     <Marker position={[one_county.latitude, one_county.longitude]}>
                                       <Popup>
                                         <div>
                                           <h4 className="subtitle">{one_county.name}</h4>
-                                          <span>{one_county.dsl_id}</span> <br/>
+                                          <span>{one_county.value}</span> <br/>
                                         </div>
                                       </Popup>
                                       <Tooltip>{one_county.name}</Tooltip>
                                     </Marker>
                                   ))}
-                                  
                             </LeafletMap>
-                            
+
                             </div>
                           </div>
                         </div>
