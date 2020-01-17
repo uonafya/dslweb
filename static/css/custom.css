@@ -338,6 +338,8 @@
 .max-h-100-px{ max-height: 100px !important; }
 .min-h-100-vh{ min-height: 100vh !important; }
 .max-h-100-vh{ max-height: 100vh !important; }
+.max-h-150-px{ max-height: 150px !important; }
+.max-h-200-px{ max-height: 200px !important; }
 .min-h-250-px{ min-height: 250px !important; }
 .max-h-250-px{ max-height: 250px !important; }
 .max-h-250-vh{ max-height: 250vh !important; }
@@ -600,4 +602,7 @@ td.pvtOutput{
 
 .text-right nav.breadcrumb{
     float: right;
+}
+.indi-compare-add div.list a.dropdown-item{
+    white-space: normal;
 }
