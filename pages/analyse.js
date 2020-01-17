@@ -17,30 +17,36 @@ const Analyze = withRouter(props => (
         <div className="columns">
             <div className="column is-one-third">
                 <nav className="breadcrumb m-t-10" aria-label="breadcrumbs">
-                <ul>
-                    <li><Link href="/"><a>Home</a></Link></li>
-                    <li><Link href="/indicators"><a>All indicators</a></Link></li>
-                    <li><Link href={"/indicator/"+props.id}>
-                        <a>
-                            {props.error ? "" :
-                            props.indicatorData.result.dictionary.indicators.map(one_indi => (
-                              one_indi.id
-                            ))
-                            } &nbsp;
+                  <ul>
+                      <li><Link href="/"><a className="m-t-3">Home</a></Link></li>
+                      <li><Link href="/indicators"><a>All indicators</a></Link></li>
+                      <li><Link href={"/indicator/"+props.id}>
+                          <a>
+                              {props.error ? "" :
+                              props.indicatorData.result.dictionary.indicators.map(one_indi => (
+                                one_indi.id
+                              ))
+                              } &nbsp;
+                          </a>
+                      </Link></li>
+                      <li className="is-active">
+                        <a aria-current="page">
+                          Analysis
                         </a>
-                    </Link></li>
-                    <li className="is-active">
-                      <a aria-current="page">
-                        Analysis
-                      </a>
-                    </li>
-                </ul>
+                      </li>
+                  </ul>
                 </nav>
             </div>
             <div className="column text-right">
-                <a className="is-link" onClick={() =>
-                  goToIndicatorPage(props.id,props.pe,props.ouid,props.level)
-                } >&larr; Back to indicator summary</a>
+              <nav className="breadcrumb m-t-10 text-right" aria-label="breadcrumbs">
+                <ul>
+                    <li>
+                      <a className="is-link" onClick={() =>
+                        goToIndicatorPage(props.id,props.pe,props.ouid,props.level)
+                      } >&larr; Back to indicator summary</a>
+                    </li>
+                </ul>
+              </nav>
             </div>
         </div>
       </div>
@@ -80,7 +86,7 @@ const Analyze = withRouter(props => (
                       <div className="select is-fullwidth">
                         <select onChange={
                           (e) => {
-                            const newaRoute = `/pivot/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
+                            const newaRoute = `/analyse/${props.id}?pe=${e.target.value}&ouid=${props.ouid}`;
                             // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
                             Router.push(newaRoute)
                           }
@@ -111,7 +117,7 @@ const Analyze = withRouter(props => (
                           <div className="select is-fullwidth text-caps">
                             <select  onChange={
                               (e) => {
-                                const newOUaroute = `/pivot/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
+                                const newOUaroute = `/analyse/${props.id}?pe=${props.pe}&ouid=${e.target.value}`
                                 Router.push(newOUaroute);
                               }
                             }>
@@ -146,7 +152,7 @@ const Analyze = withRouter(props => (
                           <div className="select is-fullwidth">
                             <select  onChange={
                               (e) => {
-                                const newLEVaroute = `/pivot/${props.id}?pe=${props.pe}&ouid=${props.ouid}&level=${e.target.value}`
+                                const newLEVaroute = `/analyse/${props.id}?pe=${props.pe}&ouid=${props.ouid}&level=${e.target.value}`
                                 // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value)
                                 Router.push(newLEVaroute);
                               }
@@ -184,7 +190,6 @@ const Analyze = withRouter(props => (
                     <div className="columns is-gapless">
                         <div className="column">
                             {/* Pivot */}
-                            {/* {JSON.stringify(props.pivotData)} */}
                             <ReactPivot pivotData={props.pivotData} title={props.indicatorData.result.dictionary.indicators[0].name}/>
                             {/* end Pivot */}
                         </div>
@@ -252,6 +257,20 @@ function getLEVELname(lvl_id) {
   var lvl_name = lvl_name0.level
   return lvl_name
 }
+
+function goToIndicatorPage(id,pe,ouid,level) {
+  let analysisUrl = `/indicator/${id}`;
+  if(pe != undefined){
+    analysisUrl += `?pe=${pe}`;
+  }
+  if(ouid != undefined){
+    analysisUrl += `&ouid=${ouid}`;
+  }
+  if(level != undefined){
+    analysisUrl += `&level=${level}`;
+  }
+  Router.push(analysisUrl)
+}
 async function fetchIndicatorData(id,ouid,pe,level,loading) {
   loading = true;
   let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
@@ -282,22 +301,6 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   // }
 
   return {indicatorData, loading, levell, error}
-}
-
-
-
-function goToIndicatorPage(id,pe,ouid,level) {
-  let analysisUrl = `/pivot/${id}`;
-  if(pe != undefined){
-    analysisUrl += `?pe=${pe}`;
-  }
-  if(ouid != undefined){
-    analysisUrl += `&ouid=${ouid}`;
-  }
-  if(level != undefined){
-    analysisUrl += `&level=${level}`;
-  }
-  Router.push(analysisUrl)
 }
 
 
