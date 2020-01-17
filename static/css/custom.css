@@ -527,7 +527,7 @@
     z-index: 0 !important;
 }
 .leaflet-marker-icon{
-    opacity: 0;
+    opacity: 1;
 }
 /* end Map */
 
