@@ -7,6 +7,7 @@ import TrendTimeSeriesLineGraph from '../components/utils/TrendTimeSeriesLineGra
 import SeasonTimeSeriesLineGraph from '../components/utils/SeasonTimeSeriesLineGraph.js'
 import PeriodType from '../components/timeseries/PeriodTypeFilter'
 import PeriodSpan from '../components/timeseries/PeriodSpanFilter'
+import CompareGraph from '../components/utils/CompareGraph';
 
 class Timeseries extends React.Component {
 
@@ -19,13 +20,11 @@ class Timeseries extends React.Component {
     this.state = {
       ouid: this.props.query.ouid,
       id: this.props.query.id,
-      periodSpan: 2,
-      periodtype: 'yearly',
+      pe: '2019',
       data: ''
     }
     this.handlePeriodTypeChange = this.handlePeriodTypeChange.bind(this);
     this.handlePeriodSpanChange = this.handlePeriodSpanChange.bind(this);
-    this.fetchData = this.fetchData.bind(this);
   }
 
   handlePeriodTypeChange(periodType) {
@@ -36,29 +35,13 @@ class Timeseries extends React.Component {
     this.setState({ periodSpan: periodSpan });
   }
 
-  fetchData(){
-    let ouId=this.state.ouid;
-    console.log("debug 3=====>");
-    console.log(ouId);
-    if(ouId==null || ouId=='undefined'){
-      ouId=18;
-    }
-    (async () => {
-      let indicatorData=await fetchTimeSeriesData(this.state.id,ouId,this.state.periodSpan,this.state.periodtype);
-      console.log("debug here");
-      console.log(this.state.data);
-      this.setState({
-        data: indicatorData.result
-      });
-    })()
-  }
 
   componentDidMount() {
-    this.fetchData();
+
   }
 
   componentDidUpdate(){
-    this.fetchData();
+
   }
 
   render() {
@@ -94,7 +77,7 @@ class Timeseries extends React.Component {
                         </Link></li>
                         <li className="is-active">
                           <a aria-current="page">
-                            TimeSeries
+                            Compare
                           </a>
                         </li>
                     </ul>
@@ -134,19 +117,7 @@ class Timeseries extends React.Component {
           <div className="box m-5">
             <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Projection Analysis:  {this.state.period}</h5>
             <br/>
-            <ProjectionTimeSeriesLineGraph data={this.state.data}/>
-          </div>
-
-          <div className="box m-5">
-            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">General Trend Analysis:  {this.state.period}</h5>
-            <br/>
-            <TrendTimeSeriesLineGraph data={this.state.data}/>
-          </div>
-
-          <div className="box m-5">
-            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Seasonal Trends Analysis:  {this.state.period}</h5>
-            <br/>
-            <SeasonTimeSeriesLineGraph data={this.state.data}/>
+            <CompareGraph ></CompareGraph>
           </div>
 
 
