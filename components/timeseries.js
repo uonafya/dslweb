@@ -51,7 +51,7 @@ class Timeseries extends React.Component {
         */}
 
         {/* Breadcrumb */}
-        <section className="section m-t-50 m-b-5 bcclear p-b-15">
+        <section className="section m-t-20 m-b-5 bcclear p-b-15">
           <div className="container">
             <div className="columns">
                 <div className="column is-one-third">

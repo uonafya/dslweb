@@ -199,13 +199,28 @@ export async function fetchIndicators() {
 
   const fetchIndicators = await fetch(fetchIndicatorsUrl);
 
-  const indicatorsData = await fetchIndicators.json();
+  indicatorsData = await fetchIndicators.json();
   if(indicatorsData.length > 5){
     loading = false
   }
-  // console.log(`fetch all Indicators == ${JSON.stringify(indicatorsData)}`);
 
   console.log(`All Indicators fetched. Count: ${indicatorsData.length} & Url: ${fetchIndicatorsUrl} `);
 
   return {indicatorsData, loading}
+}
+
+export async function fetchCadres() {
+  let loading = true
+  let fetchCadresUrl = `http://41.89.94.105/dsl/api/cadres`;
+
+  const fetchCadres = await fetch(fetchCadresUrl);
+
+  const cadresData = await fetchCadres.json();
+  if(cadresData.length > 5){
+    loading = false
+  }
+
+  console.log(`All Cadres fetched. Count: ${cadresData.length} & Url: ${fetchCadresUrl} `);
+
+  return {cadresData, loading}
 }

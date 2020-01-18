@@ -13,7 +13,7 @@ import Displayline from '../components/Displayline';
 const Page = withRouter(props => (
   <Layout>
     {/* Breadcrumb */}
-    <section className="section m-t-50 m-b-5 bcclear p-b-15">
+    <section className="section m-t-20 m-b-5 bcclear p-b-15">
       <div className="container">
         <nav className="breadcrumb m-t-10" aria-label="breadcrumbs">
           <ul>
@@ -44,13 +44,13 @@ const Page = withRouter(props => (
           }
           <div className={props.loading == true ? "columns hidden" : "columns"}>
             <div className="column is-one-third">
-              <h3 className="title text-left fcsecondary-dark text-bold">
+              <h3 className="title text-left fcsecondary-dark text-bold m-b-10">
                 {props.error ? <div><small className="is-error is-fullwidth p-4 br-3 is-6">No data found </small></div> :
                   props.indicatorData.result.dictionary.indicators.map(one_ind => (
                   one_ind.name
-                ))} &nbsp;
+                ))}
               </h3>
-              <hr/>
+              <hr className="m-t-10 m-b-10"/>
             </div>
             <div className="column">
               <h4 className="title m-b-5 m-l-10 text-right is-6">
@@ -174,7 +174,7 @@ const Page = withRouter(props => (
                         props.indicatorData.result.dictionary.indicators.map(one_ind => (
                         <p>
                           <strong> {one_ind.name} &nbsp; </strong> <br/> {one_ind.description}
-                          <hr/>
+                          <hr className="m-t-10 m-b-10"/>
                         </p>
                       ))}
                     </div>

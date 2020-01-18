@@ -27,8 +27,8 @@ const Indicators = props => (
     <section className="section m-t-30 p-t-20">
       <div className="section-heading m-b-5 p-t-30">
         <div className="container">
-          <h3 className="title text-left fcsecondary-dark text-bold">{props.activeIndicatorGroup} indicators <small>({props.indicators.length})</small></h3>
-          <hr/>
+          <h3 className="title text-left fcsecondary-dark text-bold m-b-10">{props.activeIndicatorGroup} indicators <small>({props.indicators.length})</small></h3>
+          <hr className="m-t-10 m-b-10"/>
         </div>
       </div>
       <div className="container">
