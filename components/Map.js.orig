@@ -65,7 +65,9 @@ export default class extends React.Component {
       FeatureGroup,
       GeoJSON
     } = require('react-leaflet')
+
     const { Marker: LeafletMarker } = require('leaflet')
+    
     this.setState({
       leaflet: {
         LeafletMarker
@@ -100,6 +102,8 @@ export default class extends React.Component {
         this.map.leafletElement.on('zoomend', this.handleZoomEnd)
       }
     }, 100)
+
+
   }
 
 
@@ -205,6 +209,30 @@ export default class extends React.Component {
         return {MapData}
     }
 
+<<<<<<< HEAD
+=======
+    async function getMapData(id,yr) {
+      console.log(`running async getMapData(id:${id}  &&  yr: ${yr})`)
+
+      let mapIndicatorsData = null
+      let lsId = id+'-'+yr
+      let fetchMapIndicatorsUrl = `http://41.89.94.105/dsl/api/indicators/${id}?pe=${yr}&ouid=${18}&level=${1}`;
+      if(window.localStorage.getItem(lsId) == null){
+        await fetch(fetchMapIndicatorsUrl)
+          .then((response) => {
+            return response.json();
+          })
+          .then( (mapInd) => { 
+            window.localStorage.setItem(lsId,JSON.stringify(mapInd));
+            console.log(`window.localStorage.${lsId} == ${window.localStorage.getItem(lsId)}`)
+            mapIndicatorsData = mapInd
+          });
+      }else{
+        mapIndicatorsData = JSON.parse( window.localStorage.getItem(lsId) );
+      }
+      return {mapIndicatorsData}
+    }
+
     function handleMapIndicator(indicator) {
       let yrr = document.getElementById("mapyr").value
       console.info("MAPINDICATOR "+JSON.stringify(indicator));
@@ -235,6 +263,7 @@ export default class extends React.Component {
 
     }
 
+>>>>>>> 182dfc8f03b180f5a313b83136222d42d4b884c0
 
     return (
      <div>

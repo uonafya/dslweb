@@ -202,37 +202,8 @@ export default class extends React.Component {
 
 
     function getCounties() {
+        console.log("mapdata== "+JSON.stringify(MapData));
         return {MapData}
-    }
-
-    function handleMapIndicator(indicator) {
-      let yrr = document.getElementById("mapyr").value
-      console.info("MAPINDICATOR "+JSON.stringify(indicator));
-      console.info("MAPYEAR "+yrr);
-      document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
-
-      var elems = document.querySelectorAll(".maplink");
-      [].forEach.call(elems, function(el) {
-          el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
-      });
-
-      getMapData(indicator.id,yrr)
-
-      let lsId = indicator.id+'-'+yrr
-      let mapIndicatorsData = window.localStorage.getItem(lsId)
-      console.log('mapIndicatorsData --> '+mapIndicatorsData)
-
-
-      // const markers = ( mapIndicatorsData.result.data[indicator.id] ).map(d => {
-      //   console.log('d --> '+d)
-      //   //const { latitude, longitude } = d.coordinates
-      //   return (
-      //     <Marker ref={indicator.id} key={indicator.id} position={[latitude, longitude]} onClick={() => { if (onMarkerClick) { onMarkerClick(d) } }} >
-      //       <Tooltip> <span> {d.name} </span> </Tooltip>
-      //     </Marker>
-      //   )
-      // })
-
     }
 
 

@@ -199,7 +199,7 @@ export async function fetchIndicators() {
 
   const fetchIndicators = await fetch(fetchIndicatorsUrl);
 
-  indicatorsData = await fetchIndicators.json();
+  let indicatorsData = await fetchIndicators.json();
   if(indicatorsData.length > 5){
     loading = false
   }
