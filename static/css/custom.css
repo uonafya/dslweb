@@ -15,6 +15,10 @@
 .l-h-5{ line-height: 5 !important; }
 /* Margin */
 .m-t-0{ margin-top: 0px !important; }
+.m-t-2{ margin-top: 1px !important; }
+.m-t-2{ margin-top: 2px !important; }
+.m-t-3{ margin-top: 3px !important; }
+.m-t-4{ margin-top: 4px !important; }
 .m-t-5{ margin-top: 5px !important; }
 .m-b-5{ margin-top: 5px !important; }
 .m-t-10{ margin-top: 10px !important;}  
@@ -272,6 +276,10 @@
 .scroll-overflow{ overflow: scroll !important; }
 
 /* Height */
+.h-1-px{ height: 1px !important; }
+.h-2-px{ height: 2px !important; }
+.h-3-px{ height: 3px !important; }
+.h-4-px{ height: 4px !important; }
 .h-5-pc{ height: 5% !important; }
 .h-5-px{ height: 5px !important; }
 .h-5-vh{ height: 5vh !important; }
@@ -330,6 +338,8 @@
 .max-h-100-px{ max-height: 100px !important; }
 .min-h-100-vh{ min-height: 100vh !important; }
 .max-h-100-vh{ max-height: 100vh !important; }
+.max-h-150-px{ max-height: 150px !important; }
+.max-h-200-px{ max-height: 200px !important; }
 .min-h-250-px{ min-height: 250px !important; }
 .max-h-250-px{ max-height: 250px !important; }
 .max-h-250-vh{ max-height: 250vh !important; }
@@ -574,4 +584,25 @@ ul.pagination > .page-item{
 }
 .gis-indicator-list ul{
     list-style-type: square;
+}
+
+
+
+
+/* Pivot modifications to hide totals */
+td.pvtOutput{
+    min-width: 80%;
+}
+.pvtTable thead tr th:last-of-type,
+.pvtTable tbody tr td:last-of-type,
+.pvtTable tbody tr:last-of-type{
+    display: none;
+}
+/* Pivot modifications to hide totals */
+
+.text-right nav.breadcrumb{
+    float: right;
+}
+.indi-compare-add div.list a.dropdown-item{
+    white-space: normal;
 }

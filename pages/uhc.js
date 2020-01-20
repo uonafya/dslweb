@@ -18,7 +18,7 @@ export default function UHC() {
         <div className="section-heading m-b-5">
           <div className="container">
             <h3 className="title text-center fcsecondary-dark text-bold">Universal Health Coverage</h3>
-            <hr/>
+            <hr className="m-t-10 m-b-10"/>
           </div>
         </div>
         <div className="container text-left p-5 m-b-30">

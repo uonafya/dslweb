@@ -51,13 +51,13 @@ class Timeseries extends React.Component {
         */}
 
         {/* Breadcrumb */}
-        <section className="section m-t-50 m-b-5 bcclear p-b-15">
+        <section className="section m-t-20 m-b-5 bcclear p-b-15">
           <div className="container">
             <div className="columns">
                 <div className="column is-one-third">
                   <nav className="breadcrumb m-t-10" aria-label="breadcrumbs">
                     <ul>
-                        <li><Link href="/"><a>Home</a></Link></li>
+                        <li><Link href="/"><a className="m-t-3">Home</a></Link></li>
                         <li><Link href="/indicators"><a>All indicators</a></Link></li>
                         <li id="thirdelem"><Link href={"/indicator/"+this.props.query.id}>
                           <a>

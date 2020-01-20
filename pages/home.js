@@ -27,7 +27,7 @@ export default function MyPage(props) {
             <div className="section-heading m-b-5 m-t-20">
                 <div className="container m-t-20">
                     <h3 className="title text-center fcsecondary-dark text-bold">ignore this page: Home Dynamic Refresh</h3>
-                    <hr/>
+                    <hr className="m-t-10 m-b-10"/>
                 </div>
             </div>
             <div className="container">

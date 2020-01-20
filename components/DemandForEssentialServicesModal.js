@@ -58,13 +58,13 @@ export default class DemandForEssentialServices  extends React.Component {
         <Modal
            isOpen={this.state.showModal}
            contentLabel="Minimal Modal Example">
-          <section style={{paddingBottom: "0" }} class="section">
+          <section style={{paddingBottom: "0" }} className="section p-t-10">
             <a href="#" onClick={this.handleCloseModal}><i  class="far fa-times-circle fa-2x " style={{color: "red"}}></i></a>
             <span style={{display: "inline-block", width: "100%", textAlign: "center"}}>
               <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Demand for Essential Services</h4>
             </span>
           </section>
-          <section style={{paddingBottom: "0" }} class="section">
+          <section style={{paddingBottom: "0" }} className="section p-t-10">
             <div class="columns">
                 <div class="column is-narrow">
                   <h6>Period:</h6>

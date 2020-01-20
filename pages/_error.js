@@ -10,7 +10,7 @@ function Error({ statusCode }) {
                 <div className="section-heading m-b-5 m-t-20">
                 <div className="container m-t-20">
                     <h3 className="title text-center fcerror text-bold">Error</h3>
-                    <hr/>
+                    <hr className="m-t-10 m-b-10"/>
                 </div>
                 </div>
                 <div className="container text-left p-20 p-t-30 p-b-30 m-b-30 text-center">

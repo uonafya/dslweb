@@ -8,6 +8,7 @@ import SeasonTimeSeriesLineGraph from '../components/utils/SeasonTimeSeriesLineG
 import PeriodType from '../components/timeseries/PeriodTypeFilter'
 import PeriodSpan from '../components/timeseries/PeriodSpanFilter'
 import CompareGraph from '../components/utils/CompareGraph';
+import FilterBar from '../components/comparison/filterBar'
 
 class Timeseries extends React.Component {
 
@@ -62,13 +63,13 @@ class Timeseries extends React.Component {
         */}
 
         {/* Breadcrumb */}
-        <section className="section m-t-50 m-b-5 bcclear p-b-15">
-          <div className="container">
-            <div className="columns">
-                <div className="column is-one-third">
+        <section className="section m-t-20 m-b-5 bcclear p-b-15">
+          <a className="container">
+            <a className="columns">
+                <a className="column is-one-third">
                   <nav className="breadcrumb m-t-10" aria-label="breadcrumbs">
                     <ul>
-                        <li><Link href="/"><a>Home</a></Link></li>
+                        <li><Link href="/"><a className="m-t-3">Home</a></Link></li>
                         <li><Link href="/indicators"><a>All indicators</a></Link></li>
                         <li id="thirdelem"><Link href={"/indicator/"+this.props.query.id}>
                           <a>
@@ -82,36 +83,44 @@ class Timeseries extends React.Component {
                         </li>
                     </ul>
                   </nav>
-                </div>
+                </a>
                 <div className="column text-right">
-                  <Link href={"/timeseries?id="+this.props.query.id+"&ouid="+this.props.query.ouid+"&level="+this.props.query.level+"&pe="+this.props.query.pe}>
-                    <a className="is-link">&larr; Back to indicator summary</a>
-                  </Link>
+                  <nav className="breadcrumb m-t-10" aria-label="breadcrumbs">
+                    <ul>
+                      <li>
+                        <Link href={"/indicator/"+this.props.query.id+"?ouid="+this.props.query.ouid+"&level="+this.props.query.level+"&pe="+this.props.query.pe}>
+                          <a className="is-link">&larr; Back to indicator summary</a>
+                        </Link>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
-            </div>
-          </div>
+            </a>
+          </a>
         </section>
         {/* Breadcrumb */}
 
-        <section style={{paddingBottom: "0" }} class="section">
-          <div class="columns">
-              <div class="column is-narrow">
+        <section style={{paddingBottom: "0" }} className="section p-t-10">
+          <FilterBar/>
+
+          {/* <div className="columns">
+              <div className="column is-narrow">
                 <h6>Period Type:</h6>
-                <div class="control">
-                  <div class="select">
+                <div className="control">
+                  <div className="select">
                     <PeriodType handler={this.handlePeriodTypeChange}/>
                   </div>
                 </div>
               </div>
-              <div class="column is-narrow">
+              <div className="column is-narrow">
                 <h6>Period Span:</h6>
-                <div class="control">
-                  <div class="select">
+                <div className="control">
+                  <div className="select">
                     <PeriodSpan  handler={this.handlePeriodSpanChange}/>
                   </div>
                 </div>
               </div>
-          </div>
+          </div> */}
 
 
           <div className="box m-5">

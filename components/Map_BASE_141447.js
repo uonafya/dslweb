@@ -1,58 +1,12 @@
 import React from 'react'
 import MapData from '../static/maps/counties.min.json'
 import MapCenters from '../static/maps/county-centers-coordinates'
-import { FetchIndicatorData } from './utils/Helpers'
 
 export default class extends React.Component {
   constructor () {
     super()
-    this.state = {
-      components: undefined,
-      pe: 2019,
-      indicator: '',
-      mapCentersData: MapCenters,
-      indicatorId: ''
-    };
+    this.state = { components: undefined }
     this.markers = new WeakMap()
-    this.handleMapIndicator = this.handleMapIndicator.bind(this);
-    this.periodChangeHandler = this.periodChangeHandler.bind(this);
-    this.populateMapData = this.populateMapData.bind(this);
-  }
-
-
-  populateMapData(mapIndicatorData){
-    console.log(" logging ===>");
-    console.log(this.state.mapCentersData);
-    let newMapData = {};
-    var countyMap = [];
-    MapCenters.map( one_county =>{
-      let newMapData = {}
-      for (var key in mapIndicatorData){
-        let count = 0;
-        mapIndicatorData[key].map( data => {
-
-          if(one_county.dsl_id == data.ou){
-
-            newMapData['name']=one_county.name;
-            newMapData['longitude']=one_county.longitude;
-            newMapData['latitude']=one_county.latitude;
-            newMapData['ou']=one_county.dsl_id;
-            if(count==0){
-              newMapData['value']={};
-              count=count+1;
-            }
-            newMapData['value'][data.period]=data.value;
-
-          }
-
-        })
-
-      }
-      if(Object.keys(newMapData).length != 0)
-        countyMap.push(newMapData);
-    })
-    console.log(countyMap);
-    this.setState({mapCentersData: countyMap});
   }
 
   componentDidMount () {
@@ -86,7 +40,6 @@ export default class extends React.Component {
         onMarkerClick: false
       }
     })
-
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -125,52 +78,6 @@ export default class extends React.Component {
     if (this.props.onZoomEnd) this.props.onZoomEnd(contained, target.getZoom())
   }
 
-
- periodChangeHandler(year){
-    this.setState({
-     pe: year
-   });
-   (async () => {
-     let {indicatorData}=await FetchIndicatorData(this.state.indicatorId,'18',year,2,null);
-     let mapIndicatorData=indicatorData.result.data;
-     this.populateMapData(mapIndicatorData);
-   })()
-
-   var elems = document.querySelectorAll(".maplink");
-   [].forEach.call(elems, function(el) {
-       el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
-   });
-  }
-
-  handleMapIndicator(indicator) {
-    //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
-    console.log(indicator);
-     this.setState({
-      indicator: indicator.name,
-      indicatorId: indicator.id
-    });
-    (async () => {
-      let {indicatorData}=await FetchIndicatorData(indicator.id,'18',this.state.pe,2,null);
-      let mapIndicatorData=indicatorData.result.data;
-      this.populateMapData(mapIndicatorData);
-    })()
-
-    var elems = document.querySelectorAll(".maplink");
-    [].forEach.call(elems, function(el) {
-        el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
-    });
-  }
-
-
-  createPopUpValues = (values) => {
-    let list = []
-     for (var k in values) {
-       list.push(<span><span>{`${k} : ${values[k]}`}</span><br/></span>);
-      }
-    return list;
-   }
-
-
   render () {
     if (!this.state.components) {
       return null
@@ -200,41 +107,31 @@ export default class extends React.Component {
         const passdata = tdt
     }
 
-
     function getCounties() {
+        console.log("mapdata== "+JSON.stringify(MapData));
         return {MapData}
     }
 
     function handleMapIndicator(indicator) {
+      //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
       let yrr = document.getElementById("mapyr").value
-      console.info("MAPINDICATOR "+JSON.stringify(indicator));
-      console.info("MAPYEAR "+yrr);
       document.getElementById("maptitle").innerHTML = indicator.name+" - "+yrr;
 
       var elems = document.querySelectorAll(".maplink");
       [].forEach.call(elems, function(el) {
           el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
       });
-
-      getMapData(indicator.id,yrr)
-
-      let lsId = indicator.id+'-'+yrr
-      let mapIndicatorsData = window.localStorage.getItem(lsId)
-      console.log('mapIndicatorsData --> '+mapIndicatorsData)
-
-
-      // const markers = ( mapIndicatorsData.result.data[indicator.id] ).map(d => {
-      //   console.log('d --> '+d)
-      //   //const { latitude, longitude } = d.coordinates
-      //   return (
-      //     <Marker ref={indicator.id} key={indicator.id} position={[latitude, longitude]} onClick={() => { if (onMarkerClick) { onMarkerClick(d) } }} >
-      //       <Tooltip> <span> {d.name} </span> </Tooltip>
-      //     </Marker>
-      //   )
-      // })
-
     }
 
+
+    // const markers = ( [{id: 0, coordinates: {longitude: 76.732407, latitude: 31.698956} }] ).map(d => {
+    //   const { latitude, longitude } = d.coordinates
+    //   return (
+    //     <Marker ref={node => { if (!node) return this.markers.set(node.leafletElement, d.id) }} key={d.id} position={[latitude, longitude]} onClick={() => { if (onMarkerClick) { onMarkerClick(d) } }} >
+    //       <Tooltip> <span> {d.name} </span> </Tooltip>
+    //     </Marker>
+    //   )
+    // })
 
     return (
      <div>
@@ -251,7 +148,7 @@ export default class extends React.Component {
                         <h4 className="title is-5 m-b-5">Period:</h4>
                         <hr className="m-t-5 m-b-5"/>
                         <div className="select is-fullwidth">
-                          <select id="mapyr" onChange={event => this.periodChangeHandler(event.target.value)}>
+                          <select id="mapyr">
                             {this.props.error ? "" : this.props.years.map( oneyr => (<option value={oneyr}>{oneyr}</option>) )}
                           </select>
                         </div>
@@ -263,11 +160,11 @@ export default class extends React.Component {
                         <div className="gis-indicator-list max-h-650-px auto-overflow-y">
                           <ul className="text-left">
                             {this.props.dslIndicators.map( one_indicator => (
-                              <li><a key={one_indicator.id} id={`clink-${one_indicator.id}`} className="is-link fcsecondary-dark maplink"
+                              <li><a key={one_indicator.id} id={`clink-${one_indicator.id}`} className="is-link fcsecondary-dark maplink" 
                               onClick={
                                 (elem) => {
                                   const mapData = null
-                                  this.handleMapIndicator(one_indicator)
+                                  handleMapIndicator(one_indicator)
                                   let eles = document.getElementsByClassName('maplink');for(var i=0; i<eles.length; i++) {eles[i].classList.remove("text-bold");}document.getElementById(`clink-${one_indicator.id}`).classList.add("text-bold")
                                 }
                               }
@@ -278,7 +175,7 @@ export default class extends React.Component {
                         {/* end MAP IndiPicker */}
                     </div>
                     <div className="column">
-                        <h4 className="title is-5 m-b-5">Kenya - <span id="maptitle" className="fcgrey-light-1"> {this.state.indicator} - {this.state.pe} - (47 counties)</span></h4>
+                        <h4 className="title is-5 m-b-5">Kenya - <span id="maptitle" className="fcgrey-light-1">(47 counties)</span></h4>
                         <hr className="m-t-5 m-b-5"/>
                         <div className="columns p-l-10 p-r-10">
                           <div className="column min-h-500-px">
@@ -287,20 +184,21 @@ export default class extends React.Component {
                                 <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={7.48} maxZoom={9.00} >
                                   <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
                                   <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
-                                  {this.state.mapCentersData.map( one_county =>(
+
+                                  {MapCenters.map( one_county =>(
                                     <Marker position={[one_county.latitude, one_county.longitude]}>
                                       <Popup>
                                         <div>
                                           <h4 className="subtitle">{one_county.name}</h4>
-                                          {one_county.value === undefined ? "" : this.createPopUpValues(one_county.value)}
-                                          <br/>
+                                          <span>{one_county.dsl_id}</span> <br/>
                                         </div>
                                       </Popup>
                                       <Tooltip>{one_county.name}</Tooltip>
                                     </Marker>
                                   ))}
+                                  
                             </LeafletMap>
-
+                            
                             </div>
                           </div>
                         </div>

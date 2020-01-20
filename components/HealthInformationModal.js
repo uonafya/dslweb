@@ -58,7 +58,7 @@ export default class HealthInfomation extends React.Component {
         <Modal
            isOpen={this.state.showModal}
            contentLabel="Minimal Modal Example">
-          <section style={{paddingBottom: "0" }} class="section">
+          <section style={{paddingBottom: "0" }} className="section p-t-10">
             <a href="#" onClick={this.handleCloseModal}><i  class="far fa-times-circle fa-2x " style={{color: "red"}}></i></a>
             <span style={{display: "inline-block", width: "100%", textAlign: "center"}}>
               <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Health Information</h4>
