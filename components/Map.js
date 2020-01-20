@@ -10,20 +10,49 @@ export default class extends React.Component {
       components: undefined,
       pe: 2019,
       indicator: '',
-      mapCentersData: MapCenters
+      mapCentersData: MapCenters,
+      indicatorId: ''
     };
     this.markers = new WeakMap()
     this.handleMapIndicator = this.handleMapIndicator.bind(this);
     this.periodChangeHandler = this.periodChangeHandler.bind(this);
+    this.populateMapData = this.populateMapData.bind(this);
   }
 
 
-  populateMapData(){
-    let mapValues = {}
-    MapCenters.map( one_county =>(
-      one_county['value'] = 10
-    ))
-    this.setState.mapCentersData =MapCenters;
+  populateMapData(mapIndicatorData){
+    console.log(" logging ===>");
+    console.log(this.state.mapCentersData);
+    let newMapData = {};
+    var countyMap = [];
+    MapCenters.map( one_county =>{
+      let newMapData = {}
+      for (var key in mapIndicatorData){
+        let count = 0;
+        mapIndicatorData[key].map( data => {
+
+          if(one_county.dsl_id == data.ou){
+
+            newMapData['name']=one_county.name;
+            newMapData['longitude']=one_county.longitude;
+            newMapData['latitude']=one_county.latitude;
+            newMapData['ou']=one_county.dsl_id;
+            if(count==0){
+              newMapData['value']={};
+              count=count+1;
+            }
+            newMapData['value'][data.period]=data.value;
+
+          }
+
+        })
+
+      }
+      if(Object.keys(newMapData).length != 0)
+        countyMap.push(newMapData);
+    })
+    console.log(countyMap);
+    this.setState({mapCentersData: countyMap});
   }
 
   componentDidMount () {
@@ -98,9 +127,18 @@ export default class extends React.Component {
 
 
  periodChangeHandler(year){
-    alert(year);
     this.setState({
      pe: year
+   });
+   (async () => {
+     let {indicatorData}=await FetchIndicatorData(this.state.indicatorId,'18',year,2,null);
+     let mapIndicatorData=indicatorData.result.data;
+     this.populateMapData(mapIndicatorData);
+   })()
+
+   var elems = document.querySelectorAll(".maplink");
+   [].forEach.call(elems, function(el) {
+       el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
    });
   }
 
@@ -108,12 +146,13 @@ export default class extends React.Component {
     //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
     console.log(indicator);
      this.setState({
-      indicator: indicator.name
+      indicator: indicator.name,
+      indicatorId: indicator.id
     });
     (async () => {
       let {indicatorData}=await FetchIndicatorData(indicator.id,'18',this.state.pe,2,null);
-      
-      this.populateMapData();
+      let mapIndicatorData=indicatorData.result.data;
+      this.populateMapData(mapIndicatorData);
     })()
 
     var elems = document.querySelectorAll(".maplink");
@@ -121,6 +160,16 @@ export default class extends React.Component {
         el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
     });
   }
+
+
+  createPopUpValues = (values) => {
+    let list = []
+     for (var k in values) {
+       list.push(<span><span>{`${k} : ${values[k]}`}</span><br/></span>);
+      }
+    return list;
+   }
+
 
   render () {
     if (!this.state.components) {
@@ -151,24 +200,12 @@ export default class extends React.Component {
         const passdata = tdt
     }
 
+
     function getCounties() {
         console.log("mapdata== "+JSON.stringify(MapData));
         return {MapData}
     }
 
-
-
-
-
-
-    // const markers = ( [{id: 0, coordinates: {longitude: 76.732407, latitude: 31.698956} }] ).map(d => {
-    //   const { latitude, longitude } = d.coordinates
-    //   return (
-    //     <Marker ref={node => { if (!node) return this.markers.set(node.leafletElement, d.id) }} key={d.id} position={[latitude, longitude]} onClick={() => { if (onMarkerClick) { onMarkerClick(d) } }} >
-    //       <Tooltip> <span> {d.name} </span> </Tooltip>
-    //     </Marker>
-    //   )
-    // })
 
     return (
      <div>
@@ -226,7 +263,8 @@ export default class extends React.Component {
                                       <Popup>
                                         <div>
                                           <h4 className="subtitle">{one_county.name}</h4>
-                                          <span>{one_county.value}</span> <br/>
+                                          {one_county.value === undefined ? "" : this.createPopUpValues(one_county.value)}
+                                          <br/>
                                         </div>
                                       </Popup>
                                       <Tooltip>{one_county.name}</Tooltip>
