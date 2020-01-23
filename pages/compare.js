@@ -60,8 +60,37 @@ class Timeseries extends React.Component {
   }
 
 
-  filterChange(){
-    alert("filter");
+  filterChange(filterData){
+    console.log(filterData);
+    (async () => {
+        var is_error = false
+        var err_msg = ''
+        console.log(filterData.id,filterData.ou,filterData.period)
+        let {indicatorData}=await FetchIndicatorData(filterData.id,filterData.ou,filterData.period,null,null);
+        var _data;
+        if(indicatorData.messageType != undefined){
+          let err_msg = indicatorData.messageType + ' ' + indicatorData.mesageContent
+          alert("Error occured while loading data: "+err_msg)
+        }else{
+
+          try {
+            _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+            let dataAfterAddEvent=this.state.indicator_data;
+            _data[0]['name']=_data[0]['name']+" period: "+ filterData.period;
+            dataAfterAddEvent.push(_data[0]);
+            console.log(dataAfterAddEvent);
+            this.setState({
+               indicator_data: dataAfterAddEvent
+            });
+          }
+          catch(err) {
+            console.log(err.message);
+          }
+
+        }
+
+     })();
+
   }
 
   componentDidMount() {
@@ -76,7 +105,8 @@ class Timeseries extends React.Component {
       }else{
         _data=ConvertToMonthlyLineGraph2(indicatorData.result);
       }
-
+      _data[0]['type']='line';
+      _data[0]['name']=_data[0]['name']+" period: "+ this.props.query.pe;
       this.setState({
          indicator_data: _data
      });
@@ -136,7 +166,7 @@ class Timeseries extends React.Component {
           <FilterBar filterCallBack = {this.filterChange} initProps={ this.state.queryParams } />
 
           <div className="box m-5">
-            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Projection Analysis:  {this.state.period}</h5>
+            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Compare Graph </h5>
             <br/>
             <CompareGraph  indicatorData = {this.state.indicator_data}></CompareGraph>
           </div>

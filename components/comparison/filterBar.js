@@ -578,7 +578,7 @@ class FilterBar extends Component {
                                                 console.info(JSON.stringify(this.state.current_indicator_cadre))
                                                 this.setState({ selected_indicator_cadre: [...this.state.selected_indicator_cadre, this.state.current_indicator_cadre] })
                                                 this.resetFilters();
-                                                this.props.filterCallBack();
+                                                this.props.filterCallBack(this.state.current_indicator_cadre);
                                             }
                                         }>
                                             &nbsp;<span className="icon is-small"> <i className="fas fa-plus"></i> </span> &nbsp; Add

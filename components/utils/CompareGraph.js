@@ -59,8 +59,6 @@ export default class CompareGraph extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("will receive ====>");
-    console.log(nextProps.indicatorData);
     this.setState({
      chartOptions: {
        series: nextProps.indicatorData
