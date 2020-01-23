@@ -32,28 +32,7 @@ class Timeseries extends React.Component {
         ou_name: this.props.query.ouid,
         name: this.props.query.id
       },
-      indicator_data: [{
-          type: 'column',
-          name: 'Jane',
-          data: [3, 2, 1, 3, 4]
-      }, {
-          type: 'column',
-          name: 'John',
-          data: [2, 3, 5, 7, 6]
-      }, {
-          type: 'column',
-          name: 'Joe',
-          data: [4, 3, 3, 9, 0]
-      }, {
-          type: 'spline',
-          name: 'Average',
-          data: [3, 2.67, 3, 6.33, 3.33],
-          marker: {
-              lineWidth: 2,
-              lineColor: 'red',
-              fillColor: 'white'
-          }
-      }]
+      indicator_data: [{   }]
     }
 
     this.filterChange = this.filterChange.bind(this);
@@ -105,11 +84,18 @@ class Timeseries extends React.Component {
       }else{
         _data=ConvertToMonthlyLineGraph2(indicatorData.result);
       }
-      _data[0]['type']='line';
-      _data[0]['name']=_data[0]['name']+" period: "+ this.props.query.pe;
-      this.setState({
-         indicator_data: _data
-     });
+
+      try{
+          _data[0]['type']='line';
+          _data[0]['name']=_data[0]['name']+" period: "+ this.props.query.pe;
+          this.setState({
+             indicator_data: _data
+         });
+        }catch(err) {
+        console.log(err.message);
+      }
+
+
      })();
 
   }
