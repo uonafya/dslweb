@@ -9,6 +9,7 @@ import PeriodType from '../components/timeseries/PeriodTypeFilter'
 import PeriodSpan from '../components/timeseries/PeriodSpanFilter'
 import CompareGraph from '../components/utils/CompareGraph';
 import FilterBar from '../components/comparison/filterBar'
+import {ConvertToMonthlyLineGraph2} from '../components/utils/converters/Charts'
 
 class Timeseries extends React.Component {
 
@@ -31,12 +32,59 @@ class Timeseries extends React.Component {
         ou_name: this.props.query.ouid,
         name: this.props.query.id
       },
-      indicator_data: {}
+      indicator_data: [{
+          type: 'column',
+          name: 'Jane',
+          data: [3, 2, 1, 3, 4]
+      }, {
+          type: 'column',
+          name: 'John',
+          data: [2, 3, 5, 7, 6]
+      }, {
+          type: 'column',
+          name: 'Joe',
+          data: [4, 3, 3, 9, 0]
+      }, {
+          type: 'spline',
+          name: 'Average',
+          data: [3, 2.67, 3, 6.33, 3.33],
+          marker: {
+              lineWidth: 2,
+              lineColor: 'red',
+              fillColor: 'white'
+          }
+      }]
     }
+
+    this.filterChange = this.filterChange.bind(this);
+  }
+
+
+  filterChange(){
+    alert("filter");
+  }
+
+  componentDidMount() {
+    (async () => {
+      var is_error = false
+      var err_msg = ''
+      let {indicatorData}=await FetchIndicatorData(this.props.query.id,this.props.query.ouid,this.props.query.pe,null,null);
+      var _data;
+      if(indicatorData.messageType != undefined){
+        is_error = true
+        err_msg = indicatorData.messageType + ' ' + indicatorData.mesageContent
+      }else{
+        _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+      }
+
+      this.setState({
+         indicator_data: _data
+     });
+     })();
+
   }
 
   render() {
-    
 
     return(
       <Layout>
@@ -85,15 +133,13 @@ class Timeseries extends React.Component {
         {/* Breadcrumb */}
 
         <section style={{paddingBottom: "0" }} className="section p-t-10">
-          <FilterBar initProps={ this.state.queryParams } />
-
+          <FilterBar filterCallBack = {this.filterChange} initProps={ this.state.queryParams } />
 
           <div className="box m-5">
             <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Projection Analysis:  {this.state.period}</h5>
             <br/>
-            <CompareGraph ></CompareGraph>
+            <CompareGraph  indicatorData = {this.state.indicator_data}></CompareGraph>
           </div>
-
 
         </section>
       </Layout>

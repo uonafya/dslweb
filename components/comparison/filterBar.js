@@ -10,13 +10,13 @@ class FilterBar extends Component {
             cadres: null,
             counties: null,
             selected_indicator_cadre: [],
-            current_indicator_cadre: { 
-                id: props.initProps.id, 
-                // name: "Name of "+props.initProps.id, 
-                type: "Indicator", 
-                period: props.initProps.pe, 
-                ou: props.initProps.ouid, 
-                // ou_name: "Name of "+props.initProps.ouid, 
+            current_indicator_cadre: {
+                id: props.initProps.id,
+                // name: "Name of "+props.initProps.id,
+                type: "Indicator",
+                period: props.initProps.pe,
+                ou: props.initProps.ouid,
+                // ou_name: "Name of "+props.initProps.ouid,
                 ou_level: props.initProps.level,
                 ou_name: props.initProps.ou_name,
                 name: props.initProps.name,
@@ -49,7 +49,7 @@ class FilterBar extends Component {
             indicators: indiData.indicatorsData
         })
         this.appendTheseIndicators(this.state.indicators)
-        
+
       }
 
       appendOUs(list_of_ous){
@@ -199,25 +199,25 @@ class FilterBar extends Component {
       }
 
       deleteFromIndicadres(state_array, id_of_indicadre) {
-        let filtered_ar = state_array.filter(function(oob) { return btoa(oob.id+''+oob.period+''+oob.ou_level).substr(1,11) != id_of_indicadre; }); 
+        let filtered_ar = state_array.filter(function(oob) { return btoa(oob.id+''+oob.period+''+oob.ou_level).substr(1,11) != id_of_indicadre; });
         this.setState({selected_indicator_cadre: filtered_ar})
       }
       searchIndicator(array, string) {
         return array.filter(o =>
           Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
       }
-    
+
     componentDidMount(){
         this.getIndicators()
         this.getCadres()
         this.getCounties()
-        
+
         this.setState({ selected_indicator_cadre: [...this.state.selected_indicator_cadre, this.state.current_indicator_cadre] })
     }
 
     componentDidUpdate(){
         this.attachSelectedIndicator()
-        
+
         document.querySelectorAll(".tag.selected_indicadres_remove").forEach(
             (one_dlt) => {
                 one_dlt.addEventListener('click', () => {
@@ -231,7 +231,7 @@ class FilterBar extends Component {
     render() {
 
         return (
-            
+
             <div className="section-heading m-b-15 p-0 indi-compare-add">
                 <div className="is-fullwidth p-0 m-b-10">
                 <div className="columns">
@@ -256,7 +256,7 @@ class FilterBar extends Component {
                                         {/* <<<<<cadre/indicator */}
                                         <div className="dropdown is-right one" id="dropdown-one">
                                             <div className="dropdown-trigger">
-                                            <button className="button" aria-haspopup="true" aria-controls="dropdown-menu1" onClick={ 
+                                            <button className="button" aria-haspopup="true" aria-controls="dropdown-menu1" onClick={
                                                 (e) => {
                                                     let ddn = document.getElementById("dropdown-one");
                                                     ddn.classList.toggle("is-active")
@@ -358,7 +358,7 @@ class FilterBar extends Component {
                                         {/* org unit */}
                                         <div className="dropdown is-right two" id="dropdown-two">
                                             <div className="dropdown-trigger">
-                                            <button className="button" aria-haspopup="true" aria-controls="dropdown-menu2" onClick={ 
+                                            <button className="button" aria-haspopup="true" aria-controls="dropdown-menu2" onClick={
                                                 (e) => {
                                                 let ddn = document.getElementById("dropdown-two");
                                                 ddn.classList.toggle("is-active")
@@ -384,7 +384,7 @@ class FilterBar extends Component {
                                             }
                                             }>
                                             <div className="dropdown-content">
-                                                
+
                                                 <div className="columns p-10">
                                                     <div className="column text-left p-10">
                                                         <hr className="dropdown-divider"/>
@@ -432,7 +432,7 @@ class FilterBar extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
 
                                             </div>
                                             </div>
@@ -444,7 +444,7 @@ class FilterBar extends Component {
                                         {/* period */}
                                         <div className="dropdown is-right three" id="dropdown-three">
                                             <div className="dropdown-trigger">
-                                            <button className="button" aria-haspopup="true" aria-controls="dropdown-menu3" onClick={ 
+                                            <button className="button" aria-haspopup="true" aria-controls="dropdown-menu3" onClick={
                                                 (e) => {
                                                 let ddn = document.getElementById("dropdown-three");
                                                 ddn.classList.toggle("is-active")
@@ -565,7 +565,7 @@ class FilterBar extends Component {
                                                 </div>
                                             </div>
                                             </div>
-                                        </div>    
+                                        </div>
                                         {/* period */}
                                         <h6 className="max-lines-2 m-b-0 fcsecondary-dark text-small l-h-1" id="selected_period"></h6>
                                     </div>
@@ -576,8 +576,9 @@ class FilterBar extends Component {
                                         onClick={
                                             () => {
                                                 console.info(JSON.stringify(this.state.current_indicator_cadre))
-                                                this.setState({ selected_indicator_cadre: [...this.state.selected_indicator_cadre, this.state.current_indicator_cadre] }) 
-                                                this.resetFilters()
+                                                this.setState({ selected_indicator_cadre: [...this.state.selected_indicator_cadre, this.state.current_indicator_cadre] })
+                                                this.resetFilters();
+                                                this.props.filterCallBack();
                                             }
                                         }>
                                             &nbsp;<span className="icon is-small"> <i className="fas fa-plus"></i> </span> &nbsp; Add
@@ -597,7 +598,7 @@ class FilterBar extends Component {
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
 
