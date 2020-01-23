@@ -606,3 +606,44 @@ td.pvtOutput{
 .indi-compare-add div.list a.dropdown-item{
     white-space: normal;
 }
+
+.opaque-10{
+    opacity: 0.1 !important;
+}
+.opaque-20{
+    opacity: 0.2 !important;
+}
+.opaque-30{
+    opacity: 0.3 !important;
+}
+.opaque-40{
+    opacity: 0.4 !important;
+}
+.opaque-50{
+    opacity: 0.5 !important;
+}
+/* homepage map loader */
+.map-loading{
+    position: absolute;
+    top: 24%;
+    left: 15%;
+    width: 100%;
+    height: 100%;
+}
+/* homepage map loader */
+
+.dropdown-item.is-active{
+    display: block;
+}
+.max-lines-2 {
+    display: block;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 2em;
+    line-height: 1em;
+    font-size: 8px;
+}
+.max-lines-2:after{
+    content: "\2026";
+}

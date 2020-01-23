@@ -2,6 +2,7 @@ import React from 'react'
 import MapData from '../static/maps/counties.min.json'
 import MapCenters from '../static/maps/county-centers-coordinates'
 import { FetchIndicatorData } from './utils/Helpers'
+import Loading from './Loading'
 
 export default class extends React.Component {
   constructor () {
@@ -22,6 +23,8 @@ export default class extends React.Component {
 
   populateMapData(mapIndicatorData){
     console.log(" logging ===>");
+    document.getElementById("map").classList.remove("opaque-20");
+    document.getElementById("loading").classList.add("hidden");
     console.log(this.state.mapCentersData);
     let newMapData = {};
     var countyMap = [];
@@ -144,6 +147,8 @@ export default class extends React.Component {
 
   handleMapIndicator(indicator) {
     //console.info("<<<<<<<<< "+JSON.stringify(indicator)+" >>>>>>>>>>");
+    document.getElementById("map").classList.add("opaque-20");
+    document.getElementById("loading").classList.remove("hidden");
     console.log(indicator);
      this.setState({
       indicator: indicator.name,
@@ -159,6 +164,7 @@ export default class extends React.Component {
     [].forEach.call(elems, function(el) {
         el.className = el.className.replace(/\btext-bold fcsecondary\b/, "");
     });
+    
   }
 
 
@@ -222,17 +228,6 @@ export default class extends React.Component {
       let mapIndicatorsData = window.localStorage.getItem(lsId)
       console.log('mapIndicatorsData --> '+mapIndicatorsData)
 
-
-      // const markers = ( mapIndicatorsData.result.data[indicator.id] ).map(d => {
-      //   console.log('d --> '+d)
-      //   //const { latitude, longitude } = d.coordinates
-      //   return (
-      //     <Marker ref={indicator.id} key={indicator.id} position={[latitude, longitude]} onClick={() => { if (onMarkerClick) { onMarkerClick(d) } }} >
-      //       <Tooltip> <span> {d.name} </span> </Tooltip>
-      //     </Marker>
-      //   )
-      // })
-
     }
 
 
@@ -283,24 +278,28 @@ export default class extends React.Component {
                         <div className="columns p-l-10 p-r-10">
                           <div className="column min-h-500-px">
                             {/* <h1 className="title">Map goes here</h1> */}
-                            <div className="hide-overflow min-h-100-pc is-fullwidth" style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 700 + 'px'}}>
-                                <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={7.48} maxZoom={9.00} >
-                                  <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
-                                  <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
-                                  {this.state.mapCentersData.map( one_county =>(
-                                    <Marker position={[one_county.latitude, one_county.longitude]}>
-                                      <Popup>
-                                        <div>
-                                          <h4 className="subtitle">{one_county.name}</h4>
-                                          {one_county.value === undefined ? "" : this.createPopUpValues(one_county.value)}
-                                          <br/>
-                                        </div>
-                                      </Popup>
-                                      <Tooltip>{one_county.name}</Tooltip>
-                                    </Marker>
-                                  ))}
-                            </LeafletMap>
-
+                            <div className="map-house hide-overflow min-h-100-pc is-fullwidth" style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 700 + 'px'}}>
+                                <div className="m-t-50 p-t-50 is-fullwidth hidden map-loading" id="loading">
+                                  <Loading isBig={true} showImage={true}/>
+                                </div>
+                                <div className="is-fullwidth" id="map">
+                                  <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={7.48} maxZoom={9.00} >
+                                    <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
+                                    <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
+                                    {this.state.mapCentersData.map( one_county =>(
+                                      <Marker position={[one_county.latitude, one_county.longitude]}>
+                                        <Popup>
+                                          <div>
+                                            <h4 className="subtitle">{one_county.name}</h4>
+                                            {one_county.value === undefined ? "" : this.createPopUpValues(one_county.value)}
+                                            <br/>
+                                          </div>
+                                        </Popup>
+                                        <Tooltip>{one_county.name}</Tooltip>
+                                      </Marker>
+                                    ))}
+                                  </LeafletMap>
+                                </div>
                             </div>
                           </div>
                         </div>
