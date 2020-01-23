@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { PureComponent } from 'react';
 import Layout from '../components/Layout';
-import {fetchTimeSeriesData} from '../components/utils/Helpers';
+import {fetchTimeSeriesData, FetchIndicatorData} from '../components/utils/Helpers';
 import ProjectionTimeSeriesLineGraph from '../components/utils/ProjectionTimeSeriesLineGraph.js';
 import TrendTimeSeriesLineGraph from '../components/utils/TrendTimeSeriesLineGraph.js';
 import SeasonTimeSeriesLineGraph from '../components/utils/SeasonTimeSeriesLineGraph.js'
@@ -22,43 +22,27 @@ class Timeseries extends React.Component {
       ouid: this.props.query.ouid,
       id: this.props.query.id,
       pe: '2019',
-      data: ''
+      data: '',
+      queryParams: { //TODO: Clean this up. duplication
+        id: this.props.query.id,
+        ouid: this.props.query.ouid,
+        pe: this.props.query.pe,
+        level: this.props.query.level,
+        ou_name: this.props.query.ouid,
+        name: this.props.query.id
+      },
+      indicator_data: {}
     }
-    this.handlePeriodTypeChange = this.handlePeriodTypeChange.bind(this);
-    this.handlePeriodSpanChange = this.handlePeriodSpanChange.bind(this);
-  }
-
-  handlePeriodTypeChange(periodType) {
-    this.setState({ periodtype: periodType });
-  }
-
-  handlePeriodSpanChange(periodSpan) {
-    this.setState({ periodSpan: periodSpan });
-  }
-
-
-  componentDidMount() {
-
-  }
-
-  componentDidUpdate(){
-
   }
 
   render() {
-    //console.log(this.props.query) // The query is available in the props object
+    
+
     return(
       <Layout>
         {/*
           <style jsx>
-            {`
-              a {
-                text-decoration: none;
-              }
-              a:hover {
-                opacity: 0.6;
-              }
-            `}
+            {` a { text-decoration: none; } a:hover { opacity: 0.6; } `}
           </style>
         */}
 
@@ -101,26 +85,7 @@ class Timeseries extends React.Component {
         {/* Breadcrumb */}
 
         <section style={{paddingBottom: "0" }} className="section p-t-10">
-          <FilterBar/>
-
-          {/* <div className="columns">
-              <div className="column is-narrow">
-                <h6>Period Type:</h6>
-                <div className="control">
-                  <div className="select">
-                    <PeriodType handler={this.handlePeriodTypeChange}/>
-                  </div>
-                </div>
-              </div>
-              <div className="column is-narrow">
-                <h6>Period Span:</h6>
-                <div className="control">
-                  <div className="select">
-                    <PeriodSpan  handler={this.handlePeriodSpanChange}/>
-                  </div>
-                </div>
-              </div>
-          </div> */}
+          <FilterBar initProps={ this.state.queryParams } />
 
 
           <div className="box m-5">

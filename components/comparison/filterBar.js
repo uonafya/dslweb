@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { fetchIndicators, FetchCountyList, fetchCadres } from '../utils/Helpers'
+import { fetchIndicators, FetchCountyList, fetchCadres, FetchIndicatorData } from '../utils/Helpers'
 
 class FilterBar extends Component {
     constructor(props) {
@@ -10,24 +10,20 @@ class FilterBar extends Component {
             cadres: null,
             counties: null,
             selected_indicator_cadre: [],
-            current_indicator_cadre: {
-                id: null,
-                name: null,
-                type: null,
-                period: null,
-                ou: null,
-                ou_name: null,
-                ou_level: null
+            current_indicator_cadre: { 
+                id: props.initProps.id, 
+                // name: "Name of "+props.initProps.id, 
+                type: "Indicator", 
+                period: props.initProps.pe, 
+                ou: props.initProps.ouid, 
+                // ou_name: "Name of "+props.initProps.ouid, 
+                ou_level: props.initProps.level,
+                ou_name: props.initProps.ou_name,
+                name: props.initProps.name,
+            },
+            query: { id: props.initProps.id, ouid: props.initProps.ouid, ou_name: props.initProps.ou_name, pe: props.initProps.pe, level: props.initProps.level
             }
         };
-
-        this.getCadres = this.getCadres.bind(this)
-        this.getIndicators = this.getIndicators.bind(this)
-
-        this.ouid = this.props.ouid
-        this.id = this.props.id
-        this.pe = this.props.pe
-        this.level = this.props.level
 
       }
 
@@ -167,7 +163,22 @@ class FilterBar extends Component {
             })
         })
         //picking cadre & setting current_indicator_cadre id value
-      }
+    }
+
+    attachSelectedIndicator(){
+        let picked_indicadres = this.state.selected_indicator_cadre
+        let indicadre_tags = ""
+        picked_indicadres.map(
+            one_ic => {
+                let tag_prefix = ""
+                if(one_ic.type == 'Indicator'){ tag_prefix = `<a class='tag is-link'>Indicator: </a>` }else{ tag_prefix = `<a class='tag is-success'>Cadre: </a>`}
+                indicadre_tags += `<div data-id="${one_ic.id}" class='control'> <div class='tags has-addons'> ${tag_prefix} <a class='tag is-black'>${one_ic.name} (<small> ${one_ic.period}, ${one_ic.ou_name}, Level ${one_ic.ou_level}</small>)</a> <a class='tag is-delete selected_indicadres_remove' data-delete-id="${btoa(one_ic.id+''+one_ic.period+''+one_ic.ou_level).substr(1,11)}"></a> </div> </div> `
+            }
+        )
+        if(picked_indicadres.length > 0 || indicadre_tags !== ""){
+            document.getElementById("indicadre_list").innerHTML = indicadre_tags
+        }
+    }
 
       resetFilters(){
         document.getElementById("addIndiBtn").setAttribute("disabled", true)
@@ -192,31 +203,21 @@ class FilterBar extends Component {
         this.setState({selected_indicator_cadre: filtered_ar})
       }
       searchIndicator(array, string) {
-        console.log("function searchIndicator for "+string)
         return array.filter(o =>
           Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
       }
-
-      componentDidMount(){
+    
+    componentDidMount(){
         this.getIndicators()
         this.getCadres()
         this.getCounties()
-      }
-
-      componentDidUpdate(){
-        console.info(JSON.stringify(this.state.selected_indicator_cadre))
         
-        let indicadre_tags = ""
-        this.state.selected_indicator_cadre.map(
-            one_ic => {
-                let tag_prefix = ""
-                if(one_ic.type == 'Indicator'){ tag_prefix = `<a class='tag is-link'>Indicator: </a>` }else{ tag_prefix = `<a class='tag is-success'>Cadre: </a>`}
-                indicadre_tags += `<div data-id="${one_ic.id}" class='control'> <div class='tags has-addons'> ${tag_prefix} <a class='tag is-black'>${one_ic.name}</a> <a class='tag is-delete selected_indicadres_remove' data-delete-id="${btoa(one_ic.id+''+one_ic.period+''+one_ic.ou_level).substr(1,11)}"></a> </div> </div> `
-            }
-        )
-        if(this.state.selected_indicator_cadre.length > 0 || indicadre_tags !== ""){
-            document.getElementById("indicadre_list").innerHTML = indicadre_tags
-        }
+        this.setState({ selected_indicator_cadre: [...this.state.selected_indicator_cadre, this.state.current_indicator_cadre] })
+    }
+
+    componentDidUpdate(){
+        this.attachSelectedIndicator()
+        
         document.querySelectorAll(".tag.selected_indicadres_remove").forEach(
             (one_dlt) => {
                 one_dlt.addEventListener('click', () => {
@@ -571,7 +572,7 @@ class FilterBar extends Component {
                                 </div>
                                 <div className="columns">
                                     <div className="column p-b-0 m-b-5">
-                                        <a id="addIndiBtn" className="button is-secondary is-light is-small" disabled="true" aria-description="Pick an indicator/cadre"
+                                        <a id="addIndiBtn" className="button is-secondary is-normal" disabled="true" aria-description="Pick an indicator/cadre"
                                         onClick={
                                             () => {
                                                 console.info(JSON.stringify(this.state.current_indicator_cadre))
