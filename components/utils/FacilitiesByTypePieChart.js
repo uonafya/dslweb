@@ -80,7 +80,7 @@ export default class FacilityPieGraph extends PureComponent {
           series: _data
         }
       })
-      console.log('state',this.state.chartOptions.series)     
+      
     })()
     if(this.props.title!=null) this.setState({
       chartOptions: {
