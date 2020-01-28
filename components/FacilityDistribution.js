@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import FacilityPieGraph from './utils/FacilitiesByTypePieChart'
 
+
 export default class FacilityTypeCountPieChart extends PureComponent {
 
   constructor(props) {
@@ -30,7 +31,7 @@ export default class FacilityTypeCountPieChart extends PureComponent {
 
       <div className="column">
         <div className="box m-5">
-          <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Cadre Distribution</h5>
+          <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">National Facility Distribution</h5>
           <br/>
           <h4 className="title m-b-0 m-l-10 is-6">{this.state.indicatorName} - 2019</h4>
           <div >

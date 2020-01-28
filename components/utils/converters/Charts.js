@@ -216,7 +216,7 @@ export function ConvertToCadreGroupPieChart(_data,_name){
     data.push(dataEntity);
     counter=counter+1;
   })
-
+  
   let envelop = {};
   if(_name!=null || _name!= undefined){
     envelop["name"] = _name;
@@ -224,7 +224,39 @@ export function ConvertToCadreGroupPieChart(_data,_name){
   envelop["colorByPoint"] = true;
   envelop["data"]=data;
   seriee.push(envelop);
-  return seriee;
+  return seriee;  
+}
+
+export function ConvertToFacilityGroupPieChart(_data,_name){
+  let seriee=[];
+  let data=[]
+  var counter=0;
+  const array = [];
+  for(var key in _data){
+    let mapEntity= {};
+    mapEntity['name']=key;
+    mapEntity['value']=Number(_data[key]);
+    array.push(mapEntity);
+  }
+  array.map((item) => {
+    let dataEntity;
+    if(counter==0){
+       dataEntity={"name": item.name, "y": Number(item.value),"sliced": true, "selected": true};
+    }else{
+       dataEntity={"name": item.name, "y": Number(item.value)};
+    }
+    data.push(dataEntity);
+    counter=counter+1;
+  })
+  
+  let envelop = {};
+  if(_name!=null || _name!= undefined){
+    envelop["name"] = _name;
+  }
+  envelop["colorByPoint"] = true;
+  envelop["data"]=data;
+  seriee.push(envelop);
+  return seriee;  
 }
 
 
