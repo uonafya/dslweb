@@ -60,7 +60,7 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                     <a className="navbar-link m-l-0 p-l-0">
                       {
-                        props.error ? props.pe : props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")
+                        props.error ? props.years[0]: props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")
                       }
                     </a>
                     <div className="navbar-dropdown is-boxed p-5 min-w-100-px">
