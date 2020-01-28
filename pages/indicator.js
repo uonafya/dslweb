@@ -60,7 +60,7 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                     <a className="navbar-link m-l-0 p-l-0">
                       {
-                        props.error ? "" : props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")
+                        props.error ? props.pe : props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")
                       }
                     </a>
                     <div className="navbar-dropdown is-boxed p-5 min-w-100-px">
@@ -90,7 +90,7 @@ const Page = withRouter(props => (
                 <span className="text-bold display-inline-b p-l-0 m-l-0">
                   <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link m-l-0 p-l-0">
-                        {props.error ? "":
+                        {props.error ? "No Data":
                           props.indicatorData.result.dictionary.parameters.location[0].name
                         }
                       </a>
@@ -125,7 +125,7 @@ const Page = withRouter(props => (
                   <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link m-l-0 p-l-0">
                         {/* Organisation Unit Level  */}
-                        {props.error ? "":
+                        {props.error ? "No Data":
                           props.level != undefined ? ""+getLEVELname(props.level)+"" : 'No level defined'
                           // props.level
                         }
