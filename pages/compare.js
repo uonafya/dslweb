@@ -149,7 +149,7 @@ class Timeseries extends React.Component {
           _data[0]['type']='line';
           _data[0]['name']=_data[0]['name']+" period: "+ this.props.query.pe;
           let dataMapping=this.state.currentGraphDataMapping;
-          dataMappingdataMapping['indicator'][this.props.query.id+this.props.query.ouid+this.props.query.pe+"indicator"]=_data[0];
+          dataMapping['indicator'][this.props.query.id+this.props.query.ouid+this.props.query.pe+"indicator"]=_data[0];
 
           this.setState({
              indicator_data: _data,
