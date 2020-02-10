@@ -191,17 +191,30 @@ const Page = withRouter(props => (
                           <div className="tabs is-boxed" id="nav">
                             <ul>
                                 <li data-target="pane-1" id="1" className="is-active">
-                                    <a><span>{/* Pivot */} Table</span></a>
+                                  <a><span>Charts &amp; Graphs</span></a>
                                 </li>
-                                <li data-target="pane-2" id="2"><a><span>Charts &amp; Graphs</span></a></li>
+                                <li data-target="pane-2" id="2">
+                                  <a><span>Table</span></a>
+                                </li>
                                 <li data-target="pane-3" id="3">
-                                    <a><span>Analysis</span></a>
+                                  <a><span>Analysis</span></a>
                                 </li>
                             </ul>
                         </div>
                         <div className="tab-content">
                             {/* Tab 1 */}
                             <div className="tab-pane is-active" id="pane-1">
+                                <div className="columns">
+                                  <div className="column text-left">
+                                    {/* {console.log( ' && ID:'+props.id+' && OU:'+props.ouid+' && PE:'+props.pe+' && LVL:'+props.level )} */}
+                                    <Displayline id={props.id} ouid={props.ouid} pe={props.pe} level={props.level} hoo="toot"></Displayline>
+                                </div>
+                              </div>
+                            </div>
+                            {/* end Tab 1 */}
+
+                            {/* Tab 2  */}
+                            <div className="tab-pane" id="pane-2">
                               <div className="columns">
                                 <div className="column text-center">
                                   {/* <h1>Pivot</h1> */}
@@ -213,17 +226,6 @@ const Page = withRouter(props => (
                                 </div>
                               </div>
                             </div>
-                            {/* end Tab 1 */}
-
-                            {/* Tab 2  */}
-                              <div className="tab-pane" id="pane-2">
-                                <div className="columns">
-                                  <div className="column text-left">
-                                    {/* {console.log( ' && ID:'+props.id+' && OU:'+props.ouid+' && PE:'+props.pe+' && LVL:'+props.level )} */}
-                                    <Displayline id={props.id} ouid={props.ouid} pe={props.pe} level={props.level} hoo="toot"></Displayline>
-                                </div>
-                              </div>
-                              </div>
                             {/* end Tab 2 */}
 
                             {/* Tab 3 - Compare*/}

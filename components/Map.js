@@ -301,11 +301,11 @@ export default class extends React.Component {
                                           <div>
                                             <h4 className="subtitle">{one_county.name}</h4>
                                             {one_county.value === undefined ? "" : (
-                                            <table className="table">
+                                            <table className="table slimtable is-bordered">
                                               <thead>
                                                 <tr>
-                                                  <th>Year</th>
-                                                  <th>Value</th>
+                                                  <th style={{color: 'gray'}}>YEAR</th>
+                                                  <th style={{color: 'gray'}}>VALUE</th>
                                                 </tr>
                                               </thead>
                                               <tbody>

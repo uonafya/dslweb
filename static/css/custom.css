@@ -498,7 +498,7 @@
 }
 .pagination.react-bootstrap-table-page-btns-ul{
     max-width: 100px;
-    float: right;
+    /* float: right; */
     margin-top: 10px;
 }
 .pagination.react-bootstrap-table-page-btns-ul li{
@@ -651,11 +651,11 @@ td.pvtOutput{
 .leaflet-popup-content .subtitle{
     margin: 5px;
     text-align: center;
+    padding-bottom: 7px;
     border-bottom: 1px solid #ddd;
-    min-width: 150px;
 }
 
-
 .leaflet-popup-content {
-    margin: 10px;
+    margin: 10px !important;
+    min-width: 150px;
 }
