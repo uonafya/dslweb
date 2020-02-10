@@ -304,12 +304,6 @@ class FilterBar extends Component {
                                                                         let val = sc.target.value
                                                                         let filtered_indis = this.searchIndicator(this.state.indicators, val)
                                                                         this.appendTheseIndicators(filtered_indis)
-                                                                        // let new_indi_list = ""
-                                                                        // document.getElementById("indicator_list").innerHTML = ""
-                                                                        // filtered_indis.map( (one_filtered_indi) => {
-                                                                        //         new_indi_list += `<a class="dropdown-item" data-id="${one_filtered_indi.id}">${one_filtered_indi.name}</a>`;
-                                                                        //     } )
-                                                                        // document.getElementById("indicator_list").innerHTML = new_indi_list
                                                                     }
                                                                 }/>
                                                                 <hr className="dropdown-divider"/>
@@ -329,12 +323,6 @@ class FilterBar extends Component {
                                                                         let val = sc.target.value
                                                                         let filtered_cadres = this.searchIndicator(this.state.cadres, val)
                                                                         this.appendTheseCadres(filtered_cadres)
-                                                                        // let new_cadr_list = ""
-                                                                        // document.getElementById("cadre_list").innerHTML = ""
-                                                                        // filtered_cadres.map( (one_filtered_cadr) => {
-                                                                        //         new_cadr_list += `<a class="dropdown-item" data-id="${one_filtered_cadr.id}">${one_filtered_cadr.name}</a>`;
-                                                                        //     } )
-                                                                        // document.getElementById("cadre_list").innerHTML = new_cadr_list
                                                                     }
                                                                 }/>
                                                                 <hr className="dropdown-divider"/>
@@ -394,12 +382,6 @@ class FilterBar extends Component {
                                                                 let val = sc.target.value
                                                                 let filtered_ous = this.searchIndicator(this.state.counties, val)
                                                                 this.appendOUs(filtered_ous)
-                                                                // let new_ou_list = ""
-                                                                // document.getElementById("ou_list").innerHTML = ""
-                                                                // filtered_ous.map( (one_filtered_ou) => {
-                                                                //     new_ou_list += `<a class="dropdown-item" data-id="${one_filtered_ou.id}">${one_filtered_ou.name}</a>`;
-                                                                //     } )
-                                                                // document.getElementById("ou_list").innerHTML = new_ou_list
                                                             }
                                                         }/>
                                                         <hr className="dropdown-divider"/>
