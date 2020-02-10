@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { PureComponent } from 'react';
 import Layout from '../components/Layout';
-import {fetchTimeSeriesData, FetchIndicatorData} from '../components/utils/Helpers';
+import {FetchCadreAllocation, FetchIndicatorData} from '../components/utils/Helpers';
 import ProjectionTimeSeriesLineGraph from '../components/utils/ProjectionTimeSeriesLineGraph.js';
 import TrendTimeSeriesLineGraph from '../components/utils/TrendTimeSeriesLineGraph.js';
 import SeasonTimeSeriesLineGraph from '../components/utils/SeasonTimeSeriesLineGraph.js'
@@ -32,19 +32,19 @@ class Timeseries extends React.Component {
         ou_name: this.props.query.ouid,
         name: this.props.query.id
       },
-      indicator_data: [{   }]
+      indicator_data: [{   }],
+      currentGraphDataMapping: {indicator:{ }, cadre: { } }
     }
 
     this.filterChange = this.filterChange.bind(this);
+    this.updateGraphIndicator = this.updateGraphIndicator.bind(this);
+    this.deleteFromGraph = this.deleteFromGraph.bind(this);
   }
 
-
-  filterChange(filterData){
-    console.log(filterData);
+  updateGraphIndicator(filterData){
     (async () => {
         var is_error = false
         var err_msg = ''
-        console.log(filterData.id,filterData.ou,filterData.period)
         let {indicatorData}=await FetchIndicatorData(filterData.id,filterData.ou,filterData.period,null,null);
         var _data;
         if(indicatorData.messageType != undefined){
@@ -54,12 +54,15 @@ class Timeseries extends React.Component {
 
           try {
             _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+
             let dataAfterAddEvent=this.state.indicator_data;
             _data[0]['name']=_data[0]['name']+" period: "+ filterData.period;
             dataAfterAddEvent.push(_data[0]);
-            console.log(dataAfterAddEvent);
+            let dataMapping=this.state.currentGraphDataMapping;
+            dataMapping['indicator'][filterData.id+filterData.ou+filterData.period+"indicator"]=_data[0];
             this.setState({
-               indicator_data: dataAfterAddEvent
+               indicator_data: dataAfterAddEvent,
+               currentGraphDataMapping: dataMapping
             });
           }
           catch(err) {
@@ -69,6 +72,63 @@ class Timeseries extends React.Component {
         }
 
      })();
+  }
+
+  deleteFromGraph(objectToDelete){
+    let dataMapping=this.state.currentGraphDataMapping;
+
+    delete dataMapping['indicator'][objectToDelete.id+objectToDelete.ou+objectToDelete.period+"indicator"];
+
+    let dataAfterAddEvent=[];
+
+    for (var key in dataMapping['indicator']) {
+      dataAfterAddEvent.push(dataMapping['indicator'][key]);
+    }
+    for (var key in dataMapping['cadre']) {
+      dataAfterAddEvent.push(dataMapping['cadre'][key]);
+    }
+
+    this.setState({
+       indicator_data: dataAfterAddEvent,
+       currentGraphDataMapping: dataMapping
+    });
+
+  }
+
+  updateGraphCadre(filterData){
+    (async () => {
+        var is_error = false
+        var err_msg = ''
+        let {cadreData}=await FetchCadreAllocation(filterData.id,filterData.ou,filterData.period);
+        var _data;
+
+          // try {
+          //   _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+          //   let dataAfterAddEvent=this.state.indicator_data;
+          //   _data[0]['name']=_data[0]['name']+" period: "+ filterData.period;
+          //   dataAfterAddEvent.push(_data[0]);
+          //   console.log(dataAfterAddEvent);
+          //   this.setState({
+          //      indicator_data: dataAfterAddEvent
+          //   });
+          // }
+          // catch(err) {
+          //   console.log(err.message);
+          // }
+
+
+     })();
+  }
+
+
+  filterChange(filterData){
+    console.log(filterData);
+    if(filterData.type=='Cadre'){
+      this.updateGraphCadre(filterData);
+    }else if(filterData.type=='Indicator'){
+      this.updateGraphIndicator(filterData);
+    }
+
 
   }
 
@@ -88,13 +148,16 @@ class Timeseries extends React.Component {
       try{
           _data[0]['type']='line';
           _data[0]['name']=_data[0]['name']+" period: "+ this.props.query.pe;
+          let dataMapping=this.state.currentGraphDataMapping;
+          dataMapping['indicator'][this.props.query.id+this.props.query.ouid+this.props.query.pe+"indicator"]=_data[0];
+
           this.setState({
-             indicator_data: _data
+             indicator_data: _data,
+             currentGraphDataMapping: dataMapping
          });
         }catch(err) {
         console.log(err.message);
       }
-
 
      })();
 
@@ -149,7 +212,7 @@ class Timeseries extends React.Component {
         {/* Breadcrumb */}
 
         <section style={{paddingBottom: "0" }} className="section p-t-10">
-          <FilterBar filterCallBack = {this.filterChange} initProps={ this.state.queryParams } />
+          <FilterBar filterCallBack = {this.filterChange} deleteFromGraph= {this.deleteFromGraph} initProps={ this.state.queryParams } />
 
           <div className="box m-5">
             <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Compare Graph </h5>

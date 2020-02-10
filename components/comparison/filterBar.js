@@ -172,7 +172,7 @@ class FilterBar extends Component {
             one_ic => {
                 let tag_prefix = ""
                 if(one_ic.type == 'Indicator'){ tag_prefix = `<a class='tag is-link'>Indicator: </a>` }else{ tag_prefix = `<a class='tag is-success'>Cadre: </a>`}
-                indicadre_tags += `<div data-id="${one_ic.id}" class='control'> <div class='tags has-addons'> ${tag_prefix} <a class='tag is-black'>${one_ic.name} (<small> ${one_ic.period}, ${one_ic.ou_name}, Level ${one_ic.ou_level}</small>)</a> <a class='tag is-delete selected_indicadres_remove' data-delete-id="${btoa(one_ic.id+''+one_ic.period+''+one_ic.ou_level).substr(1,11)}"></a> </div> </div> `
+                indicadre_tags += `<div data-id="${one_ic.id}" class='control'> <div class='tags has-addons'> ${tag_prefix} <a class='tag is-black' data-tag-type="${tag_prefix}">${one_ic.name} (<small> ${one_ic.period}, ${one_ic.ou_name}, Level ${one_ic.ou_level}</small>)</a> <a class='tag is-delete selected_indicadres_remove' data-delete-id="${btoa(one_ic.id+''+one_ic.period+''+one_ic.ou_level).substr(1,11)}"></a> </div> </div> `
             }
         )
         if(picked_indicadres.length > 0 || indicadre_tags !== ""){
@@ -198,8 +198,16 @@ class FilterBar extends Component {
         document.getElementById("selected_period").innerHTML = ""
       }
 
-      deleteFromIndicadres(state_array, id_of_indicadre) {
-        let filtered_ar = state_array.filter(function(oob) { return btoa(oob.id+''+oob.period+''+oob.ou_level).substr(1,11) != id_of_indicadre; });
+      deleteFromIndicadres(state_array, id_of_indicadre,indicatorType) {
+        let objectToRemove={};
+        let filtered_ar = state_array.filter(function(oob) {
+           if(btoa(oob.id+''+oob.period+''+oob.ou_level).substr(1,11) != id_of_indicadre){
+             return oob;
+           }else{
+             objectToRemove=oob;
+           }
+        });
+        this.props.deleteFromGraph(objectToRemove);
         this.setState({selected_indicator_cadre: filtered_ar})
       }
       searchIndicator(array, string) {
@@ -222,7 +230,19 @@ class FilterBar extends Component {
             (one_dlt) => {
                 one_dlt.addEventListener('click', () => {
                     let element_id_to_delete = one_dlt.getAttribute("data-delete-id");
-                    this.deleteFromIndicadres(this.state.selected_indicator_cadre, element_id_to_delete)
+                    let indicatorType=null;
+                    var children = one_dlt.parentElement.children;
+                    for (var i = 0; i < children.length; i++) {
+                      if(children[i].hasAttribute("data-tag-type")){
+                        let eventType=children[i].getAttribute("data-tag-type");
+                        if(eventType.trim().toLowerCase().includes("indicator")){
+                          indicatorType="indicator";
+                        }
+                      }
+                      // Do stuff
+                    }
+
+                    this.deleteFromIndicadres(this.state.selected_indicator_cadre, element_id_to_delete, indicatorType)
                 })
             }
         )
