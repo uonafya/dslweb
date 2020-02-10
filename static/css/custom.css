@@ -647,3 +647,15 @@ td.pvtOutput{
 .max-lines-2:after{
     content: "\2026";
 }
+
+.leaflet-popup-content .subtitle{
+    margin: 5px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    min-width: 150px;
+}
+
+
+.leaflet-popup-content {
+    margin: 10px;
+}

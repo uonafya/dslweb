@@ -3,6 +3,7 @@ import MapData from '../static/maps/counties.min.json'
 import MapCenters from '../static/maps/county-centers-coordinates'
 import { FetchIndicatorData } from './utils/Helpers'
 import Loading from './Loading'
+import {friendlyDate} from './utils/converters/Date2Friendly'
 
 export default class extends React.Component {
   constructor () {
@@ -134,9 +135,11 @@ export default class extends React.Component {
      pe: year
    });
    (async () => {
-     let {indicatorData}=await FetchIndicatorData(this.state.indicatorId,'18',year,2,null);
-     let mapIndicatorData=indicatorData.result.data;
-     this.populateMapData(mapIndicatorData);
+     if(this.state.indicatorId != null && this.state.indicatorId != undefined && this.state.indicatorId !== ''){
+       let {indicatorData}=await FetchIndicatorData(this.state.indicatorId,'18',year,2,null);
+       let mapIndicatorData=indicatorData.result.data;
+       this.populateMapData(mapIndicatorData);
+     }
    })()
 
    var elems = document.querySelectorAll(".maplink");
@@ -171,7 +174,13 @@ export default class extends React.Component {
   createPopUpValues = (values) => {
     let list = []
      for (var k in values) {
-       list.push(<span><span>{`${k} : ${values[k]}`}</span><br/></span>);
+       let k_r = friendlyDate(k)
+       list.push(
+        <tr>
+         <td><b>{k_r}</b> </td> 
+         <td>{values[k]}</td>
+        </tr>
+       );
       }
     return list;
    }
@@ -273,7 +282,7 @@ export default class extends React.Component {
                         {/* end MAP IndiPicker */}
                     </div>
                     <div className="column">
-                        <h4 className="title is-5 m-b-5">Kenya - <span id="maptitle" className="fcgrey-light-1"> {this.state.indicator} - {this.state.pe} - (47 counties)</span></h4>
+                        <h4 className="title is-5 m-b-5">Kenya: <span id="maptitle" className="fcgrey-light-1"> {this.state.indicator} - {this.state.pe} - (47 counties)</span></h4>
                         <hr className="m-t-5 m-b-5"/>
                         <div className="columns p-l-10 p-r-10">
                           <div className="column min-h-500-px">
@@ -291,7 +300,19 @@ export default class extends React.Component {
                                         <Popup>
                                           <div>
                                             <h4 className="subtitle">{one_county.name}</h4>
-                                            {one_county.value === undefined ? "" : this.createPopUpValues(one_county.value)}
+                                            {one_county.value === undefined ? "" : (
+                                            <table className="table">
+                                              <thead>
+                                                <tr>
+                                                  <th>Year</th>
+                                                  <th>Value</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                {this.createPopUpValues(one_county.value)}
+                                              </tbody>
+                                            </table>
+                                            )}
                                             <br/>
                                           </div>
                                         </Popup>
