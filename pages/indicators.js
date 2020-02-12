@@ -33,7 +33,7 @@ const Indicators = props => (
       </div>
       <div className="container">
         <div className="columns">
-          <div className="column is-one-quarter p-20 bcdefault br-5">
+          <div className="column is-one-quarter p-20 bcdefault br-5 is-sidebar">
               <div className="divs m-l-10">
                   <div className="div m-b-30">
                     <div className="section-heading m-0 p-0 m-b-5 m-l-15">

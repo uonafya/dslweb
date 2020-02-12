@@ -663,3 +663,19 @@ td.pvtOutput{
     width: 100%;
     display: block;
 }
+
+@media (pointer: fine) {
+    .show-on-hover-parent .show-on-hover{
+        visibility: hidden;
+    }
+    .show-on-hover-parent:hover .show-on-hover{
+        visibility: visible;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .is-sidebar div.tags{
+        max-height: 250px;
+        overflow-y: auto;
+    }
+}
