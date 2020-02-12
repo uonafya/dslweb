@@ -220,7 +220,7 @@ const Page = withRouter(props => (
                                   {/* <h1>Pivot</h1> */}
                                   {/* <Pivot pivotData={getTableData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )} /> */}
                                   {props.error
-                                    ? <span className="is-error is-fullwidth p-4 br-3">!!!</span>
+                                    ? <span className="is-error is-fullwidth p-4 br-3">No data</span>
                                     : <DTable pivotData={getTableData(props.indicatorData.result.dictionary, props.indicatorData.result.data[props.id] )}/>
                                   }
                                 </div>
@@ -452,6 +452,10 @@ function goToAnalysisPage(id,pe,ouid,level) {
 
 async function fetchIndicatorData(id,ouid,pe,level,loading) {
   loading = true;
+  let tim = new Date()
+  if(pe == undefined){
+    if(tim.getMonth() < 5){ pe = tim.getFullYear()-1; }else{ pe = tim.getFullYear(); }
+  }
   let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
   let levell = level
   if(pe != undefined){
@@ -471,6 +475,7 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   try{
     if(indicatorData.result.dictionary.indicators.length < 1){
       error = true;
+      console.log("zzz "+JSON.stringify(indicatorData.result))
       console.error("<<<<<< ERROR in fetchIndicatorData >>>>>");
     }else{
       error = false;

@@ -6,21 +6,25 @@ let cache = {
 }
 
 export async function FetchIndicatorData(id,ouid,pe,level,loading) {
+  let tim = new Date()
+  if(pe == undefined){
+    if(tim.getMonth() < 5){ pe = tim.getFullYear()-1; }else{ pe = tim.getFullYear(); }
+  }
   console.log(`// running helper fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}`)
   loading = true;
   let fetchIndicatorDataUrl = `${settings.dslBaseApi}/indicators/${id}`;
-  if(pe != undefined){
+  if(pe != undefined && pe != null){
     fetchIndicatorDataUrl += `?pe=${pe}`;
   }
-  if(ouid != undefined){
+  if(ouid != undefined && ouid != null){
     fetchIndicatorDataUrl += `&ouid=${ouid}`;
   }
-  if(level != undefined){
+  if(level != undefined && level != null){
     fetchIndicatorDataUrl += `&level=${level}`;
   }
   const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
   const indicatorData = await fetchIndicatorData.json();
-  if(indicatorData){
+  if(true){
     loading = false;
   }
   return {indicatorData, loading}

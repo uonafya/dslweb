@@ -659,3 +659,7 @@ td.pvtOutput{
     margin: 10px !important;
     min-width: 150px;
 }
+.is-error.is-fullwidth{
+    width: 100%;
+    display: block;
+}
