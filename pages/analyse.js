@@ -277,6 +277,8 @@ async function fetchIndicatorData(id,ouid,pe,level,loading) {
   let levell = level
   if(pe != undefined){
     fetchIndicatorDataUrl += `?pe=${pe}`;
+  }else{
+    fetchIndicatorDataUrl += `?pe=${settings.previousYear}`;
   }
   if(ouid != undefined){
     fetchIndicatorDataUrl += `&ouid=${ouid}`;
