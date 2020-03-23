@@ -304,7 +304,7 @@ export default class extends React.Component {
                                             <table className="table slimtable is-bordered">
                                               <thead>
                                                 <tr>
-                                                  <th style={{color: 'gray'}}>YEAR</th>
+                                                  <th style={{color: 'gray'}}>PERIOD</th>
                                                   <th style={{color: 'gray'}}>VALUE</th>
                                                 </tr>
                                               </thead>
