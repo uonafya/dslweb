@@ -260,7 +260,7 @@ const Page = withRouter(props => (
           {/* end Content   */}
 
           {/* Sidebar */}
-          <div className="column is-one-fifth p-20 bcdefault br-5">
+          <div className="column is-one-fifth p-0 bcdefault br-5">
               <div className="divs m-l-10">
                   <div className="div m-b-30">
                     <h4 className="subtitle fcsecondary-dark text-left text-bold m-b-10">Tags:</h4>
@@ -281,12 +281,12 @@ const Page = withRouter(props => (
                           <label className="label fcgrey-dark-3 text-small">Source:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
-                            {props.error ?
+                            {props.error ? "" :
                               props.indicatorData.result.dictionary.indicators.map(one_ind => (
                                 <label className="label fcgrey-dark-3 text-normal">
                                   <a href="#"><span className="tag is-secondary is-dark">{one_ind.source}</span></a>
                                 </label>
-                              )) : ""
+                              ))
                             } &nbsp;
                         </div>
                       </div>
@@ -296,10 +296,10 @@ const Page = withRouter(props => (
                           <label className="label fcgrey-dark-3 text-small">Date created:</label>
                         </div>
                         <div className="column text-bold p-b-15 p-t-5">
-                            {props.error ?
+                            {props.error ? "" :
                               props.indicatorData.result.dictionary.indicators.map(one_ind => (
                                 <label className="label fcclack-1">{one_ind.date_created}</label>
-                              )) : ""
+                              ))
                             } &nbsp;
                         </div>
                       </div>
@@ -309,10 +309,10 @@ const Page = withRouter(props => (
                           <label className="label fcgrey-dark-3 text-small">Last updated:</label>
                         </div>
                         <div className="column text-bold p-b-15 p-t-5">
-                            {props.error ?
+                            {props.error ? "" :
                               props.indicatorData.result.dictionary.indicators.map(one_ind => (
                                 <label className="label fcblack-1">{one_ind.last_updated}</label>
-                              )) : ""
+                              ))
                             } &nbsp;
                         </div>
                       </div>
@@ -322,10 +322,10 @@ const Page = withRouter(props => (
                           <label className="label fcgrey-dark-3 text-small">Geo-scope:</label>
                         </div>
                         <div className="column text-normal p-b-15 p-t-5">
-                            {props.error ?
+                            {props.error ? "" :
                               props.indicatorData.result.dictionary.orgunits.map(one_org => (
                                 <a href="#"><span className="tag is-success is-dark">{one_org.name}</span></a>
-                              )) : ""
+                              ))
                             } &nbsp;
                         </div>
                       </div>
