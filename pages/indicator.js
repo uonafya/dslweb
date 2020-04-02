@@ -6,8 +6,10 @@ import Loading from '../components/Loading';
 import {settings} from '../components/utils/Settings';
 import fetch from 'isomorphic-unfetch';
 import Pivot from '../components/Table';
+import PeriodPicker from '../components/PeriodPicker';
 import DTable from '../components/DataTable';
 import Displayline from '../components/Displayline';
+import { dateToStr } from "../components/utils/Helpers";
 
 
 const Page = withRouter(props => (
@@ -57,15 +59,21 @@ const Page = withRouter(props => (
                 {/* <!-- daterangepicker --> */}
                 <label className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time: </label>&nbsp;
                 <span className="text-bold display-inline-b p-l-0 m-l-0">
-                  <div className="navbar-item has-dropdown is-hoverable">
+                <PeriodPicker title={props.error ? props.years[0]: props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")} periodChangeFxn={ 
+                  (pr) => {
+                    const newRoute = `/indicator/${props.id}?pe=${pr}&ouid=${props.ouid ? props.ouid : 18}`;
+                    Router.push(newRoute)
+                  }
+                } />
+                  <div className="navbar-item has-dropdown is-hoverable hidden">
                     <a className="navbar-link m-l-0 p-l-0">
                       {
                         props.error ? props.years[0]: props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")
                       }
                     </a>
-                    <div className="navbar-dropdown is-boxed p-5 min-w-100-px">
+                    <div className="navbar-dropdown is-boxed p-5 min-w-250-px">
                       <div className="select is-fullwidth">
-                        <select onChange={
+                        {/* <select onChange={
                           (e) => {
                             const newRoute = `/indicator/${props.id}?pe=${e.target.value}&ouid=${props.ouid ? props.ouid : 18}`;
                             // console.log('//id=='+props.id+' & //ouid=='+props.ouid+' & //year='+e.target.value);
@@ -78,7 +86,7 @@ const Page = withRouter(props => (
                               <option value={oneyr} disabled={oneyr==props.pe?'"true"':''} selected={oneyr==props.pe?'"true"':''}>{oneyr}</option>
                             )
                           )}
-                        </select>
+                        </select> */}
                       </div>
                     </div>
                   </div>
@@ -337,7 +345,7 @@ const Page = withRouter(props => (
                         <div className="column text-normal p-b-15 p-t-5">
                               <label className="label fcblack-1 display-inline-b">
                                 {props.error ? "" :
-                                  props.indicatorData.result.dictionary.parameters.period[0]
+                                  dateToStr(props.indicatorData.result.dictionary.parameters.period[0])
                                 }
                               </label>
                               {props.error ? "" :

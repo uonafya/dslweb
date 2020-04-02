@@ -228,3 +228,27 @@ export async function fetchCadres() {
 
   return {cadresData, loading}
 }
+
+
+export function dateToStr(ledate) {
+  ledate = ledate.trim()
+  if(ledate.length < 5){
+    return ledate
+  }
+  var leyear = ledate.substr(0, 4);
+  var lemonth = ledate.substr(4, 5);
+  if (lemonth == "01") { var numonth = "Jan"; }
+  if (lemonth == "02") { var numonth = "Feb"; }
+  if (lemonth == "03") { var numonth = "Mar"; }
+  if (lemonth == "04") { var numonth = "Apr"; }
+  if (lemonth == "05") { var numonth = "May"; }
+  if (lemonth == "06") { var numonth = "Jun"; }
+  if (lemonth == "07") { var numonth = "Jul"; }
+  if (lemonth == "08") { var numonth = "Aug"; }
+  if (lemonth == "09") { var numonth = "Sept"; }
+  if (lemonth == "10") { var numonth = "Oct"; }
+  if (lemonth == "11") { var numonth = "Nov"; }
+  if (lemonth == "12") { var numonth = "Dec"; }
+  var lenudate = numonth + " " + leyear;
+  return lenudate;
+}
