@@ -9,7 +9,7 @@ import PeriodType from '../components/timeseries/PeriodTypeFilter'
 import PeriodSpan from '../components/timeseries/PeriodSpanFilter'
 import CompareGraph from '../components/utils/CompareGraph';
 import FilterBar from '../components/comparison/filterBar'
-import {ConvertToMonthlyLineGraph2} from '../components/utils/converters/Charts'
+import {ConvertToMonthlyLineGraph2,ConvertToCadreMonthlyLineGraph} from '../components/utils/converters/Charts'
 
 class Timeseries extends React.Component {
 
@@ -76,9 +76,12 @@ class Timeseries extends React.Component {
 
   deleteFromGraph(objectToDelete){
     let dataMapping=this.state.currentGraphDataMapping;
-
-    delete dataMapping['indicator'][objectToDelete.id+objectToDelete.ou+objectToDelete.period+"indicator"];
-
+    if(objectToDelete['type']=="Indicator"){
+      delete dataMapping['indicator'][objectToDelete.id+objectToDelete.ou+objectToDelete.period+"indicator"];
+    }
+    if(objectToDelete['type']=="Cadre"){
+      delete dataMapping['cadre'][objectToDelete.id+objectToDelete.ou+objectToDelete.period+"cadre"];
+    }
     let dataAfterAddEvent=[];
 
     for (var key in dataMapping['indicator']) {
@@ -99,22 +102,25 @@ class Timeseries extends React.Component {
     (async () => {
         var is_error = false
         var err_msg = ''
-        let {cadreData}=await FetchCadreAllocation(filterData.id,filterData.ou,filterData.period);
-        var _data;
+        let cadreData=await FetchCadreAllocation(filterData.id,filterData.ou,filterData.period,"monthly");
 
-          // try {
-          //   _data=ConvertToMonthlyLineGraph2(indicatorData.result);
-          //   let dataAfterAddEvent=this.state.indicator_data;
-          //   _data[0]['name']=_data[0]['name']+" period: "+ filterData.period;
-          //   dataAfterAddEvent.push(_data[0]);
-          //   console.log(dataAfterAddEvent);
-          //   this.setState({
-          //      indicator_data: dataAfterAddEvent
-          //   });
-          // }
-          // catch(err) {
-          //   console.log(err.message);
-          // }
+        try {
+
+          var _data= ConvertToCadreMonthlyLineGraph(cadreData);
+          console.log(_data);
+          let dataAfterAddEvent=this.state.indicator_data;
+          _data[0]['name']=_data[0]['name']+" period: "+ filterData.period;
+          dataAfterAddEvent.push(_data[0]);
+          let dataMapping=this.state.currentGraphDataMapping;
+          dataMapping['cadre'][filterData.id+filterData.ou+filterData.period+"cadre"]=_data[0];
+          this.setState({
+             indicator_data: dataAfterAddEvent,
+             currentGraphDataMapping: dataMapping
+          });
+        }
+        catch(err) {
+          console.log(err.message);
+        }
 
 
      })();

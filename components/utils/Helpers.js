@@ -145,7 +145,7 @@ export async function FetchCadreGroupAllocation(id,ouid,pe) {
 }
 
 
-export async function FetchCadreAllocation(id,ouid,pe) {
+export async function FetchCadreAllocation(id,ouid,pe,periodtype) {
   let fetchCadreGroupsDataUrl = `${settings.dslBaseApi}/cadres/`;
 
   let append=false;
@@ -160,6 +160,12 @@ export async function FetchCadreAllocation(id,ouid,pe) {
   if(id != undefined || id != null){
     if(append) fetchCadreGroupsDataUrl += `&id=${id}`;
     else  fetchCadreGroupsDataUrl += `?id=${id}`;
+  }
+  console.log(periodtype);
+  if(periodtype!= undefined ||periodtype!= null ){
+    if(periodtype== "monthly"){
+      if(append) fetchCadreGroupsDataUrl += "&periodtype=monthly";
+    }
   }
   console.log("Making request to: "+fetchCadreGroupsDataUrl);
   let _cadresData = await fetch(fetchCadreGroupsDataUrl);

@@ -216,7 +216,7 @@ export function ConvertToCadreGroupPieChart(_data,_name){
     data.push(dataEntity);
     counter=counter+1;
   })
-  
+
   let envelop = {};
   if(_name!=null || _name!= undefined){
     envelop["name"] = _name;
@@ -224,7 +224,7 @@ export function ConvertToCadreGroupPieChart(_data,_name){
   envelop["colorByPoint"] = true;
   envelop["data"]=data;
   seriee.push(envelop);
-  return seriee;  
+  return seriee;
 }
 
 export function ConvertToFacilityGroupPieChart(_data,_name){
@@ -248,7 +248,7 @@ export function ConvertToFacilityGroupPieChart(_data,_name){
     data.push(dataEntity);
     counter=counter+1;
   })
-  
+
   let envelop = {};
   if(_name!=null || _name!= undefined){
     envelop["name"] = _name;
@@ -256,7 +256,7 @@ export function ConvertToFacilityGroupPieChart(_data,_name){
   envelop["colorByPoint"] = true;
   envelop["data"]=data;
   seriee.push(envelop);
-  return seriee;  
+  return seriee;
 }
 
 
@@ -285,4 +285,30 @@ export function ConvertToCadreSimplePieChart(_data){
     mapData.push(data);
   }
   return mapData;
+}
+
+//takes cadre monthly count array
+export function ConvertToCadreMonthlyLineGraph(_data){
+  const data = [];
+  var counter;
+  var graphStructureData={
+    type: 'column',
+    name: _data['data'][0]['cadre']+" - "+ _data['metadata']['orgunitname'],
+    data: [null, null, null, null, null, null, null, null, null, null, null, null]
+  };
+  for(counter=0;counter<_data['data'].length;counter++){
+    var month;
+    var period=_data['data'][counter]['period'].toString()
+    if(_data['data'][counter]['period'].toString().length==5){
+      month=period.substring(period.length - 1);
+    }else{
+      month=period.substring(period.length - 2);
+    }
+
+    graphStructureData.data[parseInt(month)-1]=Number(_data['data'][counter]['cadreCount']);
+
+  }
+  data.push(graphStructureData);
+  return data;
+
 }
