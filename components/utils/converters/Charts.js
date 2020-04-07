@@ -206,7 +206,7 @@ export function ConvertToCadreGroupPieChart(_data,_name){
   let seriee=[];
   let data=[]
   var counter=0;
-  _data.map((item) => {
+  _data['data'].map((item) => {
     let dataEntity;
     if(counter==0){
        dataEntity={"name": item.cadre, "y": Number(item.cadreCount),"sliced": true, "selected": true};
