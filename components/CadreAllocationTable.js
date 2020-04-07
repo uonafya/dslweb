@@ -39,7 +39,7 @@ export default class CadreCountTable extends PureComponent {
         ouID=nextProps.ouid
       }
       let returnedData = await FetchCadreAllocation(cadreId,ouID, nextProps.pe);
-      let data=ConvertToCadreTable(returnedData);
+      let data=ConvertToCadreTable(returnedData['data']);
       console.log(data);
       this.setState({
         _data:  data
@@ -62,7 +62,7 @@ export default class CadreCountTable extends PureComponent {
         ouID=this.props.ouid
       }
       let returnedData = await FetchCadreAllocation(cadreId,ouID, this.props.pe);
-      let data=ConvertToCadreTable(returnedData);
+      let data=ConvertToCadreTable(returnedData['data']);
       console.log(data);
       this.setState({
         _data:  data
