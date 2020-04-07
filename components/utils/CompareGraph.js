@@ -42,6 +42,16 @@ export default class CompareGraph extends PureComponent {
         credits: {
           enabled: false
         },
+        colors: [
+                '#F2784B',
+                '#1BA39C',
+                '#913D88',
+                '#4d79ff',
+                '#80ff00',
+                '#ff8000',
+                '#00ffff',
+                '#ff4000'
+            ], 
         series:   []
       }
     }
