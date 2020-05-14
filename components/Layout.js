@@ -22,6 +22,7 @@ const Layout = props => (
       <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
       <link rel="stylesheet" type="text/css" href="/static/css/tabs.css"/>
       <link rel="stylesheet" type="text/css" href="/static/css/leaflet.css"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"/>
       <script async type="text/javascript" src="/static/js/bulma.js"></script>
       <script async type="text/javascript" src="/static/js/tabs.js"></script>
       <script src="/static/js/custom.js"></script>
