@@ -2,17 +2,16 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {FetchCountyList} from './Helpers'
+import {FetchSubCountyList} from './Helpers'
 
-export default class Counties extends React.Component {
+export default class SubCounties extends React.Component {
 
   constructor() {
     super();
     this.state = {
       showModal: false,
       period: 2019,
-      ouid: 18,
-      countyList: []
+      subCountyList: []
     };
 
   }
@@ -20,16 +19,16 @@ export default class Counties extends React.Component {
   componentDidMount(){
     //fetch counties
     (async () => {
-      let returnedData = await FetchCountyList();
-      let countyList=[];
-      returnedData.forEach((county)=>{
-        let countyMap={};
-        countyMap['title']=county.name;
-        countyMap['id']=county.id;
-        countyList.push(countyMap);
+      let returnedData = await FetchSubCountyList();
+      let subCountyList=[];
+      returnedData.forEach((subCounty)=>{
+        let subCountyMap={};
+        subCountyMap['title']=subCounty.name;
+        subCountyMap['id']=subCounty.id;
+        subCountyList.push(subCountyMap);
       });
       this.setState({
-       countyList: countyList
+       subCountyList: subCountyList
       });
     })()
   }
@@ -37,9 +36,9 @@ export default class Counties extends React.Component {
   render () {
     return (
       <Autocomplete
-        id="counties-combo-box"
+        id="subcounties-combo-box"
         size="small"
-        options={this.state.countyList}
+        options={this.state.subCountyList}
         getOptionLabel={(option) => option.title}
         style={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Counties" variant="outlined" />}

@@ -2,7 +2,8 @@ import { settings } from './Settings'
 import fetch from 'isomorphic-unfetch'
 
 let cache = {
-  countiesList: null
+  countiesList: null,
+  subcountiesList: null
 }
 
 export async function FetchIndicatorData(id,ouid,pe,level,loading) {
@@ -191,8 +192,18 @@ export async function FetchCountyList() {
   }else{
     return cache.countiesList;
   }
+}
 
-
+export async function FetchSubCountyList() {
+  if(cache.subcountiesList==null){
+    let subCountyListUrl = `${settings.dslBaseApi}/subcounties`;
+    const _subCountyData = await fetch(subCountyListUrl);
+    const subCountyData = await _subCountyData.json();
+    cache.subcountiesList=subCountyData;
+    return subCountyData;
+  }else{
+    return cache.subcountiesList;
+  }
 }
 
 // <<<<<<<<<<<<<<<<Search
