@@ -6,12 +6,14 @@ import {FetchSubCountyList} from './Helpers'
 
 export default class SubCounties extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showModal: false,
       period: 2019,
-      subCountyList: []
+      subCountyList: [],
+      displayCountyList: [],
+      parentId: this.props.parentOrgId
     };
 
   }
@@ -25,12 +27,36 @@ export default class SubCounties extends React.Component {
         let subCountyMap={};
         subCountyMap['title']=subCounty.name;
         subCountyMap['id']=subCounty.id;
+        subCountyMap['parentid']=subCounty.parentid;
+        subCountyMap['level']=subCounty.level;
         subCountyList.push(subCountyMap);
       });
       this.setState({
-       subCountyList: subCountyList
+       subCountyList: subCountyList,
+       displayCountyList: subCountyList
       });
     })()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.parentOrgId != prevProps.parentOrgId) {
+      this.filterDisplayCountyList(this.props.parentOrgId);
+    }
+  }
+
+  filterDisplayCountyList = (parentOrgId)=> {
+    let updateDisplayCountyList=[];
+    if(parentOrgId== 18){
+      updateDisplayCountyList=this.state.subCountyList;
+    }
+    this.state.subCountyList.forEach( element => {
+      if(element.parentid==parentOrgId && parentOrgId!= 18){
+        updateDisplayCountyList.push(element);
+      }
+    });
+    this.setState({
+      displayCountyList:updateDisplayCountyList
+    });
   }
 
   render () {
@@ -38,10 +64,10 @@ export default class SubCounties extends React.Component {
       <Autocomplete
         id="subcounties-combo-box"
         size="small"
-        options={this.state.subCountyList}
+        options={this.state.displayCountyList}
         getOptionLabel={(option) => option.title}
         style={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Counties" variant="outlined" />}
+        renderInput={(params) => <TextField {...params} label="Sub Counties" variant="outlined" />}
       />
     );
   }

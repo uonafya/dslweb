@@ -10,9 +10,9 @@ export default class OrgUnitNestedMenu extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      anchorEl: null
+      anchorEl: null,
+      countyId: null
     };
-    console.log(this.props.level);
   }
 
   handleClick = (event) => {
@@ -27,6 +27,12 @@ export default class OrgUnitNestedMenu extends React.Component {
     });
   };
 
+  updateCountyId = (countyID)=>{
+    this.setState ({
+      countyId:countyID
+    });
+  }
+
   open = ()=> Boolean(this.state.anchorEl);
 
   render() {
@@ -36,9 +42,9 @@ export default class OrgUnitNestedMenu extends React.Component {
     if(this.props.level.includes('3')){
       orgDrill=
         <React.Fragment>
-          <Counties/>
+          <Counties updateCountyIdHandler={this.updateCountyId}/>
           <br/>
-          <SubCounties/>
+          <SubCounties parentOrgId={this.state.countyId}/>
         </React.Fragment>
     }else{
       orgDrill=

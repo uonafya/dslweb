@@ -12,7 +12,8 @@ export default class Counties extends React.Component {
       showModal: false,
       period: 2019,
       ouid: 18,
-      countyList: []
+      countyList: [],
+      selectedVal:null
     };
 
   }
@@ -26,6 +27,8 @@ export default class Counties extends React.Component {
         let countyMap={};
         countyMap['title']=county.name;
         countyMap['id']=county.id;
+        countyMap['parentid']=county.parentid;
+        countyMap['level']=county.level;
         countyList.push(countyMap);
       });
       this.setState({
@@ -34,11 +37,26 @@ export default class Counties extends React.Component {
     })()
   }
 
+  filterDisplayCountyList
+
   render () {
     return (
       <Autocomplete
         id="counties-combo-box"
         size="small"
+        value={this.selectedVal}
+        onChange={(event, newValue) => {
+          if(newValue==null || newValue==undefined ) newValue=18;
+          this.setState({
+            selectedVal:newValue
+          });
+          if(newValue==18){
+            this.props.updateCountyIdHandler(18);
+          }else{
+            this.props.updateCountyIdHandler(newValue.id);
+          }
+
+        }}
         options={this.state.countyList}
         getOptionLabel={(option) => option.title}
         style={{ width: 300 }}
