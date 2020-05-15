@@ -23,6 +23,13 @@ export default class Counties extends React.Component {
     (async () => {
       let returnedData = await FetchCountyList();
       let countyList=[];
+      let nationalOrg={
+        'title':"Kenya (National)",
+        'id': 18,
+        'parentid': null,
+        'level':0
+      };
+      countyList.push(nationalOrg);
       returnedData.forEach((county)=>{
         let countyMap={};
         countyMap['title']=county.name;

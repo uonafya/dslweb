@@ -56,7 +56,7 @@ export default class OrgUnitNestedMenu extends React.Component {
     return (
           <div>
           <Button aria-describedby={this.props.elId} variant="contained" color="primary" onClick={this.handleClick}>
-            Open Popover
+            Organisation Unit
           </Button>
           <Popover id={this.props.elId} open={Boolean(this.state.anchorEl)} anchorEl={this.state.anchorEl} onClose={this.handleClose} anchorOrigin={{
               vertical: 'bottom',
