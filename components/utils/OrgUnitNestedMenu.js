@@ -42,9 +42,9 @@ export default class OrgUnitNestedMenu extends React.Component {
     if(this.props.level.includes('3')){
       orgDrill=
         <React.Fragment>
-          <Counties updateCountyIdHandler={this.updateCountyId}/>
+          <Counties updateCountyIdHandler={this.updateCountyId} callBackHandler={this.props.callBackHandler}/>
           <br/>
-          <SubCounties parentOrgId={this.state.countyId}/>
+          <SubCounties parentOrgId={this.state.countyId} callBackHandler={this.props.callBackHandler}/>
         </React.Fragment>
     }else{
       orgDrill=

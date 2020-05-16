@@ -13,7 +13,8 @@ export default class SubCounties extends React.Component {
       period: 2019,
       subCountyList: [],
       displayCountyList: [],
-      parentId: this.props.parentOrgId
+      parentId: this.props.parentOrgId,
+      selectedVal: null
     };
 
   }
@@ -64,6 +65,13 @@ export default class SubCounties extends React.Component {
       <Autocomplete
         id="subcounties-combo-box"
         size="small"
+        value={this.selectedVal}
+        onChange={(event, newValue) => {
+          this.setState({
+            selectedVal:newValue
+          });
+          this.props.callBackHandler({'orgId':newValue.id, 'level':newValue.level, 'name':newValue.title});
+        }}
         options={this.state.displayCountyList}
         getOptionLabel={(option) => option.title}
         style={{ width: 300 }}
