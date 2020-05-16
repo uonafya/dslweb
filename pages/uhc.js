@@ -6,6 +6,7 @@ import HealthInfomation from '../components/HealthInformationModal'
 import ResilienceInServices from '../components/ResilienceInServicesModal'
 import QualityOfEssentialServices from '../components/QualityOfEssentialServicesModal'
 import DemandForEssentialServices from '../components/DemandForEssentialServicesModal'
+import ServicesAvailability from '../components/uhc/ServicesAvailability'
 
 const props = {};
 
@@ -134,8 +135,8 @@ export default function UHC() {
                                 <div className="column is-three-fifths">
                                     <div className="columns p-5">
                                         <div className="column p-3">
-                                            <article className="notification is-success p-5">
-                                                <p className="text-uppercase">Essential Services Availability</p>
+                                            <article id="serviceavailability" className="notification is-success p-5">
+                                                <ServicesAvailability  {...props}/>
                                             </article>
                                         </div>
                                         <div className="column p-3">
