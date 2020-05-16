@@ -3,7 +3,8 @@ import fetch from 'isomorphic-unfetch'
 
 let cache = {
   countiesList: null,
-  subcountiesList: null
+  subcountiesList: null,
+  surveySources: null
 }
 
 export async function FetchIndicatorData(id,ouid,pe,level,loading) {
@@ -216,7 +217,7 @@ export function searchIndicator(array, string) {
 
 export async function fetchIndicators() {
   let loading = true
-  let fetchIndicatorsUrl = `http://41.89.94.105/dsl/api/indicators`;
+  let fetchIndicatorsUrl = `${settings.dslBaseApi}/indicators`;
 
   const fetchIndicators = await fetch(fetchIndicatorsUrl);
 
@@ -232,7 +233,7 @@ export async function fetchIndicators() {
 
 export async function fetchCadres() {
   let loading = true
-  let fetchCadresUrl = `http://41.89.94.105/dsl/api/cadres`;
+  let fetchCadresUrl = `${settings.dslBaseApi}/cadres`;
 
   const fetchCadres = await fetch(fetchCadresUrl);
 
@@ -246,6 +247,43 @@ export async function fetchCadres() {
   return {cadresData, loading}
 }
 
+export async function fetchSurveySources() {
+  if(cache.surveySources==null){
+    let fetchSurveySourcesUrl = `${settings.dslBaseApi}/survey/sources/`;
+    const surveySourcesData = await fetch(fetchSurveySourcesUrl);
+    const _surveySourcesData = await surveySourcesData.json();
+    cache.surveySources=_surveySourcesData;
+    return _surveySourcesData;
+  }else{
+    return cache.surveySources;
+  }
+}
+
+export async function fetchSurveyData(sourceId,id,orgId,pe,catID) {
+  let fetchSurveyDataUrl = `${settings.dslBaseApi}/survey/sources/${sourceId}`;
+
+  let append=false;
+  if(pe != undefined){
+    fetchSurveyDataUrl += `?pe=${pe}`;
+    append = true;
+  }
+  if(orgId != undefined || orgId != null){
+    if(append) fetchSurveyDataUrl += `&orgId=${orgId}`;
+    else  fetchSurveyDataUrl += `?orgId=${orgId}`;
+  }
+  if(id != undefined || id != null){
+    if(append) fetchSurveyDataUrl += `&id=${id}`;
+    else  fetchSurveyDataUrl += `?id=${id}`;
+  }
+  if(catID != undefined || catID != null){
+    if(append) fetchSurveyDataUrl += `&catID=${catID}`;
+    else  fetchSurveyDataUrl += `?catID=${catID}`;
+  }
+  console.log("Making request to: "+fetchSurveyDataUrl);
+  let _surveyData = await fetch(fetchSurveyDataUrl);
+  let surveyData = await _surveyData.json();
+  return surveyData
+}
 
 export function dateToStr(ledate) {
   ledate = ledate.trim()
