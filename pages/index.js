@@ -52,12 +52,12 @@ const Home = withRouter(props => (
       <section className="section">
         <div className="section-heading m-b-15">
           <div className="container">
-            <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">What is DSL?</h4>
+            <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">What is MOH DAP?</h4>
           </div>
         </div>
         <div className="container text-left p-5 m-b-10">
           <p>
-            <strong>Data Service Layer</strong>, Is an integration and aggregation of health and related data sources that could potentially impact on health. It is a platform for collaboration and sharing of health information with key interest in analysis, prediction, anticipation of diverging and converging health factors. This will in the end support M&E functions for decision making.
+            <strong>Ministry Of Health Data Analytics Platform (MOH DAP)</strong>, Is an integration and aggregation of health and related data sources that could potentially impact on health. It is a platform for collaboration and sharing of health information with key interest in analysis, prediction, anticipation of diverging and converging health factors. This will in the end support M&E functions for decision making.
           </p>
         </div>
         <div className="container">

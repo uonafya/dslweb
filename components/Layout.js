@@ -14,7 +14,7 @@ const Layout = props => (
   <div>
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>Data Service Layer (DSL)</title>
+      <title>Ministry Of Health Data Analytics Platform (MOH DAP)</title>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"/>
       <link rel="stylesheet" href="/static/css/bulma.min.css" />
       <link rel="stylesheet" href="/static/fontawesome/css/all.min.css"/>

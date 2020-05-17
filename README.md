@@ -1,10 +1,10 @@
-# DSL-Dashboard
-Data Service Layer Analytics Dashboard. URL: [http://dsl.health.go.ke:8080](http://dsl.health.go.ke:8080)
+# MOH DAP-Dashboard
+Ministry Of Health Data Analytics Portal. URL: [http://dsl.health.go.ke:8080](http://dsl.health.go.ke:8080)
 
-### 
+###
 
 ## Description
-An analytics dashboard for DSL built in [NextJS](https://nextjs.org/), [Express](https://expressjs.com/) and [Bulma CSS](https://bulma.io/)
+An analytics dashboard for MOH DAP built in [NextJS](https://nextjs.org/), [Express](https://expressjs.com/) and [Bulma CSS](https://bulma.io/)
 
 ## API
 [http://dsl.health.go.ke/dsl/api](http://dsl.health.go.ke/dsl/api/)

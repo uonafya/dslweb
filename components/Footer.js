@@ -40,7 +40,7 @@ const Footer = () => (
               <li><a href="http://41.89.94.105/dsl/" target="_blank">System &amp; API Documentation</a></li>
               <li><a href="https://uhckenya.org/about/" target="_blank">UHC Information Centre</a></li>
               <li><a href="http://elearning.health.go.ke/" target="_blank">HIS eLearning Portal</a></li>
-              <li><a href="#">DSL Wiki</a></li>
+              <li><a href="#">MOH DAP Wiki</a></li>
             </ul>
         </div>
         <div className="column">
@@ -51,10 +51,10 @@ const Footer = () => (
                 <li><a href="#">Privacy policy</a></li>
               </ul>
               <p>
-                DSL is an open-source project for <a href="#">MoH HIS</a> Kenya. It is managed &amp; maintained by <a href="#">HealthIT</a>, a USAID-funded project at the <a href="#">UoN</a> that manages information systems in Kenya.
+                MOH DAP is an open-source project for <a href="#">MoH HIS</a> Kenya. It is managed &amp; maintained by <a href="#">HealthIT</a>, a USAID-funded project at the <a href="#">UoN</a> that manages information systems in Kenya.
               </p>
               <p>
-                DSL is available under a BSD license.
+                MOH DAP is available under a BSD license.
               </p>
 
             </div>
@@ -63,7 +63,7 @@ const Footer = () => (
       <div className="columns text-center">
         <div className="column">
           &mdash; <br />
-          DSL  &copy; HIS Kenya, {new Date().getFullYear() }
+          MOH DAP  &copy; HIS Kenya, {new Date().getFullYear() }
         </div>
       </div>
     </div>

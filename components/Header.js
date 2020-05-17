@@ -6,7 +6,7 @@ const logoStyle = {
 };
 
 const Header = () => (
-  
+
   <nav className="navbar is-link is-fixed-top bcblack-1 p-t-5 p-b-5">
     <div className="container">
         <div className="navbar-brand bcblack text-bold is-1 p-0">
@@ -29,9 +29,9 @@ const Header = () => (
             </a> */}
             <Link href='/'><a className="navbar-item m-r-5">Home</a></Link>
             {/* <a className="navbar-item m-r-5" href="#" target="_blank">
-              <span>About DSL</span>
+              <span>About MOH DAP</span>
             </a> */}
-            <Link href='/about'><a className="navbar-item m-r-5">About DSL</a></Link>
+            <Link href='/about'><a className="navbar-item m-r-5">About MOH DAP</a></Link>
             {/* <a className="navbar-item m-r-5" href="./indicator.html" target="_blank">
               <span>All indicators</span>
             </a> */}
@@ -79,7 +79,7 @@ const Header = () => (
         </div>
     </div>
   </nav>
-  
+
 );
 
 export default Header;
