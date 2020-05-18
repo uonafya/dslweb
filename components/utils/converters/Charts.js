@@ -43,6 +43,20 @@ function getIndicatorsMap(indicatorList){
   });
   return indicatorMap;
 }
+//create survey indicator meta-data mapping
+function getSurveyIndicatorMetaDataMap(indicatorList){
+  let indicatorMap ={}; //indicator mete data placeholder
+  indicatorList.map(indicatorMeta => {
+    let singleIndicMap={};
+    singleIndicMap['source_id']= indicatorMeta['source id'];
+    singleIndicMap['name']= indicatorMeta['name'];
+    singleIndicMap['description']= indicatorMeta['description'];
+    singleIndicMap['source']= indicatorMeta['source'];
+    indicatorMap[indicatorMeta.id] = singleIndicMap;
+  });
+  return indicatorMap;
+}
+
 //highcharts format
 export function ConvertToMonthlyLineGraph2(_data){
 
@@ -86,29 +100,118 @@ export function ConvertToMonthlyLineGraph2(_data){
 
 }
 
+//private method:
+function _generateOrderedPeriodList(periodList){
+    let dataList=[];
+    if(periodList.length == 0){
+        return dataList
+    }
+    dataList=periodList.sort((a,b)=>{
+        return Number(a)-Number(b);
+    });
+    return dataList;
+}
+
+//private method: generates data list for graphing based on category & period dimensions
+//Data for graphing picking algorithm defaults to indicator with no category 
+function _generateSurveyGraphDataList(periodList,dataList,categoryList){
+
+    if(periodList.length == 0 && categoryList.length>=1){
+        let graphDataList=[];
+        dataList.forEach((dataMap)=>{
+            if(!('category' in dataMap)){
+              let gDataList=[];
+                gDataList.push(dataMap['value']);
+                graphDataList=gDataList;
+            }
+        });
+        return graphDataList;
+    }
+    if(periodList.length >= 1 && categoryList.length>=1){
+        let graphDataList=[];
+        let periods=_generateOrderedPeriodList(periodList);
+        periods.forEach((period)=>{
+            dataList.forEach((dataMap)=>{
+                if(!("category" in dataMap) && dataMap['period']==period){
+                    graphDataList.push(dataMap['value']);
+                }
+            });
+        });
+        return graphDataList;
+    }
+    if(periodList.length >= 1 && categoryList.length==0){
+        let graphDataList=[];
+        let periods=_generateOrderedPeriodList(periodList);
+        periods.forEach((period)=>{
+            dataList.forEach((dataMap)=>{
+                if(dataMap['period']==period)
+                    graphDataList.push(dataMap['value']);
+            });
+        });
+        return graphDataList;
+    }
+    if(periodList.length == 0 && categoryList.length==0){
+      let graphDataList=[];
+        dataList.forEach((dataMap)=>{
+            graphDataList.push(dataMap['value']);
+        });
+      return graphDataList;
+    }
+
+}
+
+// converts survey data to
+export function ConvertSurveyDataToGraph(_data){
+
+  let indicatorList =_data.dictionary.indicators;
+  let orgUnitList =_data.dictionary.orgunits;
+  let periodList =_data.dictionary.periods;
+  let categoryList = _data.dictionary.categories;
+  let dataList= _data.data;
+  let indicatorMap =getSurveyIndicatorMetaDataMap(indicatorList);
+  let orgunitMap =getOrgUnitsMap(orgUnitList);
+  const convertdata = [];
+
+  let orgName="";
+  if(orgUnitList.length>1){
+      orgName=orgunitMap['18']['name']
+  }else{
+      for(var key in orgunitMap){
+        orgName=orgunitMap[key]['name'];
+      }
+  }
+
+  let indicatorName="";
+  for(var key in indicatorMap){
+    indicatorName=indicatorMap[key]['name'];
+  }
+
+  let graphData = {
+    name: indicatorName + " - " + orgName,
+    data: _generateSurveyGraphDataList(periodList,dataList,categoryList)
+  };
+  convertdata.push(graphData);
+  let cat =_generateOrderedPeriodList(periodList);
+  return {convertdata, cat};
+}
+
 export function ConvertTimeSeriesLineGraph(_data){
-  console.log("converter ConvertTimeSeriesLineGraph");
   let indicatorList =_data.dictionary.indicators;
   let orgUnitList =_data.dictionary.orgunits;
   //let indicatorMap =getIndicatorsMap(indicatorList);
   //let orgunitMap =getOrgUnitsMap(orgUnitList);
   const data = [];
   var mapData=null;
-  console.log(_data.data);
   for(var indicatorKey in _data.data){
     let perIndicator=_data.data[indicatorKey];
-      console.log(perIndicator);
     for(var ouKey in perIndicator){
       let perOu=perIndicator[ouKey];
-      console.log(perOu);
       let graphData = [];
       let data = {};
       perOu['projection'].map(item => {
         var month=Number(item['time'].slice(-2));
         var year=Number(item['time'].slice(0,4));
-        console.log(month);
-        console.log(year);
-        console.log(Date.UTC(year,month,31));
+
         let singleArray=[Date.UTC(year,month),Number(Number(item['value']).toFixed(2))];
         graphData.push(singleArray);
       });
@@ -116,7 +219,6 @@ export function ConvertTimeSeriesLineGraph(_data){
       data["data"]= graphData;
       let title = _data.dictionary.indicators[0].name+ " - "+ _data.dictionary.orgunits[0].name;
       let subtitle = "Projection Analysis [ periodtype: "+_data.dictionary.parameters['periodtype']+ " projection length: " +_data.dictionary.parameters['periodspan']+ " ]";
-      console.log(data);
       return { data:data, title: title, subtitle: subtitle };
     }
   }
@@ -131,13 +233,10 @@ export function ConvertTrendTimeSeriesLineGraph(_data){
   //let orgunitMap =getOrgUnitsMap(orgUnitList);
   const data = [];
   var mapData=null;
-  console.log(_data.data);
   for(var indicatorKey in _data.data){
     let perIndicator=_data.data[indicatorKey];
-      console.log(perIndicator);
     for(var ouKey in perIndicator){
       let perOu=perIndicator[ouKey];
-      console.log(perOu);
       let graphData = [];
       let data = {};
       perOu['trend'].map(item => {
