@@ -13,12 +13,9 @@ export default class SurveyChartFrame extends React.Component {
       indicatorName: this.props.indicatorName,
       indicatorId: this.props.indicatorId,
       indicatorSource: this.props.indicatorSource,
+      genderId: null,
       initialReturnedData: null
     };
-
-    this.handleOrgUnitChange = this.handleOrgUnitChange.bind(this);
-    this.handleChangePeriod = this.handleChangePeriod.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
 
   }
 
@@ -38,15 +35,20 @@ export default class SurveyChartFrame extends React.Component {
     });
   }
 
-  handleChangePeriod(year) {
+  handleChangePeriod= (year)=> {
     this.setState({ period: year });
   }
 
-  handleOrgUnitChange(orgUnitObject) {
+  handleOrgUnitChange=(orgUnitObject) => {
     this.setState({ ouid: orgUnitObject });
   }
 
-  handleCategoryChange(category) {
+  handleGenderChange= (gerderObject) => {
+    console.log(gerderObject);
+    this.setState({ genderId: gerderObject });
+  }
+
+  handleCategoryChange=(category) => {
     this.setState({ ouid: orgUnitObject });
   }
 
@@ -60,11 +62,18 @@ export default class SurveyChartFrame extends React.Component {
     return (
 
         <div class="column ">
-          <SurveyFilter handleOrgUnitChange={this.handleOrgUnitChange} initialReturnedData={this.state.initialReturnedData}/>
+          <SurveyFilter
+            handleOrgUnitChange = {this.handleOrgUnitChange}
+            handleGenderChange = {this.handleGenderChange}
+            initialReturnedData = {this.state.initialReturnedData}/>
           <div className="box m-5">
             <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.indicatorName}</h5>
             <br/>
-            <SurveyDataMiddleware setReturnedData={this.setInitialReturnedData} setIndicatorName={this.setIndicatorName} indicatorId={this.state.indicatorId} indicatorSource={this.state.indicatorSource}/>
+            <SurveyDataMiddleware
+              setReturnedData={this.setInitialReturnedData}
+              setIndicatorName={this.setIndicatorName}
+              indicatorId={this.state.indicatorId}
+              indicatorSource={this.state.indicatorSource}/>
           </div>
         </div>
 
