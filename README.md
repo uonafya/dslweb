@@ -1,5 +1,5 @@
 # DSL-Dashboard
-Data Service Layer Analytics Dashboard. URL: [http://dsl.health.go.ke:8080](http://dsl.health.go.ke:8080)
+Data Service Layer Analytics Dashboard. URL: [http://dsl.health.go.ke](http://dsl.health.go.ke)
 
 ### 
 
