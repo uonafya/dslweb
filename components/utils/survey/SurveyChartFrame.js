@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import Button from '@material-ui/core/Button';
 import SurveyDataMiddleware from './SurveyDataMiddleware'
+import SurveyFilter from '../../survey/SurveyFilter'
 
 export default class SurveyChartFrame extends React.Component {
 
@@ -11,8 +12,13 @@ export default class SurveyChartFrame extends React.Component {
     this.state = {
       indicatorName: this.props.indicatorName,
       indicatorId: this.props.indicatorId,
-      indicatorSource: this.props.indicatorSource
+      indicatorSource: this.props.indicatorSource,
+      initialReturnedData: null
     };
+
+    this.handleOrgUnitChange = this.handleOrgUnitChange.bind(this);
+    this.handleChangePeriod = this.handleChangePeriod.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
 
   }
 
@@ -22,8 +28,26 @@ export default class SurveyChartFrame extends React.Component {
     });
   }
 
-  componentDidMount(){
+  prepareGraphFilters= (apiJsonData)=>{
 
+  }
+
+  setInitialReturnedData =(returnedData)=>{
+    this.setState({
+      initialReturnedData: returnedData
+    });
+  }
+
+  handleChangePeriod(year) {
+    this.setState({ period: year });
+  }
+
+  handleOrgUnitChange(orgUnitObject) {
+    this.setState({ ouid: orgUnitObject });
+  }
+
+  handleCategoryChange(category) {
+    this.setState({ ouid: orgUnitObject });
   }
 
   componentDidUpdate(prevProps) {
@@ -36,10 +60,11 @@ export default class SurveyChartFrame extends React.Component {
     return (
 
         <div class="column ">
+          <SurveyFilter handleOrgUnitChange={this.handleOrgUnitChange} initialReturnedData={this.state.initialReturnedData}/>
           <div className="box m-5">
             <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.indicatorName}</h5>
             <br/>
-            <SurveyDataMiddleware setIndicatorName={this.setIndicatorName} indicatorId={this.state.indicatorId} indicatorSource={this.state.indicatorSource}/>
+            <SurveyDataMiddleware setReturnedData={this.setInitialReturnedData} setIndicatorName={this.setIndicatorName} indicatorId={this.state.indicatorId} indicatorSource={this.state.indicatorSource}/>
           </div>
         </div>
 

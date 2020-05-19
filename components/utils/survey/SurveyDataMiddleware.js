@@ -17,17 +17,11 @@ export default class SurveyDataMiddleware extends React.Component {
       indicName: null,
       data: null,
       chartType: 'column',
-      countyList: []
     };
 
-    this.handleOrgUnitChange = this.handleOrgUnitChange.bind(this);
-    this.handleChangePeriod = this.handleChangePeriod.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
   }
 
   componentDidMount(){
-
-    //<LifeExpectancyAtBirth indicatorId={key} indicatorSource={indicatorMap[key]['sourceId']}/>
     let _data;
     let category=[];
     let sourceId=this.props.indicatorSource;
@@ -35,11 +29,12 @@ export default class SurveyDataMiddleware extends React.Component {
     (async () => {
 
         let returnedData=await fetchSurveyData(sourceId,indicId);
-
+        this.props.setReturnedData(returnedData.result); //callback fn
         let {convertdata, cat, indicName}=ConvertSurveyDataToGraph(returnedData.result);
         category=cat;
         _data=convertdata;
 
+        //if period is not available, use data source for xaxisLabel
         if(category.length==0){
           let surveySourcs=await fetchSurveySources();
           surveySourcs.forEach( source =>{
@@ -52,20 +47,9 @@ export default class SurveyDataMiddleware extends React.Component {
           xaxisLabel: category,
           indicName: indicName
         });
+        //callback fn
         this.props.setIndicatorName(indicName);
      })();
-  }
-
-  handleChangePeriod(year) {
-    this.setState({ period: year });
-  }
-
-  handleOrgUnitChange(orgUnitObject) {
-    this.setState({ ouid: orgUnitObject });
-  }
-
-  handleCategoryChange(category) {
-    this.setState({ ouid: orgUnitObject });
   }
 
   render () {
