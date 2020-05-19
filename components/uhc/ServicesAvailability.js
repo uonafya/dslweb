@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import Button from '@material-ui/core/Button';
 import SurveyDataMiddleware from '../utils/survey/SurveyDataMiddleware'
+import SurveyChartFrame from '../utils/survey/SurveyChartFrame'
 import {uhc,uhc_groups} from '../../resources/mappings'
 
 export default class ServicesAvailability extends React.Component {
@@ -42,17 +43,11 @@ export default class ServicesAvailability extends React.Component {
     let charts = null;
     let indicatorMap=this.state.indicatorMap;
     let rowsTags=[];
-    let rowTags=[]
+    let rowTags=[];
+
     for(var key in indicatorMap){
 
-      let columnTag=
-        <div class="column ">
-          <div className="box m-5">
-            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{indicatorMap[key]['name']}</h5>
-            <br/>
-            <SurveyDataMiddleware indicatorId={key} indicatorSource={indicatorMap[key]['sourceId']}/>
-          </div>
-        </div>
+      let columnTag=<SurveyChartFrame indicatorName={indicatorMap[key]['name']} indicatorId={key} indicatorSource={indicatorMap[key]['sourceId']} />
 
         //create two columns with rows of chart
         if(rowTags.length!=2){
@@ -64,8 +59,9 @@ export default class ServicesAvailability extends React.Component {
         }
 
     }
+
     if(rowTags.length!=0) rowsTags.push(<div class="columns">{rowTags}</div>);
-    console.log(rowTags);
+
     return (
       <div>
         {/*<button onClick={this.handleOpenModal}>Trigger Modal</button>*/}

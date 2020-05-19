@@ -113,10 +113,11 @@ function _generateOrderedPeriodList(periodList){
 }
 
 //private method: generates data list for graphing based on category & period dimensions
-//Data for graphing picking algorithm defaults to indicator with no category 
+//Data for graphing picking algorithm defaults to indicator with no category
 function _generateSurveyGraphDataList(periodList,dataList,categoryList){
 
     if(periodList.length == 0 && categoryList.length>=1){
+      console.log("option 1");
         let graphDataList=[];
         dataList.forEach((dataMap)=>{
             if(!('category' in dataMap)){
@@ -125,9 +126,11 @@ function _generateSurveyGraphDataList(periodList,dataList,categoryList){
                 graphDataList=gDataList;
             }
         });
-        return graphDataList;
+        if (graphDataList.length!=0)
+          return graphDataList;
     }
     if(periodList.length >= 1 && categoryList.length>=1){
+      console.log("option 2");
         let graphDataList=[];
         let periods=_generateOrderedPeriodList(periodList);
         periods.forEach((period)=>{
@@ -137,9 +140,11 @@ function _generateSurveyGraphDataList(periodList,dataList,categoryList){
                 }
             });
         });
-        return graphDataList;
+        if(graphDataList.length!=0) //return if match found, else continue evaluating conditions
+          return graphDataList;
     }
     if(periodList.length >= 1 && categoryList.length==0){
+      console.log("option 3");
         let graphDataList=[];
         let periods=_generateOrderedPeriodList(periodList);
         periods.forEach((period)=>{
@@ -148,15 +153,32 @@ function _generateSurveyGraphDataList(periodList,dataList,categoryList){
                     graphDataList.push(dataMap['value']);
             });
         });
-        return graphDataList;
+        if (graphDataList.length!=0)
+          return graphDataList;
     }
+
     if(periodList.length == 0 && categoryList.length==0){
+      console.log("option 4");
       let graphDataList=[];
         dataList.forEach((dataMap)=>{
             graphDataList.push(dataMap['value']);
         });
-      return graphDataList;
+      if (graphDataList.length!=0)
+        return graphDataList;
     }
+
+    if(periodList.length == 0 && categoryList.length>=1){
+      console.log("option 5");
+        let graphDataList=[];
+          dataList.forEach((dataMap)=>{
+              if(dataMap['category'].length==1 && dataMap['category'][0]['name']=="age 15-64"){
+                  graphDataList.push(dataMap['value']);
+              }
+          });
+        if(graphDataList.length!=0) //return if match found, else continue evaluating conditions
+          return graphDataList;
+    }
+
 
 }
 
