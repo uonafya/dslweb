@@ -16,6 +16,12 @@ export default class SurveyChartFrame extends React.Component {
 
   }
 
+  setIndicatorName = (indicName)=>{
+    this.setState({
+      indicatorName: indicName
+    });
+  }
+
   componentDidMount(){
 
   }
@@ -33,7 +39,7 @@ export default class SurveyChartFrame extends React.Component {
           <div className="box m-5">
             <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.indicatorName}</h5>
             <br/>
-            <SurveyDataMiddleware indicatorId={this.state.indicatorId} indicatorSource={this.state.indicatorSource}/>
+            <SurveyDataMiddleware setIndicatorName={this.setIndicatorName} indicatorId={this.state.indicatorId} indicatorSource={this.state.indicatorSource}/>
           </div>
         </div>
 

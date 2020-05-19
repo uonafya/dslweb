@@ -14,6 +14,7 @@ export default class SurveyDataMiddleware extends React.Component {
       showModal: false,
       ouid: 18,
       xaxisLabel: null,
+      indicName: null,
       data: null,
       chartType: 'column',
       countyList: []
@@ -35,7 +36,7 @@ export default class SurveyDataMiddleware extends React.Component {
 
         let returnedData=await fetchSurveyData(sourceId,indicId);
 
-        let {convertdata, cat}=ConvertSurveyDataToGraph(returnedData.result);
+        let {convertdata, cat, indicName}=ConvertSurveyDataToGraph(returnedData.result);
         category=cat;
         _data=convertdata;
 
@@ -48,8 +49,10 @@ export default class SurveyDataMiddleware extends React.Component {
 
         this.setState({
           data: _data,
-          xaxisLabel: category
+          xaxisLabel: category,
+          indicName: indicName
         });
+        this.props.setIndicatorName(indicName);
      })();
   }
 

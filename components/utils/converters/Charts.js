@@ -119,6 +119,7 @@ function _generateSurveyGraphDataList(periodList,dataList,categoryList){
     if(periodList.length == 0 && categoryList.length>=1){
       console.log("option 1");
         let graphDataList=[];
+        let categoryName="";
         dataList.forEach((dataMap)=>{
             if(!('category' in dataMap)){
               let gDataList=[];
@@ -127,11 +128,12 @@ function _generateSurveyGraphDataList(periodList,dataList,categoryList){
             }
         });
         if (graphDataList.length!=0)
-          return graphDataList;
+          return {graphDataList,categoryName} ;
     }
     if(periodList.length >= 1 && categoryList.length>=1){
       console.log("option 2");
         let graphDataList=[];
+        let categoryName="";
         let periods=_generateOrderedPeriodList(periodList);
         periods.forEach((period)=>{
             dataList.forEach((dataMap)=>{
@@ -141,11 +143,12 @@ function _generateSurveyGraphDataList(periodList,dataList,categoryList){
             });
         });
         if(graphDataList.length!=0) //return if match found, else continue evaluating conditions
-          return graphDataList;
+          return {graphDataList,categoryName} ;
     }
     if(periodList.length >= 1 && categoryList.length==0){
       console.log("option 3");
         let graphDataList=[];
+        let categoryName="";
         let periods=_generateOrderedPeriodList(periodList);
         periods.forEach((period)=>{
             dataList.forEach((dataMap)=>{
@@ -154,29 +157,32 @@ function _generateSurveyGraphDataList(periodList,dataList,categoryList){
             });
         });
         if (graphDataList.length!=0)
-          return graphDataList;
+          return {graphDataList,categoryName} ;
     }
 
     if(periodList.length == 0 && categoryList.length==0){
       console.log("option 4");
       let graphDataList=[];
+      let categoryName="";
         dataList.forEach((dataMap)=>{
             graphDataList.push(dataMap['value']);
         });
       if (graphDataList.length!=0)
-        return graphDataList;
+        return {graphDataList,categoryName} ;
     }
 
     if(periodList.length == 0 && categoryList.length>=1){
       console.log("option 5");
         let graphDataList=[];
+        let categoryName="";
           dataList.forEach((dataMap)=>{
               if(dataMap['category'].length==1 && dataMap['category'][0]['name']=="age 15-64"){
+                  categoryName=dataMap['category'][0]['name'];
                   graphDataList.push(dataMap['value']);
               }
           });
         if(graphDataList.length!=0) //return if match found, else continue evaluating conditions
-          return graphDataList;
+          return {graphDataList,categoryName} ;
     }
 
 
@@ -207,14 +213,15 @@ export function ConvertSurveyDataToGraph(_data){
   for(var key in indicatorMap){
     indicatorName=indicatorMap[key]['name'];
   }
-
+  let {graphDataList,categoryName}= _generateSurveyGraphDataList(periodList,dataList,categoryList)
+  let indicName =indicatorName +" "+ categoryName + " - " + orgName;
   let graphData = {
-    name: indicatorName + " - " + orgName,
-    data: _generateSurveyGraphDataList(periodList,dataList,categoryList)
+    name: indicName,
+    data: graphDataList
   };
   convertdata.push(graphData);
   let cat =_generateOrderedPeriodList(periodList);
-  return {convertdata, cat};
+  return {convertdata, cat, indicName};
 }
 
 export function ConvertTimeSeriesLineGraph(_data){
