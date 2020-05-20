@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import Button from '@material-ui/core/Button';
 import SurveyDataMiddleware from './SurveyDataMiddleware'
-import SurveyFilter from '../../survey/SurveyFilter'
+import SurveyFilterWrapper from '../../survey/SurveyFilterWrapper'
 
 export default class SurveyChartFrame extends React.Component {
 
@@ -14,6 +14,7 @@ export default class SurveyChartFrame extends React.Component {
       indicatorId: this.props.indicatorId,
       indicatorSource: this.props.indicatorSource,
       genderId: null,
+      categoryId: null,
       initialReturnedData: null
     };
 
@@ -48,8 +49,8 @@ export default class SurveyChartFrame extends React.Component {
     this.setState({ genderId: gerderObject });
   }
 
-  handleCategoryChange=(category) => {
-    this.setState({ ouid: orgUnitObject });
+  handleCategoryChange=(categoryObject) => {
+    this.setState({ categoryId: categoryObject });
   }
 
   componentDidUpdate(prevProps) {
@@ -62,9 +63,11 @@ export default class SurveyChartFrame extends React.Component {
     return (
 
         <div class="column ">
-          <SurveyFilter
+          <SurveyFilterWrapper
             handleOrgUnitChange = {this.handleOrgUnitChange}
             handleGenderChange = {this.handleGenderChange}
+            handleChangePeriod = {this.handleChangePeriod}
+            handleCategoryChange = {this.handleCategoryChange}
             initialReturnedData = {this.state.initialReturnedData}/>
           <div className="box m-5">
             <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.indicatorName}</h5>
