@@ -259,7 +259,7 @@ export async function fetchSurveySources() {
   }
 }
 
-export async function fetchSurveyData(sourceId,id,orgId,pe,catID) {
+export async function fetchSurveyData(sourceId,id,orgId,pe,catId) {
   let fetchSurveyDataUrl = `${settings.dslBaseApi}/survey/sources/${sourceId}`;
 
   let append=false;
@@ -273,8 +273,8 @@ export async function fetchSurveyData(sourceId,id,orgId,pe,catID) {
   if(orgId != undefined && orgId != null){
     fetchSurveyDataUrl += `&orgId=${orgId}`;
   }
-  if(catID != undefined && catID != null){
-    fetchSurveyDataUrl += `&catID=${catID}`;
+  if(catId != undefined && catId != null){
+    fetchSurveyDataUrl += `&catId=${catId}`;
   }
   console.log("Making request to: "+fetchSurveyDataUrl);
   let _surveyData = await fetch(fetchSurveyDataUrl);
