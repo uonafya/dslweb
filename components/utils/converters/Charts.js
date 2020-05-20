@@ -1,3 +1,4 @@
+import {pickFromNoneParamerizedApiCall,pickFromParamerizedApiCall, _generateOrderedPeriodList} from '../survey/DataSelectionRules'
 //recharts format
 export function ConvertToMonthlyLineGraph(_data){
   // console.log("debug ===>");
@@ -100,96 +101,17 @@ export function ConvertToMonthlyLineGraph2(_data){
 
 }
 
-//private method:
-function _generateOrderedPeriodList(periodList){
-    let dataList=[];
-    if(periodList.length == 0){
-        return dataList
-    }
-    dataList=periodList.sort((a,b)=>{
-        return Number(a)-Number(b);
-    });
-    return dataList;
-}
-
 //private method: generates data list for graphing based on category & period dimensions
 //Data for graphing picking algorithm defaults to indicator with no category
-function _generateSurveyGraphDataList(periodList,dataList,categoryList){
-
-    if(periodList.length == 0 && categoryList.length>=1){
-      console.log("option 1");
-        let graphDataList=[];
-        let categoryName="";
-        dataList.forEach((dataMap)=>{
-            if(!('category' in dataMap)){
-              let gDataList=[];
-                gDataList.push(dataMap['value']);
-                graphDataList=gDataList;
-            }
-        });
-        if (graphDataList.length!=0)
-          return {graphDataList,categoryName} ;
-    }
-    if(periodList.length >= 1 && categoryList.length>=1){
-      console.log("option 2");
-        let graphDataList=[];
-        let categoryName="";
-        let periods=_generateOrderedPeriodList(periodList);
-        periods.forEach((period)=>{
-            dataList.forEach((dataMap)=>{
-                if(!("category" in dataMap) && dataMap['period']==period){
-                    graphDataList.push(dataMap['value']);
-                }
-            });
-        });
-        if(graphDataList.length!=0) //return if match found, else continue evaluating conditions
-          return {graphDataList,categoryName} ;
-    }
-    if(periodList.length >= 1 && categoryList.length==0){
-      console.log("option 3");
-        let graphDataList=[];
-        let categoryName="";
-        let periods=_generateOrderedPeriodList(periodList);
-        periods.forEach((period)=>{
-            dataList.forEach((dataMap)=>{
-                if(dataMap['period']==period)
-                    graphDataList.push(dataMap['value']);
-            });
-        });
-        if (graphDataList.length!=0)
-          return {graphDataList,categoryName} ;
-    }
-
-    if(periodList.length == 0 && categoryList.length==0){
-      console.log("option 4");
-      let graphDataList=[];
-      let categoryName="";
-        dataList.forEach((dataMap)=>{
-            graphDataList.push(dataMap['value']);
-        });
-      if (graphDataList.length!=0)
-        return {graphDataList,categoryName} ;
-    }
-
-    if(periodList.length == 0 && categoryList.length>=1){
-      console.log("option 5");
-        let graphDataList=[];
-        let categoryName="";
-          dataList.forEach((dataMap)=>{
-              if(dataMap['category'].length==1 && dataMap['category'][0]['name']=="age 15-64"){
-                  categoryName=dataMap['category'][0]['name'];
-                  graphDataList.push(dataMap['value']);
-              }
-          });
-        if(graphDataList.length!=0) //return if match found, else continue evaluating conditions
-          return {graphDataList,categoryName} ;
-    }
-
-
+function _generateSurveyGraphDataList(periodList,dataList,categoryList,orgId,pe,catId){
+    if(catId==null && pe==null && orgId== null)
+      return pickFromNoneParamerizedApiCall(periodList,dataList,categoryList);
+    else
+      return pickFromParamerizedApiCall(periodList,dataList,categoryList,orgId,pe,catId);
 }
 
 // converts survey data to
-export function ConvertSurveyDataToGraph(_data){
+export function ConvertSurveyDataToGraph(_data,orgId,pe,catId){
 
   let indicatorList =_data.dictionary.indicators;
   let orgUnitList =_data.dictionary.orgunits;
@@ -199,29 +121,32 @@ export function ConvertSurveyDataToGraph(_data){
   let indicatorMap =getSurveyIndicatorMetaDataMap(indicatorList);
   let orgunitMap =getOrgUnitsMap(orgUnitList);
   const convertdata = [];
+  if(dataList.length!=0){
+    let orgName="";
+    if(orgUnitList.length>1){
+        orgName=orgunitMap['18']['name']
+    }else{
+        for(var key in orgunitMap){
+          orgName=orgunitMap[key]['name'];
+        }
+    }
 
-  let orgName="";
-  if(orgUnitList.length>1){
-      orgName=orgunitMap['18']['name']
-  }else{
-      for(var key in orgunitMap){
-        orgName=orgunitMap[key]['name'];
-      }
-  }
+    let indicatorName="";
+    for(var key in indicatorMap){
+      indicatorName=indicatorMap[key]['name'];
+    }
 
-  let indicatorName="";
-  for(var key in indicatorMap){
-    indicatorName=indicatorMap[key]['name'];
+    let {graphDataList,categoryName}= _generateSurveyGraphDataList(periodList,dataList,categoryList,orgId,pe,catId);
+
+    let indicName =indicatorName +" "+ categoryName + " - " + orgName;
+    let graphData = {
+      name: indicName,
+      data: graphDataList
+    };
+    convertdata.push(graphData);
+    let cat =_generateOrderedPeriodList(periodList);
+    return {convertdata, cat, indicName};
   }
-  let {graphDataList,categoryName}= _generateSurveyGraphDataList(periodList,dataList,categoryList)
-  let indicName =indicatorName +" "+ categoryName + " - " + orgName;
-  let graphData = {
-    name: indicName,
-    data: graphDataList
-  };
-  convertdata.push(graphData);
-  let cat =_generateOrderedPeriodList(periodList);
-  return {convertdata, cat, indicName};
 }
 
 export function ConvertTimeSeriesLineGraph(_data){
