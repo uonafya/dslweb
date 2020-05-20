@@ -81,25 +81,33 @@ export default class SurveyDataMiddleware extends React.Component {
 
            let returnedData=await fetchSurveyData(sourceId,indicId,orgId,pe,catId);
            //this.props.setReturnedData(returnedData.result); //callback fn
-           let {convertdata, cat, indicName}=ConvertSurveyDataToGraph(returnedData.result);
-           category=cat;
-           _data=convertdata;
+           if(returnedData.result.data.length!=0){
+             let {convertdata, cat, indicName}=ConvertSurveyDataToGraph(returnedData.result,orgId,pe,catId);
+             category=cat;
+             _data=convertdata;
 
-           //if period is not available, use data source for xaxisLabel
-           if(category.length==0){
-             let surveySourcs=await fetchSurveySources();
-             surveySourcs.forEach( source =>{
-               if(source['id']==sourceId) category.push(source['name']);
+             //if period is not available, use data source for xaxisLabel
+             if(category.length==0){
+               let surveySourcs=await fetchSurveySources();
+               surveySourcs.forEach( source =>{
+                 if(source['id']==sourceId) category.push(source['name']);
+               });
+             }
+
+             this.setState({
+               data: _data,
+               xaxisLabel: category,
+               indicName: indicName
              });
-           }
+             //callback fn
 
-           this.setState({
-             data: _data,
-             xaxisLabel: category,
-             indicName: indicName
-           });
-           //callback fn
-           this.props.setIndicatorName(indicName);
+          }else{
+            console.log("no data");
+            this.setState({
+              data: []
+            });
+            this.props.setIndicatorName("no data for selected parameter");
+          }
         })();
 
     }
