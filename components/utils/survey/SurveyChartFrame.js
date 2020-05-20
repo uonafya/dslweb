@@ -15,6 +15,8 @@ export default class SurveyChartFrame extends React.Component {
       indicatorSource: this.props.indicatorSource,
       genderId: null,
       categoryId: null,
+      period: null,
+      ouid: null,
       initialReturnedData: null
     };
 
@@ -36,11 +38,13 @@ export default class SurveyChartFrame extends React.Component {
     });
   }
 
-  handleChangePeriod= (year)=> {
-    this.setState({ period: year });
+  handleChangePeriod= (period)=> {
+    console.log(period);
+    this.setState({ period: period });
   }
 
   handleOrgUnitChange=(orgUnitObject) => {
+    console.log(orgUnitObject);
     this.setState({ ouid: orgUnitObject });
   }
 
@@ -50,6 +54,7 @@ export default class SurveyChartFrame extends React.Component {
   }
 
   handleCategoryChange=(categoryObject) => {
+    console.log(categoryObject);
     this.setState({ categoryId: categoryObject });
   }
 
@@ -76,6 +81,10 @@ export default class SurveyChartFrame extends React.Component {
               setReturnedData={this.setInitialReturnedData}
               setIndicatorName={this.setIndicatorName}
               indicatorId={this.state.indicatorId}
+              genderId={this.state.genderId}
+              categoryId={this.state.categoryId}
+              period={this.state.period}
+              ouid={this.state.ouid}
               indicatorSource={this.state.indicatorSource}/>
           </div>
         </div>

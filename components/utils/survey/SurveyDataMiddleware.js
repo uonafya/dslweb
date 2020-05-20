@@ -52,6 +52,50 @@ export default class SurveyDataMiddleware extends React.Component {
      })();
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.parentOrgId != prevProps.parentOrgId ||
+      this.props.genderId  != prevProps.genderId ||
+      this.props.categoryId  != prevProps.categoryId ||
+      this.props.period  != prevProps.period ||
+      this.props.ouid != prevProps.ouid
+     ) {
+
+       let _data;
+       let category=[];
+       let sourceId=this.props.indicatorSource;
+       let indicId=this.props.indicatorId;
+       let pe=this.props.period;
+       let orgId=this.props.ouid;
+       (async () => {
+
+           let returnedData=await fetchSurveyData(sourceId,id,orgId,pe,catID);
+           this.props.setReturnedData(returnedData.result); //callback fn
+           let {convertdata, cat, indicName}=ConvertSurveyDataToGraph(returnedData.result);
+           category=cat;
+           _data=convertdata;
+
+           //if period is not available, use data source for xaxisLabel
+           if(category.length==0){
+             let surveySourcs=await fetchSurveySources();
+             surveySourcs.forEach( source =>{
+               if(source['id']==sourceId) category.push(source['name']);
+             });
+           }
+
+           this.setState({
+             data: _data,
+             xaxisLabel: category,
+             indicName: indicName
+           });
+           //callback fn
+           this.props.setIndicatorName(indicName);
+        })();
+
+    }
+  }
+
+
   render () {
     return (
       <div>
