@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-export default class SurveyGender extends React.Component {
+export default class SurveyGenderFilter extends React.Component {
 
   constructor (props) {
     super(props);
