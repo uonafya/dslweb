@@ -54,7 +54,6 @@ export default class SurveyDataMiddleware extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (
-      this.props.parentOrgId != prevProps.parentOrgId ||
       this.props.genderId  != prevProps.genderId ||
       this.props.categoryId  != prevProps.categoryId ||
       this.props.period  != prevProps.period ||
@@ -66,11 +65,22 @@ export default class SurveyDataMiddleware extends React.Component {
        let sourceId=this.props.indicatorSource;
        let indicId=this.props.indicatorId;
        let pe=this.props.period;
+       let genderId= this.props.genderId;
+       let categoryId= this.props.categoryId;
        let orgId=this.props.ouid;
+       let catId;
+       if(genderId != null && categoryId != null){
+         catId=genderId+";"+categoryId;
+       }else if(genderId != null){
+         catId=genderId;
+       }else if(categoryId != null){
+         catId=categoryId;
+       }else{}
+
        (async () => {
 
-           let returnedData=await fetchSurveyData(sourceId,id,orgId,pe,catID);
-           this.props.setReturnedData(returnedData.result); //callback fn
+           let returnedData=await fetchSurveyData(sourceId,indicId,orgId,pe,catId);
+           //this.props.setReturnedData(returnedData.result); //callback fn
            let {convertdata, cat, indicName}=ConvertSurveyDataToGraph(returnedData.result);
            category=cat;
            _data=convertdata;

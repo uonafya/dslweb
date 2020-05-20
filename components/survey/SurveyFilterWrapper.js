@@ -22,11 +22,11 @@ export default class SurveyFilterWrapper extends React.Component {
 
   setInitialFilterData = () =>{
       if(this.props.initialReturnedData!=null){
-          console.log("dta mounted");
+          //gender filter
           this.setState({
             orgFilter:<SurveyOrganisationUnitFilter handleOrgUnitChange={this.props.handleOrgUnitChange} orgList={this.props.initialReturnedData.dictionary.available.orgunits}/>
-            //gender filter
           });
+          //gender filter
           if(this.props.initialReturnedData.dictionary.available.categories.length!=0){
             let addedGender=[];
             let genderArray=this.props.initialReturnedData.dictionary.available.categories.map( catObj =>{
@@ -67,7 +67,7 @@ export default class SurveyFilterWrapper extends React.Component {
   }
 
   render() {
-    
+
     return (
         <div>
           <div style={{display: "inline-block"}}>
