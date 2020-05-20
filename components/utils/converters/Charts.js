@@ -104,7 +104,7 @@ export function ConvertToMonthlyLineGraph2(_data){
 //private method: generates data list for graphing based on category & period dimensions
 //Data for graphing picking algorithm defaults to indicator with no category
 function _generateSurveyGraphDataList(periodList,dataList,categoryList,orgId,pe,catId){
-    if(catId==null && pe==null && orgId== null)
+    if(catId==null && pe==null && (orgId== null || orgId==18))
       return pickFromNoneParamerizedApiCall(periodList,dataList,categoryList);
     else
       return pickFromParamerizedApiCall(periodList,dataList,categoryList,orgId,pe,catId);

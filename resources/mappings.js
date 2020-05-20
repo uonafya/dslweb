@@ -22,6 +22,22 @@ uhc.groups[uhc_groups['SERVICESAVAILABILITY']] = {
     11964: {
       'name': 'infant mortality rate',
       'sourceId': 8
+    },
+    2578: {
+      'name': 'EMTCT rate',
+      'sourceId': 2
+    },
+    7635: {
+      'name': 'TB treatment coverage',
+      'sourceId': 3
+    },
+    751: {
+      'name': 'Hiv prevalence rate',
+      'sourceId': 4
+    },
+    4210: {
+      'name': 'Hiv prevalence rate',
+      'sourceId': 7
     }
   }
 }
