@@ -100,7 +100,7 @@ export default class SurveyDataMiddleware extends React.Component {
                indicName: indicName
              });
              //callback fn
-
+             this.props.setIndicatorName(indicName);
           }else{
             console.log("no data");
             this.setState({
