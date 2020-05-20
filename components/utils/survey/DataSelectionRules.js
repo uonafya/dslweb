@@ -9,7 +9,7 @@ export function _generateOrderedPeriodList(periodList){
     return dataList;
 }
 
-export function  pickFromNoneParamerizedApiCall(periodList,dataList,categoryList){
+function _pickDataWithNotCategory(dataList,periodList,categoryList){
   if(periodList.length == 0 && categoryList.length>=1){
     //console.log("option 1");
       let graphDataList=[];
@@ -23,6 +23,59 @@ export function  pickFromNoneParamerizedApiCall(periodList,dataList,categoryList
       });
       if (graphDataList.length!=0)
         return {graphDataList,categoryName} ;
+  }
+}
+
+function _pickDataReturned(dataList,periodList,categoryList){
+  if(periodList.length == 0 && categoryList.length==0){
+    //console.log("option 4");
+    let graphDataList=[];
+    let categoryName="";
+      dataList.forEach((dataMap)=>{
+          graphDataList=[];
+          graphDataList.push(dataMap['value']);
+      });
+    if (graphDataList.length!=0)
+      return {graphDataList,categoryName} ;
+  }
+
+}
+
+function _pickExplicitAgeRange(dataList,periodList,categoryList){
+  let graphDataList=[];
+  let categoryName="";
+  dataList.forEach((dataMap)=>{
+      if('category' in dataMap){
+        let categoryNames=[];
+        if(dataMap.category.length>1){
+          categoryNames.push(dataMap.category[0]['name']);
+          categoryNames.push(dataMap.category[1]['name']);
+
+        }else{
+          categoryNames.push(dataMap.category[0]['name']);
+          categoryName=dataMap.category[0].name;
+        }
+        if( (categoryNames.includes("age 15-64")) ||  (categoryNames.includes("age 18-69")) ){
+            graphDataList=[];
+            graphDataList.push(dataMap['value']);
+            if(dataMap.category.length>1)
+              categoryName=dataMap.category[0].name +" "+ dataMap.category[1].name;
+            else
+              categoryName=dataMap.category[0].name;
+        }
+      }
+  });
+  let graphDataLis=graphDataList;
+  let categoryNam=categoryName;
+  return {graphDataLis,categoryNam};
+}
+
+export function  pickFromNoneParamerizedApiCall(periodList,dataList,categoryList){
+  if(periodList.length == 0 && categoryList.length>=1){
+    let dataToReturn = _pickDataWithNotCategory(dataList,periodList,categoryList);
+    if (dataToReturn!=null)
+      return dataToReturn;
+
   }
   if(periodList.length >= 1 && categoryList.length>=1){
     //console.log("option 2");
@@ -55,14 +108,9 @@ export function  pickFromNoneParamerizedApiCall(periodList,dataList,categoryList
   }
 
   if(periodList.length == 0 && categoryList.length==0){
-    //console.log("option 4");
-    let graphDataList=[];
-    let categoryName="";
-      dataList.forEach((dataMap)=>{
-          graphDataList.push(dataMap['value']);
-      });
-    if (graphDataList.length!=0)
-      return {graphDataList,categoryName} ;
+    let dataToReturn = _pickDataReturned(dataList,periodList,categoryList);
+    if (dataToReturn!=null)
+      return dataToReturn;
   }
 
   if(periodList.length == 0 && categoryList.length>=1){
@@ -81,10 +129,9 @@ export function  pickFromNoneParamerizedApiCall(periodList,dataList,categoryList
 
 }
 
-
 export function  pickFromParamerizedApiCall(periodList,dataList,categoryList,orgId,pe,catId){
 
-  if(categoryList.length>=1 && pe==null){
+  if(categoryList.length>=1 && pe==null && (orgId==null || orgId==18) ){
       console.log("option 1");
       let graphDataList=[];
       let categoryName="";
@@ -128,7 +175,7 @@ export function  pickFromParamerizedApiCall(periodList,dataList,categoryList,org
         return {graphDataList,categoryName} ;
   }
 
-  if(categoryList.length>=1  && pe==null){
+  if(categoryList.length>=1  && pe==null && (orgId==null || orgId==18) ){
     //console.log("option 5");
       let graphDataList=[];
       let categoryName="";
@@ -142,31 +189,25 @@ export function  pickFromParamerizedApiCall(periodList,dataList,categoryList,org
 
       if(cats.length==1){ //pick data where category array is one and equal to this catId parameter
 
-        dataList.forEach((dataMap)=>{
-            if('category' in dataMap){
-              let categoryNames=[];
-              if(dataMap.category.length>1){
-                categoryNames.push(dataMap.category[0]['name']);
-                categoryNames.push(dataMap.category[1]['name']);
-
-              }else{
-                categoryNames.push(dataMap.category[0]['name']);
-                categoryName=dataMap.category[0].name;
-              }
-              if( (categoryNames.includes("age 15-64")) ||  (categoryNames.includes("age 18-69")) ){
-                  graphDataList=[];
-                  graphDataList.push(dataMap['value']);
-                  if(dataMap.category.length>1)
-                    categoryName=dataMap.category[0].name +" "+ dataMap.category[1].name;
-                  else
-                    categoryName=dataMap.category[0].name;
-              }
-            }
-        });
+          let {graphDataLis,categoryNam}=_pickExplicitAgeRange(dataList,periodList,categoryList);
+          graphDataList=graphDataLis;
+          categoryName=categoryNam;
       }
 
       if(graphDataList.length!=0) //return if match found, else continue evaluating conditions
         return {graphDataList,categoryName} ;
+  }
+
+  if(orgId!=null && periodList.length == 0 && categoryList.length>=1){
+    let dataToReturn = _pickDataWithNotCategory(dataList,periodList,categoryList);
+    if (dataToReturn!=null)
+      return dataToReturn;
+  }
+
+  if(periodList.length == 0 && categoryList.length==0){
+    let dataToReturn = _pickDataReturned(dataList,periodList,categoryList);
+    if (dataToReturn!=null)
+      return dataToReturn;
   }
 
 }
