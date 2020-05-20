@@ -60,6 +60,7 @@ export default class CategoryFilter extends React.Component {
         size="small"
         value={this.state.selectedVal}
         onChange={(event, newValue) => {
+          if(newValue==null || newValue==undefined ) newValue="";
           this.setState({
             selectedVal:newValue
           });

@@ -37,7 +37,7 @@ export default class SurveyOrganisationUnitFilter extends React.Component {
         size="small"
         value={this.state.selectedVal}
         onChange={(event, newValue) => {
-          if(newValue==null || newValue==undefined ) newValue=18;
+          if(newValue==null || newValue==undefined ) newValue="";
           this.setState({
             selectedVal:newValue
           });
