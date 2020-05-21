@@ -6,6 +6,8 @@ import {FetchCadreGroupAllocation} from './utils/Helpers'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import HighchartsExporting from 'highcharts/modules/exporting'
+import CountyDropDown from './utils/CountyDropDown'
+import YearDropDown from './utils/YearDropDown'
 
 if (typeof Highcharts === 'object') {
   HighchartsExporting(Highcharts)
@@ -16,6 +18,10 @@ export default class CadreGroupPieChart extends PureComponent {
   constructor(props){
     super(props);
     this.state = {
+      period: 2019,
+      ouid: 18,
+      countyList: [],
+      title: "Distribution of facility human resource by Cadre grouping",
       chartOptions: {
         chart: {
           plotBackgroundColor: null,
@@ -61,13 +67,11 @@ export default class CadreGroupPieChart extends PureComponent {
     }
 
   }
+
   componentDidMount() {
     (async () => {
       let groupId=null;
-      if(this.props.id != null || this.props.id !=undefined){
-        groupId=this.props.id
-      }
-      let returnedData = await FetchCadreGroupAllocation(groupId, this.props.ouid, this.props.pe);
+      let returnedData = await FetchCadreGroupAllocation(groupId, this.state.ouid, this.state.pe);
       let data=ConvertToCadreGroupPieChart(returnedData);
       this.setState({
        chartOptions: {
@@ -76,42 +80,68 @@ export default class CadreGroupPieChart extends PureComponent {
      });
     })()
 
-    if(this.props.title!=null) this.setState({
+    if(this.state.title!=null) this.setState({
       chartOptions: {
-        title: {text: this.props.title}
+        title: {text: this.state.title}
       }
     });
   }
 
 
-  componentWillReceiveProps(nextProps){
+  handleStateChange=(ouid,pe)=>{
     (async () => {
       let groupId=null;
-      if(nextProps.id != null || nextProps.id !=undefined){
-        groupId=nextProps.id
-      }
-      let returnedData = await FetchCadreGroupAllocation(groupId, nextProps.ouid, nextProps.pe);
+      let returnedData = await FetchCadreGroupAllocation(groupId, ouid, pe);
       let data=ConvertToCadreGroupPieChart(returnedData);
       this.setState({
-       chartOptions: {
-         series: data
-       }
+        chartOptions: {
+          series: data
+        }
      });
     })()
 
-    if(nextProps.title!=null) this.setState({
+    if(this.state.title!=null) this.setState({
       chartOptions: {
-        title: {text: nextProps.title}
+        title: {text: this.state.title}
       }
     });
+  }
+
+  handleChangePeriod=(year)=> {
+    this.handleStateChange(null,year);
+    this.setState({ period: year });
+  }
+
+  handleOrgUnitChange=(orgUnitId)=> {
+    this.handleStateChange(orgUnitId,null);
+    this.setState({ ouid: orgUnitId });
   }
 
   render(){
     const { chartOptions } = this.state;
     return(
-      < div >
-        <HighchartsReact highcharts = { Highcharts } options = {chartOptions}/>
+
+      <div class="column ">
+
+        <div>
+          <div style={{display: "inline-block"}}>
+            <YearDropDown handler={this.handleChangePeriod} />
+          </div>
+          <div style={{display: "inline-block", marginLeft: "2px"}}>
+            <CountyDropDown handler={this.handleOrgUnitChange}/>
+          </div>
+        </div>
+
+        <div className="box m-5">
+          <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.title}</h5>
+          <br/>
+             <div>
+              <HighchartsReact highcharts = { Highcharts } options = {chartOptions}/>
+            </div>
+        </div>
+
       </div>
+
     )
   }
 
