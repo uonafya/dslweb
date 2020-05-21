@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import SurveyDataMiddleware from '../utils/survey/SurveyDataMiddleware'
 import SurveyChartFrame from '../utils/survey/SurveyChartFrame'
 
-export default class ServicesAvailability extends React.Component {
+export default class PopUpModal extends React.Component {
 
   constructor () {
     super();

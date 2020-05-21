@@ -1,14 +1,20 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import HealthWorkForce from '../components/HealthWorkForceModal'
 import ServiceCoverage from '../components/ServicesCoverageModal'
 import HealthInfomation from '../components/HealthInformationModal'
 import ResilienceInServices from '../components/ResilienceInServicesModal'
 import QualityOfEssentialServices from '../components/QualityOfEssentialServicesModal'
 import DemandForEssentialServices from '../components/DemandForEssentialServicesModal'
-import ServicesAvailability from '../components/uhc/ServicesAvailability'
+import PopUpModal from '../components/uhc/PopUpModal'
+import {uhc,uhc_groups} from '../resources/mappings'
+import CadreCountTable from '../components/CadreAllocationTable'
+import CadreGroupPieChart from '../components/CadreGroupPie'
 
 const props = {};
+const cadreDistribution=[];
+
+cadreDistribution.push(<CadreGroupPieChart/>);
+cadreDistribution.push(<CadreCountTable/>);
 
 export default function UHC() {
   return (
@@ -136,7 +142,11 @@ export default function UHC() {
                                     <div className="columns p-5">
                                         <div className="column p-3">
                                             <article id="serviceavailability" className="notification is-success p-5">
-                                                <ServicesAvailability  {...props}/>
+                                                <PopUpModal
+                                                groupName={'Essential Services Availability'}
+                                                indicatorMap={uhc.groups[uhc_groups.SERVICESAVAILABILITY]['indicators']}
+                                                cssStyling={"text-uppercase"}
+                                                />
                                             </article>
                                         </div>
                                         <div className="column p-3">
@@ -146,7 +156,11 @@ export default function UHC() {
                                         </div>
                                         <div className="column p-3">
                                             <article className="notification is-success p-5">
-                                                <p className="text-uppercase">Financial Risk Protection</p>
+                                                <PopUpModal
+                                                groupName={'Financial Risk Protection'}
+                                                indicatorMap={uhc.groups[uhc_groups.SERVICESAVAILABILITY]['indicators']}
+                                                cssStyling={"text-uppercase"}
+                                                />
                                             </article>
                                         </div>
                                     </div>
@@ -274,7 +288,12 @@ export default function UHC() {
                                     <div className="columns">
                                         <div className="column is-2">
                                             <article className="notification is-info">
-                                            <p className="subtitle text-vertical-rl">Health Financing</p>
+                                            <p className="subtitle text-vertical-rl"></p>
+                                              <PopUpModal
+                                              groupName={'Health Financing'}
+                                              indicatorMap={uhc.groups[uhc_groups.SERVICESAVAILABILITY]['indicators']}
+                                              cssStyling={"subtitle text-vertical-rl"}
+                                              />
                                             </article>
                                         </div>
                                         <div className="column">
@@ -300,7 +319,12 @@ export default function UHC() {
                                             <div className="columns">
                                                 <div className="column p-3">
                                                     <article id="healthworkforce" className="notification bcsecondary-dark p-5">
-                                                      <HealthWorkForce {...props}/>
+                                                        <PopUpModal
+                                                        groupName={'Health Workforce'}
+                                                        indicatorMap={uhc.groups[uhc_groups.SERVICESAVAILABILITY]['indicators']}
+                                                        cssStyling={"subtitle text-uppercase fcwhite m-b-5"}
+                                                        nonSurveyComponents={cadreDistribution}
+                                                        />
                                                     </article>
                                                 </div>
                                             </div>
