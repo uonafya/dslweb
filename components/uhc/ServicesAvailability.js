@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import Button from '@material-ui/core/Button';
 import SurveyDataMiddleware from '../utils/survey/SurveyDataMiddleware'
 import SurveyChartFrame from '../utils/survey/SurveyChartFrame'
-import {uhc,uhc_groups} from '../../resources/mappings'
 
 export default class ServicesAvailability extends React.Component {
 
@@ -25,14 +24,12 @@ export default class ServicesAvailability extends React.Component {
 
   handleCloseModal () {
     this.setState({
-      showModal: false,
-      period: 2019,
-      ouid: 18
+      showModal: false
      });
   }
 
   componentDidMount(){
-    let indicatorMap=uhc.groups[uhc_groups.SERVICESAVAILABILITY]['indicators'];
+    let indicatorMap=this.props.indicatorMap;
     this.setState({
       indicatorMap: indicatorMap
     });
@@ -45,10 +42,23 @@ export default class ServicesAvailability extends React.Component {
     let rowsTags=[];
     let rowTags=[];
 
+    //add non survey charts to dashboard
+    if(this.props.nonSurveyComponents != undefined && this.props.nonSurveyComponents != null)
+      this.props.nonSurveyComponents.forEach((nonSurveyEl)=>{
+        let columnTag=nonSurveyEl;
+          //create two columns with rows of chart
+          if(rowTags.length!=2){
+            rowTags.push(columnTag);
+          }else{
+            rowsTags.push(<div class="columns">{rowTags}</div>);
+            rowTags=[];
+            rowTags.push(columnTag);
+          }
+      });
+
+      //add survey charts to dashboard
     for(var key in indicatorMap){
-
       let columnTag=<SurveyChartFrame indicatorName={indicatorMap[key]['name']} indicatorId={key} indicatorSource={indicatorMap[key]['sourceId']} />
-
         //create two columns with rows of chart
         if(rowTags.length!=2){
           rowTags.push(columnTag);
@@ -57,7 +67,6 @@ export default class ServicesAvailability extends React.Component {
           rowTags=[];
           rowTags.push(columnTag);
         }
-
     }
 
     if(rowTags.length!=0) rowsTags.push(<div class="columns">{rowTags}</div>);
@@ -65,14 +74,14 @@ export default class ServicesAvailability extends React.Component {
     return (
       <div>
         {/*<button onClick={this.handleOpenModal}>Trigger Modal</button>*/}
-        <p onClick={this.handleOpenModal} className="text-uppercase">Essential Services Availability</p>
+        <p onClick={this.handleOpenModal} className={this.props.cssStyling}>{this.props.groupName}</p>
         <Modal
            isOpen={this.state.showModal}
-           contentLabel="Minimal Modal Example">
+           contentLabel="${this.props.groupName} dashboard">
           <section style={{paddingBottom: "0" }} className="section p-t-10">
             <a href="#" onClick={this.handleCloseModal}><i  class="far fa-times-circle fa-2x " style={{color: "red"}}></i></a>
             <span style={{display: "inline-block", width: "100%", textAlign: "center"}}>
-              <h4 style={{fontSize: "150%", fontWeight: "bold"}}>Essential Services Availability</h4>
+              <h4 style={{fontSize: "150%", fontWeight: "bold"}}>{this.props.groupName}</h4>
             </span>
           </section>
 
@@ -83,7 +92,6 @@ export default class ServicesAvailability extends React.Component {
 
           </section>
           {/*--- end content area*/}
-
 
         </Modal>
       </div>
