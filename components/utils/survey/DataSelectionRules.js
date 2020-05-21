@@ -38,7 +38,21 @@ function _pickDataReturned(dataList,periodList,categoryList){
     if (graphDataList.length!=0)
       return {graphDataList,categoryName} ;
   }
+}
 
+function _pickDataReturnedWithPeriod(dataList,periodList,categoryList){
+  //console.log("option 3");
+    let graphDataList=[];
+    let categoryName="";
+    let periods=_generateOrderedPeriodList(periodList);
+    periods.forEach((period)=>{
+        dataList.forEach((dataMap)=>{
+            if(dataMap['period']==period)
+                graphDataList.push(dataMap['value']);
+        });
+    });
+    if (graphDataList.length!=0)
+      return {graphDataList,categoryName} ;
 }
 
 function _pickExplicitAgeRange(dataList,periodList,categoryList){
@@ -75,8 +89,8 @@ export function  pickFromNoneParamerizedApiCall(periodList,dataList,categoryList
     let dataToReturn = _pickDataWithNotCategory(dataList,periodList,categoryList);
     if (dataToReturn!=null)
       return dataToReturn;
-
   }
+
   if(periodList.length >= 1 && categoryList.length>=1){
     //console.log("option 2");
       let graphDataList=[];
@@ -92,19 +106,11 @@ export function  pickFromNoneParamerizedApiCall(periodList,dataList,categoryList
       if(graphDataList.length!=0) //return if match found, else continue evaluating conditions
         return {graphDataList,categoryName} ;
   }
+
   if(periodList.length >= 1 && categoryList.length==0){
-    //console.log("option 3");
-      let graphDataList=[];
-      let categoryName="";
-      let periods=_generateOrderedPeriodList(periodList);
-      periods.forEach((period)=>{
-          dataList.forEach((dataMap)=>{
-              if(dataMap['period']==period)
-                  graphDataList.push(dataMap['value']);
-          });
-      });
-      if (graphDataList.length!=0)
-        return {graphDataList,categoryName} ;
+    let dataToReturn = _pickDataReturnedWithPeriod(dataList,periodList,categoryList);
+    if (dataToReturn!=null)
+      return dataToReturn;
   }
 
   if(periodList.length == 0 && categoryList.length==0){
@@ -206,6 +212,12 @@ export function  pickFromParamerizedApiCall(periodList,dataList,categoryList,org
 
   if(periodList.length == 0 && categoryList.length==0){
     let dataToReturn = _pickDataReturned(dataList,periodList,categoryList);
+    if (dataToReturn!=null)
+      return dataToReturn;
+  }
+
+  if(periodList.length >= 1 && categoryList.length==0){
+    let dataToReturn = _pickDataReturnedWithPeriod(dataList,periodList,categoryList);
     if (dataToReturn!=null)
       return dataToReturn;
   }
