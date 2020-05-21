@@ -9,12 +9,19 @@ import PopUpModal from '../components/uhc/PopUpModal'
 import {uhc,uhc_groups} from '../resources/mappings'
 import CadreCountTable from '../components/CadreAllocationTable'
 import CadreGroupPieChart from '../components/CadreGroupPie'
+import IndicatorLineGraph from '../components/utils/IndicatorLineGraph'
 
 const props = {};
 const cadreDistribution=[];
+const serviceKHISCoverageIndicators=[];
 
 cadreDistribution.push(<CadreGroupPieChart/>);
 cadreDistribution.push(<CadreCountTable/>);
+
+serviceKHISCoverageIndicators.push(<IndicatorLineGraph type={'column'} id={9986029} pe={2019} ouid={18} selfContained={true}/>);
+serviceKHISCoverageIndicators.push(<IndicatorLineGraph type={'column'} id={342134} pe={2019} ouid={18} selfContained={true}/>);
+serviceKHISCoverageIndicators.push(<IndicatorLineGraph type={'column'} id={31584} pe={2019} ouid={18} selfContained={true}/>);
+serviceKHISCoverageIndicators.push(<IndicatorLineGraph type={'column'} id={10748234} pe={2019} ouid={18} selfContained={true}/>);
 
 export default function UHC() {
   return (
@@ -151,7 +158,12 @@ export default function UHC() {
                                         </div>
                                         <div className="column p-3">
                                             <article id="servicecoverage" className="notification is-success p-5">
-                                                <ServiceCoverage  {...props}/>
+                                              <PopUpModal
+                                              groupName={'Essential Services Coverage'}
+                                              indicatorMap={uhc.groups[uhc_groups.SERVICESAVAILABILITY]['indicators']}
+                                              cssStyling={"text-uppercase"}
+                                              nonSurveyComponents={serviceKHISCoverageIndicators}
+                                              />
                                             </article>
                                         </div>
                                         <div className="column p-3">
