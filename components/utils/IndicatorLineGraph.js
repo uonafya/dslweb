@@ -99,7 +99,7 @@ export default class IndicatorLineGraph extends PureComponent {
         if(_data==undefined){
           _data=[];
           this.setState({
-            title: null // for components calling this component without inner filters
+            title: "No data for selected parameter" // for components calling this component without inner filters
           });
         }
 
