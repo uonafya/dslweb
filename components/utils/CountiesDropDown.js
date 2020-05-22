@@ -12,8 +12,7 @@ export default class Counties extends React.Component {
       showModal: false,
       period: 2019,
       ouid: 18,
-      countyList: [],
-      selectedVal:null
+      countyList: []
     };
 
   }
@@ -51,7 +50,7 @@ export default class Counties extends React.Component {
       <Autocomplete
         id="counties-combo-box"
         size="small"
-        value={this.selectedVal}
+        value={this.state.selectedVal}
         onChange={(event, newValue) => {
           if(newValue==null || newValue==undefined ) newValue=18;
           this.setState({

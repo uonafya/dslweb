@@ -38,7 +38,8 @@ export default class OrgUnitNestedMenu extends React.Component {
   render() {
 
     let orgDrill=null;
-
+    let labelName;
+    labelName= (this.props.name!=null)? this.props.name : "Organisation Unit";
     if(this.props.level.includes('3')){
       orgDrill=
         <React.Fragment>
@@ -56,7 +57,7 @@ export default class OrgUnitNestedMenu extends React.Component {
     return (
           <div>
           <Button aria-describedby={this.props.elId} variant="contained" color="primary" onClick={this.handleClick}>
-            Organisation Unit &#9662;
+            {labelName} &#9662;
           </Button>
           <Popover id={this.props.elId} open={Boolean(this.state.anchorEl)} anchorEl={this.state.anchorEl} onClose={this.handleClose} anchorOrigin={{
               vertical: 'bottom',

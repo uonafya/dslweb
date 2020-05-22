@@ -65,7 +65,7 @@ export default class SubCounties extends React.Component {
       <Autocomplete
         id="subcounties-combo-box"
         size="small"
-        value={this.selectedVal}
+        value={this.state.selectedVal}
         onChange={(event, newValue) => {
           if(newValue==null || newValue==undefined ) newValue=18;
           this.setState({

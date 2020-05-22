@@ -6,9 +6,8 @@ import { FetchIndicatorData } from './Helpers'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import HighchartsExporting from 'highcharts/modules/exporting'
-import CountyDropDown from './CountyDropDown'
-import YearDropDown from './YearDropDown'
 import OrgUnitNestedMenu from './OrgUnitNestedMenu'
+import GenericYearDropDown from './GenericYearDropDown'
 
 if (typeof Highcharts === 'object') {
   HighchartsExporting(Highcharts)
@@ -24,6 +23,7 @@ export default class IndicatorLineGraph extends PureComponent {
         ouid: 18,
         countyList: [],
         id: this.props.id,
+        title: null,
         chart: {
                 type: 'line'  // can be line, bar or column
                 },
@@ -68,8 +68,21 @@ export default class IndicatorLineGraph extends PureComponent {
         err_msg = indicatorData.messageType + ' ' + indicatorData.mesageContent
       }else{
         _data=ConvertToMonthlyLineGraph2(indicatorData.result);
-        if(_data==undefined)
+        console.log(_data);
+        if(_data==undefined){
           _data=[];
+          this.setState({
+            title: null // for components calling this component without inner filters
+          });
+        }
+
+        else{
+          if(_data.length==1){
+            this.setState({
+              title:_data[0]['name']
+            });
+          }
+        }
       }
       if(this.props.type!=null){
         this.setState({
@@ -97,6 +110,9 @@ export default class IndicatorLineGraph extends PureComponent {
   componentWillReceiveProps(nextProps){
     console.log("called");
     this.fetchAndUpdateData(nextProps.id,nextProps.ouid,nextProps.pe,this.props.level);
+    this.setState({
+      title: null // for components calling this component without inner filters
+    });
   }
 
   handleChangePeriod =(year)=> {
@@ -117,10 +133,10 @@ export default class IndicatorLineGraph extends PureComponent {
         return <div className="column ">
             <div>
               <div style={{display: "inline-block"}}>
-                <YearDropDown handler={this.handleChangePeriod} />
+                <GenericYearDropDown handleChangePeriod={this.handleChangePeriod}/>
               </div>
               <div style={{display: "inline-block", marginLeft: "2px"}}>
-                <OrgUnitNestedMenu level={['1','2','3']} callBackHandler={this.handleOrgUnitChange} elId={`${this.state.ouid} indicatorChart`}/>
+                <OrgUnitNestedMenu name={this.props.label} level={['1','2','3']} callBackHandler={this.handleOrgUnitChange} elId={`${this.state.ouid} indicatorChart`}/>
               </div>
             </div>
 

@@ -82,7 +82,7 @@ export function ConvertToMonthlyLineGraph2(_data){
 
         if(!(singleMap['ou'] in orgUnitIndicatorData)){
           orgUnitIndicatorData[singleMap['ou']]={
-            name: indicName+" - "+orgunitMap[singleMap['ou']]['name'],
+            name: indicName+" - "+orgunitMap[singleMap['ou']]['name'] + " - " +singleMap['period'].substring(0,4),
             data: [null, null, null, null, null, null, null, null, null, null, null, null]
           };
         }
