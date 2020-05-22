@@ -56,7 +56,7 @@ export default class SurveyGraph extends PureComponent {
               dataLabels: {
                   enabled: true
               },
-              enableMouseTracking: false
+              enableMouseTracking: true
             },
           bar: {
               dataLabels: {

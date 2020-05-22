@@ -56,25 +56,25 @@ export default class IndicatorLineGraph extends PureComponent {
               dataLabels: {
                   enabled: true
               },
-              enableMouseTracking: false
+              enableMouseTracking: true
             },
           column: {
               dataLabels: {
                   enabled: true
               },
-              enableMouseTracking: false
+              enableMouseTracking: true
             },
           bar: {
               dataLabels: {
                   enabled: true
               },
-              enableMouseTracking: false
+              enableMouseTracking: true
             },
           area: {
               dataLabels: {
                   enabled: true
               },
-              enableMouseTracking: false
+              enableMouseTracking: true
             }
         },
 
