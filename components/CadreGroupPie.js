@@ -21,7 +21,7 @@ export default class CadreGroupPieChart extends PureComponent {
       period: 2019,
       ouid: 18,
       countyList: [],
-      title: "Distribution of facility human resource by Cadre grouping",
+      title: "",
       chartOptions: {
         chart: {
           plotBackgroundColor: null,
@@ -69,17 +69,7 @@ export default class CadreGroupPieChart extends PureComponent {
   }
 
   componentDidMount() {
-    (async () => {
-      let groupId=null;
-      let returnedData = await FetchCadreGroupAllocation(groupId, this.state.ouid, this.state.pe);
-      let data=ConvertToCadreGroupPieChart(returnedData);
-      this.setState({
-       chartOptions: {
-         series: data
-       }
-     });
-    })()
-
+    this.handleStateChange(this.state.ouid, this.state.pe);
     if(this.state.title!=null) this.setState({
       chartOptions: {
         title: {text: this.state.title}
@@ -87,11 +77,26 @@ export default class CadreGroupPieChart extends PureComponent {
     });
   }
 
+  componentWillReceiveProps(nextProps){
+    this.handleStateChange(nextProps.ouid, nextProps.pe);
 
-  handleStateChange=(ouid,pe)=>{
+    if(nextProps.title!=null) this.setState({
+      chartOptions: {
+        title: {text: nextProps.title}
+      }
+    });
+  }
+
+  handleStateChange=(ouid,year)=>{
+    if(year == null || year ==undefined){
+      year=this.state.period;
+    }
+    if(ouid == null || ouid ==undefined){
+      ouid=this.state.ouid;
+    }
     (async () => {
       let groupId=null;
-      let returnedData = await FetchCadreGroupAllocation(groupId, ouid, pe);
+      let returnedData = await FetchCadreGroupAllocation(groupId, ouid, year);
       let data=ConvertToCadreGroupPieChart(returnedData);
       this.setState({
         chartOptions: {
@@ -99,12 +104,6 @@ export default class CadreGroupPieChart extends PureComponent {
         }
      });
     })()
-
-    if(this.state.title!=null) this.setState({
-      chartOptions: {
-        title: {text: this.state.title}
-      }
-    });
   }
 
   handleChangePeriod=(year)=> {
@@ -119,29 +118,40 @@ export default class CadreGroupPieChart extends PureComponent {
 
   render(){
     const { chartOptions } = this.state;
-    return(
 
-      <div class="column ">
+    const renderFrag = ()=> {
+      if(this.props.selfContained){
+        return   <div class="column ">
+              <div>
+                <div style={{display: "inline-block"}}>
+                  <YearDropDown handler={this.handleChangePeriod} />
+                </div>
+                <div style={{display: "inline-block", marginLeft: "2px"}}>
+                  <CountyDropDown handler={this.handleOrgUnitChange}/>
+                </div>
+              </div>
 
-        <div>
-          <div style={{display: "inline-block"}}>
-            <YearDropDown handler={this.handleChangePeriod} />
-          </div>
-          <div style={{display: "inline-block", marginLeft: "2px"}}>
-            <CountyDropDown handler={this.handleOrgUnitChange}/>
-          </div>
-        </div>
+              <div className="box m-5">
+                <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.props.title}</h5>
+                <br/>
+                   <div>
+                    <HighchartsReact highcharts = { Highcharts } options = {chartOptions}/>
+                  </div>
+              </div>
 
-        <div className="box m-5">
-          <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.title}</h5>
-          <br/>
-             <div>
-              <HighchartsReact highcharts = { Highcharts } options = {chartOptions}/>
             </div>
+      }else{
+        return <div >
+          <HighchartsReact highcharts = { Highcharts } options = {chartOptions}/>
         </div>
+      }
 
-      </div>
+    }
 
+    return(
+      <React.Fragment>
+        {renderFrag()}
+      </React.Fragment>
     )
   }
 
