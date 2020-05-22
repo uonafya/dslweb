@@ -49,14 +49,38 @@ export default class CadreCountTable extends PureComponent {
     });
   }
 
-  handleStateChange=(ouid,pe)=>{
+  componentWillReceiveProps(nextProps){
     (async () => {
       let ouID=null;
       let cadreId=null;
-      if(ouid != null || ouid !=undefined){
+      if(nextProps.id != null || nextProps.id !=undefined){
+        cadreId=nextProps.id
+      }
+      if(nextProps.ouid != null || nextProps.ouid !=undefined){
         ouID=nextProps.ouid
       }
-      let returnedData = await FetchCadreAllocation(cadreId,ouID,pe);
+      let returnedData = await FetchCadreAllocation(cadreId,ouID, nextProps.pe);
+      let data=ConvertToCadreTable(returnedData['data']);
+      console.log(data);
+      this.setState({
+        _data:  data
+      });
+    })()
+    .catch(error => {
+      console.log("Could not fetctch cadres");
+    });
+  }
+
+  handleStateChange=(ouid,year)=>{
+    if(year == null || year ==undefined){
+      year=this.state.period;
+    }
+    if(ouid == null || ouid ==undefined){
+      ouid=this.state.ouid;
+    }
+    (async () => {
+      let cadreId=null;
+      let returnedData = await FetchCadreAllocation(cadreId,ouid,year);
       let data=ConvertToCadreTable(returnedData['data']);
       console.log(data);
       this.setState({
@@ -69,45 +93,60 @@ export default class CadreCountTable extends PureComponent {
   }
 
   handleChangePeriod=(year)=> {
-    this.handleStateChange(null,year);
     this.setState({ period: year });
+    this.handleStateChange(null,year);
   }
 
   handleOrgUnitChange=(orgUnitId)=> {
-    this.handleStateChange(orgUnitId,null);
     this.setState({ ouid: orgUnitId });
+    this.handleStateChange(orgUnitId,null);
   }
 
 
   render() {
-    return (
+    const renderFrag = ()=> {
+      if(this.props.selfContained){
+        return   <div class="column ">
 
-      <div class="column ">
-
-        <div>
-          <div style={{display: "inline-block"}}>
-            <YearDropDown handler={this.handleChangePeriod} />
-          </div>
-          <div style={{display: "inline-block", marginLeft: "2px"}}>
-            <CountyDropDown handler={this.handleOrgUnitChange}/>
-          </div>
-        </div>
-
-        <div className="box m-5">
-          <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.title}</h5>
-          <br/>
-             <div>
-               <DataTable
-                 title="Distribution of facility human resource by Cadre"
-                 columns={columns}
-                 data={this.state._data}
-                 pagination={true}
-               />
+          <div>
+            <div style={{display: "inline-block"}}>
+              <YearDropDown handler={this.handleChangePeriod} />
             </div>
+            <div style={{display: "inline-block", marginLeft: "2px"}}>
+              <CountyDropDown handler={this.handleOrgUnitChange}/>
+            </div>
+          </div>
+
+          <div className="box m-5">
+            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.title}</h5>
+            <br/>
+               <div>
+                 <DataTable
+                   title="Distribution of facility human resource by Cadre"
+                   columns={columns}
+                   data={this.state._data}
+                   pagination={true}
+                 />
+              </div>
+          </div>
+
         </div>
+      }else{
+        return <div >
+          <DataTable
+            title="Distribution of facility human resource by Cadre"
+            columns={columns}
+            data={this.state._data}
+            pagination={true}/>
+        </div>
+      }
 
-      </div>
+    }
 
+    return (
+      <React.Fragment>
+        {renderFrag()}
+      </React.Fragment>
     )
   }
 }
