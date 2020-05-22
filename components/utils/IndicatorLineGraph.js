@@ -153,8 +153,30 @@ export default class IndicatorLineGraph extends PureComponent {
     this.fetchAndUpdateData(this.props.id,orgUnitId,this.state.period);
   }
 
+  changeChartType=(type,event)=> {
+    this.setState({
+     chartOptions: {
+       chart: {
+         type: type
+       }
+     }
+   });
+  }
+
   render(){
     const { chartOptions } = this.state;
+
+    let graphTyep=<div style={{display: "inline-block", float: "right"}}>
+
+                      <button className="button is-small is-white" data_type onClick = {(e)=>this.changeChartType('line',e)}><i className="fas fa-chart-line"></i> &nbsp; Line</button>
+                      &nbsp;
+                      <button className="button is-small is-white" onClick = {(e)=>this.changeChartType('column',e)}><i className="fas fa-chart-bar"></i> &nbsp; Bar</button>
+                      &nbsp;
+                      <button className="button is-small is-white" onClick = {(e)=>this.changeChartType('bar',e)}><i class="fas fa-bars"></i> &nbsp; Vertical bar</button>
+                      &nbsp;
+                      <button className="button is-small is-white" onClick = {(e)=>this.changeChartType('area',e)}><i class="fas fa-chart-area"></i> &nbsp; Area</button>
+                  </div>
+
     const renderFrag = ()=> {
       if(this.props.selfContained){
         return <div className="column ">
@@ -165,6 +187,7 @@ export default class IndicatorLineGraph extends PureComponent {
               <div style={{display: "inline-block", marginLeft: "2px"}}>
                 <OrgUnitNestedMenu name={this.props.label} level={['1','2','3']} callBackHandler={this.handleOrgUnitChange} elId={`${this.state.ouid} indicatorChart`}/>
               </div>
+              {graphTyep}
             </div>
 
             <div className="box m-5">

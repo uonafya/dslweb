@@ -17,6 +17,7 @@ export default class SurveyChartFrame extends React.Component {
       categoryId: null,
       period: null,
       ouid: null,
+      chartType: 'column',
       initialReturnedData: null
     };
 
@@ -64,16 +65,35 @@ export default class SurveyChartFrame extends React.Component {
     }
   }
 
+  changeChartType=(type,event)=> {
+    this.setState({
+     chartType: type
+   });
+  }
+
   render () {
+    let graphTyep=<div style={{display: "inline-block", float: "right"}}>
+
+                      <button className="button is-small is-white" data_type onClick = {(e)=>this.changeChartType('line',e)}><i className="fas fa-chart-line"></i> &nbsp; Line</button>
+                      &nbsp;
+                      <button className="button is-small is-white" onClick = {(e)=>this.changeChartType('column',e)}><i className="fas fa-chart-bar"></i> &nbsp; Bar</button>
+                      &nbsp;
+                      <button className="button is-small is-white" onClick = {(e)=>this.changeChartType('bar',e)}><i class="fas fa-bars"></i> &nbsp; Vertical bar</button>
+                      &nbsp;
+                      <button className="button is-small is-white" onClick = {(e)=>this.changeChartType('area',e)}><i class="fas fa-chart-area"></i> &nbsp; Area</button>
+                  </div>
     return (
 
         <div class="column ">
-          <SurveyFilterWrapper
-            handleOrgUnitChange = {this.handleOrgUnitChange}
-            handleGenderChange = {this.handleGenderChange}
-            handleChangePeriod = {this.handleChangePeriod}
-            handleCategoryChange = {this.handleCategoryChange}
-            initialReturnedData = {this.state.initialReturnedData}/>
+          <div>
+            <SurveyFilterWrapper
+              handleOrgUnitChange = {this.handleOrgUnitChange}
+              handleGenderChange = {this.handleGenderChange}
+              handleChangePeriod = {this.handleChangePeriod}
+              handleCategoryChange = {this.handleCategoryChange}
+              initialReturnedData = {this.state.initialReturnedData}/>
+             {graphTyep}
+          </div>
           <div className="box m-5">
             <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">{this.state.indicatorName}</h5>
             <br/>
@@ -85,6 +105,7 @@ export default class SurveyChartFrame extends React.Component {
               categoryId={this.state.categoryId}
               period={this.state.period}
               ouid={this.state.ouid}
+              chartType={this.state.chartType}
               indicatorSource={this.state.indicatorSource}/>
           </div>
         </div>

@@ -69,7 +69,7 @@ export default class SurveyFilterWrapper extends React.Component {
   render() {
 
     return (
-        <div>
+        <div style={{display: "inline-block"}}>
           <div style={{display: "inline-block"}}>
             {this.state.orgFilter}
           </div>

@@ -16,7 +16,7 @@ export default class SurveyDataMiddleware extends React.Component {
       xaxisLabel: null,
       indicName: null,
       data: null,
-      chartType: 'column',
+      chartType: 'column'
     };
 
   }
@@ -117,7 +117,7 @@ export default class SurveyDataMiddleware extends React.Component {
   render () {
     return (
       <div>
-        <SurveyGraph data={this.state.data} xaxisLabel={this.state.xaxisLabel} chartType={this.state.chartType}/>
+        <SurveyGraph data={this.state.data} xaxisLabel={this.state.xaxisLabel} chartType={this.props.chartType}/>
       </div>
     );
   }

@@ -50,7 +50,7 @@ export default class SurveyGraph extends PureComponent {
               dataLabels: {
                   enabled: true
               },
-              enableMouseTracking: false
+              enableMouseTracking: true
             },
           column: {
               dataLabels: {
@@ -62,13 +62,13 @@ export default class SurveyGraph extends PureComponent {
               dataLabels: {
                   enabled: true
               },
-              enableMouseTracking: false
+              enableMouseTracking: true
             },
           area: {
               dataLabels: {
                   enabled: true
               },
-              enableMouseTracking: false
+              enableMouseTracking: true
             }
         },
         series:  null
@@ -80,7 +80,7 @@ export default class SurveyGraph extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.data != prevProps.data) {
+    if (this.props.data != prevProps.data ) {
       this.setState({
         chartOptions: {
            series:  this.props.data,
@@ -89,6 +89,15 @@ export default class SurveyGraph extends PureComponent {
            },
            chart: {
                 type: this.props.chartType
+           }
+        }
+      });
+    }
+    if(this.props.chartType!=prevProps.chartType){
+      this.setState({
+        chartOptions: {
+           chart: {
+              type: this.props.chartType
            }
         }
       });
