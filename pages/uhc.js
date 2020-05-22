@@ -15,8 +15,8 @@ const props = {};
 const cadreDistribution=[];
 const serviceKHISCoverageIndicators=[];
 
-cadreDistribution.push(<CadreGroupPieChart/>);
-cadreDistribution.push(<CadreCountTable/>);
+cadreDistribution.push(<CadreGroupPieChart  selfContained={true} title={"Distribution of facility human resource by Cadre grouping"}/>);
+cadreDistribution.push(<CadreCountTable  selfContained={true}/>);
 
 serviceKHISCoverageIndicators.push(<IndicatorLineGraph type={'column'} id={9986029} pe={2019} ouid={18} selfContained={true}/>);
 serviceKHISCoverageIndicators.push(<IndicatorLineGraph type={'column'} id={342134} pe={2019} ouid={18} selfContained={true}/>);
