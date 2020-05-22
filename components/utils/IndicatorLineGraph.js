@@ -51,6 +51,33 @@ export default class IndicatorLineGraph extends PureComponent {
         credits: {
           enabled: false
         },
+        plotOptions: {
+          line: {
+              dataLabels: {
+                  enabled: true
+              },
+              enableMouseTracking: false
+            },
+          column: {
+              dataLabels: {
+                  enabled: true
+              },
+              enableMouseTracking: false
+            },
+          bar: {
+              dataLabels: {
+                  enabled: true
+              },
+              enableMouseTracking: false
+            },
+          area: {
+              dataLabels: {
+                  enabled: true
+              },
+              enableMouseTracking: false
+            }
+        },
+
         series:  [{}]
       }
     }
