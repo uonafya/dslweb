@@ -59,10 +59,10 @@ export default class Counties extends React.Component {
           });
           if(newValue==18){
             this.props.updateCountyIdHandler(18);
-            this.props.callBackHandler({'orgId':18, 'level':1, 'name':'Kenya'});
+            this.props.callBackHandler(18);
           }else{
             this.props.updateCountyIdHandler(newValue.id);
-            this.props.callBackHandler({'orgId':newValue.id, 'level':newValue.level, 'name':newValue.title});
+            this.props.callBackHandler(newValue.id);
           }
 
         }}

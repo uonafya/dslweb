@@ -8,6 +8,7 @@ import HighchartsReact from 'highcharts-react-official'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import CountyDropDown from './CountyDropDown'
 import YearDropDown from './YearDropDown'
+import OrgUnitNestedMenu from './OrgUnitNestedMenu'
 
 if (typeof Highcharts === 'object') {
   HighchartsExporting(Highcharts)
@@ -67,6 +68,8 @@ export default class IndicatorLineGraph extends PureComponent {
         err_msg = indicatorData.messageType + ' ' + indicatorData.mesageContent
       }else{
         _data=ConvertToMonthlyLineGraph2(indicatorData.result);
+        if(_data==undefined)
+          _data=[];
       }
       if(this.props.type!=null){
         this.setState({
@@ -117,7 +120,7 @@ export default class IndicatorLineGraph extends PureComponent {
                 <YearDropDown handler={this.handleChangePeriod} />
               </div>
               <div style={{display: "inline-block", marginLeft: "2px"}}>
-                <CountyDropDown handler={this.handleOrgUnitChange}/>
+                <OrgUnitNestedMenu level={['1','2','3']} callBackHandler={this.handleOrgUnitChange} elId={`${this.state.ouid} indicatorChart`}/>
               </div>
             </div>
 

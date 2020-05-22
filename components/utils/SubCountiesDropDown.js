@@ -67,10 +67,11 @@ export default class SubCounties extends React.Component {
         size="small"
         value={this.selectedVal}
         onChange={(event, newValue) => {
+          if(newValue==null || newValue==undefined ) newValue=18;
           this.setState({
             selectedVal:newValue
           });
-          this.props.callBackHandler({'orgId':newValue.id, 'level':newValue.level, 'name':newValue.title});
+          this.props.callBackHandler(newValue.id);
         }}
         options={this.state.displayCountyList}
         getOptionLabel={(option) => option.title}
