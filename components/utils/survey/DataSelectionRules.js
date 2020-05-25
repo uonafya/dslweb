@@ -124,7 +124,12 @@ export function  pickFromNoneParamerizedApiCall(periodList,dataList,categoryList
       let graphDataList=[];
       let categoryName="";
         dataList.forEach((dataMap)=>{
-            if(dataMap['category'].length==1 && (dataMap['category'][0]['name']=="age 15-64" ||  dataMap['category'][0]['name']=="age 18-69")){
+            if(dataMap['category'].length==1 &&
+              (dataMap['category'][0]['name']=="age 15-64" ||
+              dataMap['category'][0]['name']=="age 18-69" ||
+              dataMap['category'][0]['name']=="current age 20-24" ||
+              dataMap['category'][0]['name']=="total 15-49"
+            )) {
                 categoryName=dataMap['category'][0]['name'];
                 graphDataList.push(dataMap['value']);
             }
