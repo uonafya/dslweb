@@ -437,7 +437,6 @@ export default function UHC() {
                                         </div>
                                         <div className="column is-2">
                                             <article id="healthinfomation" className="tile notification is-info">
-                                                <HealthInfomation  {...props}/>
                                                 <PopUpModal
                                                 groupName={'Health Information'}
                                                 indicatorMap={uhc.groups[uhc_groups.HealthInformation]['indicators']}
