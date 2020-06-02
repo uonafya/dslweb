@@ -59,7 +59,7 @@ const Page = withRouter(props => (
                 {/* <!-- daterangepicker --> */}
                 <label className="label fcgrey-dark-3 text-light display-inline-b m-r-0 p-r-0">Time: </label>&nbsp;
                 <span className="text-bold display-inline-b p-l-0 m-l-0">
-                <PeriodPicker title={props.error ? props.years[0]: props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")} periodChangeFxn={ 
+                <PeriodPicker title={props.error ? props.years[0]: props.indicatorData.result.dictionary.parameters.period.map(prd => ""+prd+" ")} periodChangeFxn={
                   (pr) => {
                     const newRoute = `/indicator/${props.id}?pe=${pr}&ouid=${props.ouid ? props.ouid : 18}`;
                     Router.push(newRoute)
@@ -384,6 +384,9 @@ Page.getInitialProps = async function(context) {
   let { ouid } = context.query; //get GET params sent to this page
   let { level } = context.query; //get GET params sent to this page
   let loadingg = true;
+  if(pe==undefined){
+    pe=settings.previousYear;
+  }
   let { indicatorData, loading, levell, error } = await fetchIndicatorData(id,ouid,pe,level,loadingg)
 
   // for filters
