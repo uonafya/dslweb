@@ -10,7 +10,7 @@ let cache = {
 export async function FetchIndicatorData(id,ouid,pe,level,loading) {
   let tim = new Date()
   if(pe == undefined){
-    if(tim.getMonth() < 5){ pe = tim.getFullYear()-1; }else{ pe = tim.getFullYear(); }
+    pe=settings.previousYear;
   }
   console.log(`// running helper fetchIndicatorData. ID:${id} && OU:${ouid} && PE:${pe} && LEVEL:${level}`)
   loading = true;

@@ -384,9 +384,11 @@ Page.getInitialProps = async function(context) {
   let { ouid } = context.query; //get GET params sent to this page
   let { level } = context.query; //get GET params sent to this page
   let loadingg = true;
+
   if(pe==undefined){
     pe=settings.previousYear;
   }
+
   let { indicatorData, loading, levell, error } = await fetchIndicatorData(id,ouid,pe,level,loadingg)
 
   // for filters
