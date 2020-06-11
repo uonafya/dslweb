@@ -30,7 +30,7 @@ export default class SurveyFilterWrapper extends React.Component {
           if(this.props.initialReturnedData.dictionary.available.categories.length!=0){
             let addedGender=[];
             let genderArray=this.props.initialReturnedData.dictionary.available.categories.map( catObj =>{
-              if((catObj[0].id==65 || catObj[0].id==69) && !addedGender.includes(catObj[0].id)){ // 65 & 69 are male and female ids
+              if((catObj[0].name.trim()=="male" || catObj[0].name.trim()=="female") && !addedGender.includes(catObj[0].id)){ // 65 & 69 are male and female ids
                 addedGender.push(catObj[0].id);
 
                 return {id: catObj[0].id, name: catObj[0].name}

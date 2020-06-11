@@ -34,13 +34,13 @@ export default class CategoryFilter extends React.Component {
     let addedId=[];
     this.props.catList.forEach((cat)=>{
        if(cat.length==1){
-         if(cat[0].id!=69 && cat[0].id!=65 && !addedId.includes(cat[0].id)){
+         if(cat[0].name.trim()!="male" && cat[0].name.trim()!="female" && !addedId.includes(cat[0].id)){
            addedId.push(cat[0].id!=69);
            cateList.push({title: cat[0].name, id: cat[0].id});
          }
        }else if(cat.length>1){
          for(let x=0; x<cat.length; x++){
-           if(cat[x].id!=65 && cat[x].id!=69 && !addedId.includes(cat[x].id)){
+           if(cat[x].name.trim()!="male" && cat[x].name.trim()!="female" && !addedId.includes(cat[x].id)){
              addedId.push(cat[x].id);
              cateList.push({title: cat[x].name, id: cat[x].id});
            }
