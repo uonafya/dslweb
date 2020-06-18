@@ -40,6 +40,9 @@ const Header = () => (
               <span>UHC</span>
             </a> */}
             <Link href='/uhc'><a className="navbar-item m-r-5">UHC</a></Link>
+
+            <Link href='/Covid19'><a className="navbar-item m-r-5">Covid19</a></Link>
+
             <div className="navbar-item has-dropdown is-hoverable m-r-5">
               <a className="navbar-link m-r-5" href="#">
                   Programs
