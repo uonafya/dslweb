@@ -282,6 +282,29 @@ export async function fetchSurveyData(sourceId,id,orgId,pe,catId) {
   return surveyData
 }
 
+export async function fetchCovidData(id, ouid, startDate, endDate, loading) {
+  loading = true;
+  let fetchCovidDataUrl = `${settings.dslBaseApi}/pandemics/covid19`;
+  if(startDate != undefined && startDate != null){
+    fetchCovidDataUrl += `?start_date=${startDate}`;
+  }
+  if(ouid != undefined && ouid != null){
+    fetchCovidDataUrl += `&org_id=${ouid}`;
+  }
+  if(id != undefined && id != null){
+    fetchCovidDataUrl += `&id=${id}`;
+  }
+  if(endDate != undefined && endDate != null){
+    fetchCovidDataUrl += `&end_date=${endDate}`;
+  }
+  const fetchCovidData = await fetch(fetchCovidDataUrl);
+  const covidData = await fetchCovidData.json();
+  if(true){
+    loading = false;
+  }
+  return {covidData, loading}
+}
+
 export function dateToStr(ledate) {
   ledate = ledate.trim()
   if(ledate.length < 5){
@@ -303,4 +326,69 @@ export function dateToStr(ledate) {
   if (lemonth == "12") { var numonth = "Dec"; }
   var lenudate = numonth + " " + leyear;
   return lenudate;
+}
+
+export function getCummulativeCases(data, caseId) {
+    let cummulativeCases = {};
+    let cummulativeCasesList = [];
+
+    data.result.data[caseId].forEach(dataEntity =>{
+      if(dataEntity.period in cummulativeCases){
+          if(dataEntity.value > cummulativeCases[dataEntity.period]){
+            cummulativeCases[dataEntity.period]= dataEntity.value;
+          }
+      }else{
+        cummulativeCases[dataEntity.period]= dataEntity.value;
+      }
+    });
+
+    for (var m in cummulativeCases){
+        let dEntry= {};
+        dEntry['date']=m;
+        dEntry['value']=cummulativeCases[m];
+        cummulativeCasesList.push(dEntry);
+    }
+
+    let sortedCummulativeCasesList=cummulativeCasesList.sort(compareDates);
+    return sortedCummulativeCasesList;
+}
+
+
+function compareDates(a, b) {
+  let d1 = new Date(a.date);
+  let d2 = new Date(b.date);
+  let same = d1.getTime() === d2.getTime();
+
+  let comparison = 0;
+  if (d1 > d2) {
+    comparison = 1;
+  } else if (d1 < d2) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
+//compares equality of two objects
+export function isObjectEquivalent(a, b) {
+    if(a==null && b==null){
+      return true;
+    }
+    if(a==null) a={};
+    if(b==null) b={};
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+
+    for (var i = 0; i < aProps.length; i++) {
+        var propName = aProps[i];
+
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+
+    return true;
 }
