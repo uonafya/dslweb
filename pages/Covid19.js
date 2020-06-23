@@ -148,7 +148,7 @@ export default class extends React.Component {
           fillOpacity: 0.7
         });
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-            layer.bringToFront(); // do not highlight county if this browsers used
+            layer.bringToBack(); // do not highlight county if this browsers used
         }
       }
     }
@@ -183,18 +183,48 @@ export default class extends React.Component {
         currentViewType: "bubble",
         geoJsonCurrentStyle: this.bubbleStyle
       });
+      var countiesWithCovidMarkers = [];
+      let countiesMap = {};
+      let indicatorName="";
+      MapCenters.forEach(county=>{
+        let countyName=county.name.toLowerCase().trim();
+        countiesMap[countyName]={};
+        countiesMap[countyName]['dsl_id']=county.dsl_id;
+        countiesMap[countyName]['longitude']=county.longitude;
+        countiesMap[countyName]['latitude']=county.latitude;
+      });
+      this.state.choroPlethData.features.forEach(countyData =>{
+        if(countyData.properties.density !=null){
+          indicatorName=countyData.properties['indicatorName'];
+          let countyName=countyData.properties.AREA_NAME.toLowerCase().trim();
+          let lat=countiesMap[countyName]['latitude'];
+          let long=countiesMap[countyName]['longitude'];
+          let countyMarker = L.circle([lat, long], {radius: 700});
+          countiesWithCovidMarkers.push(countyMarker);
+        }
+      });
+      let countiesWithCovid = L.layerGroup(countiesWithCovidMarkers,indicatorName);
+      countiesWithCovid.addTo(this.refs.covMap.leafletElement);
+      this.refs.layersControl.leafletElement.addOverlay(countiesWithCovid,indicatorName);
 
-      //var littleton = L.marker([0.166779241, 37.764037054]).bindPopup('This is Littleton, CO.');
-      //this.refs.layersControl.leafletElement.addOverlay(littleton,"test layer");
+      this.setState({
+        bubbleIndicatorLayer: countiesWithCovid
+      });
+
     }
 
     insertChoroplethLayer=()=>{
       this.refs.coviGgeojson.leafletElement.setStyle(this.getChoroplethColor);
       document.getElementById("choroPlethLegend").style.visibility="visible";
+
+      this.state.bubbleIndicatorLayer.remove(); //remove layer added by bubble map action
+      this.refs.layersControl.leafletElement.removeLayer(this.state.bubbleIndicatorLayer); //remove it from overlay control
+
       this.setState({
         currentViewType: "choropleth",
         geoJsonCurrentStyle: this.choroplethStyle
       });
+
     }
 
   render() {
