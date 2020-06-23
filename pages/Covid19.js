@@ -6,7 +6,7 @@ import Link from 'next/link';
 import SidePanel from '../components/pandemic/map/SidePanel'
 import ChoroPlethLegend from '../components/pandemic/map/choroPlethLegend'
 import {fetchCovidData , insertCovidValues} from '../components/utils/Helpers';
-import CovidBubble from '../components/pandemic/map/covidBubble'
+
 
 export default class extends React.Component {
 
@@ -20,7 +20,9 @@ export default class extends React.Component {
       covidData: null,
       defaultGeoJson: JSON.parse(JSON.stringify(MapData)),
       choroPlethData: null,
-      choroPleathPopUpdIndicator: "confirmed cases"
+      geoJsonCurrentStyle: this.choroplethStyle,
+      choroPleathPopUpdIndicator: "confirmed cases",
+      currentViewType: "choropleth"
     };
   }
 
@@ -77,31 +79,18 @@ export default class extends React.Component {
     });
   }
 
-  geoJsonStyle = (feature)=>{
-         return {
-            fillColor: '#b1b1b3',
-            weight: 2,
-            opacity: 3,
-            color: '#006400',
-            dashArray: '3',
-            fillOpacity: 0.5,
-            fontWeight: 700
-        };
+  choroplethStyle= (feature)=> {
+    return {
+      fillColor: this.getChoroplethColor(feature.properties.density),
+      weight: 2,
+      opacity: 1,
+      color: 'white',
+      dashArray: '3',
+      fillOpacity: 0.7
     };
-
-    choroplethStyle= (feature)=> {
-      return {
-        fillColor: this.getChoroplethColor(feature.properties.density),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7
-      };
   }
 
-
-    getChoroplethColor =(d)=>{
+  getChoroplethColor =(d)=>{
      return d==undefined ? '#ccdaee':
             d==null ?  '#ccdaee':
             d > 1000 ? '#800026' :
@@ -114,6 +103,17 @@ export default class extends React.Component {
                        '#FFEDA0';
      }
 
+    bubbleStyle= (feature)=> {
+      return {
+        fillColor: '#ccdaee',
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+      };
+    }
+
     //on mouse hover
    choroplethHighlightFeature= (e)=> {
         //add toot tip to county
@@ -123,24 +123,34 @@ export default class extends React.Component {
              ${e.target.feature.properties.density}</div>
            `);
 
-        //highlight selected county
-        let layer = e.target;
-        layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
-        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-            layer.bringToFront();
-        }
-
+          let layer = e.target;
+          layer.setStyle({
+              weight: 5,
+              color: '#666',
+              dashArray: '',
+              fillOpacity: 0.7
+          });
+          if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+              layer.bringToFront(); // do not highlight county if these browsers used
+          }
     }
 
     //on mouse out
     choroplethResetHighlight= (e)=> {
-
-      this.refs.coviGgeojson.leafletElement.resetStyle(e.target);
+      if(this.state.currentViewType == 'choropleth'){
+        this.refs.coviGgeojson.leafletElement.resetStyle(e.target);
+      }else{
+        let layer = e.target;
+        layer.setStyle({ //same style as this.bubbleStyle
+          weight: 2,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.7
+        });
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront(); // do not highlight county if this browsers used
+        }
+      }
     }
 
     choroplethOnEachFeatureAddListener =(feature, layer)=> {
@@ -151,32 +161,40 @@ export default class extends React.Component {
     }
 
     updateCovidData = (id, indicatorName)=>{
-
         (async () => { //http://dsl.health.go.ke/dsl/api/pandemics/covid19?id=6074&start_date=2020-06-07
           //let {covidData}=await fetchCovidData(null,null,null,null);
           let choroPlethData=insertCovidValues(this.state.covidData,MapData,id,indicatorName); //confirmed cases
-
           this.setState({
             choroPlethData: choroPlethData
           });
-
         })()
     }
 
     addMarkersOnMap = (feature, layer)=>{
-
       layer.on({
         mouseover: this.choroplethHighlightFeature2.bind(this),
       });
-
     }
 
     insertBubbleLayer=()=>{
-      console.log(this.refs.layersControl);
-      console.log('==== done')
-      var littleton = L.marker([0.166779241, 37.764037054]).bindPopup('This is Littleton, CO.');
-      this.refs.layersControl.leafletElement.addOverlay(littleton,"test layer");
-    //  L.control.layers(baseMaps, overlayMaps).addTo(map);
+    //  console.log(this.refs.layersControl);
+    document.getElementById("choroPlethLegend").style.visibility="hidden";
+      this.setState({
+        currentViewType: "bubble",
+        geoJsonCurrentStyle: this.bubbleStyle
+      });
+
+      //var littleton = L.marker([0.166779241, 37.764037054]).bindPopup('This is Littleton, CO.');
+      //this.refs.layersControl.leafletElement.addOverlay(littleton,"test layer");
+    }
+
+    insertChoroplethLayer=()=>{
+      this.refs.coviGgeojson.leafletElement.setStyle(this.getChoroplethColor);
+      document.getElementById("choroPlethLegend").style.visibility="visible";
+      this.setState({
+        currentViewType: "choropleth",
+        geoJsonCurrentStyle: this.choroplethStyle
+      });
     }
 
   render() {
@@ -207,6 +225,12 @@ export default class extends React.Component {
       [51.49, -0.08],
       [51.5, -0.06],
     ]
+
+    const geoJsnLayer=<GeoJSON
+                        ref="coviGgeojson"
+                        data={this.state.choroPlethData} key={this.state.choroPlethData}
+                        style={this.state.geoJsonCurrentStyle} onEachFeature= {this.choroplethOnEachFeatureAddListener.bind(this)} />
+
 
     return (
     <Layout>
@@ -252,10 +276,16 @@ export default class extends React.Component {
 
       <div style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 900 + 'px'}}>
           <LeafletMap ref="covMap" scrollWheelZoom={false} center={center} zoom={6.5} maxZoom={18} >
+            {geoJsnLayer}
+            <SidePanel insertBubbleLayer={this.insertBubbleLayer}
+                       insertChoroplethLayer={this.insertChoroplethLayer}
+                       choroPlethData={this.state.choroPlethData}
+                       setCurrenGeoJsonToDisplay={this.setCurrenGeoJsonToDisplay}
+                       defaultGeoJson={this.state.defaultGeoJson}
+                       covidData={this.state.covidData}/>
 
-            <SidePanel insertBubbleLayer={this.insertBubbleLayer} choroPlethData={this.state.choroPlethData} setCurrenGeoJsonToDisplay={this.setCurrenGeoJsonToDisplay} defaultGeoJson={this.state.defaultGeoJson} covidData={this.state.covidData}/>
             <ChoroPlethLegend  getChoroplethColor={this.getChoroplethColor}/>
-             <GeoJSON ref="coviGgeojson" data={this.state.choroPlethData} key={this.state.choroPlethData} style={this.choroplethStyle} onEachFeature= {this.choroplethOnEachFeatureAddListener.bind(this)} />
+
              <LayersControl ref='layersControl' collapsed={true} position="topright">
                <BaseLayer checked name="OpenStreetMap">
                  <TileLayer

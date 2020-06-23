@@ -18,10 +18,11 @@ export default class SidePanel extends React.Component {
   }
 
   updateToChoropleth = (event) => {
+    this.props.insertChoroplethLayer();
     event.preventDefault();
     document.getElementById("choroplethEl").style.backgroundColor = '#0093d5';
     document.getElementById("bubbleEl").style.backgroundColor = 'white';
-    this.props.setCurrenGeoJsonToDisplay(this.state.currentChoroplethData); //restore current chroropleth data
+    //this.props.setCurrenGeoJsonToDisplay(this.state.currentChoroplethData); //restore current chroropleth data
 
   };
 
@@ -33,7 +34,7 @@ export default class SidePanel extends React.Component {
     this.setState({
       currentChoroplethData: JSON.parse(JSON.stringify(this.props.choroPlethData)) //backup current choropleth data to be restored
     });
-    this.props.setCurrenGeoJsonToDisplay(this.props.defaultGeoJson);
+    //this.props.setCurrenGeoJsonToDisplay(this.props.defaultGeoJson);
 
   };
 

@@ -9,13 +9,6 @@ export default class extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      isVisible: true
-    };
-  }
-
-  componentDidMount(){
-
   }
 
   setLegendElements=()=>{
