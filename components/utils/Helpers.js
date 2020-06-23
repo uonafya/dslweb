@@ -1,6 +1,6 @@
 import { settings } from './Settings'
 import fetch from 'isomorphic-unfetch'
-
+import MapCenters from '../../static/maps/county-centers-coordinates'
 let cache = {
   countiesList: null,
   subcountiesList: null,
@@ -328,6 +328,7 @@ export function dateToStr(ledate) {
   return lenudate;
 }
 
+//returns an ordered list of objects [{date: xxxx-xx-xx, value: x}, ...] of given case id
 export function getCummulativeCases(data, caseId) {
     let cummulativeCases = {};
     let cummulativeCasesList = [];
@@ -353,6 +354,58 @@ export function getCummulativeCases(data, caseId) {
     return sortedCummulativeCasesList;
 }
 
+// creates a list of sorted cases for each county; output = {indicatorId: { orgId: [date: xxxx-xx-xx, value: xx] }}
+
+function getCummulativeCasesByOrgUnit(data) {
+
+    let perIndicatorCountyData = {}
+    let cummulativeCases = {};
+
+    let cummulativeCasesList = [];
+
+    for(var key in data.result.data){
+        if(!(key in perIndicatorCountyData)) perIndicatorCountyData[key]={}; //indicator
+        data.result.data[key].forEach(dataEntity => {
+          if(!(dataEntity.ou in perIndicatorCountyData[key])) perIndicatorCountyData[key][dataEntity.ou]={}; //orgunit
+            perIndicatorCountyData[key][dataEntity.ou][dataEntity.period]=dataEntity.value;
+        });
+    }
+
+
+    for (var indicatorID in perIndicatorCountyData){
+
+      for (var orgId in perIndicatorCountyData[indicatorID]){
+
+        let countycummulativeCasesList=[];
+        let summedCountycummulativeCasesList=[];
+
+        for (var period in perIndicatorCountyData[indicatorID][orgId]){
+          let dEntry= {};
+          dEntry['date']=period;
+          dEntry['value']=perIndicatorCountyData[indicatorID][orgId][period];
+          countycummulativeCasesList.push(dEntry);
+        }
+
+        let sortedCountycummulativeCasesList=countycummulativeCasesList.sort(compareDates); //sort the values from earliest date
+
+        //sum up the sorted by period per county cases.
+        let cummulativeCount=0;
+        sortedCountycummulativeCasesList.forEach(
+          (dateValueCountyCases)=>{
+            cummulativeCount=cummulativeCount+dateValueCountyCases.value;
+            dateValueCountyCases.value=cummulativeCount;
+            summedCountycummulativeCasesList.push(dateValueCountyCases)
+          }
+        );
+
+        perIndicatorCountyData[indicatorID][orgId]=summedCountycummulativeCasesList;
+      }
+
+    }
+
+    return perIndicatorCountyData;
+}
+
 
 function compareDates(a, b) {
   let d1 = new Date(a.date);
@@ -366,6 +419,33 @@ function compareDates(a, b) {
     comparison = -1;
   }
   return comparison;
+}
+
+//insert covid data value to geoJson for choropleth mapping
+// indicId is the id of indicator to inject in the data
+export function insertCovidValues(data, geoJson, indicId, indicatoName) {
+    let counties = {};
+    MapCenters.forEach(county=>{
+      counties[county.dsl_id]=county.name;
+    });
+
+    let orderedData=getCummulativeCasesByOrgUnit(data);
+    geoJson.features.forEach(countyData =>{
+       for(let indicatorId in orderedData){
+         if(indicatorId==indicId){
+           for(var orgId in orderedData[indicatorId]){
+             if(countyData.properties.AREA_NAME.toLowerCase()==counties[orgId].toLowerCase()){
+               let len=orderedData[indicatorId][orgId].length-1 //the top most value on the list is the current value
+               let caseValue =  orderedData[indicatorId][orgId][len].value;
+               countyData.properties['density']=caseValue;
+               countyData.properties['indicatorName']=indicatoName;
+             }
+
+           }
+         }
+       }
+    });
+    return geoJson;
 }
 
 //compares equality of two objects
