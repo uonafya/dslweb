@@ -199,7 +199,8 @@ export default class extends React.Component {
           let countyName=countyData.properties.AREA_NAME.toLowerCase().trim();
           let lat=countiesMap[countyName]['latitude'];
           let long=countiesMap[countyName]['longitude'];
-          let countyMarker = L.circle([lat, long], {radius: 700});
+          let covidNumbers = countyData.properties.density;
+          let countyMarker = L.circle([lat, long], {radius: Number(covidNumbers)*50});
           countiesWithCovidMarkers.push(countyMarker);
         }
       });
