@@ -177,40 +177,40 @@ export default class extends React.Component {
     }
 
     insertBubbleLayer=()=>{
-    //  console.log(this.refs.layersControl);
-    document.getElementById("choroPlethLegend").style.visibility="hidden";
-      this.setState({
-        currentViewType: "bubble",
-        geoJsonCurrentStyle: this.bubbleStyle
-      });
-      var countiesWithCovidMarkers = [];
-      let countiesMap = {};
-      let indicatorName="";
-      MapCenters.forEach(county=>{
-        let countyName=county.name.toLowerCase().trim();
-        countiesMap[countyName]={};
-        countiesMap[countyName]['dsl_id']=county.dsl_id;
-        countiesMap[countyName]['longitude']=county.longitude;
-        countiesMap[countyName]['latitude']=county.latitude;
-      });
-      this.state.choroPlethData.features.forEach(countyData =>{
-        if(countyData.properties.density !=null){
-          indicatorName=countyData.properties['indicatorName'];
-          let countyName=countyData.properties.AREA_NAME.toLowerCase().trim();
-          let lat=countiesMap[countyName]['latitude'];
-          let long=countiesMap[countyName]['longitude'];
-          let covidNumbers = countyData.properties.density;
-          let countyMarker = L.circle([lat, long], {radius: Number(covidNumbers)*50});
-          countiesWithCovidMarkers.push(countyMarker);
-        }
-      });
-      let countiesWithCovid = L.layerGroup(countiesWithCovidMarkers,indicatorName);
-      countiesWithCovid.addTo(this.refs.covMap.leafletElement);
-      this.refs.layersControl.leafletElement.addOverlay(countiesWithCovid,indicatorName);
+      //  console.log(this.refs.layersControl);
+      document.getElementById("choroPlethLegend").style.visibility="hidden";
+        this.setState({
+          currentViewType: "bubble",
+          geoJsonCurrentStyle: this.bubbleStyle
+        });
+        var countiesWithCovidMarkers = [];
+        let countiesMap = {};
+        let indicatorName="";
+        MapCenters.forEach(county=>{
+          let countyName=county.name.toLowerCase().trim();
+          countiesMap[countyName]={};
+          countiesMap[countyName]['dsl_id']=county.dsl_id;
+          countiesMap[countyName]['longitude']=county.longitude;
+          countiesMap[countyName]['latitude']=county.latitude;
+        });
+        this.state.choroPlethData.features.forEach(countyData =>{
+          if(countyData.properties.density !=null){
+            indicatorName=countyData.properties['indicatorName'];
+            let countyName=countyData.properties.AREA_NAME.toLowerCase().trim();
+            let lat=countiesMap[countyName]['latitude'];
+            let long=countiesMap[countyName]['longitude'];
+            let covidNumbers = countyData.properties.density;
+            let countyMarker = L.circle([lat, long], {radius: Number(covidNumbers)*50});
+            countiesWithCovidMarkers.push(countyMarker);
+          }
+        });
+        let countiesWithCovid = L.layerGroup(countiesWithCovidMarkers,indicatorName);
+        countiesWithCovid.addTo(this.refs.covMap.leafletElement);
+        this.refs.layersControl.leafletElement.addOverlay(countiesWithCovid,indicatorName);
 
-      this.setState({
-        bubbleIndicatorLayer: countiesWithCovid
-      });
+        this.setState({
+          bubbleIndicatorLayer: countiesWithCovid
+        });
 
     }
 
