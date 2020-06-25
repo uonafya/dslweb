@@ -472,3 +472,8 @@ export function isObjectEquivalent(a, b) {
 
     return true;
 }
+
+//scale/normalize a range of numbers to another scale r1 is range to scale numbers from to the range r2
+export function convertRange( value, r1, r2 ) {
+    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
+}

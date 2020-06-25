@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 import Link from 'next/link';
 import SidePanel from '../components/pandemic/map/SidePanel'
 import ChoroPlethLegend from '../components/pandemic/map/choroPlethLegend'
-import {fetchCovidData , insertCovidValues} from '../components/utils/Helpers';
+import {fetchCovidData , insertCovidValues, convertRange} from '../components/utils/Helpers';
 
 
 export default class extends React.Component {
@@ -176,6 +176,18 @@ export default class extends React.Component {
       });
     }
 
+    getMinMaxValuesOfCases =()=>{
+      let countyCasesDensity=[]; //cases number
+      this.state.choroPlethData.features.forEach(countyData =>{
+        let val=countyData.properties.density;
+        if(val!=undefined)
+          countyCasesDensity.push(val);
+      });
+      let maxDesity=Math.max(...countyCasesDensity);
+      let minDensity=Math.min(...countyCasesDensity);
+      return {maxDesity,minDensity};
+    }
+
     insertBubbleLayer=()=>{
       //  console.log(this.refs.layersControl);
       document.getElementById("choroPlethLegend").style.visibility="hidden";
@@ -193,6 +205,10 @@ export default class extends React.Component {
           countiesMap[countyName]['longitude']=county.longitude;
           countiesMap[countyName]['latitude']=county.latitude;
         });
+
+        let rangeToScaleTo=[5000,30000];
+        let {maxDesity,minDensity} = this.getMinMaxValuesOfCases();
+
         this.state.choroPlethData.features.forEach(countyData =>{
           if(countyData.properties.density !=null){
             indicatorName=countyData.properties['indicatorName'];
@@ -200,7 +216,8 @@ export default class extends React.Component {
             let lat=countiesMap[countyName]['latitude'];
             let long=countiesMap[countyName]['longitude'];
             let covidNumbers = countyData.properties.density;
-            let countyMarker = L.circle([lat, long], {radius: Number(covidNumbers)*50});
+            let caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleTo);
+            let countyMarker = L.circle([lat, long], {radius: caseValue});
             countiesWithCovidMarkers.push(countyMarker);
           }
         });
