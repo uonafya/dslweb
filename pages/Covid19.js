@@ -206,7 +206,13 @@ export default class extends React.Component {
           countiesMap[countyName]['latitude']=county.latitude;
         });
 
-        let rangeToScaleTo=[5000,30000];
+        let rangeToScaleToA=[1000,6500]; //0-10
+        let rangeToScaleToB=[7000,12000]; //10-20
+        let rangeToScaleToC=[12000,16000]; //20-50
+        let rangeToScaleToD=[16300,18500]; //50-100
+        let rangeToScaleToE=[18600,20600]; //100-200
+        let rangeToScaleToF=[20900,22300]; //200-500
+        let rangeToScaleToG=[22500,23700]; //500+
         let {maxDesity,minDensity} = this.getMinMaxValuesOfCases();
 
         this.state.choroPlethData.features.forEach(countyData =>{
@@ -216,7 +222,21 @@ export default class extends React.Component {
             let lat=countiesMap[countyName]['latitude'];
             let long=countiesMap[countyName]['longitude'];
             let covidNumbers = countyData.properties.density;
-            let caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleTo);
+            let caseValue;
+            if(covidNumbers<10)
+              caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleToA);
+            if(covidNumbers >=10 && covidNumbers< 20)
+               caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleToB);
+            if(covidNumbers >=20 && covidNumbers< 50)
+               caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleToC);
+            if(covidNumbers >=50 && covidNumbers< 100)
+               caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleToD);
+            if(covidNumbers >=100 && covidNumbers< 200)
+               caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleToE);
+            if(covidNumbers >=200 && covidNumbers< 500)
+               caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleToF);
+            if(covidNumbers >=500)
+               caseValue=convertRange(covidNumbers,[minDensity,maxDesity],rangeToScaleToG);
             let countyMarker = L.circle([lat, long], {radius: caseValue});
             countiesWithCovidMarkers.push(countyMarker);
           }
@@ -288,7 +308,7 @@ export default class extends React.Component {
           {`
             .leaflet-container {
               width: 100%;
-              height: 80% !important;
+              height: 100% !important;
             }
             .leaflet-control-layers-toggle {
 	               background-image: url(../static/images/layers.png);
@@ -322,7 +342,7 @@ export default class extends React.Component {
       </section>
       {/* Breadcrumb */}
 
-      <div style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 900 + 'px'}}>
+      <div style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 800 + 'px'}}>
           <LeafletMap ref="covMap" scrollWheelZoom={false} center={center} zoom={6.5} maxZoom={18} >
             {geoJsnLayer}
             <SidePanel insertBubbleLayer={this.insertBubbleLayer}
