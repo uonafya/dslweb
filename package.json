@@ -10,6 +10,8 @@
     "bulma-extensions": "^6.2.7",
     "cors": "^2.8.5",
     "cross-env": "^5.2.1",
+    "echarts": "^4.8.0",
+    "echarts-for-react": "^2.0.16",
     "express": "^4.17.1",
     "highcharts": "^7.2.1",
     "highcharts-react-official": "^2.2.2",
