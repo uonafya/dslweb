@@ -4,6 +4,7 @@ import MapCenters from '../static/maps/county-centers-coordinates'
 import Layout from '../components/Layout'
 import Link from 'next/link';
 import SidePanel from '../components/pandemic/map/SidePanel'
+import CovidCases from '../components/pandemic/covid/covid-cases'
 import ChoroPlethLegend from '../components/pandemic/map/choroPlethLegend'
 import {fetchCovidData , insertCovidValues, convertRange} from '../components/utils/Helpers';
 
@@ -390,6 +391,8 @@ export default class extends React.Component {
           </LeafletMap>
 
         </div>
+
+       <CovidCases covidData={this.state.covidData}/>
 
     </Layout>
     );
