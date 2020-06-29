@@ -1,11 +1,7 @@
 import React from 'react';
-import Popover from '@material-ui/core/Popover';
-import { LinePath, Bar } from '@vx/shape';
-import { scaleTime, scaleLinear } from '@vx/scale'
 import ReactEcharts from 'echarts-for-react';
 import {getCummulativeCases, isObjectEquivalent} from '../../utils/Helpers';
 import XAxisChart from '../../utils/charts/XAxisChart';
-import { extent, max } from 'd3-array';
 
 export default class extends React.Component {
 
@@ -85,6 +81,7 @@ export default class extends React.Component {
     let totalConfirmedCases=0;
     let totalRecoveredCases=0;
     let totalDeathCases=0;
+    let totalActiveCases=0;
 
     //death cases
     if(this.state.deathCases==null){
@@ -122,6 +119,14 @@ export default class extends React.Component {
       </div>];
     }
 
+    //Active cases
+    if(this.state.confirmedCases!=null && this.state.recoveredCases!=null && this.state.deathCases!=null){
+      totalActiveCases=  totalConfirmedCases - (totalRecoveredCases+totalDeathCases);
+      totalActiveCasesEl =[<div style={mapPanelContent}>
+          <div>  <span style={casesValue}>{totalActiveCases} </span> <br/> <span style={casesText}>active cases</span>  </div>
+      </div>];
+    }
+
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
                       ];
@@ -129,9 +134,11 @@ export default class extends React.Component {
       //death cases
       let deathCat=[];
       let deathVals=[];
+      let deathCasesObj ={}
       if(this.state.deathCases!=null){
-        deathCat= this.state.confirmedCases.map(dt => {
+        deathCat= this.state.deathCases.map(dt => {
           const d = new Date(dt.date);
+          deathCasesObj[dt.date]=dt.value;
           let mnth=monthNames[d.getMonth()];
           let day =d.getDate();
           return `${mnth} ${day}`
@@ -142,9 +149,11 @@ export default class extends React.Component {
       //recovered cases
       let recoveredCat=[];
       let recoveredVals=[];
+      let recoveredCasesObj = {}
       if(this.state.recoveredCases!=null){
-        recoveredCat= this.state.confirmedCases.map(dt => {
+        recoveredCat= this.state.recoveredCases.map(dt => {
           const d = new Date(dt.date);
+          recoveredCasesObj[dt.date] = dt.value;
           let mnth=monthNames[d.getMonth()];
           let day =d.getDate();
           return `${mnth} ${day}`
@@ -164,6 +173,39 @@ export default class extends React.Component {
         return `${mnth} ${day}`
       });
       confirmedVals = this.state.confirmedCases.map(val => val.value)
+    }
+
+
+    //active cases
+    let activeCat=[];
+    let activeVals=[];
+
+    if(this.state.confirmedCases!=null && this.state.recoveredCases!=null && this.state.deathCases!=null){
+      console.log(deathCasesObj);
+      this.state.confirmedCases.forEach(entry => {
+        let confirmDate = new Date(entry.date);
+        let activeVal = 0;
+        let deathVal=0;
+        let recoveredVal=0;
+
+        try{
+          deathVal=Number(deathCasesObj[entry.date]);
+        }catch(err) {
+
+        }
+        try{
+          recoveredVal=Number(recoveredCasesObj[entry.date]);
+        }catch(err) {
+
+        }
+        activeVal = Number(entry.value) - (deathVal+recoveredVal);
+        let mnth=monthNames[confirmDate.getMonth()];
+        let day =confirmDate.getDate();
+        activeVals.push(activeVal);
+        activeCat.push(`${mnth} ${day}`);
+
+      });
+
     }
 
     return (
@@ -189,7 +231,8 @@ export default class extends React.Component {
               <XAxisChart vals={deathVals} cat={deathCat} chartType={'bar'} color={'#ff0000'}/>
             </div>
             <div class="column">
-
+              {totalActiveCasesEl}
+              <XAxisChart vals={activeVals} cat={activeCat} chartType={'bar'} color={'#6e5075'}/>
             </div>
           </div>
 
