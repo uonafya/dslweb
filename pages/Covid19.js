@@ -7,7 +7,10 @@ import SidePanel from '../components/pandemic/map/SidePanel'
 import CovidCases from '../components/pandemic/covid/covid-cases'
 import ChoroPlethLegend from '../components/pandemic/map/choroPlethLegend'
 import {fetchCovidData , insertCovidValues, convertRange} from '../components/utils/Helpers';
-
+import EmergencyAirway from '../components/survey/charts/emergency-airway'
+import InpatientBeds from '../components/survey/charts/inpatient-beds'
+import ChronicRespiratory from '../components/survey/charts/chronic-respiratory'
+import WorkforceDistribution from '../components/survey/charts/workforce-distribution'
 
 export default class extends React.Component {
 
@@ -343,56 +346,79 @@ export default class extends React.Component {
       </section>
       {/* Breadcrumb */}
 
-      <div style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 800 + 'px'}}>
-          <LeafletMap ref="covMap" scrollWheelZoom={false} center={center} zoom={6.5} maxZoom={18} >
-            {geoJsnLayer}
-            <SidePanel insertBubbleLayer={this.insertBubbleLayer}
-                       insertChoroplethLayer={this.insertChoroplethLayer}
-                       choroPlethData={this.state.choroPlethData}
-                       setCurrenGeoJsonToDisplay={this.setCurrenGeoJsonToDisplay}
-                       defaultGeoJson={this.state.defaultGeoJson}
-                       covidData={this.state.covidData}/>
+          <div style={{minWidth: 500 + 'px', minHeight: 500 + 'px', height: 800 + 'px', marginBottom: 25 +'px'}}>
+              <LeafletMap ref="covMap" scrollWheelZoom={false} center={center} zoom={6.5} maxZoom={18} >
+                {geoJsnLayer}
+                <SidePanel insertBubbleLayer={this.insertBubbleLayer}
+                           insertChoroplethLayer={this.insertChoroplethLayer}
+                           choroPlethData={this.state.choroPlethData}
+                           setCurrenGeoJsonToDisplay={this.setCurrenGeoJsonToDisplay}
+                           defaultGeoJson={this.state.defaultGeoJson}
+                           covidData={this.state.covidData}/>
 
-            <ChoroPlethLegend  getChoroplethColor={this.getChoroplethColor}/>
+                <ChoroPlethLegend  getChoroplethColor={this.getChoroplethColor}/>
 
-             <LayersControl ref='layersControl' collapsed={true} position="topright">
-               <BaseLayer checked name="OpenStreetMap">
-                 <TileLayer
-                   attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                 />
-               </BaseLayer>
-               <BaseLayer  name="OSM plain">
-                 <TileLayer
-                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
-                 />
-               </BaseLayer>
-               <BaseLayer name="OSM BlackWhite">
-                 <TileLayer
-                   attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                   url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-                 />
-               </BaseLayer>
-               <BaseLayer name="Google streets">
-                 <TileLayer
-                   attribution='&copy; Google Maps'
-                   url="https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i{z}!2i{x}!3i{y}!4i256!2m3!1e0!2sm!3i349018013!3m9!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0"
-                 />
-               </BaseLayer>
-               <BaseLayer name="Google Hybrid">
-                 <TileLayer
-                   attribution='&copy; Google Maps'
-                   url="http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga"
-                 />
-               </BaseLayer>
+                 <LayersControl ref='layersControl' collapsed={true} position="topright">
+                   <BaseLayer checked name="OpenStreetMap">
+                     <TileLayer
+                       attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                     />
+                   </BaseLayer>
+                   <BaseLayer  name="OSM plain">
+                     <TileLayer
+                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                       url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
+                     />
+                   </BaseLayer>
+                   <BaseLayer name="OSM BlackWhite">
+                     <TileLayer
+                       attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                       url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+                     />
+                   </BaseLayer>
+                   <BaseLayer name="Google streets">
+                     <TileLayer
+                       attribution='&copy; Google Maps'
+                       url="https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i{z}!2i{x}!3i{y}!4i256!2m3!1e0!2sm!3i349018013!3m9!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0"
+                     />
+                   </BaseLayer>
+                   <BaseLayer name="Google Hybrid">
+                     <TileLayer
+                       attribution='&copy; Google Maps'
+                       url="http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga"
+                     />
+                   </BaseLayer>
 
-             </LayersControl>
-          </LeafletMap>
+                 </LayersControl>
+              </LeafletMap>
+            </div>
 
-        </div>
+        <section className="section m-t-5 p-t-10">
+          <div className="container is-fluid">
+            <CovidCases covidData={this.state.covidData}/>
 
-       <CovidCases covidData={this.state.covidData}/>
+
+             <div className="columns">
+                 <div className="column">
+                   <EmergencyAirway/>
+                 </div>
+                 <div className="column">
+                   <InpatientBeds/>
+                 </div>
+             </div>
+
+             <div className="columns">
+                 <div className="column">
+                   <ChronicRespiratory/>
+                 </div>
+                 <div className="column">
+                   <WorkforceDistribution/>
+                 </div>
+             </div>
+
+         </div>
+      </section>
 
     </Layout>
     );
