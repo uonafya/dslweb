@@ -169,7 +169,6 @@ export async function FetchCadreAllocation(id,ouid,pe,periodtype) {
       if(append) fetchCadreGroupsDataUrl += "&periodtype=monthly";
     }
   }
-  console.log("Making request to: "+fetchCadreGroupsDataUrl);
   let _cadresData = await fetch(fetchCadreGroupsDataUrl);
   let cadresData = await _cadresData.json();
   return cadresData
@@ -276,7 +275,6 @@ export async function fetchSurveyData(sourceId,id,orgId,pe,catId) {
   if(catId != undefined && catId != null){
     fetchSurveyDataUrl += `&catId=${catId}`;
   }
-  console.log("Making request to: "+fetchSurveyDataUrl);
   let _surveyData = await fetch(fetchSurveyDataUrl);
   let surveyData = await _surveyData.json();
   return surveyData
@@ -446,6 +444,77 @@ export function insertCovidValues(data, geoJson, indicId, indicatoName) {
        }
     });
     return geoJson;
+}
+
+function _insertSurveyData(data,county,geoJson,categoriesMap,categoryId,counties,categories,indicatorName) {
+
+  geoJson.features.forEach(countyData =>{
+   counties[county.dsl_id]=county.name;
+   data.result.data.forEach((dataElement)=>{
+     try{
+       if(!(dataElement.category[0].id in categoriesMap)) {
+         categories.push(dataElement.category);
+         categoriesMap[dataElement.category[0].id]=true;
+       }
+     }catch(err) {
+
+     }
+
+     if(countyData.properties.AREA_NAME.toLowerCase()==counties[county.dsl_id].toLowerCase()){
+       if(categoryId!=null){
+         if(dataElement.category[0].id==categoryId){
+           countyData.properties.DENSITY=dataElement.value;
+           countyData.properties.INDICATORNAME=indicatorName;
+         }
+       }else if(categoryId==null){
+         countyData.properties.DENSITY=dataElement.value;
+         countyData.properties.INDICATORNAME=indicatorName;
+       }else{
+
+       }
+
+      }
+   });
+  });
+}
+
+//insert survey data value to geoJson for choropleth mapping
+export function insertSurveyValuesToGeoJson(sourceId,indicatorId, geoJso, categoryId, indicatorName, surveyData) {
+  let counties = {}; //dslId: ,
+  let countiesData = {} // orgId: data
+  let categories = []
+  let categoriesMap={}
+  let geoJson= Object.assign({}, JSON.parse(JSON.stringify(geoJso))); //make a copy
+  console.log(geoJson);
+  console.log("ff")
+
+   MapCenters.map(county=>{
+     if(surveyData == null){
+       var request = new XMLHttpRequest();
+       request.open('GET', `${settings.dslBaseApi}/survey/sources/${sourceId}?id=${indicatorId}&orgId=${county.dsl_id}`, false);
+       request.onload = function () {
+         var data = JSON.parse(this.response);
+         countiesData[county.dsl_id] = data;
+         _insertSurveyData(data,county,geoJson,categoriesMap,categoryId,counties,categories,indicatorName);
+       }
+       // Send request
+       request.send();
+     }else{
+       for(let orgId in surveyData){
+         if(county.dsl_id == orgId ){
+           _insertSurveyData(surveyData[orgId],county,geoJson,categoriesMap,categoryId,counties,categories,indicatorName);
+         }
+
+       }
+
+     }
+
+  });
+  if(surveyData == null){
+    return {countiesData, geoJson, categories};
+  }else{
+    return {surveyData, geoJson, categories};
+  }
 }
 
 //compares equality of two objects
