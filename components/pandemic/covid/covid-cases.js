@@ -212,31 +212,35 @@ export default class extends React.Component {
 
       <React.Fragment>
 
-        <section class="section">
+            <div class="columns">
+              <div class="column" >
+                <div style={{width: '800px'}}>
+                  {cummulativeConfirmedCasesEl}
+                  <XAxisChart vals={confirmedVals} cat={confirmedCat} chartType={'bar'} color={'#7d7979'}/>
+                </div>
+              </div>
+              <div class="column">
+                <div style={{width: '800px'}}>
+                  {cummulativeRecoveredCasesEl}
+                  <XAxisChart vals={recoveredVals} cat={recoveredCat} chartType={'bar'} color={'#00ff73'}/>
+                </div>
+              </div>
+            </div>
 
-          <div class="columns">
-            <div class="column">
-              {cummulativeConfirmedCasesEl}
-              <XAxisChart vals={confirmedVals} cat={confirmedCat} chartType={'bar'} color={'#7d7979'}/>
+            <div class="columns">
+              <div class="column">
+                <div style={{width: '800px'}}>
+                  {cummulativeDeathCasesEl}
+                  <XAxisChart vals={deathVals} cat={deathCat} chartType={'bar'} color={'#ff0000'}/>
+                </div>
+              </div>
+              <div class="column">
+                <div style={{width: '800px'}}>
+                  {totalActiveCasesEl}
+                  <XAxisChart vals={activeVals} cat={activeCat} chartType={'bar'} color={'#6e5075'}/>
+                </div>
+              </div>
             </div>
-            <div class="column">
-              {cummulativeRecoveredCasesEl}
-              <XAxisChart vals={recoveredVals} cat={recoveredCat} chartType={'bar'} color={'#00ff73'}/>
-            </div>
-          </div>
-
-          <div class="columns">
-            <div class="column">
-              {cummulativeDeathCasesEl}
-              <XAxisChart vals={deathVals} cat={deathCat} chartType={'bar'} color={'#ff0000'}/>
-            </div>
-            <div class="column">
-              {totalActiveCasesEl}
-              <XAxisChart vals={activeVals} cat={activeCat} chartType={'bar'} color={'#6e5075'}/>
-            </div>
-          </div>
-
-        </section>
 
       </React.Fragment>
 
