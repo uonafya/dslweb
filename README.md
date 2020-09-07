@@ -1,5 +1,5 @@
 # MOH DAP-Dashboard
-Ministry Of Health Data Analytics Portal. URL: [http://dsl.health.go.ke:8080](http://dsl.health.go.ke:8080)
+Ministry Of Health Data Analytics Portal. URL: [http://dsl.health.go.ke](http://dsl.health.go.ke)
 
 ###
 
