@@ -25,6 +25,7 @@ const Layout = props => (
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"/>
       <script async type="text/javascript" src="/static/js/bulma.js"></script>
       <script async type="text/javascript" src="/static/js/tabs.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
       <script src="/static/js/custom.js"></script>
     </Head>
     <Header />
