@@ -1,16 +1,34 @@
-import Link from 'next/link';
-import { withRouter } from 'next/router';
-import Router from 'next/router'
 import Layout from '../../components/Layout';
+import Link from 'next/link';
+
+import CompareGraph from '../../components/utils/CompareGraph';
+import FilterBar from '../../components/comparison/filterBar'
+
 
 export default class extends React.Component{
+
+  static getInitialProps({query}) {
+    return {query}
+  }
+
 
   constructor (props) {
     super(props);
 
     this.state = {
+      ouid: this.props.query.ouid,
+      id: this.props.query.id,
 
+      queryParams: { //TODO: Clean this up. duplication
+        id: this.props.query.id,
+        ouid: this.props.query.ouid,
+        pe: this.props.query.pe,
+        level: this.props.query.level,
+        ou_name: this.props.query.ouid,
+        name: this.props.query.id
+      }
     };
+
   }
 
   render() {
