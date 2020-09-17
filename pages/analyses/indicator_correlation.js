@@ -75,6 +75,23 @@ export default class extends React.Component{
             </section>
             {/* Breadcrumb */}
 
+
+            <section style={{paddingBottom: "0" }} className="section p-t-10">
+              <FilterBar
+                filterCallBack = {this.filterChange}
+                deleteFromGraph= {this.deleteFromGraph}
+                hideCadres = {true}
+                hidePeriod = {true}
+                initProps={ this.state.queryParams } />
+
+              <div className="box m-5">
+                <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Compare Graph </h5>
+                <br/>
+                <div>  </div>
+              </div>
+
+            </section>
+
         </Layout>
     );
   }
