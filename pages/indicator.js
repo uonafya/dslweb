@@ -254,6 +254,9 @@ const Page = withRouter(props => (
                                   &nbsp; &nbsp;
                                   <Link href={"/compare?id="+props.id+"&ouid="+props.ouid+"&level="+props.level+"&pe="+props.pe}><a className="button is-secondary">Compare</a></Link>
 
+                                  &nbsp; &nbsp;
+                                  <Link href={"/correlation?id="+props.id+"&ouid="+props.ouid}><a className="button is-secondary">Correlation</a></Link>
+
                                 </div>
                               </div>
                             </div>

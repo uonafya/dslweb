@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const IndicatorRow = ({indicatorName, indicatorId, indicatorGroups, indicatorDescription, indicatorGroupId}) => (
-  
+
     <div className="text-left p-5 m-b-150 one_indicator bcwhite br-3 m-b-15" key={indicatorId}>
         <div className="columns is-centered p-10 show-on-hover-parent">
             <div className="column is-1 p-20 is-hidden-tablet is-hidden-mobile">
@@ -13,11 +13,11 @@ const IndicatorRow = ({indicatorName, indicatorId, indicatorGroups, indicatorDes
                     <a>
                         {indicatorName}
                     </a>
-                    </Link>  
+                    </Link>
                 </h4>
                 <small className="fcgrey-dark-3"> <i className="fa fa-folder fcblack"></i> &nbsp; <i>{
-                    indicatorGroups.length > 0 ? 
-                    indicatorGroups[0].name : 
+                    indicatorGroups.length > 0 ?
+                    indicatorGroups[0].name :
                     `${indicatorGroupId} (group not found)`
                 }</i> </small>
                 <br/>
@@ -34,11 +34,15 @@ const IndicatorRow = ({indicatorName, indicatorId, indicatorGroups, indicatorDes
                     <Link as={`/timeseries?id=${indicatorId}`} href={`/timeseries?id=${indicatorId}`}>
                         <button className="button is-secondary is-light is-small br-3 m-b-5">Timeseries</button>
                     </Link>
+                    &nbsp;
+                    <Link as={`/correlation?id=${indicatorId}`} href={`/correlation?id=${indicatorId}`}>
+                        <button className="button is-secondary is-light is-small br-3 m-b-5">Correlation</button>
+                    </Link>
                 </div>
             </div>
         </div>
     </div>
-  
+
 );
 
 export default IndicatorRow;
