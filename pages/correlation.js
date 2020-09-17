@@ -1,4 +1,6 @@
 import Layout from "../components/Layout";
+import Link from 'next/link';
+
 export default function Correlation() {
     return (
         <div>
@@ -38,10 +40,10 @@ export default function Correlation() {
                                           <i className="fa fa-dashboard fa-2x fcprimary-light" aria-hidden="true"></i>
                                       </div>
                                       <div className="media-content">
-                                        <a href="#" className="title is-5">Indicator to Indicator</a>
+                                        <Link href={"/analyses/indicator_correlation?id=1001&ouid=1001"}><a className="title is-5">Indicator to Indicator</a></Link>
                                       </div>
                                     </div>
-                                
+
                                     <div className="content">
                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
                                     </div>
@@ -59,7 +61,7 @@ export default function Correlation() {
                                         <a href="#" className="title is-5">Indicator to Weather</a>
                                       </div>
                                     </div>
-                                
+
                                     <div className="content">
                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
                                     </div>
@@ -77,7 +79,7 @@ export default function Correlation() {
                                         <a href="#" className="title is-5">Indicator to Cadre</a>
                                       </div>
                                     </div>
-                                
+
                                     <div className="content">
                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
                                     </div>
@@ -95,7 +97,7 @@ export default function Correlation() {
                                         <a href="#" className="title is-5">Indicator to HR/workforce</a>
                                       </div>
                                     </div>
-                                
+
                                     <div className="content">
                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
                                     </div>
