@@ -73,10 +73,8 @@ class FilterBar extends Component {
                 let ou_lvl = null
                 if(ou_id == '18'){
                     ou_lvl = "1"
-                    // document.getElementById("set_ou_level").classList.add("hidden");
-                    document.querySelector("#dropdown-two button").setAttribute("disabled", "true");
-                    document.querySelector("#dropdown-three button").click();
                 }
+
                 // this.setState( { current_indicator_cadre: {ou: ou_id, ou_name: ou_nm} } );
                 this.setState(prevState => ({
                     current_indicator_cadre: {
@@ -86,8 +84,21 @@ class FilterBar extends Component {
                         ou_level: ou_lvl,
                     }
                 }))
-                document.getElementById("set_ou_level").focus();
+                if(!this.props.hideOrgUnitLevels){
+                  document.getElementById("set_ou_level").focus();
+                }
                 document.getElementById("selected_ou_level").innerHTML = ou_nm
+                if(!this.props.hidePeriod){ //keep
+                  document.querySelector("#dropdown-two button").setAttribute("disabled", "true");
+                  document.querySelector("#dropdown-three button").click();
+                }else{
+                  // document.querySelector(".dropdown.two").classList.remove("is-active")
+                  document.querySelector("#dropdown-two button").click(); //click own button
+                  document.getElementById("addIndiBtn").removeAttribute("disabled");
+                  document.getElementById("addIndiBtn").focus();
+                  console.log("debug 3");
+                }
+
             })
         })
         //picking ou
@@ -182,20 +193,30 @@ class FilterBar extends Component {
 
       resetFilters(){
         document.getElementById("addIndiBtn").setAttribute("disabled", true)
-        document.getElementById("yearpicker").selectedIndex = "0"
-        document.getElementById("set_ou_level").selectedIndex = "0"
-        document.getElementById("monthpicker_month").selectedIndex = "0"
-        document.getElementById("monthpicker_year").selectedIndex = "0"
+        if(!this.props.hidePeriod){
+          document.getElementById("yearpicker").selectedIndex = "0";
+          document.getElementById("monthpicker_month").selectedIndex = "0";
+          document.getElementById("monthpicker_year").selectedIndex = "0"
+          document.getElementById("selected_period").innerHTML = ""
+        }
+
+        if(!this.props.hideOrgUnitLevels){
+          document.getElementById("set_ou_level").selectedIndex = "0"
+          document.querySelector("#dropdown-three button").removeAttribute("disabled");
+          document.getElementById("set_ou_level").classList.remove("disabled");
+          document.getElementById("selected_ou_level").innerHTML = ""
+        }
+
         document.querySelectorAll(".dropdown-content .list a.dropdown-item").forEach( all_link => {
             all_link.classList.remove("is-active")
         })
         document.querySelector("#dropdown-one button").removeAttribute("disabled");
         document.querySelector("#dropdown-two button").removeAttribute("disabled");
-        document.querySelector("#dropdown-three button").removeAttribute("disabled");
-        document.getElementById("set_ou_level").classList.remove("disabled");
-        document.getElementById("selected_ou_level").innerHTML = ""
-        document.getElementById("selected_cadre_indicator").innerHTML = ""
-        document.getElementById("selected_period").innerHTML = ""
+
+        if(!this.props.hideCadres){
+          document.getElementById("selected_cadre_indicator").innerHTML = ""
+        }
+
       }
 
       deleteFromIndicadres(state_array, id_of_indicadre,indicatorType) {
@@ -216,8 +237,11 @@ class FilterBar extends Component {
       }
 
     componentDidMount(){
+      if(!this.props.hideCadres){}
         this.getIndicators()
-        this.getCadres()
+        if(!this.props.hideCadres){
+          this.getCadres()
+        }
         this.getCounties()
 
         this.setState({ selected_indicator_cadre: [...this.state.selected_indicator_cadre, this.state.current_indicator_cadre] })
@@ -254,7 +278,7 @@ class FilterBar extends Component {
       if (this.props.hideCadres) {
         cadreTag = <span>Indicator</span>
 
-        indictCadreLabel = <small className="fcgrey-dark-1" style={{marginLeft: "20px"}}>Add an indicator</small>
+        indictCadreLabel = <small className="fcgrey-dark-1" style={{marginLeft: "80px"}}>Add an indicator</small>
       } else {
         cadreTag = <span>Indicator/cadre</span>
         indictCadreLabel = indictCadreLabel = <small className="fcgrey-dark-1 is-pulled-left">Add an indicator/cadre:</small>
@@ -294,7 +318,10 @@ class FilterBar extends Component {
                                                         document.getElementById("search_indi_dropdown").focus()
                                                     }
                                                     document.querySelector(".dropdown.two").classList.remove("is-active")
-                                                    document.querySelector(".dropdown.three").classList.remove("is-active")
+                                                    if(!this.props.hideCadres){
+                                                        document.querySelector(".dropdown.three").classList.remove("is-active")
+                                                    }
+
                                                 }
                                             }>
                                                 {cadreTag}
@@ -388,7 +415,10 @@ class FilterBar extends Component {
                                                     // document.getElementById("set_ou_level").focus()
                                                 }
                                                 document.querySelector(".dropdown.one").classList.remove("is-active")
-                                                document.querySelector(".dropdown.three").classList.remove("is-active")
+                                                if(!this.props.hideCadres){
+                                                    document.querySelector(".dropdown.three").classList.remove("is-active")
+                                                }
+
                                                 }
                                             }>
                                                 <span>Organisation unit</span>
@@ -415,13 +445,13 @@ class FilterBar extends Component {
                                                             (sc) => {
                                                                 let val = sc.target.value
                                                                 let filtered_ous = this.searchIndicator(this.state.counties, val)
-                                                                this.appendOUs(filtered_ous)
+                                                                this.appendOUs(filtered_ous);
                                                             }
                                                         }/>
                                                         <hr className="dropdown-divider"/>
                                                         <div className="list max-h-250-px auto-overflow-y text-caps text-small" id="ou_list">
                                                         </div>
-                                                        {!this.props.hideCadres && /* conditonally show this section  */
+                                                        {!this.props.hideOrgUnitLevels && /* conditonally show this section  */
                                                           <div className="select is-fullwidth">
                                                               <select id="set_ou_level" onChange={
                                                                   (ch) => {
@@ -436,7 +466,9 @@ class FilterBar extends Component {
                                                                       }))
                                                                       document.getElementById("selected_ou_level").innerHTML = document.getElementById("selected_ou_level").textContent + ", Level: "+vall
                                                                       document.querySelector("#dropdown-two button").setAttribute("disabled", "true");
-                                                                      document.querySelector("#dropdown-three button").click();
+                                                                      if(!this.props.hidePeriod){
+                                                                        document.querySelector("#dropdown-three button").click();
+                                                                      }
                                                                   }
                                                               }>
                                                                   <option value="1" disabled="true" selected="true">Show data by:</option>
@@ -459,7 +491,7 @@ class FilterBar extends Component {
                                         <h6 className="max-lines-2 m-b-0 fcsecondary-dark text-small l-h-1" id="selected_ou_level"></h6>
                                     </div>
 
-                                    {!this.props.hideCadres && /* conditonally show this section  */
+                                    {!this.props.hidePeriod && /* conditonally show this section  */
                                       <div className="column p-t-0 p-b-0">
                                           {/* period */}
                                           <div className="dropdown is-right three" id="dropdown-three">
@@ -467,9 +499,9 @@ class FilterBar extends Component {
                                               <button className="button" aria-haspopup="true" aria-controls="dropdown-menu3" onClick={
                                                   (e) => {
                                                   let ddn = document.getElementById("dropdown-three");
-                                                  ddn.classList.toggle("is-active")
+                                                  ddn.classList.toggle("is-active");
                                                   if(ddn.classList.contains("is-active")){
-                                                      document.getElementById("monthpicker_month").focus()
+                                                      document.getElementById("monthpicker_month").focus();
                                                   }
                                                   document.querySelector(".dropdown.one").classList.remove("is-active")
                                                   document.querySelector(".dropdown.two").classList.remove("is-active")
@@ -535,6 +567,7 @@ class FilterBar extends Component {
                                                                                       }))
                                                                                       document.getElementById("selected_period").innerHTML = period_
                                                                                       document.querySelector(".dropdown.three").classList.remove("is-active")
+
                                                                                       document.getElementById("addIndiBtn").removeAttribute("disabled")
                                                                                       document.getElementById("addIndiBtn").focus()
                                                                                   }
@@ -567,6 +600,7 @@ class FilterBar extends Component {
                                                                                       }))
                                                                                       document.getElementById("selected_period").innerHTML = yr_val
                                                                                       document.querySelector(".dropdown.three").classList.remove("is-active")
+
                                                                                       document.getElementById("addIndiBtn").removeAttribute("disabled")
                                                                                       document.getElementById("addIndiBtn").focus()
                                                                                   }

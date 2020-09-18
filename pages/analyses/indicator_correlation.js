@@ -82,6 +82,7 @@ export default class extends React.Component{
                 deleteFromGraph= {this.deleteFromGraph}
                 hideCadres = {true}
                 hidePeriod = {true}
+                hideOrgUnitLevels = {true}
                 initProps={ this.state.queryParams } />
 
               <div className="box m-5">
