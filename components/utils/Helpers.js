@@ -546,3 +546,29 @@ export function isObjectEquivalent(a, b) {
 export function convertRange( value, r1, r2 ) {
     return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
 }
+
+export async function FetchIndicatorCorrelation(id,ouid,correIndicators) {
+  let tim = new Date()
+  console.log(`// running helper FetchIndicatorCorrelation. ID:${id} && OU:${ouid} && correIndicators:${correIndicators} `)
+  let loading = true;
+  if(id == undefined && id == null){
+    return;
+  }
+  let fetchIndicatorCorreDataUrl = `${settings.dslBaseApi}/indicator_correlation/${id}`;
+  if(ouid != undefined && ouid != null){
+    fetchIndicatorCorreDataUrl += `/${ouid}`;
+  }else{
+    fetchIndicatorCorreDataUrl += `/18`;
+  }
+  if(correIndicators != undefined && correIndicators != null){
+    fetchIndicatorCorreDataUrl += `/${correIndicators}`;
+  }else{
+    return;
+  }
+  const fetchIndicatorCorrData = await fetch(fetchIndicatorCorreDataUrl);
+  const indicatorData = await fetchIndicatorCorrData.json();
+  if(true){
+    loading = false;
+  }
+  return {indicatorData, loading}
+}
