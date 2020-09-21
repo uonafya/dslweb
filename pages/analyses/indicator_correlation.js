@@ -130,7 +130,14 @@ export default class extends React.Component{
   }
 
   render() {
-    // const dt = [['2','3','5']['5','6','9']];
+    let corrVariables=[];
+
+    if(this.state.correlationData!=undefined){
+        for(let step =0; step<this.state.correlationData.result.dictionary.analyses.variables.length; step++){
+          corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[step]} (<span className="text-bold ">{this.state.correlationData.result.dictionary.analyses.correlation_dimension[step]}</span>)</div>)
+        }
+
+    }
 
     return (
         <Layout>
@@ -258,74 +265,76 @@ export default class extends React.Component{
                       <div className="divs m-l-10">
 
                           <div className="div m-b-30">
-                            <h4 className="subtitle fcsecondary-dark text-left text-bold m-b-10">Tags:</h4>
+                            <h4 className="subtitle fcsecondary-dark text-left text-bold m-b-10">Metadata:</h4>
                             <div className="tags p-l-15 p-r-10">
                               {/* <a href="#"><span className="tag is-secondary">Tuberculosis</span></a> &nbsp; &nbsp; */}
                             </div>
                           </div>
 
                           <div className="div m-b-20">
-                              <div className="section-heading m-0 p-0 m-b-15">
-                                  <h4 className="title is-5 text-left fcsecondary-dark text-bold m-b-15">Meta data:</h4>
-                              </div>
 
-                              <div className="columns m-l-15 p-0 m-b-0">
-                                <div className="column is-one-third p-5">
-                                  <label className="label fcgrey-dark-3 text-small">Source:</label>
+                              <div className="m-l-15 p-0 m-b-0">
+                                <div className="">
+                                  <label className="label fcgrey-dark-3 text-small">Variables:</label>
+                                  <hr/>
                                 </div>
-                                <div className="column text-normal p-b-15 p-t-5">
-                                    "indicator source:" &nbsp;
-                                </div>
+                                {
+                                  corrVariables
+                                }
+                                <hr/>
                               </div>
 
                               <div className={"columns m-l-15 p-0 m-b-0"}>
                                 <div className="column m-l-0 p-0 m-b-0 is-one-third p-5">
-                                  <label className="label fcgrey-dark-3 text-small">Date created:</label>
+                                  <label className="label fcgrey-dark-3 text-small">Org unit:</label>
                                 </div>
                                 <div className="column text-bold p-b-15 p-t-5">
-                                    "date create:" &nbsp;
+                                    { this.state.correlationData
+                                      && this.state.correlationData.result.dictionary.orgunits[0].name} &nbsp;
                                 </div>
                               </div>
 
-                              <div className="columns m-l-15 p-0 m-b-0">
-                                <div className="column is-one-third p-5">
-                                  <label className="label fcgrey-dark-3 text-small">Last updated:</label>
+                              <div className="m-l-15 p-0 m-b-0">
+                                <div className="p-5">
+                                  <label className="label fcgrey-dark-3 text-small">Periods:</label>
                                 </div>
-                                <div className="column text-bold p-b-15 p-t-5">
-                                    "date updated" &nbsp;
+                                <div className="p-b-15 p-t-5 m-l-5">
+                                    Start period:  <span className="text-bold ">{ this.state.correlationData
+                                      && this.state.correlationData.result.dictionary.analyses.period_span.start_date}</span> &nbsp;
                                 </div>
+                                <div className="p-b-15 p-t-5 m-l-5">
+                                    End period:  <span className="text-bold ">{ this.state.correlationData
+                                      && this.state.correlationData.result.dictionary.analyses.period_span.end_date} </span>&nbsp;
+                                </div>
+                                <div className="p-b-15 p-t-5 m-l-5">
+                                    Period type:  <span className="text-bold ">{ this.state.correlationData
+                                      && this.state.correlationData.result.dictionary.analyses.period_type} </span>&nbsp;
+                                </div>
+                                <hr/>
+
                               </div>
 
                               <div className= "columns m-l-15 p-0 m-b-0">
                                 <div className="column is-one-third p-5">
-                                  <label className="label fcgrey-dark-3 text-small">Geo-scope:</label>
+                                  <label className="label fcgrey-dark-3 text-small">Correlation coefficient:</label>
                                 </div>
                                 <div className="column text-normal p-b-15 p-t-5">
-                                    "org unit name:" &nbsp;
+                                    <span className="text-bold ">{ this.state.correlationData
+                                      && this.state.correlationData.result.dictionary.analyses.correlation_coeffient} </span>&nbsp;
                                 </div>
                               </div>
 
-                              <div className= "columns m-l-15 p-0 m-b-0">
-                                <div className="column is-one-third p-5">
-                                  <label className="label fcgrey-dark-3 text-small">Time-span:</label>
-                                </div>
-                                <div className="column text-normal p-b-15 p-t-5">
-                                      <label className="label fcblack-1 display-inline-b">
-                                        "anaother label:"
-                                      </label>
-                                      "lablel:"
-                                </div>
-                              </div>
+
                           </div>
 
-                          <div className="div m-b-30">
+                    {/*      <div className="div m-b-30">
                             <div className="section-heading m-0 p-0 m-b-5 m-l-15">
                                 <h4 className="title is-5 text-left fcsecondary-dark text-bold m-b-15">Related indicators:</h4>
                             </div>
                             <div className="content m-l-15 m-t-0">
-                                {/* <a href="#" className="is-link text-normal">Impact indicators</a> <br/> */}
+                                 <a href="#" className="is-link text-normal">Impact indicators</a> <br/> 
                             </div>
-                          </div>
+                          </div> */}
 
                         </div>
                   </div>
