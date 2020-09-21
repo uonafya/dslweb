@@ -25,6 +25,9 @@ export default class extends React.Component{
         indicList+= ",'"+selectedList[step].id+"'";
     }
     this.fetchCorrData(this.state.id,this.state.ouid,indicList);
+    this.setState({
+      corrIndicList: indicList
+    });
   }
 
   onRemoveIndic=(selectedList, removedItem)=> {
@@ -38,11 +41,18 @@ export default class extends React.Component{
     }
     if(step!=0)
       this.fetchCorrData(this.state.id,this.state.ouid,indicList);
+      this.setState({
+        corrIndicList: indicList
+      });
   }
 
   onSelectOrgunit=(selectedList, selectedItem)=> {
-    console.log(selectedList);
-    console.log(selectedItem)
+
+    this.setState({
+      ouid: selectedItem.id
+    });
+    this.fetchCorrData(this.state.id,selectedItem.id,this.state.corrIndicList);
+
   }
 
   async getIndicators() {
@@ -71,6 +81,7 @@ export default class extends React.Component{
       ouid: this.props.query.ouid,
       id: this.props.query.id,
       indicators: [],
+      corrIndicList: [],
       queryParams: { //TODO: Clean this up. duplication
         id: this.props.query.id,
         ouid: this.props.query.ouid,
