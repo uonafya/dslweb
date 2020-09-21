@@ -16,12 +16,33 @@ export default class extends React.Component{
     return {query}
   }
 
-  onSelect(selectedList, selectedItem) {
-
+  onSelectIndic=(selectedList, selectedItem)=> {
+    let indicList='';
+    for(let step = 0; step <selectedList.length; step++){
+      if(step==0)
+        indicList+= "'"+selectedList[step].id+"'";
+      else
+        indicList+= ",'"+selectedList[step].id+"'";
+    }
+    this.fetchCorrData(this.state.id,this.state.ouid,indicList);
   }
 
-  onRemove(selectedList, removedItem) {
+  onRemoveIndic=(selectedList, removedItem)=> {
+    let indicList='';
+    let step = 0;
+    for(step; step <selectedList.length; step++){
+      if(step==0)
+        indicList+= "'"+selectedList[step].id+"'";
+      else
+        indicList+= ",'"+selectedList[step].id+"'";
+    }
+    if(step!=0)
+      this.fetchCorrData(this.state.id,this.state.ouid,indicList);
+  }
 
+  onSelectOrgunit=(selectedList, selectedItem)=> {
+    console.log(selectedList);
+    console.log(selectedItem)
   }
 
   async getIndicators() {
@@ -46,8 +67,6 @@ export default class extends React.Component{
   constructor (props) {
     super(props);
 
-    fetchIndicators();
-
     this.state = {
       ouid: this.props.query.ouid,
       id: this.props.query.id,
@@ -71,13 +90,17 @@ export default class extends React.Component{
   componentDidMount(){
     this.getIndicators();
     this.getCounties();
+    this.fetchCorrData('23185','23408','23191,31589' );
+    this.setState({
+      id: '23185',
+      ouid: '23408'
+    });
 
+  }
+
+  fetchCorrData=(id,ouid,corrIndic)=>{
     (async () => { //http://dsl.health.go.ke/dsl/api/pandemics/covid19?id=6074&start_date=2020-06-07
-      let {indicatorData}=await FetchIndicatorCorrelation('23185','23408','23191,31589' );
-
-      this.setState({
-        correlationData: indicatorData,
-      });
+      let {indicatorData}=await FetchIndicatorCorrelation(id,ouid,corrIndic );
       const correData = []
       try{
         for (let key in indicatorData.result.data.correlation){
@@ -86,11 +109,11 @@ export default class extends React.Component{
       }catch(err){
       }
       this.setState({
+        correlationData: indicatorData,
         heatYLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
         heatXLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
         correData: correData
       });
-
     })()
 
   }
@@ -157,8 +180,8 @@ export default class extends React.Component{
                             placeholder = "Select orgunit:"
                             options={this.state.counties} // Options to display in the dropdown
                             selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                            onSelect={this.onSelect} // Function will trigger on select event
-                            onRemove={this.onRemove} // Function will trigger on remove event
+                            onSelect={this.onSelectOrgunit} // Function will trigger on select event
+                            // onRemove={this.onRemove} // Function will trigger on remove event
                             displayValue="name" // Property name to display in the dropdown options
                           />
                         </div>
@@ -168,8 +191,8 @@ export default class extends React.Component{
                             placeholder = "Select indicator:"
                             options={this.state.indicators} // Options to display in the dropdown
                             selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                            onSelect={this.onSelect} // Function will trigger on select event
-                            onRemove={this.onRemove} // Function will trigger on remove event
+                            onSelect={this.onSelectIndic} // Function will trigger on select event
+                            onRemove={this.onRemoveIndic} // Function will trigger on remove event
                             displayValue="name" // Property name to display in the dropdown options
                           />
                         </div>
