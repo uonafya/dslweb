@@ -250,19 +250,24 @@ export default class extends React.Component{
                               <div className="column">
 
                                 {this.state.correData.length>0 &&
-                                  <HeatMap
-                                    xLabels={this.state.heatXLabels}
-                                    yLabels={this.state.heatYLabels}
-                                    xLabelWidth={60}
-                                    data={this.state.correData}
-                                    height={45}
-                                    cellStyle={(background, value, min, max, data, x, y) => ({
-                                      background: `rgb(0, 151, 230, ${1 - (max - value) / (max - min)})`,
-                                      fontSize: "11.5px",
-                                      color: "#444"
-                                    })}
-                                    cellRender={value => value && <div>{value}</div>}
-                                  />
+                                  <div>
+                                    <br/>
+                                    <HeatMap
+                                      xLabels={this.state.heatXLabels}
+                                      yLabels={this.state.heatYLabels}
+                                      xLabelWidth={60}
+                                      data={this.state.correData}
+                                      height={45}
+                                      cellStyle={(background, value, min, max, data, x, y) => ({
+                                        background: `rgb(0, 151, 230, ${1 - (max - value) / (max - min)})`,
+                                        fontSize: "11.5px",
+                                        color: "#444"
+                                      })}
+                                      cellRender={value => value && <div>{value}</div>}
+                                    />
+
+                                    <p style = {{fontStyle: "italic", marginTop: "40px"}}>Correlation covariance matrix table</p>
+                                  </div>
                                 }
 
                               </div>
