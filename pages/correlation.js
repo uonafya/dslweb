@@ -26,9 +26,10 @@ export default function Correlation() {
                     <div className="container text-left p-20 p-t-30 p-b-30 m-b-">
                         <div className="columns is-centered bcwhite m-t-20">
                             <div className="column">
-                                <p><strong>Correlation analysis is </strong>{" "} aborum adipisicing elit qui id. Occaecat deserunt id occaecat mollit magna ut aliqua nulla dolore eiusmod do. Id ex non tempor sit Lorem nulla tempor cillum adipisicing.</p>
-                                <p>Minim proident mollit reprehenderit proident tempor. Eiusmod elit dolore eu occaecat incididunt aute eu quis nostrud non id. Laboris sint sit ex ut cupidatat laborum duis aliquip duis dolor nostrud cillum non ullamco. Ullamco incididunt aliquip excepteur duis dolore elit ullamco ex. Tempor aliqua id reprehenderit nostrud officia dolor laborum culpa deserunt amet. Duis pariatur non fugiat ea aliquip magna.</p>
-                                <p>Proident amet culpa ex nostrud qui excepteur veniam dolore mollit voluptate irure. Et commodo aute qui minim ut minim ut. Ipsum proident laboris consectetur esse non excepteur velit exercitation officia. Cupidatat quis deserunt laborum pariatur elit incididunt aliquip qui. Proident do id non elit nulla cillum reprehenderit occaecat.</p>
+                                <p><strong>Correlation analysis is </strong>{" "} a data analysis model that measures the strength of association between two variables and the direction of the relationship. </p>
+                                <p> In terms of the strength of relationship, the value of the correlation coefficient varies between +1 and -1.  A value of ± 1 indicates a perfect degree of association between the two variables.</p>
+                                <p> As the correlation coefficient value goes towards 0, the relationship between the two variables will be weaker.  The direction of the relationship is indicated by the sign of the coefficient; a + sign indicates a positive relationship and a – sign indicates a negative relationship. </p>
+
                             </div>
                         </div>
                         <div className="columns is-centered bcwhite m-t-20">
