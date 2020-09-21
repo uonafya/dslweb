@@ -111,7 +111,7 @@ export default class extends React.Component{
   fetchCorrData=(id,ouid,corrIndic)=>{
     (async () => { //http://dsl.health.go.ke/dsl/api/pandemics/covid19?id=6074&start_date=2020-06-07
       let {indicatorData}=await FetchIndicatorCorrelation(id,ouid,corrIndic );
-      const correData = []
+      const correData = [];
       try{
         for (let key in indicatorData.result.data.correlation){
           correData.push(indicatorData.result.data.correlation[key]);
@@ -122,10 +122,12 @@ export default class extends React.Component{
       for(let key in indicatorData.result.data.indicator){
         if(key!=id) {
           let scatterList=getIndicatorScatterDataArray(indicatorData.result.data.indicator[id], indicatorData.result.data.indicator[key]);
-          scatterData.push(scatterList);
+          let scatterMap = {}
+          scatterMap['data']=scatterList;
+          scatterMap['id']=key;
+          scatterData.push(scatterMap);
         }
       }
-
       this.setState({
         correlationData: indicatorData,
         heatYLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
@@ -134,12 +136,12 @@ export default class extends React.Component{
         scatterData: scatterData
       });
     })()
-
   }
 
   render() {
+
     let corrVariables=[];
-    let scatterGraphs = []
+    let scatterGraphs = [];
     if(this.state.correlationData!=undefined){
         for(let step =0; step<this.state.correlationData.result.dictionary.analyses.variables.length; step++){
           corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[step]} (<span className="text-bold ">{this.state.correlationData.result.dictionary.analyses.correlation_dimension[step]}</span>)</div>)
@@ -147,26 +149,23 @@ export default class extends React.Component{
     }
 
     if(this.state.scatterData){
+      let indicatorsMap = {}
+      this.state.correlationData.result.dictionary.indicators.map((indicator)=>{
+        indicatorsMap[indicator.id]=indicator.name;
+      })
       this.state.scatterData.map((data)=>{
-        scatterGraphs.push( <Scatter data = {data}/>)
+        scatterGraphs.push(
+            <div>
+              <Scatter data = {data.data}/>
+              <p style={{ textAlign: "center" }}><span style={{fontWeight: "700"}}>Scatter graph:</span> {indicatorsMap[this.state.id]} vs {indicatorsMap[data.id]} </p>
+            </div>
+        )
       });
 
     }
 
     return (
         <Layout>
-
-            {
-              <style jsx>
-                {`
-
-                  .lleafet-retina .leaflet-control-layers-toggle {
-                  	background-image: url(../static/images/layers-2x.png);
-                  	}
-
-                `}
-              </style>
-            }
 
             {/* Breadcrumb */}
             <section className="section m-t-20 m-b-5 bcclear p-b-15">
@@ -268,6 +267,19 @@ export default class extends React.Component{
 
                               </div>
 
+                            </div>
+
+                            <div className="columns">
+                              <div className="column" style={{textAlign: "center"}}>
+                              <hr/>
+                                <p>
+                                  <span style={{fontWeight: "700"}}>Scatter plots</span> pairs values on two given variables on each axis to help look at relationships between them.
+                                  If the variables provided are correlated, the points will fall along a line or a curve. If the correlation if strong
+                                  the point will hug the line morer.
+                                  If the data points make a line from the origin (low x and y values to high x and y values) the data points are positively correlated.
+                                  If the graph starts off with high y-values and continues to low y-values then the graph is negatively correlated.
+                                </p>
+                              </div>
                             </div>
 
                             <div className="columns has-same-height is-gapless">
