@@ -96,46 +96,45 @@ export default class extends React.Component{
     };
 
   }
-
+  // '23185','23408','23191,31589'
   componentDidMount(){
     this.getIndicators();
     this.getCounties();
-    this.fetchCorrData('23185','23408','23191,31589' );
-    this.setState({
-      id: '23185',
-      ouid: '23408'
-    });
+    this.fetchCorrData(this.props.query.id,this.props.query.ouid,this.props.query.id );
 
   }
 
   fetchCorrData=(id,ouid,corrIndic)=>{
-    (async () => { //http://dsl.health.go.ke/dsl/api/pandemics/covid19?id=6074&start_date=2020-06-07
-      let {indicatorData}=await FetchIndicatorCorrelation(id,ouid,corrIndic );
-      const correData = [];
-      try{
-        for (let key in indicatorData.result.data.correlation){
-          correData.push(indicatorData.result.data.correlation[key]);
+    if(corrIndic.length!=0){
+      (async () => { //http://dsl.health.go.ke/dsl/api/pandemics/covid19?id=6074&start_date=2020-06-07
+        let {indicatorData}=await FetchIndicatorCorrelation(id,ouid,corrIndic );
+        const correData = [];
+        try{
+          for (let key in indicatorData.result.data.correlation){
+            correData.push(indicatorData.result.data.correlation[key]);
+          }
+        }catch(err){
         }
-      }catch(err){
-      }
-      let scatterData = []
-      for(let key in indicatorData.result.data.indicator){
-        if(key!=id) {
-          let scatterList=getIndicatorScatterDataArray(indicatorData.result.data.indicator[id], indicatorData.result.data.indicator[key]);
-          let scatterMap = {}
-          scatterMap['data']=scatterList;
-          scatterMap['id']=key;
-          scatterData.push(scatterMap);
+        let scatterData = []
+        for(let key in indicatorData.result.data.indicator){
+          if(key!=id) {
+            let scatterList=getIndicatorScatterDataArray(indicatorData.result.data.indicator[key], indicatorData.result.data.indicator[id]);
+            let scatterMap = {}
+
+            scatterMap['data']=scatterList;
+            scatterMap['id']=key;
+            scatterData.push(scatterMap);
+          }
         }
-      }
-      this.setState({
-        correlationData: indicatorData,
-        heatYLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
-        heatXLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
-        correData: correData,
-        scatterData: scatterData
-      });
-    })()
+        this.setState({
+          correlationData: indicatorData,
+          heatYLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
+          heatXLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
+          correData: correData,
+          scatterData: scatterData
+        });
+      })()
+    }
   }
 
   render() {

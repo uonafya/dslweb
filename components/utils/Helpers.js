@@ -566,6 +566,7 @@ export async function FetchIndicatorCorrelation(id,ouid,correIndicators) {
     return;
   }
   const fetchIndicatorCorrData = await fetch(fetchIndicatorCorreDataUrl);
+    console.log(`// running helper FetchIndicatorCorrelation. ID:${fetchIndicatorCorreDataUrl} `)
   const indicatorData = await fetchIndicatorCorrData.json();
   if(true){
     loading = false;
@@ -580,12 +581,14 @@ export function getIndicatorScatterDataArray( listA, listB) {
       valuesMap[singleVal.date] = [];
       valuesMap[singleVal.date].push(singleVal.value);
     });
-    try{
-      listB.map((singleVal)=>{
+
+    listB.map((singleVal)=>{
+      try{
         valuesMap[singleVal.date].push(singleVal.value);
-      });
-    }catch(err){
-    }
+      }catch(err){
+      }
+    });
+
     for(let key in valuesMap){
       returnArrayl.push(valuesMap[key]);
     }
