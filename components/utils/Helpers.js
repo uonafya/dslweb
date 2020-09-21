@@ -572,3 +572,22 @@ export async function FetchIndicatorCorrelation(id,ouid,correIndicators) {
   }
   return {indicatorData, loading}
 }
+//use listA for period reference in creating date key map
+export function getIndicatorScatterDataArray( listA, listB) {
+    let valuesMap = {};
+    let returnArrayl = [];
+    listA.map((singleVal)=>{
+      valuesMap[singleVal.date] = [];
+      valuesMap[singleVal.date].push(singleVal.value);
+    });
+    try{
+      listB.map((singleVal)=>{
+        valuesMap[singleVal.date].push(singleVal.value);
+      });
+    }catch(err){
+    }
+    for(let key in valuesMap){
+      returnArrayl.push(valuesMap[key]);
+    }
+    return returnArrayl;
+}

@@ -1,9 +1,9 @@
 import Layout from '../../components/Layout';
 import Link from 'next/link';
 import HeatMap from "react-heatmap-grid";
-import CompareGraph from '../../components/utils/CompareGraph';
 import dynamic from 'next/dynamic';
-import { fetchIndicators, FetchCountyList, FetchIndicatorCorrelation } from '../../components/utils/Helpers'
+import { fetchIndicators, FetchCountyList, FetchIndicatorCorrelation, getIndicatorScatterDataArray } from '../../components/utils/Helpers'
+import Scatter from '../../components/utils/charts/Scatter'
 
 const Multiselect = dynamic(() =>
   import('multiselect-react-dropdown').then(module => module.Multiselect)
@@ -76,7 +76,6 @@ export default class extends React.Component{
 
   constructor (props) {
     super(props);
-
     this.state = {
       ouid: this.props.query.ouid,
       id: this.props.query.id,
@@ -119,11 +118,20 @@ export default class extends React.Component{
         }
       }catch(err){
       }
+      let scatterData = []
+      for(let key in indicatorData.result.data.indicator){
+        if(key!=id) {
+          let scatterList=getIndicatorScatterDataArray(indicatorData.result.data.indicator[id], indicatorData.result.data.indicator[key]);
+          scatterData.push(scatterList);
+        }
+      }
+
       this.setState({
         correlationData: indicatorData,
         heatYLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
         heatXLabels: indicatorData.result.dictionary.analyses.correlation_dimension,
-        correData: correData
+        correData: correData,
+        scatterData: scatterData
       });
     })()
 
@@ -131,11 +139,17 @@ export default class extends React.Component{
 
   render() {
     let corrVariables=[];
-
+    let scatterGraphs = []
     if(this.state.correlationData!=undefined){
         for(let step =0; step<this.state.correlationData.result.dictionary.analyses.variables.length; step++){
           corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[step]} (<span className="text-bold ">{this.state.correlationData.result.dictionary.analyses.correlation_dimension[step]}</span>)</div>)
         }
+    }
+
+    if(this.state.scatterData){
+      this.state.scatterData.map((data)=>{
+        scatterGraphs.push( <Scatter data = {data}/>)
+      });
 
     }
 
@@ -236,26 +250,35 @@ export default class extends React.Component{
                             <div className="columns has-same-height is-gapless">
                               <div className="column">
 
-                              {this.state.correData.length>0 &&
-                                <HeatMap
-                                  xLabels={this.state.heatXLabels}
-                                  yLabels={this.state.heatYLabels}
-                                  xLabelWidth={60}
-                                  data={this.state.correData}
-                                  height={45}
-                                  onClick={(x, y) => alert(`Clicked ${x}, ${y}`)}
-                                  cellStyle={(background, value, min, max, data, x, y) => ({
-                                    background: `rgb(0, 151, 230, ${1 - (max - value) / (max - min)})`,
-                                    fontSize: "11.5px",
-                                    color: "#444"
-                                  })}
-                                  cellRender={value => value && <div>{value}</div>}
-                                />
-                              }
+                                {this.state.correData.length>0 &&
+                                  <HeatMap
+                                    xLabels={this.state.heatXLabels}
+                                    yLabels={this.state.heatYLabels}
+                                    xLabelWidth={60}
+                                    data={this.state.correData}
+                                    height={45}
+                                    cellStyle={(background, value, min, max, data, x, y) => ({
+                                      background: `rgb(0, 151, 230, ${1 - (max - value) / (max - min)})`,
+                                      fontSize: "11.5px",
+                                      color: "#444"
+                                    })}
+                                    cellRender={value => value && <div>{value}</div>}
+                                  />
+                                }
 
+                              </div>
+
+                            </div>
+
+                            <div className="columns has-same-height is-gapless">
+                              <div className="column">
+                                {
+                                  scatterGraphs
+                                }
 
                               </div>
                             </div>
+
                         </div>
                   </div>
                   {/* end Content   */}
@@ -332,7 +355,7 @@ export default class extends React.Component{
                                 <h4 className="title is-5 text-left fcsecondary-dark text-bold m-b-15">Related indicators:</h4>
                             </div>
                             <div className="content m-l-15 m-t-0">
-                                 <a href="#" className="is-link text-normal">Impact indicators</a> <br/> 
+                                 <a href="#" className="is-link text-normal">Impact indicators</a> <br/>
                             </div>
                           </div> */}
 
@@ -343,8 +366,6 @@ export default class extends React.Component{
                 </div>
 
                 {/*End main body*/}
-
-
 
 
               </div>
