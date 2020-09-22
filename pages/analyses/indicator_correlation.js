@@ -219,6 +219,7 @@ export default class extends React.Component{
                         <div className="column">
                           <Multiselect
                             placeholder = "Select indicator:"
+                            disablePreSelectedValues={true}
                             options={this.state.indicators} // Options to display in the dropdown
                             selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
                             onSelect={this.onSelectIndic} // Function will trigger on select event
@@ -244,7 +245,7 @@ export default class extends React.Component{
 
                         <div className="container">
                             {/* <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">At a glance</h4> */}
-                            <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">Correlation analyses</h4>
+                            <h4 className="title is-5 text-center text-uppercase fcsecondary-dark text-bold">Indicator correlation analyses</h4>
                             <div className="columns has-same-height is-gapless">
                               <div className="column">
 
