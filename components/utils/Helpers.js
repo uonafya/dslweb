@@ -566,7 +566,6 @@ export async function FetchIndicatorCorrelation(id,ouid,correIndicators) {
     return;
   }
   const fetchIndicatorCorrData = await fetch(fetchIndicatorCorreDataUrl);
-    console.log(`// running helper FetchIndicatorCorrelation. ID:${fetchIndicatorCorreDataUrl} `)
   const indicatorData = await fetchIndicatorCorrData.json();
   if(true){
     loading = false;
@@ -593,4 +592,26 @@ export function getIndicatorScatterDataArray( listA, listB) {
       returnArrayl.push(valuesMap[key]);
     }
     return returnArrayl;
+}
+
+export async function FetchWeatherIndicatorCorrelation(id,ouid) {
+  let tim = new Date()
+  console.log(`// running helper FetchWeatherIndicatorCorrelation. ID:${id} && OU:${ouid} `)
+  let loading = true;
+  if(id == undefined && id == null){
+    return;
+  }
+  // let fetchIndicatorCorreDataUrl = `${settings.dslBaseApi}/weather_correlation/${id}`;23185
+  let fetchIndicatorCorreDataUrl = `${settings.dslBaseApi}/weather_correlation/${id}`;
+  if(ouid != undefined && ouid != null){
+    // fetchIndicatorCorreDataUrl += `/${ouid}`;
+    fetchIndicatorCorreDataUrl += `/23408`;
+  }
+  const fetchIndicatorCorrData = await fetch(fetchIndicatorCorreDataUrl);
+  const indicatorData = await fetchIndicatorCorrData.json();
+  console.log(fetchIndicatorCorreDataUrl);
+  if(true){
+    loading = false;
+  }
+  return {indicatorData, loading}
 }
