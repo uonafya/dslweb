@@ -83,7 +83,7 @@ export default class extends React.Component{
                                             <i className="fas fa-cloud-showers-heavy fa-2x fcsecondary-light" aria-hidden="true"></i>
                                         </div>
                                         <div className="media-content">
-                                          <a href="#" className="title is-5">Indicator to Weather</a>
+                                          <Link href={`/analyses/weather_correlation?id=${this.props.query.id}&ouid=${this.state.ouid}`}><a className="title is-5">Indicator to Weather</a></Link>
                                         </div>
                                       </div>
 
