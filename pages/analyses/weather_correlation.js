@@ -47,7 +47,7 @@ export default class extends React.Component{
   }
 
   onSelectOrgunit=(selectedList, selectedItem)=> {
-
+    console.log(selectedItem.id)
     this.setState({
       ouid: selectedItem.id
     });
@@ -62,12 +62,27 @@ export default class extends React.Component{
   }
 
   async getCounties() {
-    let kenya = {"id": "18", "name": "Kenya (National)"};
-    let countyData = await FetchCountyList()
-    let countyData2 = [kenya].concat(countyData);
+    let countyData =[
+      // {"id": "18", "name": "Kenya (National)"},
+      {"id": "23402", "name":	"WAJIR"},
+      {"id": "23393", "name":	"Nairobi"},
+      {"id": "23517", "name":	"Samburu"},
+      {"id": "23519", "name":	"Trans-Nzoia"},
+      {"id": "23515", "name":	"Kericho"},
+      {"id": "23382", "name":	"Nyeri"},
+      {"id": "23387", "name":	"Kilifi"},
+      {"id": "23390", "name":	"Mombasa"},
+      {"id": "23389", "name":	"Lamu"},
+      {"id": "23401", "name":	"Garissa"},
+      {"id": "23408", "name":	"Kisumu"},
+      {"id": "23509", "name":	"Nakuru"},
+      {"id": "23520", "name":	"Uasin Gishu"},
+    ];
+    // let countyData = await FetchCountyList()
+    // let countyData2 = [kenya].concat(countyData);
     countyData
     this.setState({
-        counties: countyData2
+        counties: countyData
     })
   }
 

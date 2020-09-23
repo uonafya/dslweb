@@ -605,7 +605,7 @@ export async function FetchWeatherIndicatorCorrelation(id,ouid) {
   let fetchIndicatorCorreDataUrl = `${settings.dslBaseApi}/weather_correlation/${id}`;
   if(ouid != undefined && ouid != null){
     // fetchIndicatorCorreDataUrl += `/${ouid}`;
-    fetchIndicatorCorreDataUrl += `/23408`;
+    fetchIndicatorCorreDataUrl += `/${ouid}`;
   }
   const fetchIndicatorCorrData = await fetch(fetchIndicatorCorreDataUrl);
   const indicatorData = await fetchIndicatorCorrData.json();
