@@ -151,9 +151,10 @@ export default class extends React.Component{
     let scatterGraphs = [];
     if(this.state.correlationData!=undefined){
 
-        for(let step =0; step<this.state.correlationData.result.dictionary.analyses.variables.length; step++){
-          corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[step]}</div>)
-        }
+      for(let varId in this.state.correlationData.result.dictionary.analyses.variables){
+        corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[varId]} (<span className="text-bold ">{varId}</span>)</div>)
+      }
+
     }
 
     if(this.state.scatterData){
@@ -170,7 +171,8 @@ export default class extends React.Component{
         scatterGraphs.push(
             <div>
               <Scatter data = {data.data}/>
-              <p style={{ textAlign: "center" }}><span style={{fontWeight: "700"}}>Scatter graph:</span> {indicatorsMap[this.state.id]} vs {weatherMap[data.id]} </p>
+              <p style={{ textAlign: "center" }}><span style={{fontWeight: "700"}}>Scatter graph:</span> {indicatorsMap[this.state.id]} vs {weatherMap[data.id]}
+              <Link href={"/analyses/bivariate_weather_forecast?id="+this.state.id+"&ouid="+this.state.ouid+"&weatherId="+data.id}><a> (Forecast) </a></Link></p>
             </div>
         )
       });
