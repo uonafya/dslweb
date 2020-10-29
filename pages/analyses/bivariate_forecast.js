@@ -97,7 +97,7 @@ export default class extends React.Component {
                         </Link></li>
                         <li className="is-active">
                           <a aria-current="page">
-                            Bivariate projection
+                            Bivariate Forecasting
                           </a>
                         </li>
                     </ul>
@@ -141,7 +141,7 @@ export default class extends React.Component {
 
 
           <div className="box m-5">
-            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Bivariate Projection Analysis:  {this.state.period}</h5>
+            <h5 className="title m-b-0 m-l-10 is-6 fcprimary-dark text-caps text-center">Bivariate Forecasting Analysis:  {this.state.period}</h5>
             <br/>
             <ProjectionTimeSeriesLineGraph indicatorId= {this.state.id} indicBivariate={true} data={this.state.data}/>
           </div>
