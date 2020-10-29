@@ -66,7 +66,10 @@ export default class ProjectionTimeSeriesLineGraph extends PureComponent {
       let returnedSeriesData;
 
       if(this.props.indicBivariate == true){
-        returnedSeriesData=ConvertIndicToIndicMultiVarForecastLineGraph(this.props.data, this.props.indicatorId);
+        if(this.props.weatherForecast)
+          returnedSeriesData=ConvertIndicToIndicMultiVarForecastLineGraph(this.props.data, this.props.indicatorId, true);
+        else
+          returnedSeriesData=ConvertIndicToIndicMultiVarForecastLineGraph(this.props.data, this.props.indicatorId, false);
       }else{
         returnedSeriesData=ConvertTimeSeriesLineGraph(this.props.data);
        }
@@ -93,7 +96,10 @@ export default class ProjectionTimeSeriesLineGraph extends PureComponent {
     if(nextProps.data){
       let returnedSeriesData;
       if(this.props.indicBivariate == true){
-        returnedSeriesData=ConvertIndicToIndicMultiVarForecastLineGraph(nextProps.data, this.props.indicatorId);
+        if(this.props.weatherForecast)
+          returnedSeriesData=ConvertIndicToIndicMultiVarForecastLineGraph(nextProps.data, nextProps.indicatorId, true);
+        else
+          returnedSeriesData=ConvertIndicToIndicMultiVarForecastLineGraph(nextProps.data, nextProps.indicatorId, false);
       }else{
         returnedSeriesData=ConvertTimeSeriesLineGraph(nextProps.data);
        }
