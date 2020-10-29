@@ -615,3 +615,24 @@ export async function FetchWeatherIndicatorCorrelation(id,ouid) {
   }
   return {indicatorData, loading}
 }
+
+export async function fetchMultiVariateIndicPredictionData(id,ouid,corrIndicators,periodSpan) {
+
+  let fetchIndicatorDataUrl = `${settings.dslBaseApi}/forecast/indicator_indicator/${id}`;
+  if(ouid != undefined){
+    fetchIndicatorDataUrl += `/${ouid}`;
+  }else{
+    fetchIndicatorDataUrl += `/18`; //default to national
+  }
+  if(corrIndicators != undefined){
+    fetchIndicatorDataUrl += `/${corrIndicators}`;
+  }
+  if(periodSpan != undefined){
+    fetchIndicatorDataUrl += `/${periodSpan}`;
+  }
+  console.log(fetchIndicatorDataUrl);
+  const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
+  const indicatorData = await fetchIndicatorData.json();
+  console.log(indicatorData);
+  return indicatorData
+}
