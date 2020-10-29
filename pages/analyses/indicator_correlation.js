@@ -141,10 +141,14 @@ export default class extends React.Component{
 
     let corrVariables=[];
     let scatterGraphs = [];
+
     if(this.state.correlationData!=undefined){
-        for(let step =0; step<this.state.correlationData.result.dictionary.analyses.variables.length; step++){
-          corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[step]} (<span className="text-bold ">{this.state.correlationData.result.dictionary.analyses.correlation_dimension[step]}</span>)</div>)
+      console.log(this.state.correlationData.result.dictionary.analyses.variables)
+
+        for(let indicId in this.state.correlationData.result.dictionary.analyses.variables){
+          corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[indicId]} (<span className="text-bold ">{indicId}</span>)</div>)
         }
+
     }
 
     if(this.state.scatterData){
@@ -156,7 +160,8 @@ export default class extends React.Component{
         scatterGraphs.push(
             <div>
               <Scatter data = {data.data}/>
-              <p style={{ textAlign: "center" }}><span style={{fontWeight: "700"}}>Scatter graph:</span> {indicatorsMap[this.state.id]} vs {indicatorsMap[data.id]} </p>
+              <p style={{ textAlign: "center" }}><span style={{fontWeight: "700"}}>Scatter graph:</span> {indicatorsMap[this.state.id]} vs {indicatorsMap[data.id]}
+              <Link href={"/analyses/bivariate_forecast?id="+this.state.id+"&ouid="+this.state.ouid+"&corrIndicators="+data.id}><a> (Forecast) </a></Link></p>
             </div>
         )
       });

@@ -150,6 +150,7 @@ export default class extends React.Component{
     let corrVariables=[];
     let scatterGraphs = [];
     if(this.state.correlationData!=undefined){
+
         for(let step =0; step<this.state.correlationData.result.dictionary.analyses.variables.length; step++){
           corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[step]}</div>)
         }
