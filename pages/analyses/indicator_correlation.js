@@ -143,7 +143,6 @@ export default class extends React.Component{
     let scatterGraphs = [];
 
     if(this.state.correlationData!=undefined){
-      console.log(this.state.correlationData.result.dictionary.analyses.variables)
 
         for(let indicId in this.state.correlationData.result.dictionary.analyses.variables){
           corrVariables.push(<div style={{fontSize:"15px"}}>&#8226; {this.state.correlationData.result.dictionary.analyses.variables[indicId]} (<span className="text-bold ">{indicId}</span>)</div>)
