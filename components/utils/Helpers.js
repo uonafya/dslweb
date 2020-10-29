@@ -636,3 +636,25 @@ export async function fetchMultiVariateIndicPredictionData(id,ouid,corrIndicator
   console.log(indicatorData);
   return indicatorData
 }
+
+
+export async function fetchMultiVariateWeatherPredictionData(id,ouid,weatherId,periodSpan) {
+
+  let fetchIndicatorDataUrl = `${settings.dslBaseApi}/forecast/indicator_weather/${id}`;
+  if(ouid != undefined){
+    fetchIndicatorDataUrl += `/${ouid}`;
+  }else{
+    fetchIndicatorDataUrl += `/23393`; //default to Nairobi
+  }
+  if(weatherId != undefined){
+    fetchIndicatorDataUrl += `/${weatherId}`;
+  }
+  if(periodSpan != undefined){
+    fetchIndicatorDataUrl += `/${periodSpan}`;
+  }
+  console.log(fetchIndicatorDataUrl);
+  const fetchIndicatorData = await fetch(fetchIndicatorDataUrl);
+  const indicatorData = await fetchIndicatorData.json();
+  console.log(indicatorData);
+  return indicatorData
+}
