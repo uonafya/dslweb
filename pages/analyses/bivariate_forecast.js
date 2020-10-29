@@ -20,7 +20,7 @@ export default class extends React.Component {
       ouid: this.props.query.ouid,
       id: this.props.query.id,
       corrIndicators: this.props.query.corrIndicators,
-      periodSpan: 24,
+      periodSpan: 10,
       periodtype: 'monthly',
       data: ''
     }
@@ -53,11 +53,15 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
+
     this.fetchData();
   }
 
-  componentDidUpdate(){
-    this.fetchData();
+  componentDidUpdate(prevProps,prevState){
+    if(prevState.periodSpan != this.state.periodSpan){
+      this.fetchData();
+    }
+
   }
 
   render() {
