@@ -360,7 +360,7 @@ export function ConvertToCadreMonthlyLineGraph(_data){
 }
 
 
-export function ConvertIndicToIndicMultiVarForecastLineGraph(_data,indicatorId){
+export function ConvertIndicToIndicMultiVarForecastLineGraph(_data,indicatorId,weatherForecast){
   let indicatorList =_data.dictionary.indicators;
   let orgUnitList =_data.dictionary.orgunits;
   //let indicatorMap =getIndicatorsMap(indicatorList);
@@ -384,6 +384,9 @@ export function ConvertIndicToIndicMultiVarForecastLineGraph(_data,indicatorId){
         });
 
         let forecastVals=_data.data.forecast_values[indicatorKey];
+        if(weatherForecast){
+          forecastVals=_data.data.forecast_values['kpivalue'];
+        }
         let start = 0;
         let startForecastPeriod;
         forecastVals.map(item => {
