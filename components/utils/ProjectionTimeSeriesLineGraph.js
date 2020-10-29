@@ -2,7 +2,7 @@ import React, {
   PureComponent
 } from 'react';
 import { ConvertToMonthlyLineGraph2 } from './converters/Charts'
-import {ConvertTimeSeriesLineGraph} from './converters/Charts'
+import {ConvertTimeSeriesLineGraph,ConvertIndicToIndicMultiVarForecastLineGraph} from './converters/Charts'
 import { fetchTimeSeriesData } from './Helpers'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -42,8 +42,13 @@ export default class ProjectionTimeSeriesLineGraph extends PureComponent {
         },
         xAxis: {
             type: 'datetime',
-            dateTimeLabelFormats: {
-                year: '%Y'
+            labels: {
+        // formatter: function() {
+        //   return Highcharts.dateFormat('%b %Y', this.value);
+        // }
+      },
+            title: {
+                text: 'Period'
             }
         },
         credits: {
@@ -57,12 +62,18 @@ export default class ProjectionTimeSeriesLineGraph extends PureComponent {
 
   componentDidMount() {
     if(this.props.data){
-      console.log(indicatorData);
-      let returnedSeriesData=ConvertTimeSeriesLineGraph(this.props.data);
+
+      let returnedSeriesData;
+
+      if(this.props.indicBivariate == true){
+        returnedSeriesData=ConvertIndicToIndicMultiVarForecastLineGraph(this.props.data, this.props.indicatorId);
+      }else{
+        returnedSeriesData=ConvertTimeSeriesLineGraph(this.props.data);
+       }
+
       let data =returnedSeriesData.data
       let subtitle =returnedSeriesData.subtitle;
       let title =returnedSeriesData.title;
-      console.log(subtitle);
       this.setState({
        chartOptions: {
          series: [data],
@@ -80,11 +91,16 @@ export default class ProjectionTimeSeriesLineGraph extends PureComponent {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.data){
-      let returnedSeriesData=ConvertTimeSeriesLineGraph(nextProps.data);
+      let returnedSeriesData;
+      if(this.props.indicBivariate == true){
+        returnedSeriesData=ConvertIndicToIndicMultiVarForecastLineGraph(nextProps.data, this.props.indicatorId);
+      }else{
+        returnedSeriesData=ConvertTimeSeriesLineGraph(nextProps.data);
+       }
+
       let data =returnedSeriesData.data
       let subtitle =returnedSeriesData.subtitle;
       let title =returnedSeriesData.title;
-      console.log(subtitle);
       this.setState({
        chartOptions: {
          series: [data],
