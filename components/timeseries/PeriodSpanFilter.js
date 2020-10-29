@@ -18,6 +18,7 @@ export default class PeriodSpan extends React.Component {
         numberInput = <span>
 
                         <input
+                          onChange={event =>this.props.handler(event.target.value)}
                           style= {{ lineHeight: "37px", width: "120px" }}
                           type="number"
                           id="points"
