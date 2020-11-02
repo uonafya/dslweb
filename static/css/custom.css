@@ -654,6 +654,9 @@ td.pvtOutput{
     padding-bottom: 7px;
     border-bottom: 1px solid #ddd;
 }
+.leaflet-marker-shadow{
+    visibility: hidden;
+}
 
 .leaflet-popup-content {
     margin: 10px !important;
