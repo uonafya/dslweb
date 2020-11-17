@@ -77,6 +77,10 @@ nav .navbar-item{
 }
 body{
   background: #f9fbfb;
+  font-size: 19px;
+  font-weight: 400;
+  color: #23232c;
+  line-height: 1.2;
 }
 #uhc-diag {
   margin-top: -55px;

@@ -108,17 +108,17 @@ export default function UHC() {
             <div className="column" id="uhc-diag">
               <div className="tile is-ancestor text-center">
                 <div className="tile is-parent p-5 is-vertical is-1">
-                  <article className="tile is-child notification is-warning">
+                  <article className="tile is-child notification is-warning" title='Effectiveness'>
                     <PopUpModal
                     groupName={'Effectiveness'}
                     indicatorMap={uhc.groups[uhc_groups.Effectiveness]['indicators']}
                     cssStyling={"subtitle text-vertical-rl fcwhite"}
                     />
                   </article>
-                  <article className="tile is-child notification is-warning">
+                  <article className="tile is-child notification is-warning" title='Equity'>
                     <p className="subtitle text-vertical-rl fcwhite">Equity</p>
                   </article>
-                  <article className="tile is-child notification is-warning">
+                  <article className="tile is-child notification is-warning" title='Efficiency'>
                     <p className="subtitle text-vertical-rl fcwhite">Efficiency</p>
                   </article>
                 </div>
@@ -130,21 +130,21 @@ export default function UHC() {
                           <p className="subtitle text-uppercase m-t-15">Healthy lives and wellbeing for all at all ages</p>
                           <div className="content text-center">
                             <div className="columns">
-                              <div className="column">
+                              <div className="column" title='Healthy Life'>
                                 <PopUpModal
                                 groupName={'Healthy Life'}
                                 indicatorMap={uhc.groups[uhc_groups.HealthyLife]['indicators']}
                                 cssStyling={"fcwhite text-uppercase"}
                                 />
                               </div>
-                              <div className="column">
+                              <div className="column" title='Burden of Disease'>
                                 <PopUpModal
                                 groupName={'Burden of Disease'}
                                 indicatorMap={uhc.groups[uhc_groups.BurdenofDisease]['indicators']}
                                 cssStyling={"fcwhite text-uppercase"}
                                 />
                               </div>
-                              <div className="column">
+                              <div className="column" title='Burden of Risk Factors'>
                                 <PopUpModal
                                 groupName={'Burden of Risk Factors'}
                                 indicatorMap={uhc.groups[uhc_groups.BurdenofRiskFactors]['indicators']}
@@ -184,7 +184,7 @@ export default function UHC() {
                             {/* <!-- zz --> */}
                             <div className="columns">
                                 <div className="column is-2">
-                                    <article className="notification is-success">
+                                    <article className="notification is-success" title='Effectiveness'>
                                       <PopUpModal
                                       groupName={'Effectiveness'}
                                       indicatorMap={uhc.groups[uhc_groups.Effectiveness]['indicators']}
@@ -195,7 +195,7 @@ export default function UHC() {
                                 <div className="column is-three-fifths">
                                     <div className="columns p-5">
                                         <div className="column p-3">
-                                            <article id="serviceavailability" className="notification is-success p-5">
+                                            <article id="serviceavailability" className="notification is-success p-5" title='Essential Services Availability'>
                                                 <PopUpModal
                                                 groupName={'Essential Services Availability'}
                                                 indicatorMap={uhc.groups[uhc_groups.SERVICESAVAILABILITY]['indicators']}
@@ -204,7 +204,7 @@ export default function UHC() {
                                             </article>
                                         </div>
                                         <div className="column p-3">
-                                            <article id="servicecoverage" className="notification is-success p-5">
+                                            <article id="servicecoverage" className="notification is-success p-5" title='Essential Services Coverage'>
                                               <PopUpModal
                                               groupName={'Essential Services Coverage'}
                                               indicatorMap={uhc.groups[uhc_groups.EssentialServicesCoverage]['indicators']}
@@ -214,7 +214,7 @@ export default function UHC() {
                                             </article>
                                         </div>
                                         <div className="column p-3">
-                                            <article className="notification is-success p-5">
+                                            <article className="notification is-success p-5" title='Financial Risk Protection'>
                                                 <PopUpModal
                                                 groupName={'Financial Risk Protection'}
                                                 indicatorMap={uhc.groups[uhc_groups.FinancialRiskProtection]['indicators']}
@@ -225,7 +225,7 @@ export default function UHC() {
                                     </div>
                                     <div className="columns">
                                         <div className="column p-3">
-                                            <article className="notification is-success p-5">
+                                            <article className="notification is-success p-5" title='Other SDGs Health Interventions'>
                                                 <PopUpModal
                                                 groupName={'Other SDGs Health Interventions'}
                                                 indicatorMap={uhc.groups[uhc_groups.OtherSDGsHealthInterventions]['indicators']}
@@ -237,7 +237,7 @@ export default function UHC() {
                                     </div>
                                 </div>
                                 <div className="column is-one-fifth">
-                                    <article className="tile notification is-success">
+                                    <article className="tile notification is-success" title='Service Satisfaction '>
                                       <PopUpModal
                                       groupName={'Service Satisfaction '}
                                       indicatorMap={uhc.groups[uhc_groups.ServiceSatisfaction]['indicators']}
@@ -296,7 +296,7 @@ export default function UHC() {
                                         <div className="column">
                                             <div className="columns p-5">
                                                 <div className="column p-3">
-                                                    <article className="notification bcsecondary-dark p-5">
+                                                    <article className="notification bcsecondary-dark p-5" title='Access to Essential Services'>
                                                         <PopUpModal
                                                         groupName={'Access to Essential Services'}
                                                         indicatorMap={uhc.groups[uhc_groups.AccesstoEssentialServices]['indicators']}
@@ -306,7 +306,7 @@ export default function UHC() {
                                                 </div>
                                                 <div className="column p-3">
 
-                                                    <article id="qualityofessentialservices" className="notification bcsecondary-dark p-5">
+                                                    <article id="qualityofessentialservices" className="notification bcsecondary-dark p-5" title='Quality of Essential Services'>
                                                       <PopUpModal
                                                       groupName={'Quality of Essential Services'}
                                                       indicatorMap={uhc.groups[uhc_groups.QualityofEssentialServices]['indicators']}
@@ -319,7 +319,7 @@ export default function UHC() {
                                                 </div>
                                                 <div className="column p-3">
 
-                                                    <article id="demandforessentialservices" className="notification bcsecondary-dark p-5">
+                                                    <article id="demandforessentialservices" className="notification bcsecondary-dark p-5" title='Demand for Essential Services'>
                                                       <PopUpModal
                                                       groupName={'Demand for Essential Services'}
                                                       indicatorMap={uhc.groups[uhc_groups.DemandforEssentialServices]['indicators']}
@@ -330,7 +330,7 @@ export default function UHC() {
 
                                                 </div>
                                                 <div className="column p-3">
-                                                    <article id="resilienceinservices" className="notification bcsecondary-dark p-5">
+                                                    <article id="resilienceinservices" className="notification bcsecondary-dark p-5" title='Resilience in Essential Services Provision'>
                                                       <PopUpModal
                                                       groupName={'Resilience in Essential Services Provision'}
                                                       indicatorMap={uhc.groups[uhc_groups.ResilienceinEssentialServicesProvision]['indicators']}
@@ -374,8 +374,8 @@ export default function UHC() {
                                     {/* <!-- ww --> */}
                                     <div className="columns">
                                         <div className="column is-2">
-                                            <article className="notification is-info">
-                                            <p className="subtitle text-vertical-rl"></p>
+                                            <article className="notification is-info" title='Health Financing'>
+                                              <p className="subtitle text-vertical-rl"></p>
                                               <PopUpModal
                                               groupName={'Health Financing'}
                                               indicatorMap={uhc.groups[uhc_groups.HealthFinancing]['indicators']}
@@ -393,7 +393,7 @@ export default function UHC() {
                                             </div>
                                             <div className="columns">
                                                 <div className="column p-3">
-                                                    <article className="notification bcsecondary-dark p-5">
+                                                    <article className="notification bcsecondary-dark p-5" title='Health Infrastructure'>
                                                         <PopUpModal
                                                         groupName={'Health Infrastructure'}
                                                         indicatorMap={uhc.groups[uhc_groups.HealthInfrastructure]['indicators']}
@@ -402,7 +402,7 @@ export default function UHC() {
                                                     </article>
                                                 </div>
                                                 <div className="column p-3">
-                                                    <article className="notification bcsecondary-dark p-5">
+                                                    <article className="notification bcsecondary-dark p-5" title='Medicines, Products & Supplies'>
                                                         <PopUpModal
                                                         groupName={'Medicines, Products & Supplies'}
                                                         indicatorMap={uhc.groups[uhc_groups.MedicinesProductsSupplies]['indicators']}
@@ -413,7 +413,7 @@ export default function UHC() {
                                             </div>
                                             <div className="columns">
                                                 <div className="column p-3">
-                                                    <article id="healthworkforce" className="notification bcsecondary-dark p-5">
+                                                    <article id="healthworkforce" className="notification bcsecondary-dark p-5" title='Health Workforce'>
                                                         <PopUpModal
                                                         groupName={'Health Workforce'}
                                                         indicatorMap={uhc.groups[uhc_groups.SERVICESAVAILABILITY]['indicators']}
@@ -425,7 +425,7 @@ export default function UHC() {
                                             </div>
                                             <div className="columns">
                                                 <div className="column p-3">
-                                                    <article className="notification is-info p-5">
+                                                    <article className="notification is-info p-5" title='Health Governance'>
                                                         <PopUpModal
                                                         groupName={'Health Governance'}
                                                         indicatorMap={uhc.groups[uhc_groups.HealthGovernance]['indicators']}
@@ -436,7 +436,7 @@ export default function UHC() {
                                             </div>
                                         </div>
                                         <div className="column is-2">
-                                            <article id="healthinfomation" className="tile notification is-info">
+                                            <article id="healthinfomation" className="tile notification is-info" title='Health Information'>
                                                 <PopUpModal
                                                 groupName={'Health Information'}
                                                 indicatorMap={uhc.groups[uhc_groups.HealthInformation]['indicators']}
@@ -469,6 +469,14 @@ export default function UHC() {
       </section>
 
     </Layout>
+
+    <style jsx scoped>
+      {`
+        article:hover{
+          cursor: pointer;
+        }
+      `}
+    </style>
   </div>
 )
 

@@ -22,7 +22,8 @@ const Layout = props => (
       <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
       <link rel="stylesheet" type="text/css" href="/static/css/tabs.css"/>
       <link rel="stylesheet" type="text/css" href="/static/css/leaflet.css"/>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,600&display=swap"/> 
       <script async type="text/javascript" src="/static/js/bulma.js"></script>
       <script async type="text/javascript" src="/static/js/tabs.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -33,7 +34,7 @@ const Layout = props => (
       {/* <div id="loading-indicator" className={props.pageProps.loading == true ? "hidden": "loading-indicator"}>
         <div><img src="/static/images/ripple-loading.svg" /> </div>
       </div> */}
-      <div className="content">
+      <div className="content m-t-40">
         {props.children}
       </div>
     </div>
