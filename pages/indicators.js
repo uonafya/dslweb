@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Router from 'next/router'
+import {Router, useRouter} from 'next/router'
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import IndicatorRow from '../components/IndicatorRow';
@@ -8,7 +8,10 @@ import fetch from 'isomorphic-unfetch';
 
 
 
-const Indicators = props => (
+const Indicators = props => {
+  
+  const router = useRouter()
+  return (
   <Layout>
 
     {/* 
@@ -72,10 +75,10 @@ const Indicators = props => (
                   </div>
                   <div className="div m-b-30">
                     <h4 className="subtitle fcsecondary-dark text-left text-bold m-b-10">Indicator Groups:</h4>
-                    <div className="tags p-l-15 p-r-10">
-                      <Link as={`/indicators`} href="/indicators"><a><span className="tag is-secondary">All</span></a></Link> &nbsp; &nbsp;
+                    <div className="tags p-l-15 p-r-10" style={{maxHeight: '60vh', overflowY: 'auto'}}>
+                      <Link as={`/indicators`} href="/indicators"><a><span className={`tag is-${!router.query.group ? "secondary" : "default"}`}>All</span></a></Link> &nbsp; &nbsp;
                       {props.indicatorGroups.map(indicatorGroup => (
-                        <Link as={`/indicators?group=${indicatorGroup.id}`} href={`/indicators?group=${indicatorGroup.id}`}><a className="m-r-5"><span className="tag is-default">{indicatorGroup.name}</span></a></Link>
+                        <Link as={`/indicators?group=${indicatorGroup.id}`} key={indicatorGroup.id} href={`/indicators?group=${indicatorGroup.id}`}><a className="m-r-5"><span className={`tag is-${router.query.group == indicatorGroup.id ? "secondary" : "default"}`}>{indicatorGroup.name}</span></a></Link>
                       ))}
                     </div>
                   </div>
@@ -111,6 +114,7 @@ const Indicators = props => (
   </Layout>
 
 )
+}
 
 Indicators.getInitialProps = async function(context) {
   const { group, search } = context.query;

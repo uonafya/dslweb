@@ -9,7 +9,7 @@ const Footer = () => (
     <div className="container">
       <div className="columns">
         <div className="column">
-            <img src="/static/images/logo1.png" style={logoFooter} alt="" /> <br />
+            <img src="/static/images/dsl-logo-dark.png" style={logoFooter} alt="" /> <br />
             <h4 className="fcblack-1 text-uppercase text-bold m-t-15">Contact</h4>
             <div className="m-l-10">
               Email: info@dsl.hiskenya.org <br />

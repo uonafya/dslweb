@@ -43,7 +43,7 @@ const Layout = props => (
       {`
         body{
           font-family: 'Open Sans', sans-serif;
-          background: #eef;
+          background: #f3f5f9;
         }
       `}
     </style>

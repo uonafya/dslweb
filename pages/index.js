@@ -17,7 +17,7 @@ import Layout from '../components/Layout'
 const Home = withRouter(props => (
   <div>
     <Layout>
-      <section className="hero is-link is-fullheightz is-fullheight-with-navbarz m-t-50">
+      <section className="hero bcdark is-fullheightz is-fullheight-with-navbarz m-t-50">
         <div className="hero-body p-t-40 p-b-40 text-center">
           <div className="container p-t-30 p-b-30">
             <div className="columns">
@@ -41,7 +41,7 @@ const Home = withRouter(props => (
                     </div>
                   </div>
                   <Link href="/indicators">
-                    <a  className="button is-small is-primary">View all indicators</a>
+                    <a  className="is-link is-text text-underline fcwhite hover-fcprimary m-t-12">View all indicators</a>
                   </Link>
               </div>
             </div>

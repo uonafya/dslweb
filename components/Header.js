@@ -1,18 +1,18 @@
 import Link from 'next/link';
 
 const logoStyle = {
-  height: 45,
-  maxHeight: 55
+  // height: 55,
+  maxHeight: 60
 };
 
 const Header = () => (
 
-  <nav className="navbar is-link is-fixed-top bcblack-1 p-t-5 p-b-5">
+  <nav className="navbar is-link is-fixed-top bcdark p-t-10 p-b-5">
     <div className="container">
-        <div className="navbar-brand bcblack text-bold is-1 p-0">
+        <div className="navbar-brand bcdark text-bold is-1 p-0">
           <Link href="/">
             <a className="navbar-item brand-text p-0">
-              <img src="/static/images/logo1.png" style={logoStyle} alt="" className="logo"/>
+              <img src="/static/images/dsl-logo-light.png" style={logoStyle} alt="" className="logo"/>
             </a>
           </Link>
           <div className="navbar-burger burger" data-target="navbarExampleTransparentExample">
