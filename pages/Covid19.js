@@ -33,8 +33,8 @@ export default class extends React.Component {
   componentDidMount () {
 
     (async () => { //http://dsl.health.go.ke/dsl/api/pandemics/covid19?id=6074&start_date=2020-06-07
-      let {covidData}=await fetchCovidData(null,null,null,null);
-      let choroPlethData=insertCovidValues(covidData,MapData,6074, "confirmed cases"); //confirmed cases
+      let {covidData}=await fetchCovidData(null,null,null,null, 2);
+      let choroPlethData=insertCovidValues(covidData,MapData,8023, "cumulative confirmed cases"); //cumulative confirmed cases
       this.setState({
         covidData: covidData,
         choroPlethData: choroPlethData
