@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
-import {getCummulativeCases, isObjectEquivalent} from '../../utils/Helpers';
+import {getCummulativeCases, isObjectEquivalent, getCummulativeCasesV2API} from '../../utils/Helpers';
 import XAxisChart from '../../utils/charts/XAxisChart';
 
 export default class extends React.Component {
@@ -28,19 +28,19 @@ export default class extends React.Component {
 
      if(covidData!=null){
 
-       let deathCases=getCummulativeCases(this.props.covidData,8901); //death cases
+       let deathCases=getCummulativeCasesV2API(this.props.covidData,8901); //death cases
 
        this.setState({
          deathCases: deathCases,
        });
 
-       let confirmedCases=getCummulativeCases(this.props.covidData,8023); //confirmed cases
+       let confirmedCases=getCummulativeCasesV2API(this.props.covidData,8023); //confirmed cases
 
        this.setState({
          confirmedCases: confirmedCases,
        });
 
-       let recoveredCases=getCummulativeCases(this.props.covidData,9085); //recovered cases
+       let recoveredCases=getCummulativeCasesV2API(this.props.covidData,9085); //recovered cases
 
        this.setState({
          recoveredCases: recoveredCases,

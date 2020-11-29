@@ -2,7 +2,7 @@ import React from 'react';
 import Popover from '@material-ui/core/Popover';
 import { LinePath } from '@vx/shape';
 import { scaleTime, scaleLinear } from '@vx/scale'
-import {getCummulativeCases, isObjectEquivalent} from '../../utils/Helpers';
+import {isObjectEquivalent, getCummulativeCasesV2API} from '../../utils/Helpers';
 import { extent, max } from 'd3-array';
 
 export default class SidePanel extends React.Component {
@@ -60,7 +60,7 @@ export default class SidePanel extends React.Component {
      //death cases svg properties
      if(covidData!=null){
 
-       let deathCases=getCummulativeCases(this.props.covidData,8901); //death cases
+       let deathCases=getCummulativeCasesV2API(this.props.covidData,8901); //death cases
 
        const deathCasesxScale = scaleTime({
          range: [0, vxWidth],
@@ -84,7 +84,7 @@ export default class SidePanel extends React.Component {
 
      //confirmed cases svg properties
 
-       let confirmedCases=getCummulativeCases(this.props.covidData,8023); //confirmed cases
+       let confirmedCases=getCummulativeCasesV2API(this.props.covidData,8023); //confirmed cases
 
        const confirmedCasesxScale = scaleTime({
          range: [0, vxWidth],
@@ -108,7 +108,7 @@ export default class SidePanel extends React.Component {
 
      //recovered cases svg properties
 
-       let recoveredCases=getCummulativeCases(this.props.covidData,9085); //recovered cases
+       let recoveredCases=getCummulativeCasesV2API(this.props.covidData,9085); //recovered cases
 
        const recoveredCasesxScale = scaleTime({
          range: [0, vxWidth],
