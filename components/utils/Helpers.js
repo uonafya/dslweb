@@ -280,20 +280,45 @@ export async function fetchSurveyData(sourceId,id,orgId,pe,catId) {
   return surveyData
 }
 
-export async function fetchCovidData(id, ouid, startDate, endDate, loading) {
+export async function fetchCovidData(id, ouid, startDate, endDate, level,loading) {
   loading = true;
+  let appendedParameter =false;
   let fetchCovidDataUrl = `${settings.dslBaseApi}/pandemics/covid19`;
   if(startDate != undefined && startDate != null){
     fetchCovidDataUrl += `?start_date=${startDate}`;
+    appendedParameter=true;
   }
   if(ouid != undefined && ouid != null){
-    fetchCovidDataUrl += `&org_id=${ouid}`;
+    if(appendedParameter){
+      fetchCovidDataUrl += `&org_id=${ouid}`;
+    }else{
+      fetchCovidDataUrl += `?org_id=${ouid}`;
+      appendedParameter=true;
+    }
   }
   if(id != undefined && id != null){
-    fetchCovidDataUrl += `&id=${id}`;
+    if(appendedParameter){
+      fetchCovidDataUrl += `&id=${id}`;
+    }else{
+      fetchCovidDataUrl += `?id=${id}`;
+      appendedParameter=true;
+    }
   }
   if(endDate != undefined && endDate != null){
-    fetchCovidDataUrl += `&end_date=${endDate}`;
+    if(appendedParameter){
+      fetchCovidDataUrl += `&end_date=${endDate}`;
+    }else{
+      fetchCovidDataUrl += `?end_date=${endDate}`;
+      appendedParameter=true;
+    }
+  }
+  if(level != undefined && level != null){
+    if(appendedParameter){
+      fetchCovidDataUrl += `&level=${level}`;
+    }else{
+      fetchCovidDataUrl += `?level=${level}`;
+      appendedParameter=true;
+    }
   }
   const fetchCovidData = await fetch(fetchCovidDataUrl);
   const covidData = await fetchCovidData.json();
@@ -352,8 +377,27 @@ export function getCummulativeCases(data, caseId) {
     return sortedCummulativeCasesList;
 }
 
-// creates a list of sorted cases for each county; output = {indicatorId: { orgId: [date: xxxx-xx-xx, value: xx] }}
+//returns an ordered list of objects [{date: xxxx-xx-xx, value: x}, ...] of given case id
+//for national level only
+export function getCummulativeCasesV2API(data, caseId) {
+    let cummulativeCases = {};
+    let cummulativeCasesList = [];
 
+    data.result.data[caseId].forEach(dataEntity =>{
+      if(dataEntity.ou=='18'){
+        let dEntry= {};
+        dEntry['date']=dataEntity.period;
+        dEntry['value']=dataEntity.value;
+        cummulativeCasesList.push(dEntry);
+      }
+
+    });
+
+    return cummulativeCasesList;
+}
+
+// creates a list of sorted cases for each county; output = {indicatorId: { orgId: [date: xxxx-xx-xx, value: xx] }}
+//v1 of API
 function getCummulativeCasesByOrgUnit(data) {
 
     let perIndicatorCountyData = {}
@@ -361,6 +405,7 @@ function getCummulativeCasesByOrgUnit(data) {
 
     let cummulativeCasesList = [];
 
+    //create this structure --> indicatorId: { orgId: {date: xxxx-xx-xx, value: xx }
     for(var key in data.result.data){
         if(!(key in perIndicatorCountyData)) perIndicatorCountyData[key]={}; //indicator
         data.result.data[key].forEach(dataEntity => {
@@ -404,6 +449,37 @@ function getCummulativeCasesByOrgUnit(data) {
     return perIndicatorCountyData;
 }
 
+// creates a list of sorted cases for each county; indicatorId: { orgId: {date: xxxx-xx-xx, value: xx }
+function getCummulativeCasesByOrgUnitV2API(data) {
+  let perIndicatorCountyData = {}
+
+  for(var key in data.result.data){
+      if(!(key in perIndicatorCountyData)) perIndicatorCountyData[key]={}; //indicator
+      data.result.data[key].forEach(dataEntity => {
+        if(!(dataEntity.ou in perIndicatorCountyData[key])) perIndicatorCountyData[key][dataEntity.ou]=[]; //orgunit
+
+        let countryDataEntity = {};
+        if(countryDataEntity['ou']=='18'){
+          countryDataEntity['date']=dataEntity.period;
+          countrydataEntity['value']=dataEntity.value;
+          perIndicatorCountyData[key][dataEntity.ou].push(countryDataEntity);
+        }else{
+          console.log()
+          let countyDataEntity = {}
+          countyDataEntity['date']=dataEntity.period;
+          countyDataEntity['value']=dataEntity.value;
+          perIndicatorCountyData[key][dataEntity.ou] = [];  // we reinstatiate here to have its values replaced as county data top date(most recent) is commulated cases already & we only need that
+          perIndicatorCountyData[key][dataEntity.ou].push(countyDataEntity);
+        }
+
+      });
+
+  }
+  console.log("data to return ==========>")
+  console.log(perIndicatorCountyData);
+  return perIndicatorCountyData;
+
+}
 
 function compareDates(a, b) {
   let d1 = new Date(a.date);
@@ -423,22 +499,24 @@ function compareDates(a, b) {
 // indicId is the id of indicator to inject in the data
 export function insertCovidValues(data, geoJson, indicId, indicatoName) {
     let counties = {};
-    MapCenters.forEach(county=>{
+    MapCenters.forEach(county=>{  //  MapCenters == /static/maps/county-centers-coordinates
       counties[county.dsl_id]=county.name;
     });
 
-    let orderedData=getCummulativeCasesByOrgUnit(data);
-    geoJson.features.forEach(countyData =>{
+    // let orderedData=getCummulativeCasesByOrgUnit(data); //for v1 API
+    let orderedData=getCummulativeCasesByOrgUnitV2API(data);
+    geoJson.features.forEach(countyData =>{ // geoJson == /static/maps/counties.min.json
        for(let indicatorId in orderedData){
          if(indicatorId==indicId){
            for(var orgId in orderedData[indicatorId]){
-             if(countyData.properties.AREA_NAME.toLowerCase()==counties[orgId].toLowerCase()){
-               let len=orderedData[indicatorId][orgId].length-1 //the top most value on the list is the current value
-               let caseValue =  orderedData[indicatorId][orgId][len].value;
-               countyData.properties['density']=caseValue;
-               countyData.properties['indicatorName']=indicatoName;
+             if(orgId!='18'){
+               if(countyData.properties.AREA_NAME.toLowerCase()==counties[orgId].toLowerCase()){
+                 let len=orderedData[indicatorId][orgId].length-1 //the top most value on the list is the current value
+                 let caseValue =  orderedData[indicatorId][orgId][len].value;
+                 countyData.properties['density']=caseValue;
+                 countyData.properties['indicatorName']=indicatoName;
+               }
              }
-
            }
          }
        }
