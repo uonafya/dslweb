@@ -148,11 +148,11 @@ const Page = withRouter(props => (
                               }
                             }>
                               <option disabled value="">Pick a level</option>
-                              <option value="1">National level (Kenya)</option>
-                              <option value="2">County level</option>
-                              <option value="3">Sub-county level</option>
-                              <option value="4">Ward level</option>
-                              <option value="5">Facility level</option>
+                              <option {...props.level == 1 ? "selected" : ""} value="1">National level (Kenya)</option>
+                              <option {...props.level == 2 ? "selected" : ""} value="2">County level</option>
+                              <option {...props.level == 3 ? "selected" : ""} value="3">Sub-county level</option>
+                              <option {...props.level == 4 ? "selected" : ""} value="4">Ward level</option>
+                              <option {...props.level == 5 ? "selected" : ""} value="5">Facility level</option>
                             </select>
                           </div>
                       </div>
