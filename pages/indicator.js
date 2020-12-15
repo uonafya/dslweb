@@ -240,7 +240,7 @@ const Page = withRouter(props => (
                             <div className="tab-pane" id="pane-3">
                               <div className="columns m-t-20">
                                 <div className="column notification shadow-heavy-light text-center is-vcentered">
-                                  <p><a href="login.html" className="is-link fcsecondary-dark">Log in</a> or <a href="#" className="is-link fcsecondary-dark">request for an account</a> to analyse indicators</p>
+                                  <p className="hidden"><a href="login.html" className="is-link fcsecondary-dark">Log in</a> or <a href="#" className="is-link fcsecondary-dark">request for an account</a> to analyse indicators</p>
                                   <br/>
                                   <button  className="button is-secondary" onClick={
                                     ()=>{
@@ -328,20 +328,22 @@ const Page = withRouter(props => (
                         </div>
                       </div>
 
-                      <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
-                        <div className="column is-one-third p-5">
+                      <div className={props.loading == true ? "columns m-l-5 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
+                        <div className="column p-5">
                           <label className="label fcgrey-dark-3 text-small">Geo-scope:</label>
                         </div>
-                        <div className="column text-normal p-b-15 p-t-5">
+                      </div>
+                      <div className={props.loading == true ? "columns m-l-5 p-0 m-b-0 hidden" : "columns m-l-5 m-r-10 p-0 m-b-5 m-t-5"}>
+                        <div className="column text-normal p-b-15 p-t-5 max-h-250-px auto-overflow-y">
                             {props.error ? "" :
                               props.indicatorData.result.dictionary.orgunits.map(one_org => (
-                                <a href="#"><span className="tag is-success is-dark">{one_org.name}</span></a>
+                                <span className="tag is-success is-dark display-inline-b m-2">{one_org.name}</span>
                               ))
                             } &nbsp;
                         </div>
                       </div>
 
-                      <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0"}>
+                      <div className={props.loading == true ? "columns m-l-15 p-0 m-b-0 hidden" : "columns m-l-15 p-0 m-b-0 m-t-10"}>
                         <div className="column is-one-third p-5">
                           <label className="label fcgrey-dark-3 text-small">Time-span:</label>
                         </div>
