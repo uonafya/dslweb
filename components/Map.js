@@ -256,7 +256,7 @@ export default class extends React.Component {
                         <hr className="m-t-5 m-b-5"/>
                         <div className="select is-fullwidth">
                           <select id="mapyr" onChange={event => this.periodChangeHandler(event.target.value)}>
-                            {this.props.error ? "" : this.props.years.map( oneyr => (<option value={oneyr}>{oneyr}</option>) )}
+                            {this.props.error ? "" : this.props.years.map( (oneyr,inx) => (<option key={oneyr+''+inx} value={oneyr}>{oneyr}</option>) )}
                           </select>
                         </div>
                         {/* end MAP Datepicker */}
@@ -266,8 +266,8 @@ export default class extends React.Component {
                         <hr className="m-t-5 m-b-5"/>
                         <div className="gis-indicator-list max-h-650-px auto-overflow-y">
                           <ul className="text-left">
-                            {this.props.dslIndicators.map( one_indicator => (
-                              <li><a key={one_indicator.id} id={`clink-${one_indicator.id}`} className="is-link fcsecondary-dark maplink"
+                            {this.props.dslIndicators.map( (one_indicator,inxx) => (
+                              <li key={one_indicator.id+''+inxx}><a id={`clink-${one_indicator.id}`} className="is-link fcsecondary-dark maplink"
                               onClick={
                                 (elem) => {
                                   const mapData = null
@@ -295,8 +295,8 @@ export default class extends React.Component {
                                   <LeafletMap scrollWheelZoom={false} ref={node => {this.map = node }} center={[-0.818389, 36.817222]} zoom={7.48} maxZoom={9.00} >
                                     <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png' style={`display: none;`}/>
                                     <GeoJSON data={MapData} key={MapData} style={`color: '#006400'; weight: 5; opacity: 0.65;`} />
-                                    {this.state.mapCentersData.map( one_county =>(
-                                      <Marker position={[one_county.latitude, one_county.longitude]}>
+                                    {this.state.mapCentersData.map( (one_county,ix) =>(
+                                      <Marker key={one_county.latitude + ''+ix+'' + one_county.longitude} position={[one_county.latitude, one_county.longitude]}>
                                         <Popup>
                                           <div>
                                             <h4 className="subtitle">{one_county.name}</h4>

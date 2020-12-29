@@ -24,16 +24,16 @@ const Home = withRouter(props => (
               <div className="column">
                   <div className="field has-addons herosearch-container">
                     <div className="control">
-                      <input className="input text-left herosearch" type="text" name="search" placeholder="Find an indicator or dashboard"/>
+                      <input className="input text-left herosearch" type="text" name="search" id="searchInput" placeholder="Find an indicator or dashboard"/>
                     </div>
                     <div className="control">
                       <button className="button is-info"
                         onClick={
                           () => {
-                            console.log("searching ============================== " )
-                            const searchTerm = document.getElementsByName("search")[0].value;
+                            const searchTerm = document.querySelector('#searchInput').value || ''
+                            console.log("searching: "+searchTerm )
                             const newRoute = `/indicators?search=${encodeURI(searchTerm)}`;
-                            encodeURI(searchTerm).length>2 ? Router.push(newRoute) : console.log('////////// bad search term')
+                            encodeURI(searchTerm).length>2 ? Router.push(newRoute) : console.error('bad search term')
                           }
                       }>
                         <i className="fas fa-search"></i>
