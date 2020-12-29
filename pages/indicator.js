@@ -213,7 +213,7 @@ const Page = withRouter(props => (
                             {/* Tab 1 */}
                             <div className="tab-pane is-active" id="pane-1">
                                 <div className="columns">
-                                  <div className="column text-left">
+                                  <div className="column text-left p-20">
                                     {/* {console.log( ' && ID:'+props.id+' && OU:'+props.ouid+' && PE:'+props.pe+' && LVL:'+props.level )} */}
                                     <Displayline id={props.id} ouid={props.ouid} pe={props.pe} level={props.level} hoo="toot"></Displayline>
                                 </div>

@@ -104,7 +104,7 @@ class Displayline extends Component {
 
         return (
             <div className="w-100-pc">
-                <div className="w-100-pc">
+                <div className="text-center p-5 p-t-5 p-b-0">
                     <button className="button is-small is-black" onClick = {this.showLineGraph}><i className="fas fa-chart-line"></i> &nbsp; Line</button>
                     &nbsp; &nbsp;
                     <button className="button is-small is-black" onClick = {this.showBarGraph}><i className="fas fa-chart-bar"></i> &nbsp; Bar</button>
@@ -112,7 +112,6 @@ class Displayline extends Component {
                     <button className="button is-small is-black" onClick = {this.showInvertedBarGraph}><i class="fas fa-bars"></i> &nbsp; Vertical bar</button>
                     &nbsp; &nbsp;
                     <button className="button is-small is-black" onClick = {this.showAreaGraph}><i class="fas fa-chart-area"></i> &nbsp; Area</button>
-
                 </div>
                 <div className="w-100-pc">
                     {display}
