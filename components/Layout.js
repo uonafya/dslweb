@@ -24,7 +24,6 @@ const Layout = props => (
       <link rel="stylesheet" type="text/css" href="/static/css/leaflet.css"/>
       <link rel="preconnect" href="https://fonts.gstatic.com"/>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,600&display=swap"/> 
-      <script async type="text/javascript" src="/static/js/bulma.js"></script>
       <script async type="text/javascript" src="/static/js/tabs.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
       <script src="/static/js/custom.js"></script>

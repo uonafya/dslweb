@@ -15,7 +15,7 @@ const Header = () => (
               <img src="/static/images/dsl-logo-light.png" style={logoStyle} alt="" className="logo"/>
             </a>
           </Link>
-          <div className="navbar-burger burger" data-target="navbarExampleTransparentExample">
+          <div className="navbar-burger burger" data-target="navbarExampleTransparentExample" id="b_urger">
             <span></span>
             <span></span>
             <span></span>

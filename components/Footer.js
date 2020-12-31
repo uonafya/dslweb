@@ -5,6 +5,7 @@ const logoFooter = {
 }
 
 const Footer = () => (
+  <>
     <footer className="footer bcgrey-light-3 text-left">
     <div className="container">
       <div className="columns">
@@ -68,6 +69,8 @@ const Footer = () => (
       </div>
     </div>
   </footer>
+  <script async type="text/javascript" src="/static/js/bulma.js"></script>
+  </>
 )
 
 export default Footer;
