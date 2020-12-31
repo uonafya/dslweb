@@ -25,6 +25,7 @@ const Footer = () => (
             <li><a href="https://www.uonbi.ac.ke/" target="_blank">University of Nairobi</a></li>
             <li><a href="https://histracker.health.go.ke" target="_blank">KHIS Tracker (DHIS2)</a></li>
             <li><a href="https://hiskenya.org" target="_blank">KHIS Aggregate</a></li>
+            <li><a href="https://kmhfl.health.go.ke" target="_blank">KMHFL</a></li>
             <li><a href="https://uhckenya.org/" target="_blank">Universal Health Coverage</a></li>
             <li><a href="http://www.ihris.or.ke" target="_blank">IHRIS</a></li>
             <li><a href="http://www.kemsa.co.ke/" target="_blank">KEMSA</a></li>
@@ -38,7 +39,7 @@ const Footer = () => (
               <li><a href="#">FAQs</a></li>
               <li><a href="#">User manual</a></li>
               <li><a href="https://servicedesk.health.go.ke/" target="_blank">Service desk</a></li>
-              <li><a href="http://41.89.94.105/dsl/" target="_blank">System &amp; API Documentation</a></li>
+              <li><a href="http://dsl.health.go.ke/api/" target="_blank">System &amp; API Documentation</a></li>
               <li><a href="https://uhckenya.org/about/" target="_blank">UHC Information Centre</a></li>
               <li><a href="http://elearning.health.go.ke/" target="_blank">HIS eLearning Portal</a></li>
               <li><a href="#">MOH DAP Wiki</a></li>
