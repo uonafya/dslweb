@@ -13,7 +13,7 @@
     "echarts": "^4.8.0",
     "echarts-for-react": "^2.0.16",
     "express": "^4.17.1",
-    "highcharts": "^7.2.2",
+    "highcharts": "^9.0.0",
     "highcharts-react-official": "^2.2.2",
     "isomorphic-unfetch": "^3.0.0",
     "leaflet": "^1.6.0",
