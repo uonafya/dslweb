@@ -18,7 +18,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "leaflet": "^1.6.0",
     "multiselect-react-dropdown": "^1.5.7",
-    "next": "^11.1.1",
+    "next": "^13.0.2",
     "next-plugin-antd-less": "^1.4.3",
     "nprogress": "^0.2.0",
     "react": "^16.12.0",
